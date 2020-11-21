@@ -13,10 +13,14 @@
     <packaging>pom</packaging>
     <modules>
         <module>bg-common</module>
-        <module>bg-service-api</module>
-        <module>bg-service-task</module>
-        <module>bg-web-platform</module>
+        <module>bg-discovery</module>
+        <module>bg-eureka</module>
+        <module>bg-gateway</module>
+        <module>bg-generator</module>
+        <module>bg-monitor</module>
+        <module>bg-provider</module>
+        <module>bg-zipkin</module>
+        <module>bg-provider-api</module>
     </modules>
-
 
 </project>
