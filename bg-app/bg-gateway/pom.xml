@@ -8,75 +8,130 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
 
     <artifactId>bg-gateway</artifactId>
+    <description>网关服务</description>
 
 
     <dependencies>
+        <!-- mysql -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-db-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- redis -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-redis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 日志组件 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-log-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 公共API -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-base-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 资源服务器  -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-oauth-client-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- swagger -->
+        <dependency>
+            <groupId>com.didispace</groupId>
+            <artifactId>swagger-butler-core</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.open.capacity</groupId>-->
+<!--            <artifactId>swagger-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-ribbon-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 移除tomcat容器 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-z</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-common-base</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
+
         <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-common-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-        </dependency>
-        <!-- swagger2聚合网关 -->
-        <dependency>
-            <groupId>com.didispace</groupId>
-            <artifactId>swagger-butler-core</artifactId>
-            <version>1.1.0</version>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
+            <groupId>com.marcosbarbero.cloud</groupId>
+            <artifactId>spring-cloud-zuul-ratelimit</artifactId>
+            <version>2.2.3.RELEASE</version>
         </dependency>
+
+        <!-- 选用eureka时打开 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+
     </dependencies>
+
+
 
     <build>
         <finalName>${artifactId}</finalName>

@@ -1,0 +1,25 @@
+
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: config-server
+#  rabbitmq:
+#    host: paascloud-mq-rabbit
+#    port: 5672
+#    username: guest
+#    password: guest
+#  boot:
+#    admin:
+#      username: admin
+#      password: admin
+
+#security:
+#  user:
+#    name: admin
+#    password: admin
+
+
+

@@ -4,14 +4,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>design-vue-admin</artifactId>
+        <artifactId>bg-quan-parent</artifactId>
         <groupId>com.quan</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
+
     <artifactId>bg-framework</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+
+        <module>bg-log-spring-boot-starter</module>
+        <module>bg-db-spring-boot-starter</module>
+        <module>bg-redis-spring-boot-starter</module>
+        <module>bg-ribbon-spring-boot-starter</module>
+        <module>bg-oauth-client-spring-boot-starter</module>
+        <module>bg-oauth-server-spring-boot-starter</module>
+        <module>bg-base-spring-boot-starter</module>
+
+    </modules>
+
 
 
 </project>
