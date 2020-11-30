@@ -9,12 +9,10 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author 作者 owen
- * @version 创建时间：2017年11月12日 上午22:57:51
+/***
  * feign拦截器
- * blog: https://blog.51cto.com/13005375
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+ * @author zxq(956607644@qq.com)
+ * @date 2020/11/30 19:00
  */
 @Configuration
 public class FeignInterceptorConfig {
@@ -34,8 +32,6 @@ public class FeignInterceptorConfig {
             if (StringUtil.isNotBlank(traceId)) {
                 template.header(TraceConstant.HTTP_HEADER_TRACE_ID, traceId);
             }
-
-
         };
 
         return requestInterceptor;

@@ -14,6 +14,7 @@
     <modules>
         <module>bg-framework</module>
         <module>bg-app</module>
+        <module>bg-file-fastdfs-spring-boot-starter</module>
     </modules>
 
 
@@ -174,12 +175,13 @@
                 <artifactId>bg-oauth-server-spring-boot-starter</artifactId>
                 <version>${core.version}</version>
             </dependency>
+
             <!-- API测试文档 -->
-<!--            <dependency>-->
-<!--                <groupId>com.open.capacity</groupId>-->
-<!--                <artifactId>swagger-spring-boot-starter</artifactId>-->
-<!--                <version>${core.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>com.quan</groupId>
+                <artifactId>bg-swagger-spring-boot-starter</artifactId>
+                <version>${core.version}</version>
+            </dependency>
 
             <!-- 自定义路由策略 -->
             <dependency>

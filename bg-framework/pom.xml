@@ -23,6 +23,7 @@
         <module>bg-oauth-client-spring-boot-starter</module>
         <module>bg-oauth-server-spring-boot-starter</module>
         <module>bg-base-spring-boot-starter</module>
+        <module>bg-swagger-spring-boot-starter</module>
 
     </modules>
 
