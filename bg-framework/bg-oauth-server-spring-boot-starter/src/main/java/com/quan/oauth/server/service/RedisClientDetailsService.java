@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
-import javax.json.Json;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +36,7 @@ import java.util.Map;
  * 将oauth_client_details表数据缓存到redis，这里做个缓存优化
  * layui模块中有对oauth_client_details的crud， 注意同步redis的数据
  * 注意对oauth_client_details清楚redis db部分数据的清空
- * blog: https://blog.51cto.com/13005375 
+ * blog: https://blog.51cto.com/13005375
  * code: https://gitee.com/owenwangwen/open-capacity-platform
  */
 @Slf4j
@@ -45,21 +44,19 @@ import java.util.Map;
 public class RedisClientDetailsService extends JdbcClientDetailsService {
 
 
-    
     private static final String SELECT_CLIENT_DETAILS_SQL = "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
             "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id " +
             "from oauth_client_details where client_id = ? and status = 1  ";
     // 扩展 默认的 ClientDetailsService, 增加逻辑删除判断( status = 1)
     private static final String SELECT_FIND_STATEMENT = "select client_id, client_secret,resource_ids, scope, "
             + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
-            + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id  from oauth_client_details where status = 1 order by client_id " ;
+            + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id  from oauth_client_details where status = 1 order by client_id ";
 
-   
 
-    private RedisTemplate<String, Object> redisTemplate ;
-    
+    private RedisTemplate<String, Object> redisTemplate;
+
     private final JdbcTemplate jdbcTemplate;
-    
+
 
     public RedisTemplate<String, Object> getRedisTemplate() {
         return redisTemplate;
@@ -72,28 +69,28 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     public RedisClientDetailsService(DataSource dataSource) {
         super(dataSource);
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-        setSelectClientDetailsSql(SELECT_CLIENT_DETAILS_SQL) ;
-        setFindClientDetailsSql(SELECT_FIND_STATEMENT) ;
+        setSelectClientDetailsSql(SELECT_CLIENT_DETAILS_SQL);
+        setFindClientDetailsSql(SELECT_FIND_STATEMENT);
     }
 
-    
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
         ClientDetails clientDetails = null;
 
         try {
-			// 先从redis获取
-			String value = (String) redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).get(clientId);
-			if (StringUtils.isBlank(value)) {
-			    clientDetails = cacheAndGetClient(clientId);
-			} else {
-			    clientDetails = JSONObject.parseObject(value, BaseClientDetails.class);
-			}
-		} catch (Exception e) {
-			log.error("clientId:{},{}", clientId, clientId );
-            throw new InvalidClientException ("应用获取失败"){};
-		}
+            // 先从redis获取
+            String value = (String) redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).get(clientId);
+            if (StringUtils.isBlank(value)) {
+                clientDetails = cacheAndGetClient(clientId);
+            } else {
+                clientDetails = JSONObject.parseObject(value, BaseClientDetails.class);
+            }
+        } catch (Exception e) {
+            log.error("clientId:{},{}", clientId, clientId);
+            throw new InvalidClientException("应用获取失败") {
+            };
+        }
 
         return clientDetails;
     }
@@ -104,29 +101,31 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
      * @param clientId
      * @return
      */
-	private ClientDetails cacheAndGetClient(String clientId) {
+    private ClientDetails cacheAndGetClient(String clientId) {
         // 从数据库读取
-        ClientDetails clientDetails = null ;
-        
+        ClientDetails clientDetails = null;
+
         try {
-    			clientDetails = jdbcTemplate.queryForObject(SELECT_CLIENT_DETAILS_SQL, new ClientDetailsRowMapper(), clientId);
+            clientDetails = jdbcTemplate.queryForObject(SELECT_CLIENT_DETAILS_SQL, new ClientDetailsRowMapper(), clientId);
 
             if (clientDetails != null) {
                 // 写入redis缓存
                 redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
                 log.info("缓存clientId:{},{}", clientId, clientDetails);
             }
-            
-            
-            
-        }catch (EmptyResultDataAccessException e) {
-        	log.error("clientId:{},{}", clientId, clientId );
-            throw new AuthenticationException ("应用不存在"){};
-		} catch (NoSuchClientException e){
-        	log.error("clientId:{},{}", clientId, clientId );
-            throw new AuthenticationException ("应用不存在"){};
-        }catch (InvalidClientException e) {
-        	throw new AuthenticationException ("应用状态不合法"){};
+
+
+        } catch (EmptyResultDataAccessException e) {
+            log.error("clientId:{},{}", clientId, clientId);
+            throw new AuthenticationException("应用不存在") {
+            };
+        } catch (NoSuchClientException e) {
+            log.error("clientId:{},{}", clientId, clientId);
+            throw new AuthenticationException("应用不存在") {
+            };
+        } catch (InvalidClientException e) {
+            throw new AuthenticationException("应用状态不合法") {
+            };
         }
 
         return clientDetails;
@@ -170,7 +169,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
 
         List<ClientDetails> list = this.listClientDetails();
         if (CollectionUtils.isEmpty(list)) {
-        	log.error("oauth_client_details表数据为空，请检查");
+            log.error("oauth_client_details表数据为空，请检查");
             return;
         }
 
@@ -178,70 +177,67 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
             redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(client));
         });
     }
-    
-    
+
+
     /**
-	 * 追加if_limit  limit_count
-	 * DefaultClientDetails 
-	 * 
-	 */
+     * 追加if_limit  limit_count
+     * DefaultClientDetails
+     */
     public List<ClientDetails> listClientDetails() {
-    	
-  		return  jdbcTemplate.query(SELECT_FIND_STATEMENT,  new ClientDetailsRowMapper());  
-  	}
+
+        return jdbcTemplate.query(SELECT_FIND_STATEMENT, new ClientDetailsRowMapper());
+    }
 
 
-	private static class ClientDetailsRowMapper implements RowMapper<ClientDetails> {
+    private static class ClientDetailsRowMapper implements RowMapper<ClientDetails> {
 
-		private JsonMapper mapper = createJsonMapper();
+        private JsonMapper mapper = createJsonMapper();
 
-		public ClientDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-			DefaultClientDetails details = new DefaultClientDetails(rs.getString(1), rs.getString(3), rs.getString(4),
-					rs.getString(5), rs.getString(7), rs.getString(6));
-			details.setClientSecret(rs.getString(2));
-			if (rs.getObject(8) != null) {
-				details.setAccessTokenValiditySeconds(rs.getInt(8));
-			}
-			if (rs.getObject(9) != null) {
-				details.setRefreshTokenValiditySeconds(rs.getInt(9));
-			}
-			String json = rs.getString(10);
-			if (json != null) {
-				try {
-					Map<String, Object> additionalInformation = mapper.read(json, Map.class);
-					details.setAdditionalInformation(additionalInformation);
-				}
-				catch (Exception e) {
-					log.warn("Could not decode JSON for additional information: " + details, e);
-				}
-			}
-			String scopes = rs.getString(11);
-			long ifLimit = rs.getLong(12) ;
-			details.setIfLimit(ifLimit);
-			long limitCount = rs.getLong(13) ;
-			details.setLimitCount(limitCount);
-			details.setId( rs.getLong(14));
-			if (scopes != null) {
-				details.setAutoApproveScopes(org.springframework.util.StringUtils.commaDelimitedListToSet(scopes));
-			}
-			return details;
-		}
-	}
-	 
-	/**
-	 * json process
-	 * @return
-	 */
-	private static JsonMapper createJsonMapper() {
-		if (ClassUtils.isPresent("org.codehaus.jackson.map.ObjectMapper", null)) {
-			return new JacksonMapper();
-		}
-		else if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", null)) {
-			return new Jackson2Mapper();
-		}
-		return new NotSupportedJsonMapper();
-	}
+        public ClientDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+            DefaultClientDetails details = new DefaultClientDetails(rs.getString(1), rs.getString(3), rs.getString(4),
+                    rs.getString(5), rs.getString(7), rs.getString(6));
+            details.setClientSecret(rs.getString(2));
+            if (rs.getObject(8) != null) {
+                details.setAccessTokenValiditySeconds(rs.getInt(8));
+            }
+            if (rs.getObject(9) != null) {
+                details.setRefreshTokenValiditySeconds(rs.getInt(9));
+            }
+            String json = rs.getString(10);
+            if (json != null) {
+                try {
+                    Map<String, Object> additionalInformation = mapper.read(json, Map.class);
+                    details.setAdditionalInformation(additionalInformation);
+                } catch (Exception e) {
+                    log.warn("Could not decode JSON for additional information: " + details, e);
+                }
+            }
+            String scopes = rs.getString(11);
+            long ifLimit = rs.getLong(12);
+            details.setIfLimit(ifLimit);
+            long limitCount = rs.getLong(13);
+            details.setLimitCount(limitCount);
+            details.setId(rs.getLong(14));
+            if (scopes != null) {
+                details.setAutoApproveScopes(org.springframework.util.StringUtils.commaDelimitedListToSet(scopes));
+            }
+            return details;
+        }
+    }
 
-	 
-	 
+    /**
+     * json process
+     *
+     * @return
+     */
+    private static JsonMapper createJsonMapper() {
+        if (ClassUtils.isPresent("org.codehaus.jackson.map.ObjectMapper", null)) {
+            return new JacksonMapper();
+        } else if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", null)) {
+            return new Jackson2Mapper();
+        }
+        return new NotSupportedJsonMapper();
+    }
+
+
 }

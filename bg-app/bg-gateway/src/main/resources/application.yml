@@ -276,7 +276,7 @@ swagger:
 
 logging:
   level:
-    com.open.capacity: INFO 
+    com.quan: INFO
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE

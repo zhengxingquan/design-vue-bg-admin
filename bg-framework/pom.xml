@@ -24,6 +24,7 @@
         <module>bg-oauth-server-spring-boot-starter</module>
         <module>bg-base-spring-boot-starter</module>
         <module>bg-swagger-spring-boot-starter</module>
+        <module>bg-file-fastdfs-spring-boot-starter</module>
 
     </modules>
 

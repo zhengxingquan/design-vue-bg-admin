@@ -20,8 +20,9 @@
         <module>bg-generator</module>
         <module>bg-monitor</module>
         <module>bg-provider</module>
-        <module>bg-zipkin</module>
         <module>bg-provider-api</module>
+        <module>bg-job-center</module>
+        <module>bg-oauth-center</module>
     </modules>
 
 </project>

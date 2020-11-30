@@ -99,7 +99,7 @@
         <discardingThreshold>0</discardingThreshold>
         <appender-ref ref="biz_log"/>
     </appender>
-    <logger name="com.open.capacity.log.monitor" level="info" addtivity="false">
+    <logger name="com.quan.log.monitor" level="info" addtivity="false">
         <appender-ref ref="biz_log_async" />
     </logger>
 	<!-- 
@@ -112,7 +112,7 @@
         </encoder>
     </appender>
 	 -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR"/>
         <appender-ref ref="INFO"/>

@@ -3,74 +3,54 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>bg-monitor</artifactId>
+        <artifactId>bg-oauth-center</artifactId>
         <groupId>com.quan</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bg-log-monitor</artifactId>
-    <description>日志中心</description>
-
+    <artifactId>bg-auth-sso</artifactId>
     <dependencies>
-
-
-        <!-- 服务追踪 <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-zipkin</artifactId>
-            </dependency> -->
-
-        <!-- 日志统一配置 -->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-log-spring-boot-starter</artifactId>
-        </dependency>
-
-
-        <!-- 关系型数据库配置-->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-db-spring-boot-starter</artifactId>
-        </dependency>
-
-
-
-        <!-- 非关系型数据库配置-->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-redis-spring-boot-starter</artifactId>
-        </dependency>
-
-        <!-- 日志存储位置 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
-        <!-- 公共实体类配置 -->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-base-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- 资源服务器配置 -->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-oauth-client-spring-boot-starter</artifactId>
-        </dependency>
-
-
-
-        <!-- API文档配置 -->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-swagger-spring-boot-starter</artifactId>
-        </dependency>
-
-        <!-- web守护进程配置 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-cloudfoundry-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-        <!-- eureka客户端配置 -->
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!-- 选用eureka时打开-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -78,8 +58,6 @@
 
 
     </dependencies>
-
-
     <!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis
         org -->
     <build>
@@ -106,8 +84,6 @@
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
-                    <!-- docker远程服务器地址 -->
-                    <dockerHost>${docker.host}</dockerHost>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -121,6 +97,4 @@
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>
-
-
 </project>
