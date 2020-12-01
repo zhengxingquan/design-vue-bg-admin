@@ -14,7 +14,9 @@
     <description>OAuth2.0认证体系</description>
 
     <modules>
+        <!-- 认证中心 -->
         <module>bg-auth-server</module>
+        <!-- 单点登陆中心 -->
         <module>bg-auth-sso</module>
     </modules>
 
