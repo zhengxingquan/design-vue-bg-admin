@@ -12,7 +12,8 @@
     <artifactId>bg-provider</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>bg-provider-sys</module>
+        <!-- 系统核心模块功能 -->
+        <module>bg-provider-core</module>
     </modules>
 
 
