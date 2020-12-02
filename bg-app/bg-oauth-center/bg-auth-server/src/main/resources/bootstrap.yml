@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /api-auth
   use-forward-headers: false  
-  port: 8000
+  port: 1130
 #  port: ${randomServerPort.value[8000,8000]}    #随机端口
 
 #服务名称

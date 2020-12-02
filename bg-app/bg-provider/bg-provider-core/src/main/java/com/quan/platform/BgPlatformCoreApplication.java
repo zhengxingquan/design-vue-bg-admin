@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.quan.platform.core;
+package com.quan.platform;
 
 import com.quan.common.annotation.EnableApiIdempotent;
 import com.quan.log.annotation.EnableLogging;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 /* 启动日志*/
 @EnableLogging
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.quan.*"} )
 /* 启动幂登 控制*/
 @EnableApiIdempotent
 public class BgPlatformCoreApplication {

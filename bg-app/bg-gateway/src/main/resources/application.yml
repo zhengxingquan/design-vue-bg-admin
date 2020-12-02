@@ -220,30 +220,30 @@ zuul:
       service-id: log-center
       strip-prefix: true
   ssl-hostname-validation-enabled: false
-#  ratelimit:
-#    enabled: false  #默认不限流
-#    repository: REDIS
-#    policy-list:
-#      user:
-#        - limit: 10
-#          refresh-interval: 60
-#          type:
-#            - origin
-#      auth:
-#        - limit: 10
-#          refresh-interval: 60
-#          type:
-#            - origin
-#      file:
-#        - limit: 10
-#          refresh-interval: 60
-#          type:
-#            - origin
-#      log:
-#        - limit: 10
-#          refresh-interval: 60
-#          type:
-#            - origin
+  ratelimit:
+    enabled: false  #默认不限流
+    repository: REDIS
+    policy-list:
+      user:
+        - limit: 10
+          refresh-interval: 60
+          type:
+            - origin
+      auth:
+        - limit: 10
+          refresh-interval: 60
+          type:
+            - origin
+      file:
+        - limit: 10
+          refresh-interval: 60
+          type:
+            - origin
+      log:
+        - limit: 10
+          refresh-interval: 60
+          type:
+            - origin
 
 
 

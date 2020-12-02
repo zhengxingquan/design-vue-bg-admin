@@ -15,6 +15,6 @@ public class ApiIdempotentImportSelector implements ImportSelector {
      */
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        return new String[]{"ApiIdempotentConfig"};
+        return new String[]{"com.quan.common.config.ApiIdempotentConfig"};
     }
 }

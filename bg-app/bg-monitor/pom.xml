@@ -16,6 +16,7 @@
     <modules>
         <!-- 后台监控中心 -->
         <module>bg-admin-server</module>
+        <!-- log tracing 日志 -->
         <module>bg-log-monitor</module>
     </modules>
 
