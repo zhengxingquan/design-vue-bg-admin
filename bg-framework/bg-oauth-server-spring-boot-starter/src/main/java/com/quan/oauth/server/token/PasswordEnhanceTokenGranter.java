@@ -1,6 +1,6 @@
 package com.quan.oauth.server.token;
 
-import com.quam.common.util.StringUtil;
+import com.quan.common.util.StringUtil;
 import com.quan.oauth.server.service.ValidateCodeService;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.security.authentication.*;

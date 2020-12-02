@@ -1,6 +1,6 @@
 package com.quan.oauth.server.dao;
 
-import com.quam.common.model.SysClient;
+import com.quan.common.model.SysClient;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

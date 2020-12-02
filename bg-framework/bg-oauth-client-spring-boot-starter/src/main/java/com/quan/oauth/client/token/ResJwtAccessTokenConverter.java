@@ -1,8 +1,8 @@
 package com.quan.oauth.client.token;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.quam.common.auth.details.LoginAppUser;
-import com.quam.common.model.SysRole;
+import com.quan.common.auth.details.LoginAppUser;
+import com.quan.common.model.SysRole;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;

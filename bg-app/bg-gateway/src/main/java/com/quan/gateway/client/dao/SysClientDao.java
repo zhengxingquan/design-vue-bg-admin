@@ -12,7 +12,7 @@ import java.util.Map;
  * blog:https://blog.51cto.com/13005375 
  * code:https://gitee.com/owenwangwen/open-capacity-platform
  */
-//@Mapper
+@Mapper
 @SuppressWarnings("all")
 public interface SysClientDao {
 

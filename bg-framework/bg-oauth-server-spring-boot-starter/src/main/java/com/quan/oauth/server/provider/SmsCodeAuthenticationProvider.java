@@ -1,6 +1,6 @@
 package com.quan.oauth.server.provider;
 
-import com.quam.common.token.SmsCodeAuthenticationToken;
+import com.quan.common.token.SmsCodeAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;

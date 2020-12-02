@@ -1,6 +1,6 @@
 package com.quan.oauth.server.service;
 
-import com.quam.common.model.SysService;
+import com.quan.common.model.SysService;
 
 import java.util.List;
 import java.util.Set;

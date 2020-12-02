@@ -2,8 +2,8 @@ package com.quan.gateway.client.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.quam.common.constant.OAuthConstant;
-import com.quam.common.util.TokenUtil;
+import com.quan.common.constant.OAuthConstant;
+import com.quan.common.util.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.quan.platform.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.quam.common.model.SysRole;
+import com.quan.common.model.SysRole;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

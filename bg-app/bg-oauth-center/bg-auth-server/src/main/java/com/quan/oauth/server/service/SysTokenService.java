@@ -1,6 +1,6 @@
 package com.quan.oauth.server.service;
 
-import com.quam.common.web.PageResult;
+import com.quan.common.web.PageResult;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 import java.util.Map;

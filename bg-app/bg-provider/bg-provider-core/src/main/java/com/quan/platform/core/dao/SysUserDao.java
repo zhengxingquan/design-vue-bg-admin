@@ -1,7 +1,7 @@
 package com.quan.platform.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.quam.common.model.SysUser;
+import com.quan.common.model.SysUser;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;

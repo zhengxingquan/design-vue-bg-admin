@@ -17,7 +17,7 @@ package com.quan.oauth.client.token;
  */
 
 
-import com.quam.common.auth.details.LoginAppUser;
+import com.quan.common.auth.details.LoginAppUser;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;

@@ -1,7 +1,7 @@
 package com.quan.oauth.server.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.quam.common.exception.controller.ControllerException;
+import com.quan.common.exception.controller.ControllerException;
 import com.quan.log.annotation.SLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

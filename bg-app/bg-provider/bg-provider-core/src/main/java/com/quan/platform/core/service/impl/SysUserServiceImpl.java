@@ -1,16 +1,16 @@
 package com.quan.platform.core.service.impl;
 
-import com.quam.common.auth.details.LoginAppUser;
-import com.quam.common.constant.UserType;
-import com.quam.common.exception.service.ServiceException;
-import com.quam.common.model.SysPermission;
-import com.quam.common.model.SysRole;
-import com.quam.common.model.SysUser;
-import com.quam.common.util.PageUtil;
-import com.quam.common.util.SysUserUtil;
-import com.quam.common.util.ValidatorUtil;
-import com.quam.common.web.PageResult;
-import com.quam.common.web.Result;
+import com.quan.common.auth.details.LoginAppUser;
+import com.quan.common.constant.UserType;
+import com.quan.common.exception.service.ServiceException;
+import com.quan.common.model.SysPermission;
+import com.quan.common.model.SysRole;
+import com.quan.common.model.SysUser;
+import com.quan.common.util.PageUtil;
+import com.quan.common.util.SysUserUtil;
+import com.quan.common.util.ValidatorUtil;
+import com.quan.common.web.PageResult;
+import com.quan.common.web.Result;
 import com.quan.platform.core.dao.SysUserDao;
 import com.quan.platform.core.dao.SysUserRoleDao;
 import com.quan.platform.core.model.SysUserExcel;

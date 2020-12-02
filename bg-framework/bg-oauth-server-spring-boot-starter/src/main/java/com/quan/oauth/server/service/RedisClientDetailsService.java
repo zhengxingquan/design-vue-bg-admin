@@ -1,8 +1,8 @@
 package com.quan.oauth.server.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.quam.common.auth.details.DefaultClientDetails;
-import com.quam.common.constant.OAuthConstant;
+import com.quan.common.auth.details.DefaultClientDetails;
+import com.quan.common.constant.OAuthConstant;
 import com.quan.oauth.server.json.Jackson2Mapper;
 import com.quan.oauth.server.json.JacksonMapper;
 import com.quan.oauth.server.json.JsonMapper;
@@ -47,6 +47,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     private static final String SELECT_CLIENT_DETAILS_SQL = "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
             "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id " +
             "from oauth_client_details where client_id = ? and status = 1  ";
+
     // 扩展 默认的 ClientDetailsService, 增加逻辑删除判断( status = 1)
     private static final String SELECT_FIND_STATEMENT = "select client_id, client_secret,resource_ids, scope, "
             + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "

@@ -10,6 +10,15 @@ spring:
 #    name: system-platform-center
     name: user-center
 
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - VM.*
+      preferredNetworks:
+        - 192.168
+
 management:
   endpoints:
     web:

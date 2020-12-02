@@ -1,6 +1,6 @@
 package com.quan.oauth.server.token;
 
-import com.quam.common.auth.details.LoginAppUser;
+import com.quan.common.auth.details.LoginAppUser;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.Cursor;

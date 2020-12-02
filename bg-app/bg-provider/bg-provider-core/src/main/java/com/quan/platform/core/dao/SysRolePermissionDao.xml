@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.open.capacity.user.dao.SysRolePermissionDao">
+<mapper namespace="com.quan.platform.core.daodao.SysRolePermissionDao">
 
 	<!-- MySQL下批量保存，可以foreach遍历 mysql支持values(),(),()语法 -->
 	<insert id="saveBatch">
@@ -25,7 +25,7 @@
 		</where>
 	</delete>
 
-	<select id="findByRoleIds" resultType="com.open.capacity.common.model.SysPermission">
+	<select id="findByRoleIds" resultType="com.quan.common.model.SysPermission">
 		select distinct p.id , p.permission, p.name, p.create_time createTime
 		, p.update_time updateTime from
 		sys_permission p

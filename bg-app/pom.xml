@@ -24,7 +24,7 @@
         <module>bg-generator</module>
         <!-- 监控中心 -->
         <module>bg-monitor</module>
-        <!-- 具体业务中心 -->
+        <!-- 具体业务中心（服务提供者） -->
         <module>bg-provider</module>
         <!-- 具体业务API -->
         <module>bg-provider-api</module>

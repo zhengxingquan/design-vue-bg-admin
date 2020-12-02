@@ -15,7 +15,16 @@ server:
 spring:
   application:
     name: api-gateway
-     
+
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - VM.*
+      preferredNetworks:
+        - 192.168
+
 #metrics
 management:
   endpoints:

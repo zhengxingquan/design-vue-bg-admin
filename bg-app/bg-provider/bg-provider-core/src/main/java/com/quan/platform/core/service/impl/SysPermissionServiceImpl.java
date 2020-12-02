@@ -2,9 +2,9 @@ package com.quan.platform.core.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.quam.common.exception.service.ServiceException;
-import com.quam.common.model.SysPermission;
-import com.quam.common.web.PageResult;
+import com.quan.common.exception.service.ServiceException;
+import com.quan.common.model.SysPermission;
+import com.quan.common.web.PageResult;
 import com.quan.platform.core.dao.SysPermissionDao;
 import com.quan.platform.core.dao.SysRolePermissionDao;
 import com.quan.platform.core.service.SysPermissionService;

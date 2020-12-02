@@ -1,7 +1,7 @@
 package com.quan.log.es.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.quam.common.web.PageResult;
+import com.quan.common.web.PageResult;
 import com.quan.log.es.dao.NginxLogDao;
 import com.quan.log.es.entity.NinxLogDocument;
 import org.apache.commons.collections.MapUtils;

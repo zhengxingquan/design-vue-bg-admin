@@ -1,9 +1,9 @@
 package com.quan.oauth.client.config;
 
-import com.quam.common.exception.controller.ControllerException;
-import com.quam.common.exception.dao.DataAccessException;
-import com.quam.common.exception.hystrix.HystrixException;
-import com.quam.common.exception.service.ServiceException;
+import com.quan.common.exception.controller.ControllerException;
+import com.quan.common.exception.dao.DataAccessException;
+import com.quan.common.exception.hystrix.HystrixException;
+import com.quan.common.exception.service.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;

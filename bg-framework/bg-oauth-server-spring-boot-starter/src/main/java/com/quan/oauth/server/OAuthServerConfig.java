@@ -2,10 +2,10 @@
 package com.quan.oauth.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quam.common.auth.props.PermitUrlProperties;
-import com.quam.common.constant.OAuthConstant;
-import com.quam.common.feign.FeignInterceptorConfig;
-import com.quam.common.rest.RestTemplateConfig;
+import com.quan.common.auth.props.PermitUrlProperties;
+import com.quan.common.constant.OAuthConstant;
+import com.quan.common.feign.FeignInterceptorConfig;
+import com.quan.common.rest.RestTemplateConfig;
 import com.quan.oauth.server.service.RedisAuthorizationCodeServices;
 import com.quan.oauth.server.service.RedisClientDetailsService;
 import com.quan.oauth.server.service.ValidateCodeService;

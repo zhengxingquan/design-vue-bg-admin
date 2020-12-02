@@ -11,6 +11,15 @@ spring:
   application:
     name: auth-server
 
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - VM.*
+      preferredNetworks:
+        - 192.168
+
 management:
   endpoints:
     web:

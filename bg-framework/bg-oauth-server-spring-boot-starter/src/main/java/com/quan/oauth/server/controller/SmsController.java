@@ -1,7 +1,7 @@
 package com.quan.oauth.server.controller;
 
-import com.quam.common.util.StringUtil;
-import com.quam.common.web.Result;
+import com.quan.common.util.StringUtil;
+import com.quan.common.web.Result;
 import com.quan.log.annotation.SLog;
 import com.quan.oauth.server.service.ValidateCodeService;
 import org.springframework.beans.factory.annotation.Autowired;

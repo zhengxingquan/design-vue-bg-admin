@@ -1,7 +1,7 @@
 package com.quan.oauth.server.service.impl;
 
-import com.quam.common.exception.service.ServiceException;
-import com.quam.common.model.SysService;
+import com.quan.common.exception.service.ServiceException;
+import com.quan.common.model.SysService;
 import com.quan.oauth.server.dao.SysClientServiceDao;
 import com.quan.oauth.server.dao.SysServiceDao;
 import com.quan.oauth.server.service.SysServiceService;

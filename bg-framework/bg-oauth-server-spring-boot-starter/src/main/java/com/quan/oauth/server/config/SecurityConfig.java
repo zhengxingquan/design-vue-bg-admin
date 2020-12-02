@@ -1,6 +1,6 @@
 package com.quan.oauth.server.config;
 
-import com.quam.common.auth.props.PermitUrlProperties;
+import com.quan.common.auth.props.PermitUrlProperties;
 import com.quan.oauth.server.constant.SecurityConstant;
 import com.quan.oauth.server.handle.OauthLogoutHandler;
 import com.quan.oauth.server.provider.SmsCodeAuthenticationProvider;

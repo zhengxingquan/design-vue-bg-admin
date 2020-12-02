@@ -1,7 +1,7 @@
 package com.quan.log.es.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.quam.common.web.PageResult;
+import com.quan.common.web.PageResult;
 import com.quan.log.es.dao.SqlSlowDao;
 import com.quan.log.es.entity.SqlSlowDocument;
 import io.swagger.annotations.ApiImplicitParam;

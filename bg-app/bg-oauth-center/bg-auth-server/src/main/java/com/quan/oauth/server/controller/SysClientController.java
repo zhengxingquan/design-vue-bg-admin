@@ -1,10 +1,10 @@
 package com.quan.oauth.server.controller;
 
 import com.google.common.collect.Maps;
-import com.quam.common.exception.controller.ControllerException;
-import com.quam.common.model.SysClient;
-import com.quam.common.web.PageResult;
-import com.quam.common.web.Result;
+import com.quan.common.exception.controller.ControllerException;
+import com.quan.common.model.SysClient;
+import com.quan.common.web.PageResult;
+import com.quan.common.web.Result;
 import com.quan.log.annotation.SLog;
 import com.quan.oauth.server.service.SysClientService;
 import io.swagger.annotations.Api;

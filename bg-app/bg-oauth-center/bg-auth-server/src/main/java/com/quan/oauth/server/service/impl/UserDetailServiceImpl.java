@@ -1,7 +1,7 @@
 package com.quan.oauth.server.service.impl;
 
-import com.quam.common.auth.details.LoginAppUser;
-import com.quam.common.util.StringUtil;
+import com.quan.common.auth.details.LoginAppUser;
+import com.quan.common.util.StringUtil;
 import com.quan.oauth.server.feign.UserFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

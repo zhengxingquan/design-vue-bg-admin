@@ -3,8 +3,7 @@
  */
 package com.quan.platform.core;
 
-import com.quam.common.annotation.EnableApiIdempotent;
-import com.quam.common.port.PortApplicationEnvironmentPreparedEventListener;
+import com.quan.common.annotation.EnableApiIdempotent;
 import com.quan.log.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
 package com.quan.platform.core.dao;
 
-import com.quam.common.model.SysRole;
+import com.quan.common.model.SysRole;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

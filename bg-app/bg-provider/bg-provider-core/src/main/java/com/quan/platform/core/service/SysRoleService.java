@@ -1,10 +1,10 @@
 package com.quan.platform.core.service;
 
-import com.quam.common.exception.service.ServiceException;
-import com.quam.common.model.SysPermission;
-import com.quam.common.model.SysRole;
-import com.quam.common.web.PageResult;
-import com.quam.common.web.Result;
+import com.quan.common.exception.service.ServiceException;
+import com.quan.common.model.SysPermission;
+import com.quan.common.model.SysRole;
+import com.quan.common.web.PageResult;
+import com.quan.common.web.Result;
 
 import java.util.Map;
 import java.util.Set;

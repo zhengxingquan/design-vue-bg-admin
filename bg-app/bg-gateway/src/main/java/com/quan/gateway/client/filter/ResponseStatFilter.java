@@ -2,7 +2,7 @@ package com.quan.gateway.client.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.quam.common.constant.TraceConstant;
+import com.quan.common.constant.TraceConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;

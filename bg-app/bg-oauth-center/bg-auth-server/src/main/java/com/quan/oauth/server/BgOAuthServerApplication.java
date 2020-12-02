@@ -3,8 +3,8 @@
  */
 package com.quan.oauth.server;
 
-import com.quam.common.feign.GlobalFeignConfig;
-import com.quam.common.port.PortApplicationEnvironmentPreparedEventListener;
+import com.quan.common.feign.GlobalFeignConfig;
+import com.quan.common.port.PortApplicationEnvironmentPreparedEventListener;
 import com.quan.log.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

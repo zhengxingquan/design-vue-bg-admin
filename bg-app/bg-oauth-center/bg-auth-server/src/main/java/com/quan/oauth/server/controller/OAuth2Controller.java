@@ -1,11 +1,11 @@
 package com.quan.oauth.server.controller;
 
-import com.quam.common.auth.details.LoginAppUser;
-import com.quam.common.exception.controller.ControllerException;
-import com.quam.common.model.SysPermission;
-import com.quam.common.util.ResponseUtil;
-import com.quam.common.util.SysUserUtil;
-import com.quam.common.web.PageResult;
+import com.quan.common.auth.details.LoginAppUser;
+import com.quan.common.exception.controller.ControllerException;
+import com.quan.common.model.SysPermission;
+import com.quan.common.util.ResponseUtil;
+import com.quan.common.util.SysUserUtil;
+import com.quan.common.web.PageResult;
 import com.quan.log.annotation.SLog;
 import com.quan.oauth.server.service.SysTokenService;
 import io.swagger.annotations.Api;

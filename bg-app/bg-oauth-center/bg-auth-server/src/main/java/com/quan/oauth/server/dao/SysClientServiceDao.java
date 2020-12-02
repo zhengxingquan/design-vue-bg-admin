@@ -1,6 +1,6 @@
 package com.quan.oauth.server.dao;
 
-import com.quam.common.model.SysService;
+import com.quan.common.model.SysService;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

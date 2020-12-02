@@ -47,6 +47,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
         </dependency>
+
         <!-- 加入spring security spring security oauth2的处理 -->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
@@ -73,11 +74,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
         <!-- aop处理 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
+
         <!-- orika core工具对实体（Bean）进行深度拷贝 -->
         <dependency>
             <groupId>ma.glasnost.orika</groupId>

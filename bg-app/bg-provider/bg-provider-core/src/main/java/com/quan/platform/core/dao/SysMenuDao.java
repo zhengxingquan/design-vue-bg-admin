@@ -1,7 +1,7 @@
 package com.quan.platform.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.quam.common.model.SysMenu;
+import com.quan.common.model.SysMenu;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

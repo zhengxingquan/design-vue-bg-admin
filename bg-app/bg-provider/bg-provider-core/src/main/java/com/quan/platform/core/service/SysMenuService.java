@@ -1,8 +1,8 @@
 package com.quan.platform.core.service;
 
 
-import com.quam.common.exception.service.ServiceException;
-import com.quam.common.model.SysMenu;
+import com.quan.common.exception.service.ServiceException;
+import com.quan.common.model.SysMenu;
 
 import java.util.List;
 import java.util.Set;

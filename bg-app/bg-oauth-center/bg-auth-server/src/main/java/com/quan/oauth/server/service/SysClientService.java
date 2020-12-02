@@ -1,9 +1,9 @@
 package com.quan.oauth.server.service;
 
 
-import com.quam.common.model.SysClient;
-import com.quam.common.web.PageResult;
-import com.quam.common.web.Result;
+import com.quan.common.model.SysClient;
+import com.quan.common.web.PageResult;
+import com.quan.common.web.Result;
 
 import java.util.List;
 import java.util.Map;
