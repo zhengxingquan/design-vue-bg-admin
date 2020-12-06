@@ -28,20 +28,17 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * @author owen 624191343@qq.com
- * @version 创建时间：2017年11月12日 上午22:57:51
- * 类说明
+/***
+ *
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/6 15:34
  * 将oauth_client_details表数据缓存到redis，这里做个缓存优化
  * layui模块中有对oauth_client_details的crud， 注意同步redis的数据
  * 注意对oauth_client_details清楚redis db部分数据的清空
- * blog: https://blog.51cto.com/13005375
- * code: https://gitee.com/owenwangwen/open-capacity-platform
  */
 @Slf4j
 @SuppressWarnings("all")
-public class RedisClientDetailsService extends JdbcClientDetailsService {
+public final class RedisClientDetailsService extends JdbcClientDetailsService {
 
 
     private static final String SELECT_CLIENT_DETAILS_SQL = "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
@@ -69,12 +66,21 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
 
     public RedisClientDetailsService(DataSource dataSource) {
         super(dataSource);
+        // 查询数据库
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         setSelectClientDetailsSql(SELECT_CLIENT_DETAILS_SQL);
         setFindClientDetailsSql(SELECT_FIND_STATEMENT);
     }
 
 
+    /****
+     * 通过 clientId 查找 client
+     * @author zxq(956607644 @ qq.com)
+     * @date 2020/12/6 15:20
+     * @param clientId
+
+     * @return org.springframework.security.oauth2.provider.ClientDetails
+     */
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
         ClientDetails clientDetails = null;
@@ -192,36 +198,53 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
 
     private static class ClientDetailsRowMapper implements RowMapper<ClientDetails> {
 
-        private JsonMapper mapper = createJsonMapper();
 
         public ClientDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-            DefaultClientDetails details = new DefaultClientDetails(rs.getString(1), rs.getString(3), rs.getString(4),
-                    rs.getString(5), rs.getString(7), rs.getString(6));
+
+            // 组装 ClientDetails 对象
+            DefaultClientDetails details = new DefaultClientDetails(
+                    rs.getString(1),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(7),
+                    rs.getString(6));
+
+            // 密码
             details.setClientSecret(rs.getString(2));
+            //访问令牌有效性/秒
             if (rs.getObject(8) != null) {
                 details.setAccessTokenValiditySeconds(rs.getInt(8));
             }
+            //刷新令牌有效性/秒
             if (rs.getObject(9) != null) {
                 details.setRefreshTokenValiditySeconds(rs.getInt(9));
             }
+            // 其他的信息（默认为 JSON 的字符串）
             String json = rs.getString(10);
             if (json != null) {
                 try {
-                    Map<String, Object> additionalInformation = mapper.read(json, Map.class);
+                    // 创建 json 解析器
+                    Map<String, Object> additionalInformation = createJsonMapper().read(json, Map.class);
                     details.setAdditionalInformation(additionalInformation);
                 } catch (Exception e) {
                     log.warn("Could not decode JSON for additional information: " + details, e);
                 }
             }
+            // 作用域
             String scopes = rs.getString(11);
-            long ifLimit = rs.getLong(12);
-            details.setIfLimit(ifLimit);
-            long limitCount = rs.getLong(13);
-            details.setLimitCount(limitCount);
-            details.setId(rs.getLong(14));
             if (scopes != null) {
                 details.setAutoApproveScopes(org.springframework.util.StringUtils.commaDelimitedListToSet(scopes));
             }
+            // 限流标识
+            long ifLimit = rs.getLong(12);
+            details.setIfLimit(ifLimit);
+            // 限流次数
+            long limitCount = rs.getLong(13);
+            details.setLimitCount(limitCount);
+            // 客户端ID
+            details.setId(rs.getLong(14));
+
             return details;
         }
     }

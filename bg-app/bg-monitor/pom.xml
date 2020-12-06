@@ -18,6 +18,10 @@
         <module>bg-admin-server</module>
         <!-- log tracing 日志 -->
         <module>bg-log-monitor</module>
+        <!-- 分布式事务监控 -->
+        <module>bg-transaction</module>
+        <!-- 调用链监控 用 ELK 做 -->
+        <module>bg-zipkin-center</module>
     </modules>
 
 </project>

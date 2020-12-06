@@ -6,57 +6,67 @@ import org.springframework.security.oauth2.provider.code.RandomValueAuthorizatio
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author owen 624191343@qq.com
- * @version 创建时间：2017年11月12日 上午22:57:51
- * JdbcAuthorizationCodeServices替换
- * blog: https://blog.51cto.com/13005375 
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+/***
+ * 替换JdbcAuthorizationCodeServices的存储策略
+ * 将存储code到redis，
+ *
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/6 15:38
  */
-public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
+public final class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
 
-	private RedisTemplate<String, Object> redisTemplate ;
+    // 将存储code到redis，并设置过期时间，10分钟
+    private static int REDIS_AUTHORIZATION_CODE_TIME = 10;
 
-	
-	public RedisTemplate<String, Object> getRedisTemplate() {
-		return redisTemplate;
-	}
+    private static String REDIS_AUTHORIZATION_CODE_PREV = "oauth:code:";
 
-	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-		this.redisTemplate = redisTemplate;
-	}
+    private RedisTemplate<String, Object> redisTemplate;
 
-	/**
-	 * 替换JdbcAuthorizationCodeServices的存储策略
-	 * 将存储code到redis，并设置过期时间，10分钟<br>
-	 */
-	@Override
-	protected void store(String code, OAuth2Authentication authentication) {
-		
-		redisTemplate.opsForValue().set(redisKey(code), authentication, 10, TimeUnit.MINUTES);
-		
-		 
-	}
+    public RedisTemplate<String, Object> getRedisTemplate() {
+        return redisTemplate;
+    }
 
-	@Override
-	protected OAuth2Authentication remove(final String code) {
-		 
-		String codeKey =redisKey(code) ;
-			
-		OAuth2Authentication token = (OAuth2Authentication) redisTemplate.opsForValue().get(codeKey) ;
-			
-		this.redisTemplate.delete(codeKey); 
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
-		return token;
-	}
+    /**
+     * 替换JdbcAuthorizationCodeServices的存储策略
+     * 将存储code到redis，并设置过期时间，10分钟<br>
+     */
+    @Override
+    protected void store(String code, OAuth2Authentication authentication) {
 
-	/**
-	 * redis中 code key的前缀
-	 * 
-	 * @param code
-	 * @return
-	 */
-	private String redisKey(String code) {
-		return "oauth:code:" + code;
-	}
+        this.redisTemplate.opsForValue().set(redisKey(code), authentication, REDIS_AUTHORIZATION_CODE_TIME, TimeUnit.MINUTES);
+    }
+
+    /***
+     *  删除 code
+     * @author zxq(956607644 @ qq.com)
+     * @date 2020/12/6 15:40
+     * @param code
+
+     * @return org.springframework.security.oauth2.provider.OAuth2Authentication
+     */
+    @Override
+    protected OAuth2Authentication remove(final String code) {
+
+        String codeKey = redisKey(code);
+
+        OAuth2Authentication token = (OAuth2Authentication) redisTemplate.opsForValue().get(codeKey);
+
+        this.redisTemplate.delete(codeKey);
+
+        return token;
+    }
+
+    /**
+     * redis中 code key的前缀
+     *
+     * @param code
+     * @return
+     */
+    private String redisKey(String code) {
+        return REDIS_AUTHORIZATION_CODE_PREV + code;
+    }
 }

@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Map;
 
 /***
+ * spring security 配置类
  *
  * @author zxq(956607644@qq.com)
  * @date 2020/11/29 22:11
@@ -80,7 +81,7 @@ public class OAuthServerConfig {
 
 
     /**
-     * 声明 ClientDetails实现
+     * 声明 ClientDetails实现（用 redis 缓存 客户端的 信息 ）
      */
     @Bean
     public RedisClientDetailsService redisClientDetailsService(DataSource dataSource, RedisTemplate<String, Object> redisTemplate) {
@@ -90,6 +91,15 @@ public class OAuthServerConfig {
     }
 
 
+    /***
+     *   认证 code
+     *
+     * @author zxq(956607644@qq.com)
+     * @date 2020/12/6 15:42
+     * @param redisTemplate
+
+     * @return org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices
+     */
     @Bean
     public RandomValueAuthorizationCodeServices authorizationCodeServices(RedisTemplate<String, Object> redisTemplate) {
         RedisAuthorizationCodeServices redisAuthorizationCodeServices = new RedisAuthorizationCodeServices();
@@ -97,14 +107,14 @@ public class OAuthServerConfig {
         return redisAuthorizationCodeServices;
     }
 
-
-    /**
-     * @author owen 624191343@qq.com
-     * @version 创建时间：2017年11月12日 上午22:57:51 默认token存储在内存中
-     * DefaultTokenServices默认处理
+    /***
+     *  DefaultTokenServices默认处理
+     * @author zxq(956607644@qq.com)
+     * @date 2020/12/6 15:42
      */
     @Component
     @Configuration
+    // 启动 认证服务
     @EnableAuthorizationServer
     @AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
     public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -114,9 +124,15 @@ public class OAuthServerConfig {
         @Autowired
         private AuthenticationManager authenticationManager;
 
+        /****
+         * 用户具体的 查询 service
+         */
         @Autowired
         private UserDetailsService userDetailsService;
 
+        /****
+         * 用户输入的验证码 service
+         */
         @Autowired
         private ValidateCodeService validateCodeService ;
         
@@ -126,9 +142,15 @@ public class OAuthServerConfig {
         @Autowired(required = false)
         private JwtAccessTokenConverter jwtAccessTokenConverter;
 
+        /***
+         * 网络响应异常处理类
+         */
         @Autowired
         private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
+        /***
+         * 客户端server
+         */
         @Autowired
         private RedisClientDetailsService redisClientDetailsService;
 
@@ -189,8 +211,8 @@ public class OAuthServerConfig {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-
             clients.withClientDetails(redisClientDetailsService);
+            // 配置新缓存到 redis
             redisClientDetailsService.loadAllClientToCache();
         }
 
@@ -243,6 +265,7 @@ public class OAuthServerConfig {
             }
             resources.stateless(true);
             resources.expressionHandler(expressionHandler);
+
             // 自定义异常处理端口
             resources.authenticationEntryPoint(new AuthenticationEntryPoint() {
 
@@ -294,10 +317,12 @@ public class OAuthServerConfig {
                      * 判断来源请求是否包含oauth2授权信息
                      */
                     new RequestMatcher() {
+
                         private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
                         @Override
                         public boolean matches(HttpServletRequest request) {
+
                             // 请求参数中包含access_token参数
                             if (request.getParameter(OAuth2AccessToken.ACCESS_TOKEN) != null) {
                                 return true;

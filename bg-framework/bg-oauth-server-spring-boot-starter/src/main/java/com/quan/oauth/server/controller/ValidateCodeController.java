@@ -3,6 +3,10 @@ package com.quan.oauth.server.controller;
 import com.google.code.kaptcha.Producer;
 import com.quan.log.annotation.SLog;
 import com.quan.oauth.server.service.ValidateCodeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -20,6 +24,7 @@ import java.awt.image.BufferedImage;
  * @date 2018/12/18
  */
 @Controller
+@Api(tags = "WEB Validate Code API")
 public class ValidateCodeController {
     @Autowired
     private Producer producer;
@@ -32,8 +37,12 @@ public class ValidateCodeController {
      *
      * @throws Exception
      */
-    @GetMapping("/validata/code/{deviceId}")
-    @SLog(module="auth-server")
+    @GetMapping(value = "/validata/code/{deviceId}")
+    @SLog(module = "auth-server")
+    @ApiOperation(value = "根据 机器码 绑定验证码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "deviceId", value = "机器码", required = true, dataType = "String")
+    })
     public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws Exception {
         Assert.notNull(deviceId, "机器码不能为空");
         response.setHeader("Cache-Control", "no-store, no-cache");

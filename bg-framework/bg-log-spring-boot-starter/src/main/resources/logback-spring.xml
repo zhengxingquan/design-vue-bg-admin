@@ -112,7 +112,7 @@
         </encoder>
     </appender>
 	 -->
-    <root level="DEBUG">
+    <root level="INFO"><!-- DEBUG -->
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR"/>
         <appender-ref ref="INFO"/>

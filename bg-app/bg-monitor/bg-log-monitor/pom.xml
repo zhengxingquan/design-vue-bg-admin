@@ -81,7 +81,7 @@
 
 
     <!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis
-        org -->
+		org -->
     <build>
         <plugins>
             <plugin>

@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-/**
-* @author 作者 owen 
-* @version 创建时间：2017年11月12日 上午22:57:51
-* 调用用户中心中的userdetail对象，用户oauth中的登录
-* 获取的用户与页面输入的密码 进行BCryptPasswordEncoder匹配
+
+/****
+ *
+ * 调用用户中心中的userdetail对象，用户oauth中的登录
+ * 获取的用户与页面输入的密码 进行BCryptPasswordEncoder匹配
+ *
+ * @author zxq(956607644@qq.com)
+ * @date 2020/12/6 15:49
  */
 
 @FeignClient(value="user-center",configuration = FeignExceptionConfig.class ,fallbackFactory = UserFeignClientFallbackFactory.class, decode404 = true)

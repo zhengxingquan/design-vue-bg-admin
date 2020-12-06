@@ -7,6 +7,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/***
+ *   Token 工具类
+ *   从 请求头中 获取 Token 参数
+ * @author zxq(956607644@qq.com)
+ * @date 2020/12/6 15:16
+ */
 public class TokenUtil {
 
     public static String getToken() {

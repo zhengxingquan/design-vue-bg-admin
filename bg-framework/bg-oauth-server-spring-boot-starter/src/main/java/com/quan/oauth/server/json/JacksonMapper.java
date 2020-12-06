@@ -1,6 +1,6 @@
 package com.quan.oauth.server.json;
 
-public class JacksonMapper implements JsonMapper {
+public final class JacksonMapper implements JsonMapper {
 	private org.codehaus.jackson.map.ObjectMapper mapper = new org.codehaus.jackson.map.ObjectMapper();
 
 	@Override

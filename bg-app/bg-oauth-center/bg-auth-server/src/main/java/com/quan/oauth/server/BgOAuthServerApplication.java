@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Import;
  * @version 创建时间：2017年11月12日 上午22:57:51
 * 类说明 
 */
+/* 启动日志记录 */
 @EnableLogging
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = "com.quan.*")

@@ -1,6 +1,6 @@
 package com.quan.oauth.server.json;
 
-public   class NotSupportedJsonMapper implements  JsonMapper {
+public final  class NotSupportedJsonMapper implements  JsonMapper {
 	@Override
 	public String write(Object input) throws Exception {
 		throw new UnsupportedOperationException(

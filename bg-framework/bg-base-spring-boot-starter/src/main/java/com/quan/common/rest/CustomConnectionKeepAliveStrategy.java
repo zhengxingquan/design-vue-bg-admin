@@ -14,12 +14,14 @@ import java.util.Arrays;
  *	连接复用
  */
 public class CustomConnectionKeepAliveStrategy implements ConnectionKeepAliveStrategy {
+
+	// TODO 暂时写死 参数，以后采用配置文件配置起来
 	private final long DEFAULT_SECONDS = 30;
 	private final String DEFAULT_HEAD = "timeout";
 
 	/**
 	 * 最大keep alive的时间（秒钟）
-	 * 这里默认为30秒，可以根据实际情况设置。可以观察客户端机器状态为TIME_WAIT的TCP连接数，如果太多，可以增大此值。
+	 * 这里默认为30秒，可以观察客户端机器状态为TIME_WAIT的T可以根据实际情况设置。CP连接数，如果太多，可以增大此值。
 	 */
 	@Override
 	public long getKeepAliveDuration(HttpResponse response, HttpContext context) {

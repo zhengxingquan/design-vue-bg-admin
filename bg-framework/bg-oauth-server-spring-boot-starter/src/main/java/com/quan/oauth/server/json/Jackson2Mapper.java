@@ -1,6 +1,7 @@
 package com.quan.oauth.server.json;
 
-public  class Jackson2Mapper implements  JsonMapper {
+public final  class Jackson2Mapper implements  JsonMapper {
+
 	private com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
 	@Override
