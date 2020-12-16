@@ -1,5 +1,6 @@
 package com.quan.log.dto;
 
+import com.quan.common.model.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,21 +12,9 @@ import java.util.Date;
  * 描述：
  */
 @Data
-public class LogDto implements Serializable {
+public class LogDto extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -5606865665592482762L;
-
-    private String id;
-
-    /**
-     * 组织流水号
-     */
-    private Long groupId;
-
-    /**
-     * 组织名称
-     */
-    private String groupName;
 
     /**
      * 日志类型
@@ -146,10 +135,5 @@ public class LogDto implements Serializable {
      * 最后操作人ID
      */
     private String lastOperatorId;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 
 }

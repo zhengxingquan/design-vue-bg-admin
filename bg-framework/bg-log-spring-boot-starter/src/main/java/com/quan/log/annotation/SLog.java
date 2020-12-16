@@ -14,6 +14,7 @@ import java.lang.annotation.*;
 public @interface SLog {
     /**
      * 模块
+     *
      * @return
      */
     String module();
@@ -23,7 +24,7 @@ public @interface SLog {
      *
      * @return the boolean
      */
-    boolean saveRequestData() default false;
+    boolean saveRequestData() default true;
 
     /**
      * 是否保存响应的结果

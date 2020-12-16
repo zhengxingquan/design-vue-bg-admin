@@ -1,5 +1,6 @@
 package com.quan.log.interceptor;
 
+import com.quan.common.constant.TraceConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,11 +20,9 @@ public class LogInterceptor implements HandlerInterceptor {
         // "traceId"
 
         // TODO 不知道为啥子这个类 不能访问
-//        String traceId = request.getHeader(TraceConstant.HTTP_HEADER_TRACE_ID);
-        String traceId = request.getHeader("app_trace_id");
+        String traceId = request.getHeader(TraceConstant.HTTP_HEADER_TRACE_ID);
         if (StringUtils.isNotEmpty(traceId)) {
-//        	 MDC.put(TraceConstant.LOG_TRACE_ID, traceId);
-            MDC.put("traceId", traceId);
+            MDC.put(TraceConstant.LOG_TRACE_ID, traceId);
         }
 
         return true;

@@ -3,18 +3,19 @@
 
 <mapper namespace="com.quan.core.dao.SysGeneratorDao">
     <select id="queryList" resultType="map">
-        select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables
+        select table_name tableName, engine, table_comment tableComment, create_time createTime from
+        information_schema.tables
         where table_schema = (select database())
-        <if test="tableName != null and tableName.trim() != ''">
-            and table_name like concat('%', #{tableName}, '%')
+        <if test="data.tableName != null and data.tableName.trim() != ''">
+            and table_name like concat('%', #{data.tableName}, '%')
         </if>
         order by create_time desc
     </select>
 
     <select id="queryTotal" resultType="int">
         select count(*) from information_schema.tables where table_schema = (select database())
-        <if test="tableName != null and tableName.trim() != ''">
-            and table_name like concat('%', #{tableName}, '%')
+        <if test="data.tableName != null and data.tableName.trim() != ''">
+            and table_name like concat('%', #{data.tableName}, '%')
         </if>
     </select>
 

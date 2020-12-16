@@ -7,18 +7,18 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
-* @author 作者 gitgeek 
-* @version 创建时间：2018-08-06 21:29
-* 类说明 服务API实体
-*/
+/***
+ *   服务API实体
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/15 16:31
+ */
 @Data
 public class SysService implements Serializable {
 
     private static final long serialVersionUID = 749360940290141180L;
-    @JsonSerialize(using=ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
-    @JsonSerialize(using=ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
     private String name;
     private String path;

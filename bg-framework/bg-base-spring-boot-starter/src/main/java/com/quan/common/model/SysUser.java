@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @TableName("sys_user")
 @EqualsAndHashCode(callSuper = true)
-public class SysUser extends Model<SysUser> implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -5886012896705137070L;
     @TableId(value = "id", type = IdType.ASSIGN_ID)  //雪花算法  id生成策略
@@ -38,10 +38,6 @@ public class SysUser extends Model<SysUser> implements Serializable {
     private Integer sex;
     private Boolean enabled;
     private String type;
-    @TableField(value = "create_time")
-    private Date createTime;
-    @TableField(value = "update_time")
-    private Date updateTime;
 
     @TableField(exist = false)
     private List<SysRole> roles;

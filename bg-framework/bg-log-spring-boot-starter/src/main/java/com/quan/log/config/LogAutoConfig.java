@@ -3,6 +3,7 @@ package com.quan.log.config;
 import cn.hutool.core.date.SystemClock;
 import com.github.structlog4j.StructLog4J;
 import com.github.structlog4j.json.JsonFormatter;
+import com.quan.common.util.IPUtils;
 import com.quan.log.interceptor.LogInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -35,7 +36,7 @@ public class LogAutoConfig implements WebMvcConfigurer {
         StructLog4J.setFormatter(JsonFormatter.getInstance());
 
         StructLog4J.setMandatoryContextSupplier(() -> new Object[]{
-//                "host", IPUtils.getHostIp(),
+                "host", IPUtils.getHostIp(),
                 "appName", appName,
                 "logTime", SystemClock.nowDate()
         });

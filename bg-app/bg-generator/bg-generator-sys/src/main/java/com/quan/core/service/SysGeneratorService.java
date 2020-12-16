@@ -1,29 +1,27 @@
 package com.quan.core.service;
 
 import com.quan.common.web.PageResult;
+import com.quan.core.request.GeneratorQueryRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Author: [dawei QQ:64738479]
- * @Date: [2019-04-25 21:48]
- * @Description: [ ]
- * @Version: [1.0.1]
- * @Copy: [com.zzg]
+/***
+ *
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/16 10:01
  */
 @Service
 public interface SysGeneratorService {
 
-     PageResult queryList(Map<String, Object> map);
+    Object queryList(GeneratorQueryRequest req);
 
-     int queryTotal(Map<String, Object> map);
+    int queryTotal(GeneratorQueryRequest req);
 
-     Map<String, String> queryTable(String tableName);
+    Map<String, String> queryTable(String tableName);
 
-     List<Map<String, String>> queryColumns(String tableName);
+    List<Map<String, String>> queryColumns(String tableName);
 
-     byte[] generatorCode(String[] tableNames);
-
+    byte[] generatorCode(String[] tableNames);
 }

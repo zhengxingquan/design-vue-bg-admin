@@ -1,36 +1,33 @@
 package com.quan.log.service.impl;
 
+import com.quan.common.model.SysLog;
+import com.quan.datasource.annotation.DataSource;
 import com.quan.log.dao.LogDao;
 import com.quan.log.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
-/**
- * @author owen
- * 切换数据源，存储log-center
- * blog: https://blog.51cto.com/13005375 
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+/***
+ *   切换数据源，存储log-center
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/15 16:25
  */
+@Service
 public class LogServiceImpl implements LogService {
 
-//	@Autowired
-//	private LogDao logDao;
-//
-//	@Async
-//	@Override
-//	@DataSource(name="log")
-//	public void save(SysLog log) {
-//		if (log.getCreateTime() == null) {
-//			log.setCreateTime(new Date());
-//		}
-//		if (log.getFlag() == null) {
-//			log.setFlag(Boolean.TRUE);
-//		}
-//
-//		logDao.save(log);
-//	}
+    @Autowired
+    private LogDao logDao;
 
-	 
+    @Async
+    @Override
+    @DataSource(name = "log")
+    public void save(SysLog log) {
+        if (log.getFlag() == null) {
+            log.setFlag(Boolean.TRUE);
+        }
+        logDao.save(log);
+    }
+
+
 }

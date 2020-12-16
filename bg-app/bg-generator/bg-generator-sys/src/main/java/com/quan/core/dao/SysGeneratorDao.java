@@ -1,23 +1,21 @@
 package com.quan.core.dao;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.quan.core.dto.GeneratorQueryDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Author: [dawei QQ:64738479]
- * @Date: [2019-04-25 21:48]
- * @Description: [ ]
- * @Version: [1.0.1]
- * @Copy: [com.zzg]
+/***
+ *  服务类
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/16 10:54
  */
-@Mapper
 public interface SysGeneratorDao {
 
-    List<Map<String, Object>> queryList(Map<String, Object> map);
+    List<Map<String, Object>> queryList(@Param("data") GeneratorQueryDTO data);
 
-    int queryTotal(Map<String, Object> map);
+    int queryTotal(@Param("data") GeneratorQueryDTO data);
 
     Map<String, String> queryTable(String tableName);
 

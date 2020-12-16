@@ -39,6 +39,13 @@
         </dependency>
          -->
 
+        <!-- 记录日志 详细信息 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.20</version>
+        </dependency>
+
         <dependency>
             <groupId>com.quan</groupId>
             <artifactId>bg-base-spring-boot-starter</artifactId>

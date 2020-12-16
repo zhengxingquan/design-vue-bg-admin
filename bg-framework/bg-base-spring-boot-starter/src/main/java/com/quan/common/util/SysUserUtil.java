@@ -22,7 +22,7 @@ import java.util.Set;
  * @version 创建时间：2017年11月12日 上午22:57:51 获取用户信息
  */
 @SuppressWarnings("all")
-public class SysUserUtil {
+public final class SysUserUtil {
 
     /**
      * 获取登陆的 LoginAppUser

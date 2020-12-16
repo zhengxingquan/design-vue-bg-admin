@@ -1,37 +1,85 @@
 package com.quan.common.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
 
 
-/**
-* @author 作者 owen 
-* @version 创建时间：2017年11月12日 上午22:57:51
-* 类说明 日志实体
+/***
+ *   日志实体
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/15 17:50
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_log")
-@EqualsAndHashCode(callSuper=true)
-public class SysLog extends Model<SysLog>  implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class SysLog extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -5398795297842978376L;
-	@JsonSerialize(using=ToStringSerializer.class)
-	private Long id;
-	private String username; //	用户名
-	private String module;	//	归属模块
-	private String params;	//	执行方法的参数值
-	private String remark;  //  备注
-	private Boolean flag;	//	是否执行成功
-	@TableField(value="create_time")
-	private Date createTime;
+    private static final long serialVersionUID = -5398795297842978376L;
+
+
+    private String traceId;
+    /***
+     * 用户名
+     */
+    private String username;
+    /***
+     * 执行方法的参数值
+     */
+    private String params;
+    /***
+     * 错误信息
+     */
+    private String error;
+    /**
+     * 是否执行成功
+     */
+    private Boolean flag;
+    /**
+     * 归属模块
+     */
+    private String module;
+    /**
+     * 操作系统
+     */
+    private String os;
+
+    /**
+     * 浏览器类型
+     */
+    private String browser;
+
+    /**
+     * IP地址
+     */
+    private String ip;
+    /**
+     * 物理地址
+     */
+    private String mac;
+
+    /**
+     * 请求地址
+     */
+    private String requestUrl;
+
+    /**
+     * 开始时间
+     */
+    private Date startTime;
+
+    /**
+     * 结束时间
+     */
+    private Date endTime;
+
+    /**
+     * 耗时,秒
+     */
+    private Long excuteTime;
 }

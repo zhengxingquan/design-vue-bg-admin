@@ -35,6 +35,8 @@ public class DefaultClientDetails extends BaseClientDetails implements Serializa
     private long limitCount;
 
 
+
+
     public DefaultClientDetails(String clientId, String resourceIds, String scopes,
                                 String grantTypes, String authorities, String redirectUris) {
         super(clientId, resourceIds, scopes, grantTypes, authorities, redirectUris);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.log.dao.LogDao">
+
+
+    <select id="save" resultType="int">
+       insert into sys_log(traceId, username, params, error, flag, `module`,os,browser,ip,mac,requestUrl,startTime,endTime,excuteTime)
+       values(#{traceId}, #{username}, #{params}, #{error}, #{flag}, #{module},#{os},#{browser},#{ip},#{mac},#{requestUrl},#{startTime},#{endTime},#{excuteTime})
+    </select>
+
+</mapper>

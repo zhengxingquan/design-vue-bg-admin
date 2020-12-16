@@ -16,19 +16,4 @@
     <artifactId>bg-generator-sys</artifactId>
     <description>系统生成表</description>
 
-
-    <properties>
-
-        <!-- MyBatis Generator -->
-
-        <!-- Java接口和实体类 -->
-        <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-        <targetMapperPackage>com.quan.provider.mapper</targetMapperPackage>
-        <targetModelPackage>com.quan.provider.model.domain</targetModelPackage>
-        <!-- XML生成路径 -->
-        <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
-        <targetXMLPackage>mapper</targetXMLPackage>
-
-    </properties>
-
 </project>
