@@ -14,4 +14,8 @@ public class OtherException extends BaseException {
     public OtherException(Exception e) {
         this(e.getMessage());
     }
+
+    public OtherException(String msg, Object... args) {
+        this(String.format(msg, args));
+    }
 }

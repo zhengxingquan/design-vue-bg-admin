@@ -10,4 +10,5 @@ public abstract class BaseCacheAop {
     protected String getRedisKey(String cacheName) {
         return cacheName + ":";
     }
+
 }

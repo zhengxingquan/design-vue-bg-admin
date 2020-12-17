@@ -19,6 +19,7 @@ public class FeignInterceptorConfig {
 
     @Bean
     public RequestInterceptor requestInterceptor() {
+
         RequestInterceptor requestInterceptor = template -> {
             //传递token
             //使用feign client访问别的微服务时，将accessToken header

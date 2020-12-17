@@ -18,6 +18,8 @@ import java.lang.reflect.Method;
  * @author 郑兴泉 956607644@qq.com
  * @data 2020/12/16
  * 描述：
+ *
+ * 缓存注解
  */
 @Slf4j
 @Aspect
@@ -50,6 +52,7 @@ public class CacheRemoveAllAop extends BaseCacheAop {
         // TODO redis 配置类
         BoundHashOperations hashOperations = redisTemplate.boundHashOps(getRedisKey(cacheName));
         hashOperations.delete(hashOperations.keys());
+        // TODO 执行业务方法
         joinPoint.proceed();
     }
 
