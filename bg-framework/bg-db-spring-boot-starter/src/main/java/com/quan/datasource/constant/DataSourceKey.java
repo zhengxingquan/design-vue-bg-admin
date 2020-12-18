@@ -1,13 +1,11 @@
 package com.quan.datasource.constant;
 
-/**
+
+/***
  * 数据源定义
- *
- * @author owen
- * @create 2017年7月2日
- *  blog: https://blog.51cto.com/13005375 
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/18 15:31
  */
 public enum DataSourceKey {
-    core, log 
+    core, log
 }

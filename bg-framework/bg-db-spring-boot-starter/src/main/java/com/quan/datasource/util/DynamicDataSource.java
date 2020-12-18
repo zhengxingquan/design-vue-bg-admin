@@ -7,27 +7,23 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * spring动态数据源（需要继承AbstractRoutingDataSource）
- *
- * @author owen
- * @create 2017年7月2日
- * blog: https://blog.51cto.com/13005375 
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+
+/***
+ *   spring动态数据源（需要继承AbstractRoutingDataSource）
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/18 15:33
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-    private Map<Object, Object> datasources;
+    private Map<Object, Object> dataSources = new HashMap<>();
 
     public DynamicDataSource() {
-        datasources = new HashMap<>();
-
-        super.setTargetDataSources(datasources);
+        super.setTargetDataSources(dataSources);
 
     }
 
     public <T extends DataSource> void addDataSource(DataSourceKey key, T data) {
-        datasources.put(key, data);
+        dataSources.put(key, data);
     }
 
     protected Object determineCurrentLookupKey() {

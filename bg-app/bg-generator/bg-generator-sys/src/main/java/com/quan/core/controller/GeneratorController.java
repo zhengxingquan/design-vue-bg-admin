@@ -1,6 +1,7 @@
 package com.quan.core.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.quan.common.web.PageResult;
 import com.quan.core.request.GeneratorQueryRequest;
 import com.quan.core.service.SysGeneratorService;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +42,7 @@ public class GeneratorController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示数量", required = true, dataType = "int")
     })
     public @ResponseBody
-    Object list(GeneratorQueryRequest data) throws Exception {
+    PageResult list(GeneratorQueryRequest data) throws Exception {
         return sysGeneratorService.queryList(data);
     }
 

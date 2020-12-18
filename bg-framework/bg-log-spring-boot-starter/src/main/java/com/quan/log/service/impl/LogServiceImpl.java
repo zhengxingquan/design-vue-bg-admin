@@ -28,6 +28,4 @@ public class LogServiceImpl implements LogService {
         }
         logDao.save(log);
     }
-
-
 }

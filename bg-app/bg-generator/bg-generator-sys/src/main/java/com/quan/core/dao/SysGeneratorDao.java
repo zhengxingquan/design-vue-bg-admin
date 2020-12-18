@@ -1,6 +1,7 @@
 package com.quan.core.dao;
 
 import com.quan.core.dto.GeneratorQueryDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

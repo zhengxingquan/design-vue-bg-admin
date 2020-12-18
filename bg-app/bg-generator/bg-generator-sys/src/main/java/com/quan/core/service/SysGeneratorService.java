@@ -2,6 +2,7 @@ package com.quan.core.service;
 
 import com.quan.common.web.PageResult;
 import com.quan.core.request.GeneratorQueryRequest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,9 @@ import java.util.Map;
  * @author zxq(956607644 @ qq.com)
  * @date 2020/12/16 10:01
  */
-@Service
 public interface SysGeneratorService {
 
-    Object queryList(GeneratorQueryRequest req);
+    PageResult queryList(GeneratorQueryRequest req);
 
     int queryTotal(GeneratorQueryRequest req);
 

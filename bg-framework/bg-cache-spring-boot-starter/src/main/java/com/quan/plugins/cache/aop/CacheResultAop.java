@@ -23,7 +23,7 @@ public class CacheResultAop {
 
     @Around("@annotation(ds)")
     public void exec(ProceedingJoinPoint joinPoint, CacheRemove ds) throws Throwable {
-        log.info("CacheRemoveAll exec ....");
+        log.info("CacheRemove exec ....");
 
     }
     

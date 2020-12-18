@@ -1,6 +1,9 @@
 package com.quan.plugins.cache.aop;
 
+import com.quan.plugins.cache.annotation.CacheUpdate;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 /**
@@ -14,9 +17,10 @@ import org.aspectj.lang.annotation.Aspect;
 public class CacheUpdateAop {
 
 
-
-    public void exec(){
+    @Around("@annotation(ds)")
+    public void exec(ProceedingJoinPoint joinPoint, CacheUpdate ds) throws Throwable {
+        log.info("CacheUpdate exec ....");
 
     }
-    
+
 }

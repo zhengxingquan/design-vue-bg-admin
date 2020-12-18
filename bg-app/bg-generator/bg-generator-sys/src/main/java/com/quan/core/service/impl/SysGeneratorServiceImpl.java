@@ -8,7 +8,6 @@ import com.quan.core.request.GeneratorQueryRequest;
 import com.quan.core.service.SysGeneratorService;
 import com.quan.core.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,17 +29,12 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 
     @Override
     @PageQuery
-    public Object queryList(GeneratorQueryRequest req) {
-        //设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
-//        PageHelper.startPage(MapUtils.getInteger(map, "page"), MapUtils.getInteger(map, "limit"), true);
+    public PageResult queryList(GeneratorQueryRequest req) {
         GeneratorQueryDTO data = new GeneratorQueryDTO();
         data.setTableName(req.getTableName());
         data.setPageNumber(req.getPageNumber());
         data.setPageSize(req.getPageSize());
-        return sysGeneratorDao.queryList(data);
-
-//        PageInfo pageInfo = new PageInfo<>(list);
-//        return PageResult.builder().data(pageInfo.getList()).code(0).count(pageInfo.getTotal()).build();
+        return (PageResult) sysGeneratorDao.queryList(data);
     }
 
     @Override
