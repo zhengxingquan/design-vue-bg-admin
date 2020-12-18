@@ -29,12 +29,12 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 
     @Override
     @PageQuery
-    public PageResult queryList(GeneratorQueryRequest req) {
+    public Object queryList(GeneratorQueryRequest req) {
         GeneratorQueryDTO data = new GeneratorQueryDTO();
         data.setTableName(req.getTableName());
         data.setPageNumber(req.getPageNumber());
         data.setPageSize(req.getPageSize());
-        return (PageResult) sysGeneratorDao.queryList(data);
+        return sysGeneratorDao.queryList(data);
     }
 
     @Override

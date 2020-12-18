@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface SysGeneratorService {
 
-    PageResult queryList(GeneratorQueryRequest req);
+    Object queryList(GeneratorQueryRequest req);
 
     int queryTotal(GeneratorQueryRequest req);
 

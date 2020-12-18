@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * @Author: [zhangzhiguang]
- * @Date: [2018-08-01 23:39]
- * @Description: [ ]
- * @Version: [1.0.0]
- * @Copy: [com.zzg]
+/***
+ *
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/18 19:56
+ * @param null
+
+ * @return
  */
 @Data
 @NoArgsConstructor

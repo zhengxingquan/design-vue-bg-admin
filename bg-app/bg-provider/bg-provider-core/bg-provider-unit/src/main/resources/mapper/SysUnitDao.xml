@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.sysunit.dao.SysUnitDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.quan.core.unit.model.SysUnit" id="sysUnitMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="aliasName" column="alias_name"/>
+        <result property="unitCode" column="unit_code"/>
+        <result property="note" column="note"/>
+        <result property="field1" column="field1"/>
+        <result property="field2" column="field2"/>
+        <result property="field3" column="field3"/>
+        <result property="sort" column="sort"/>
+        <result property="disabled" column="disabled"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="logo" column="logo"/>
+        <result property="createTime" column="create_time"/>
+        <result property="creatorUserId" column="creator_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
+    </resultMap>
+
+    <insert id="save">
+        insert into sys_unit(
+                                id,
+                                parent_id,
+                                name,
+                                alias_name,
+                                unit_code,
+                                note,
+                                field1,
+                                field2,
+                                field3,
+                                sort,
+                                disabled,
+                                has_children,
+                                logo,
+                                create_time,
+                                creator_user_id,
+                                update_time,
+                                update_user_id,
+                                data_state
+                              ) values (
+                            #{ id},
+                                        #{ parent_id},
+                                        #{ name},
+                                        #{ alias_name},
+                                        #{ unit_code},
+                                        #{ note},
+                                        #{ field1},
+                                        #{ field2},
+                                        #{ field3},
+                                        #{ sort},
+                                        #{ disabled},
+                                        #{ has_children},
+                                        #{ logo},
+                                        #{ create_time},
+                                        #{ creator_user_id},
+                                        #{ update_time},
+                                        #{ update_user_id},
+                                        #{data_state}
+                      )
+    </insert>
+
+    <update id="update">
+        update sys_unit
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="parent_id != null">
+                parent_id = #{parent_id},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="alias_name != null">
+                alias_name = #{alias_name},
+            </if>
+            <if test="unit_code != null">
+                unit_code = #{unit_code},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+            <if test="field1 != null">
+                field1 = #{field1},
+            </if>
+            <if test="field2 != null">
+                field2 = #{field2},
+            </if>
+            <if test="field3 != null">
+                field3 = #{field3},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled},
+            </if>
+            <if test="has_children != null">
+                has_children = #{has_children},
+            </if>
+            <if test="logo != null">
+                logo = #{logo},
+            </if>
+            <if test="create_time != null">
+                create_time = #{create_time},
+            </if>
+            <if test="creator_user_id != null">
+                creator_user_id = #{creator_user_id},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time},
+            </if>
+            <if test="update_user_id != null">
+                update_user_id = #{update_user_id},
+            </if>
+            <if test="data_state != null">
+                data_state = #{data_state},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long" flushCache="true">
+        delete from sys_unit where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.quan.sysunit.entity.SysUnit">
+        select * from sys_unit t
+        <include refid="where"/>
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="searchKey != null and searchKey != '' and searchKey=='id'">
+                and t.id like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='parent_id'">
+                and t.parent_id like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='name'">
+                and t.name like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='alias_name'">
+                and t.alias_name like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='unit_code'">
+                and t.unit_code like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='note'">
+                and t.note like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='field1'">
+                and t.field1 like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='field2'">
+                and t.field2 like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='field3'">
+                and t.field3 like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='sort'">
+                and t.sort like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='disabled'">
+                and t.disabled like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='has_children'">
+                and t.has_children like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='logo'">
+                and t.logo like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='create_time'">
+                and t.create_time like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='creator_user_id'">
+                and t.creator_user_id like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='update_time'">
+                and t.update_time like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='update_user_id'">
+                and t.update_user_id like concat('%', #{searchValue}, '%')
+            </if>
+            <if test="searchKey != null and searchKey != '' and searchKey=='data_state'">
+                and t.data_state like concat('%', #{searchValue}, '%')
+            </if>
+        </where>
+    </sql>
+</mapper>

@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +42,7 @@ public class GeneratorController {
     })
     public @ResponseBody
     PageResult list(GeneratorQueryRequest data) throws Exception {
-        return sysGeneratorService.queryList(data);
+        return (PageResult) sysGeneratorService.queryList(data);
     }
 
     /**
@@ -53,7 +52,7 @@ public class GeneratorController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tables", value = "生成代码的数据表，多张表用逗号分隔", required = true, dataType = "String")
     })
-    @PostMapping("/code")
+    @RequestMapping("/code")
     public void code(@RequestParam("tables") String tables, HttpServletResponse response) throws IOException {
 
         byte[] data = sysGeneratorService.generatorCode(tables.split(","));

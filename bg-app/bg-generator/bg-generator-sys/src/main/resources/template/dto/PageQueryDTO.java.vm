@@ -1,0 +1,33 @@
+package ${package}.${pkgName}.dto;
+
+import lombok.Data;
+
+    #if(${hasBigDecimal})
+    import java.math.BigDecimal;
+    #end
+import java.util.Date;
+
+/**
+ * ${comments} 分页查询DTO
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+
+@Getter
+@Setter
+@Data
+public class ${className}PageQueryDTO extends PageQueryDTO {
+
+    #foreach ($column in $columns)
+
+        #if($column.columnName == $pk.columnName)
+        #end
+        /**
+         * $column.comments
+         */
+        private $column.attrType $column.attrname;
+    #end
+
+}

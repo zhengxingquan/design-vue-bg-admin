@@ -46,12 +46,19 @@ public class PageQueryAOP {
             log.info("设置分页信息 pageNumber：{} -> pageSize：{}", page.getPageNumber(), page.getPageSize());
             PageHelper.startPage(page.getPageNumber(), page.getPageSize(), pageQuery.countState());
         }
-        // 调用原来的方法
-        Object result = joinPoint.proceed();
+        String msg = "";
+        Object result = null;
+        try {
+            // 调用原来的方法
+            result = joinPoint.proceed();
+        } catch (Exception e) {
+            msg = e.getMessage();
+        }
         PageInfo pageInfo = new PageInfo<>((List<? extends Object>) result);
         return PageResult.builder()
                 .data(pageInfo.getList())
                 .code(0)
+                .msg(msg)
                 .pageNumber(pageInfo.getPageNum())
                 .pageNumber(pageInfo.getPageSize())
                 .count(pageInfo.getTotal()).build();

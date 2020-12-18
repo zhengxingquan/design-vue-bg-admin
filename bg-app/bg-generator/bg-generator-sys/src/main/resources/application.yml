@@ -17,8 +17,8 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 'x'
       test-on-borrow: false
-      test-on-return: false 
-      test-while-idle: true      
+      test-on-return: false
+      test-while-idle: true
       #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       time-between-eviction-runs-millis: 60000
       #配置一个连接在池中最小生存的时间，单位是毫秒
@@ -28,7 +28,7 @@ spring:
           enabled: true
         wall:
           config:
-            multi-statement-allow: true  
+            multi-statement-allow: true
       # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
       #是否启用StatFilter默认值true
       web-stat-filter:
@@ -60,13 +60,13 @@ spring:
       #stat-view-servlet.deny=128.242.127.1/24,128.242.128.1
       # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
       #aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
-################### mysq end ##########################
-#  zipkin:
-#    base-url: http://59.110.164.254:11008
+  ################### mysq end ##########################
+  #  zipkin:
+  #    base-url: http://59.110.164.254:11008
   redis:
-################### redis 单机版 start ########################## 
+    ################### redis 单机版 start ##########################
     host: 127.0.0.1
-    port: 6379    
+    port: 6379
     timeout: 6000
     database: 1
     lettuce:
@@ -76,7 +76,7 @@ spring:
         max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException  
         min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
       shutdown-timeout: 100ms
-  
+
 ################### redis 单机版 end ##########################   
 #    cluster:
 #      nodes: 130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
@@ -92,29 +92,28 @@ spring:
 #      shutdown-timeout: 100ms
 
 
-mybatis-plus:   
+mybatis-plus:
   global-config:
     banner: false
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 自定义 mapper 文件的路径
-  #mapper-locations: classpath*:com/open/**/dao/*.xml
   mapper-locations: classpath*:mapper/*.xml
 
 
 security:
   oauth2:
-    ignored: /doc.html   ,/document.html 
+    ignored: /doc.html   ,/document.html
     token:
       store:
         type: redis
 
- 
+
 
 #设置最大超时时间
-ribbon:  
-   ReadTimeout: 16000  
-   ConnectTimeout: 16000 
+ribbon:
+  ReadTimeout: 16000
+  ConnectTimeout: 16000
 
 #设置最大容错超时时间
 hystrix:
@@ -135,8 +134,8 @@ logging:
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-#    com.neusoft: DEBUG     
-#    com.netflix: DEBUG                    #用于心跳检测输出的日志    
+  #    com.neusoft: DEBUG
+  #    com.netflix: DEBUG                    #用于心跳检测输出的日志
 
 
   

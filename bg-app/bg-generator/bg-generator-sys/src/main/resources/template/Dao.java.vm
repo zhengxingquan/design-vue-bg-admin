@@ -5,15 +5,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
+
 /**
  * ${comments}
- * 
+ *
  * @author ${author}
  * @email ${email}
  * @date ${datetime}
  */
 @Mapper
-public interface ${className}Dao  {
+public interface ${className}Dao {
 
     int save(${className} ${classname});
 
@@ -21,8 +22,11 @@ public interface ${className}Dao  {
 
     int delete(Long id);
 
-    List<${className}> findAll(Map<String, Object> params);
+    int batchDelete(List<Long> ids);
 
+    List<${className}> list(List<Long> ids);
+
+    List<${className}> findAll(Map<String, Object> params);
 
 
 }

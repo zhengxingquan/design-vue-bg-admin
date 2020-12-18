@@ -10,7 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bg-provider-core</artifactId>
+    <packaging>pom</packaging>
     <description>系统核心模块功能</description>
+    <modules>
+        <module>bg-provider-unit</module>
+        <module>bg-provider-user</module>
+    </modules>
     <dependencies>
 
         <!-- 关系型数据库配置 -->

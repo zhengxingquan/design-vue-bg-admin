@@ -1,6 +1,6 @@
 spring:
   session:
-    store-type: redis  
+    store-type: redis
   datasource:
     druid:
       url: jdbc:mysql://127.0.0.1:3306/bg-oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
@@ -18,8 +18,8 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       validation-query: SELECT 'x'
       test-on-borrow: false
-      test-on-return: false 
-      test-while-idle: true      
+      test-on-return: false
+      test-while-idle: true
       #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       time-between-eviction-runs-millis: 60000
       #配置一个连接在池中最小生存的时间，单位是毫秒
@@ -29,7 +29,7 @@ spring:
           enabled: true
         wall:
           config:
-            multi-statement-allow: true  
+            multi-statement-allow: true
       # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
       #是否启用StatFilter默认值true
       web-stat-filter:
@@ -61,11 +61,11 @@ spring:
       #stat-view-servlet.deny=128.242.127.1/24,128.242.128.1
       # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
       #aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
-################### mysq end ##########################
+  ################### mysq end ##########################
   redis:
-################### redis 单机版 start ########################## 
+    ################### redis 单机版 start ##########################
     host: 127.0.0.1
-    port: 6379    
+    port: 6379
     timeout: 6000
     database: 1
     lettuce:
@@ -75,41 +75,41 @@ spring:
         max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException  
         min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
       shutdown-timeout: 100ms
-################### redis 单机版 end ##########################   
-#    cluster:
-#      nodes: 192.168.235.127:7000,192.168.235.128:7000,192.168.235.129:7000,192.168.235.127:7001,192.168.235.128:7001,192.168.235.129:7001
-#    timeout: 6000 # 连接超时时间（毫秒）
-#    lettuce:
-#      pool:
-#        max-active: 10 # 连接池最大连接数（使用负值表示没有限制）,如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
-#        max-idle: 8   # 连接池中的最大空闲连接 ，默认值也是8
-#        max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException  
-#        min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
-#      shutdown-timeout: 100ms
-    
-      
-    
+      ################### redis 单机版 end ##########################
+      #    cluster:
+      #      nodes: 192.168.235.127:7000,192.168.235.128:7000,192.168.235.129:7000,192.168.235.127:7001,192.168.235.128:7001,192.168.235.129:7001
+      #    timeout: 6000 # 连接超时时间（毫秒）
+      #    lettuce:
+      #      pool:
+      #        max-active: 10 # 连接池最大连接数（使用负值表示没有限制）,如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+      #        max-idle: 8   # 连接池中的最大空闲连接 ，默认值也是8
+      #        max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+      #        min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
+      #      shutdown-timeout: 100ms
 
-mybatis-plus:    
+
+
+
+mybatis-plus:
   global-config:
-    banner: false    
+    banner: false
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
-#  mapper-locations: classpath*:com/quan/**/dao/*.xml
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
 
 
 security:
   ignored: /oauth/user/token , /oauth/client/token , /login  ,  /user/login   , /doc.html ,/user/logout ,/document.html
   validcode: true
   oauth2:
-    ignored: /oauth/user/token , /oauth/client/token   ,/user/logout ,/document.html 
+    ignored: /oauth/user/token , /oauth/client/token   ,/user/logout ,/document.html
     resource:
       filter-order: 3
     token:
       store:
         type: redis
 
- 
+
 
 #设置最大超时时间
 ribbon:
@@ -119,7 +119,7 @@ ribbon:
   OkToRetryOnAllOperations: true
   MaxAutoRetries: 1
   MaxAutoRetriesNextServer: 1
-  ReadTimeout: 16000 
+  ReadTimeout: 16000
   ConnectTimeout: 16000
 
 #设置最大容错超时时间
@@ -131,25 +131,25 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 16000 
+            timeoutInMilliseconds: 16000
 
 ##feign参数优化
 feign:
   client:
-    config: 
+    config:
       default:
         ## 配合logging.level=trace debug用于开发调式日志
         loggerLevel: full
   compression:
     request:
       enabled: true
-      mine-types: text/xml,application/xml,application/json  
+      mine-types: text/xml,application/xml,application/json
       min-request-size: 2048
     response:
-      enabled: true                    
+      enabled: true
 
- 
-  
+
+
 logging:
   level:
     ##lettuce 将连接池里处于空闲（idle）状态的client每隔一段时间就主动断开，然后再重新连接
@@ -158,8 +158,8 @@ logging:
     org.hibernate: info
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-#    com.neusoft: DEBUG     
-#    com.netflix: DEBUG                    #用于心跳检测输出的日志
+    #    com.neusoft: DEBUG
+    #    com.netflix: DEBUG                    #用于心跳检测输出的日志
     
 
 

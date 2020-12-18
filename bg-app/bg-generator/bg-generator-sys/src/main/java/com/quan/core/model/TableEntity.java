@@ -7,13 +7,17 @@ import lombok.Setter;
 import java.util.List;
 
 /****
- *   
- * @author zxq(956607644@qq.com)  
+ *
+ * @author zxq(956607644 @ qq.com)
  * @date 2020/12/3 9:39
  */
 @Data
+@Getter
+@Setter
 public class TableEntity {
 
+    // 数据库的表名称 如：sys_user => SysUser
+    private String dbTableName;
     //表的名称
     private String tableName;
     //表的备注
@@ -27,6 +31,14 @@ public class TableEntity {
     private String className;
     //类名(第一个字母小写)，如：sys_user => sysUser
     private String classname;
+
+    public String getDbTableName() {
+        return dbTableName;
+    }
+
+    public void setDbTableName(String dbTableName) {
+        this.dbTableName = dbTableName;
+    }
 
     public String getTableName() {
         return tableName;

@@ -3,53 +3,28 @@
 
 <mapper namespace="${package}.${pkgName}.dao.${className}Dao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="${package}.${pkgName}.entity.${className}" id="${classname}Map">
-#foreach($column in $columns)
-        <result property="${column.attrname}" column="${column.columnName}"/>
-#end
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="${package}.${pkgName}.model.${className}" id="baseResultMap">
+        #foreach($column in $columns)
+            <result property="${column.attrname}" jdbcType="${column.dataType}" column="${column.columnName}"/>
+        #end
     </resultMap>
 
-    <insert id="save">
-        insert into ${tableName}(
-            #foreach($column in $columns)
-                    #if( $!{velocityCount} == $!{columns.size()})
-                        ${column.columnName}
-                    #else
-                        ${column.columnName},
-                    #end
-            #end
-      ) values (
-         #foreach($column in $columns)
-            #if( $!{velocityCount} == $!{columns.size()})
-               #{${column.columnName}}
-               #else
-               #{ ${column.columnName}},
-            #end
-         #end
-      )
-    </insert>
+    <sql id="base_column_list">
 
-    <update id="update">
-        update ${tableName}
-        <set>
-            #foreach($column in $columns)
-                <if test="${column.columnName} != null">
-                    ${column.columnName} = #{${column.columnName}},
-                </if>
-            #end
-        </set>
-        where id = #{id}
-    </update>
+        #foreach($column in $columns)
+        ${column.columnName} as ${column.attrname}
+    #end
 
-    <delete id="delete" parameterType="long" flushCache="true">
-        delete from ${tableName} where id = #{id}
-    </delete>
+    </sql>
 
-    <select id="findAll" resultType="${package}.${pkgName}.entity.${className}">
-        select * from ${tableName} t
-        <include refid="where"/>
-    </select>
+    <sql id="base_where_condition">
+        <where>
+            dataState = 0
+        </where>
+    </sql>
+
+
     <sql id="where">
         <where>
             #foreach($column in $columns)
@@ -59,4 +34,92 @@
             #end
         </where>
     </sql>
+
+    #* 保存 *#
+    <insert id="save">
+        insert into ${tableName}(
+        #foreach($column in $columns)
+        #if( $!{velocityCount} == $!{columns.size()})
+            ${column.columnName}
+        #else
+            ${column.columnName},
+            #end
+    #end
+      ) values (
+         #foreach($column in $columns)
+        #if( $!{velocityCount} == $!{columns.size()})
+               #{${column.columnName}}
+            #else
+               #{ ${column.columnName}},
+            #end
+    #end
+      )
+    </insert>
+
+    #* 批量保存 *#
+    <insert id="batchSave">
+        insert into ${tableName}(
+        #foreach($column in $columns)
+            #if( $!{velocityCount} == $!{columns.size()})
+                ${column.columnName}
+            #else
+                ${column.columnName},
+            #end
+        #end
+        ) values
+        <foreach collection="java.util.List" item="item" index="index" separator=",">
+            (
+            #foreach($column in $columns)
+                #if( $!{velocityCount} == $!{columns.size()})
+                    #{${column.columnName}}
+                #else
+                    #{ ${column.columnName}},
+                #end
+            #end
+            )
+        </foreach>
+
+    </insert>
+
+    #* 编辑 *#
+    <update id="update">
+        update ${tableName}
+        <set>
+            #foreach($column in $columns)
+                <if test="${column.columnName} != null">
+                    ${column.columnName} = #{${column.columnName}},
+                </if>
+            #end
+        </set>
+        <include refid="base_where_condition"/>
+        AND id = #{id}
+    </update>
+
+    #* 删除 *#
+    <delete id="delete" parameterType="long" flushCache="true">
+        UPDATE ${tableName} SET dataState = 2
+        <include refid="base_where_condition"/>
+        AND id = #{id}
+    </delete>
+
+    #* 批量删除 *#
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE ${tableName} SET dataState = 2
+        <include refid="base_where_condition"/>
+        AND id IN
+        <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
+            #{id,jdbcType=BIGINT}
+        </foreach>
+    </delete>
+
+    #* 列表查询 *#
+    <select id="findAll" resultType="${package}.${pkgName}.model.${className}">
+        select
+        <include refid="base_column_list"/>
+        from ${tableName} t
+        <include refid="where"/>
+    </select>
+
+
 </mapper>

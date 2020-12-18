@@ -8,12 +8,12 @@ package com.quan.common.enume;
 public enum DataEntityState {
     /***
      * 启用
-     */  
-    ENABLE(1),
+     */
+    ENABLE(0),
     /***
      * 删除
-     */  
-    DELETE(2);
+     */
+    DELETE(1);
     private int value;
 
     public int getValue() {

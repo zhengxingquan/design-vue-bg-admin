@@ -1,7 +1,6 @@
 package com.quan.core.request;
 
 import com.quan.common.request.RequestPage;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

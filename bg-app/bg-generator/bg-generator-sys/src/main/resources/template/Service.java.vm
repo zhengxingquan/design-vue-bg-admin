@@ -32,6 +32,12 @@ public interface ${className}Service {
      */
     int delete(Long id);
 
+    /**
+ * 删除
+ * @param id
+ */
+    int delete(Long id);
+
 
     /**
      * 列表

@@ -1,0 +1,36 @@
+package ${package}.${pkgName}.request;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+    #if(${hasBigDecimal})
+    import java.math.BigDecimal;
+    #end
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * ${comments} 编辑请求类
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+
+@Getter
+@Setter
+@Data
+public class ${className}UpdateRequest {
+
+    #foreach ($column in $columns)
+
+        #if($column.columnName == $pk.columnName)
+        #end
+        /**
+         * $column.comments
+         */
+        private $column.attrType $column.attrname;
+    #end
+
+}
