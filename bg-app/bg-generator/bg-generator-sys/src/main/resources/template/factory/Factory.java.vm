@@ -5,17 +5,12 @@ import ${package}.${pkgName}.dto.${className}PageQueryDTO;
 import ${package}.${pkgName}.dto.${className}QueryDTO;
 import ${package}.${pkgName}.dto.create.${className}CreateDTO;
 import ${package}.${pkgName}.dto.update.${className}UpdateDTO;
-import ${package}.${pkgName}.model.${className}DTO;
 import ${package}.${pkgName}.request.${className}QueryRequest;
 import ${package}.${pkgName}.request.create.${className}CreateRequest;
 import ${package}.${pkgName}.request.update.${className}UpdateRequest;
 import ${package}.${pkgName}.request.${className}PageQueryRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
-
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -37,13 +32,15 @@ public final class ${className}Factory {
      * @return
      */
     public static ${className}CreateDTO newInstance(${className}CreateRequest req) {
-        ${className}CreateDTO createData = new ${className}CreateDTO();
+            ${className}CreateDTO createData = new ${className}CreateDTO();
 
         #foreach ($column in $columns)
-            #if($column.createIgnore == false)
-            createData.set${column.attrName}(req.get${column.attrName}());
+            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
+                createData.set${column.attrName}(req.get${column.attrName}());
             #end
         #end
+        createData.setCreateTime(new Date());
+        createData.setCreateUserId(0L);
         return createData;
     }
 
@@ -55,10 +52,12 @@ public final class ${className}Factory {
     public static ${className}UpdateDTO newInstance(${className}UpdateRequest req) {
             ${className}UpdateDTO updateData = new ${className}UpdateDTO();
         #foreach ($column in $columns)
-            #if($column.updateIgnore == false)
-            updateData.set${column.attrName}(req.get${column.attrName}());
+            #if($column.reqIgnore == false)
+                updateData.set${column.attrName}(req.get${column.attrName}());
             #end
         #end
+        updateData.setUpdateTime(new Date());
+        updateData.setUpdateUserId(0L);
         return updateData;
     }
 
@@ -92,7 +91,7 @@ public final class ${className}Factory {
     }
 
     public static ${className}PageQueryDTO newInstance(${className}PageQueryRequest req) {
-        ${className}PageQueryDTO query = new ${className}PageQueryDTO();
+            ${className}PageQueryDTO query = new ${className}PageQueryDTO();
         query.setPageNumber(req.getPageNumber());
         query.setPageSize(req.getPageSize());
         #foreach ($column in $columns)

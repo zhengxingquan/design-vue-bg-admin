@@ -9,9 +9,9 @@ import java.util.Date;
 /**
  * 系统单位表 创建请求类
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 
 @Getter
@@ -68,12 +68,12 @@ public class UnitCreateDTO {
      */
     private String logo;
     /**
-     * 更新时间
+     * 创建时间
      */
-    private Date updateTime;
+    private Date createTime;
     /**
-     * 编辑人员ID
+     * 创建人员ID
      */
-    private Long updateUserId;
+    private Long createUserId;
 
 }

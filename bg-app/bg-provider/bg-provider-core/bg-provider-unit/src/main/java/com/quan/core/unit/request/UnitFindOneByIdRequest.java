@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 /**
  * 系统单位表 编辑请求类
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 
 @Getter

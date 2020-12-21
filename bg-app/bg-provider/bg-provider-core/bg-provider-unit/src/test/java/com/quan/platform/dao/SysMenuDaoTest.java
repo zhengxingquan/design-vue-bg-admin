@@ -2,6 +2,7 @@ package com.quan.platform.dao;
 
 import com.quan.core.BgPlatformCoreUnitApplication;
 import com.quan.common.model.SysMenu;
+import com.quan.core.unit.dao.UnitDao;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,13 +22,13 @@ import javax.annotation.Resource;
 public class SysMenuDaoTest {
 
     @Resource
-    private SysMenuDao sysMenuDao;
+    private UnitDao unitDao;
 
     @Test
     public void testFindMenuById() {
 
-        SysMenu sysMenu = sysMenuDao.findById(1L);
-        log.info("查询菜单：" + sysMenu);
+       unitDao.list(null);
+        log.info("查询菜单：");
 
     }
 

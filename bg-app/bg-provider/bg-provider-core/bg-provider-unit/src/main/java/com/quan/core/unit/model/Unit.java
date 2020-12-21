@@ -12,9 +12,9 @@ import java.util.Date;
 /**
  * 系统单位表
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 
 @Getter
@@ -85,30 +85,10 @@ public class Unit extends BaseEntity{
      */
     @TableField(value = "logo")
     private String logo;
-                    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-                    /**
+                                /**
      * 创建人员ID
      */
-    @TableField(value = "creator_user_id")
-    private Long creatorUserId;
-                    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-                    /**
-     * 编辑人员ID
-     */
-    @TableField(value = "update_user_id")
-    private Long updateUserId;
-                    /**
-     * 数据状态 0启动1删除
-     */
-    @TableField(value = "data_state")
-    private Integer dataState;
-        
+    @TableField(value = "create_user_id")
+    private Long createUserId;
+                                            
 }

@@ -10,9 +10,9 @@ import java.util.Date;
 /**
  * 系统单位表 分页查询DTO
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 
 @Getter
@@ -68,5 +68,9 @@ public class UnitPageQueryDTO extends PageQueryDTO {
      * 单位logo
      */
     private String logo;
-                        
+                /**
+     * 创建人员ID
+     */
+    private Long createUserId;
+                
 }

@@ -2,7 +2,6 @@ package ${package}.${pkgName}.controller;
 
 import com.quan.common.web.PageResult;
 import com.quan.common.web.Result;
-import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.service.${className}Service;
 import ${package}.${pkgName}.request.create.${className}CreateRequest;
 import ${package}.${pkgName}.request.update.${className}UpdateRequest;

@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 系统单位表
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 @RestController
 @RequestMapping("unit")
@@ -56,7 +56,7 @@ public class UnitController {
             @ApiImplicitParam(name = "hasChildren", value = "是否有子节点", required = false, dataType = "Integer"),
             @ApiImplicitParam(name = "logo", value = "单位logo", required = false, dataType = "String"),
             @ApiImplicitParam(name = "createTime", value = "创建时间", required = false, dataType = "Date"),
-            @ApiImplicitParam(name = "creatorUserId", value = "创建人员ID", required = false, dataType = "Long"),
+            @ApiImplicitParam(name = "createUserId", value = "创建人员ID", required = false, dataType = "Long"),
             @ApiImplicitParam(name = "updateTime", value = "更新时间", required = false, dataType = "Date"),
             @ApiImplicitParam(name = "updateUserId", value = "编辑人员ID", required = false, dataType = "Long"),
             @ApiImplicitParam(name = "dataState", value = "数据状态 0启动1删除", required = false, dataType = "Integer"),
@@ -90,7 +90,7 @@ public class UnitController {
             @ApiImplicitParam(name = "hasChildren", value = "是否有子节点", dataType = "Integer"),
             @ApiImplicitParam(name = "logo", value = "单位logo", dataType = "String"),
             @ApiImplicitParam(name = "createTime", value = "创建时间", dataType = "Date"),
-            @ApiImplicitParam(name = "creatorUserId", value = "创建人员ID", dataType = "Long"),
+            @ApiImplicitParam(name = "createUserId", value = "创建人员ID", dataType = "Long"),
             @ApiImplicitParam(name = "updateTime", value = "更新时间", dataType = "Date"),
             @ApiImplicitParam(name = "updateUserId", value = "编辑人员ID", dataType = "Long"),
             @ApiImplicitParam(name = "dataState", value = "数据状态 0启动1删除", dataType = "Integer"),
@@ -122,7 +122,7 @@ public class UnitController {
             @ApiImplicitParam(name = "hasChildren", value = "是否有子节点", dataType = "Integer"),
             @ApiImplicitParam(name = "logo", value = "单位logo", dataType = "String"),
             @ApiImplicitParam(name = "createTime", value = "创建时间", dataType = "Date"),
-            @ApiImplicitParam(name = "creatorUserId", value = "创建人员ID", dataType = "Long"),
+            @ApiImplicitParam(name = "createUserId", value = "创建人员ID", dataType = "Long"),
             @ApiImplicitParam(name = "updateTime", value = "更新时间", dataType = "Date"),
             @ApiImplicitParam(name = "updateUserId", value = "编辑人员ID", dataType = "Long"),
             @ApiImplicitParam(name = "dataState", value = "数据状态 0启动1删除", dataType = "Integer"),
@@ -147,7 +147,7 @@ public class UnitController {
     /**
      * 批量删除
      */
-    @ApiOperation(value = "批量删除")
+    @ApiOperation(value = "删除数据")
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('generator:sysroleuser:delete')")
     public Result deletes(@RequestBody UnitBatchDeleteRequest req) {
@@ -187,6 +187,7 @@ public class UnitController {
             @ApiImplicitParam(name = "disabled", value = "是否禁用", dataType = "Integer"),
             @ApiImplicitParam(name = "hasChildren", value = "是否有子节点", dataType = "Integer"),
             @ApiImplicitParam(name = "logo", value = "单位logo", dataType = "String"),
+            @ApiImplicitParam(name = "createUserId", value = "创建人员ID", dataType = "Long"),
     })
     @PostMapping("/findByCnd")
     @PreAuthorize("hasAnyAuthority('generator:sysroleuser:findByCnd')")
@@ -212,6 +213,7 @@ public class UnitController {
             @ApiImplicitParam(name = "disabled", value = "是否禁用", dataType = "Integer"),
             @ApiImplicitParam(name = "hasChildren", value = "是否有子节点", dataType = "Integer"),
             @ApiImplicitParam(name = "logo", value = "单位logo", dataType = "String"),
+            @ApiImplicitParam(name = "createUserId", value = "创建人员ID", dataType = "Long"),
     })
     @RequestMapping("/query")
     @PreAuthorize("hasAnyAuthority('sys_unit:unit:query')")

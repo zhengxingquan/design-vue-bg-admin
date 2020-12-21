@@ -41,14 +41,14 @@ public abstract class BaseEntity implements Serializable {
      * 创建人员ID
      * 注意！这里需要标记为填充字段
      */
-    @TableField(value = "creator_user_id", fill = FieldFill.INSERT)
-    private Long createOptUserId;
+    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
+    private Long createUserId;
     /***
      * 修改人员ID
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "update_user_id", fill = FieldFill.UPDATE)
-    private Long updateOptUserId;
+    private Long updateUserId;
 
     /***
      * 数据状态

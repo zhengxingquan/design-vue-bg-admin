@@ -10,9 +10,9 @@ import lombok.Setter;
 /**
  * 系统单位表 条件查询请求类
  *
- * @author zhengxingquaqn
+ * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 19:28:04
+ * @date 2020-12-21 20:03:28
  */
 
 @Getter
@@ -80,5 +80,10 @@ public class UnitQueryRequest {
          */
         @ApiModelProperty(value = "单位logo")
         private String logo;
-                                                                    
+                                    /**
+         * 创建人员ID
+         */
+        @ApiModelProperty(value = "创建人员ID")
+        private Long createUserId;
+                                            
 }
