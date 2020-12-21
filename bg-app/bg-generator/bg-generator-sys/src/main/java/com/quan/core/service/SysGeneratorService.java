@@ -1,9 +1,6 @@
 package com.quan.core.service;
 
-import com.quan.common.web.PageResult;
 import com.quan.core.request.GeneratorQueryRequest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;

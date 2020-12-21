@@ -3,11 +3,10 @@ package ${package}.${pkgName}.request;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-    #if(${hasBigDecimal})
-    import java.math.BigDecimal;
-    #end
-import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
 import java.util.Date;
 
 /**
@@ -23,14 +22,17 @@ import java.util.Date;
 @Data
 public class ${className}CreateRequest {
 
-    #foreach ($column in $columns)
+#foreach ($column in $columns)
 
-        #if($column.columnName == $pk.columnName)
-        #end
-        /**
-         * $column.comments
-         */
-        private $column.attrType $column.attrname;
+    #if($column.columnName != $pk.columnName)
+    #if($column.reqIgnore == false)
+    /**
+    * $column.comments
+    */
+    @ApiModelProperty(value = "$column.comments")
+    private $column.attrType $column.attrname;
     #end
+    #end
+#end
 
 }

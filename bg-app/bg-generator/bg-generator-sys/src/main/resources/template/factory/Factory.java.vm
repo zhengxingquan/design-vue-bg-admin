@@ -1,0 +1,108 @@
+package ${package}.${pkgName}.factory;
+
+
+import ${package}.${pkgName}.dto.${className}PageQueryDTO;
+import ${package}.${pkgName}.dto.${className}QueryDTO;
+import ${package}.${pkgName}.dto.create.${className}CreateDTO;
+import ${package}.${pkgName}.dto.update.${className}UpdateDTO;
+import ${package}.${pkgName}.model.${className}DTO;
+import ${package}.${pkgName}.request.${className}QueryRequest;
+import ${package}.${pkgName}.request.create.${className}CreateRequest;
+import ${package}.${pkgName}.request.update.${className}UpdateRequest;
+import ${package}.${pkgName}.request.${className}PageQueryRequest;
+
+import org.apache.commons.collections4.CollectionUtils;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * ${comments} 创建请求类
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public final class ${className}Factory {
+
+
+    /***
+     * 新建
+     *
+     * @return
+     */
+    public static ${className}CreateDTO newInstance(${className}CreateRequest req) {
+        ${className}CreateDTO createData = new ${className}CreateDTO();
+
+        #foreach ($column in $columns)
+            #if($column.createIgnore == false)
+            createData.set${column.attrName}(req.get${column.attrName}());
+            #end
+        #end
+        return createData;
+    }
+
+    /***
+     * 编辑
+     *
+     * @return
+     */
+    public static ${className}UpdateDTO newInstance(${className}UpdateRequest req) {
+            ${className}UpdateDTO updateData = new ${className}UpdateDTO();
+        #foreach ($column in $columns)
+            #if($column.updateIgnore == false)
+            updateData.set${column.attrName}(req.get${column.attrName}());
+            #end
+        #end
+        return updateData;
+    }
+
+    /***
+     * 新建
+     * @author ${author}
+     * @email ${email}
+     * @date ${datetime}
+
+     * @return
+     */
+    public static List<${className}CreateDTO> newInstance(List<${className}CreateRequest> datas) {
+
+        if (CollectionUtils.isEmpty(datas)) {
+            return Collections.emptyList();
+        }
+        return datas.stream().map(${className}Factory::newInstance).collect(Collectors.toList());
+    }
+
+
+    public static ${className}QueryDTO newInstance(${className}QueryRequest req) {
+            ${className}QueryDTO queryData = new ${className}QueryDTO();
+
+        #foreach ($column in $columns)
+            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
+                queryData.set${column.attrName}(req.get${column.attrName}());
+            #end
+        #end
+
+        return queryData;
+    }
+
+    public static ${className}PageQueryDTO newInstance(${className}PageQueryRequest req) {
+        ${className}PageQueryDTO query = new ${className}PageQueryDTO();
+        query.setPageNumber(req.getPageNumber());
+        query.setPageSize(req.getPageSize());
+        #foreach ($column in $columns)
+            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
+                query.set${column.attrName}(req.get${column.attrName}());
+            #end
+        #end
+
+        return query;
+    }
+
+
+}

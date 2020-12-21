@@ -10,7 +10,7 @@ import com.quan.common.enume.DataEntityState;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * @author 郑兴泉 956607644@qq.com
@@ -29,13 +29,13 @@ public abstract class BaseEntity implements Serializable {
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private Timestamp createTime;
+    private Date createTime;
     /***
      * 修改时间
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
-    private Timestamp updateTime;
+    private Date updateTime;
 
     /***
      * 创建人员ID
@@ -53,6 +53,6 @@ public abstract class BaseEntity implements Serializable {
     /***
      * 数据状态
      */
-    @TableField(value = "data_state")
+    @TableField(value = "data_state" )
     private Integer dataState = DataEntityState.ENABLE.getValue();
 }

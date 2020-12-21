@@ -1,0 +1,26 @@
+package ${package}.${pkgName}.request;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotNull;
+
+/**
+ * ${comments} 删除请求类
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+
+@Getter
+@Setter
+@Data
+public class ${className}DeleteRequest {
+
+    @ApiModelProperty("删除id")
+    @NotNull
+    private Long id;
+
+}

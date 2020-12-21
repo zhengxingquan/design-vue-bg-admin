@@ -1,10 +1,13 @@
 package ${package}.${pkgName}.dto;
 
+import com.quan.common.dto.query.PageQueryDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-    #if(${hasBigDecimal})
-    import java.math.BigDecimal;
-    #end
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
 import java.util.Date;
 
 /**
@@ -20,14 +23,15 @@ import java.util.Date;
 @Data
 public class ${className}PageQueryDTO extends PageQueryDTO {
 
-    #foreach ($column in $columns)
-
-        #if($column.columnName == $pk.columnName)
-        #end
-        /**
-         * $column.comments
-         */
-        private $column.attrType $column.attrname;
+#foreach ($column in $columns)
+#if($column.columnName != $pk.columnName)
+    #if($column.dtoIgnore == false)
+    /**
+     * $column.comments
+     */
+    private $column.attrType $column.attrname;
     #end
+#end
+#end
 
 }

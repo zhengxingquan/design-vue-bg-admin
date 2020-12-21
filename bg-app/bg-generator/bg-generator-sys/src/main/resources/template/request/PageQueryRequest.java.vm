@@ -3,11 +3,12 @@ package ${package}.${pkgName}.request;
 import com.quan.common.request.RequestPage;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-    #if(${hasBigDecimal})
-    import java.math.BigDecimal;
-    #end
-import java.util.Date;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
 
 /**
  * ${comments} 分页查询请求类
@@ -22,15 +23,16 @@ import java.util.Date;
 @Data
 public class ${className}PageQueryRequest extends RequestPage {
 
-    #foreach ($column in $columns)
-
-        #if($column.columnName == $pk.columnName)
-        #end
-        /**
-         * $column.comments
-         */
-        @ApiModelProperty("$column.comments")
-        private $column.attrType $column.attrname;
-    #end
+#foreach ($column in $columns)
+#if($column.columnName != $pk.columnName)
+#if($column.reqIgnore == false)
+    /**
+     * $column.comments
+     */
+    @ApiModelProperty(value = "$column.comments")
+    private $column.attrType $column.attrname;
+#end
+#end
+#end
 
 }

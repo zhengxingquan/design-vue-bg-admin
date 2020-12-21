@@ -1,5 +1,7 @@
 package com.quan.core.utils;
 
+import com.google.common.collect.Lists;
+import com.quan.common.util.Strings;
 import com.quan.core.model.ColumnEntity;
 import com.quan.core.model.TableEntity;
 import org.apache.commons.configuration.Configuration;
@@ -41,11 +43,21 @@ public final class GenUtils {
         templates.add("template/request/CreateRequest.java.vm");
         templates.add("template/request/UpdateRequest.java.vm");
         templates.add("template/request/QueryRequest.java.vm");
+        templates.add("template/request/DeleteRequest.java.vm");
+        templates.add("template/request/DeleteBatchRequest.java.vm");
+        templates.add("template/request/FindOneByIdRequest.java.vm");
+
         /* server 与 dao 层的转换类 */
         templates.add("template/dto/PageQueryDTO.java.vm");
         templates.add("template/dto/QueryDTO.java.vm");
         templates.add("template/dto/CreateDTO.java.vm");
         templates.add("template/dto/UpdateDTO.java.vm");
+        templates.add("template/dto/ModelDTO.java.vm");
+
+
+        /* factory 的转换类 */
+        templates.add("template/factory/Factory.java.vm");
+
 
         templates.add("template/index.html.vm");
 
@@ -59,15 +71,26 @@ public final class GenUtils {
                                      List<Map<String, String>> columns, ZipOutputStream zip) {
         //配置信息
         Configuration config = getConfig();
+
+        // 得到忽略的字段名列表
+        List<String> reqIgnoreFields = config.getList("reqIgnore", Collections.EMPTY_LIST);
+        List<String> dtoIgnoreFields = config.getList("dtoIgnore", Collections.EMPTY_LIST);
+        List<String> modelIgnoreFields = config.getList("modelIgnore", Collections.EMPTY_LIST);
+        List<String> updateIgnoreFields = config.getList("updateIgnore", Collections.EMPTY_LIST);
+        List<String> createIgnoreFields = config.getList("createIgnore", Collections.EMPTY_LIST);
+
         boolean hasBigDecimal = false;
         //表信息
         TableEntity tableEntity = new TableEntity();
         tableEntity.setTableName(table.get("tableName"));
         tableEntity.setComments(table.get("tableComment"));
+
         //表名转换成Java类名
         String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
+
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
+
 
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
@@ -77,6 +100,24 @@ public final class GenUtils {
             columnEntity.setDataType(column.get("dataType"));
             columnEntity.setComments(column.get("columnComment"));
             columnEntity.setExtra(column.get("extra"));
+
+            if (reqIgnoreFields.contains(columnEntity.getColumnName())) {
+                columnEntity.setReqIgnore(true);
+            }
+            if (dtoIgnoreFields.contains(columnEntity.getColumnName())) {
+                columnEntity.setDtoIgnore(true);
+            }
+            if (modelIgnoreFields.contains(columnEntity.getColumnName())) {
+                columnEntity.setModelIgnore(true);
+            }
+
+            if (updateIgnoreFields.contains(columnEntity.getColumnName())) {
+                columnEntity.setUpdateIgnore(true);
+            }
+            // model 忽略
+            if (createIgnoreFields.contains(columnEntity.getColumnName())) {
+                columnEntity.setCreateIgnore(true);
+            }
 
             //列名转换成Java属性名
             String attrName = columnToJava(columnEntity.getColumnName());
@@ -122,6 +163,7 @@ public final class GenUtils {
         map.put("hasBigDecimal", hasBigDecimal);
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
+        // 模块名称 主要前端调用
         map.put("moduleName", config.getString("moduleName"));
         map.put("author", config.getString("author"));
         map.put("email", config.getString("email"));
@@ -146,6 +188,17 @@ public final class GenUtils {
                 throw new RuntimeException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
             }
         }
+    }
+
+    /***
+     *   得到忽略的字段名
+     */
+    private static List<String> getIgnoreFieldsByConfig(String ignoreFields) {
+        if (Strings.isBlank(ignoreFields)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        return Lists.newArrayList(ignoreFields.split(","));
     }
 
 
@@ -181,10 +234,13 @@ public final class GenUtils {
      * 获取文件名
      */
     public static String getFileName(String template, String className, String packageName, String tableName) {
+
+        // mapper
         String resourcesPath = "main" + File.separator + "resources" + File.separator;
+        // class page
         String packagePath = "main" + File.separator + "java" + File.separator;
-        tableName = tableName.replace("-", "")
-                .replace("_", "").toLowerCase();
+
+        tableName = tableName.replace("-", "").replace("_", "").toLowerCase();
 
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + tableName + File.separator;
@@ -236,6 +292,22 @@ public final class GenUtils {
         }
 
         /* UpdateRequest request  */
+        if (template.contains("FindOneByIdRequest.java.vm")) {
+            return packagePath + "request"  + File.separator + className + "FindOneByIdRequest.java";
+        }
+
+        /* DeleteRequest request  */
+        if (template.contains("DeleteRequest.java.vm")) {
+            return packagePath + "request" + File.separator + "del" + File.separator + className + "DeleteRequest.java";
+        }
+
+        /* BatchDeleteRequest request  */
+        if (template.contains("DeleteBatchRequest.java.vm")) {
+            return packagePath + "request" + File.separator + "del" + File.separator + className + "BatchDeleteRequest.java";
+        }
+
+
+        /* UpdateRequest request  */
         if (template.contains("UpdateRequest.java.vm")) {
             return packagePath + "request" + File.separator + "update" + File.separator + className + "UpdateRequest.java";
         }
@@ -244,6 +316,11 @@ public final class GenUtils {
         /* CreateDTO DTO  */
         if (template.contains("CreateDTO.java.vm")) {
             return packagePath + "dto" + File.separator + "create" + File.separator + className + "CreateDTO.java";
+        }
+
+        /* UpdateDTO DTO  */
+        if (template.contains("UpdateDTO.java.vm")) {
+            return packagePath + "dto" + File.separator + "update" + File.separator + className + "UpdateDTO.java";
         }
 
         /* PageQueryDTO DTO  */
@@ -256,11 +333,15 @@ public final class GenUtils {
             return packagePath + "dto" + File.separator + className + "QueryDTO.java";
         }
 
-        /* UpdateDTO DTO  */
-        if (template.contains("UpdateDTO.java.vm")) {
-            return packagePath + "dto" + File.separator + "update" + File.separator + className + "UpdateDTO.java";
+        /* ModelDTO.java.vm  DTO */
+        if (template.contains("ModelDTO.java.vm")) {
+            return packagePath + "dto" + File.separator + className + "DTO.java";
         }
 
+        /* factory DTO  */
+        if (template.contains("Factory.java.vm")) {
+            return packagePath + "factory" + File.separator + className + "Factory.java";
+        }
 
         if (template.contains("db.sql.vm")) {
             return className.toLowerCase() + ".sql";

@@ -1,11 +1,15 @@
 package ${package}.${pkgName}.dao;
 
-import ${package}.${pkgName}.entity.${className};
+import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.dto.${className}PageQueryDTO;
+import ${package}.${pkgName}.dto.${className}QueryDTO;
+import ${package}.${pkgName}.dto.create.${className}CreateDTO;
+import ${package}.${pkgName}.dto.update.${className}UpdateDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import com.quan.common.web.PageResult;
 
 import java.util.List;
-import java.util.Map;
-
 /**
  * ${comments}
  *
@@ -16,17 +20,66 @@ import java.util.Map;
 @Mapper
 public interface ${className}Dao {
 
-    int save(${className} ${classname});
+    /**
+     * 添加
+     * @param data
+     */
+    int save(${className}CreateDTO data);
 
-    int update(${className} ${classname});
+    /**
+     * 批量添加
+     * @param ${classname}s
+     */
+    int save(List<${className}CreateDTO> ${classname}s);
 
+    /**
+     * 修改
+     * @param data
+     */
+    int update(${className}UpdateDTO data);
+
+    /**
+     * 单条删除
+     * @param id
+     */
     int delete(Long id);
 
-    int batchDelete(List<Long> ids);
+    /**
+       * 批量删除
+       *
+       * @param id
+       */
+    int batchDelete(List<Long> id);
 
-    List<${className}> list(List<Long> ids);
+    /**
+    * 通过ID查找记录
+    * @param id 用户记录ID
+    * @return
+    */
+    ${className}DTO findOneById(Long id);
 
-    List<${className}> findAll(Map<String, Object> params);
 
+    /**
+     * 通过条件查找记录
+     * @param params 对象数据
+     * @return
+     */
+     ${className}DTO findOneByCnd(@Param("data") ${className}QueryDTO params);
+
+
+    /**
+     * 查询列表分页
+     * @param params 对象查询
+     * @return
+     */
+    PageResult<${className}DTO> findAll(@Param("data") ${className}PageQueryDTO params);
+
+
+    /**
+     * 查询列表不分页
+     * @param params 对象查询
+     * @return
+     */
+    List<${className}DTO> list(@Param("data") ${className}QueryDTO params);
 
 }

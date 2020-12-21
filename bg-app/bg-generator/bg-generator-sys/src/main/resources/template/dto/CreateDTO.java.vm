@@ -4,10 +4,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-    #if(${hasBigDecimal})
-    import java.math.BigDecimal;
-    #end
-import java.io.Serializable;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
 import java.util.Date;
 
 /**
@@ -21,16 +20,15 @@ import java.util.Date;
 @Getter
 @Setter
 @Data
-public class ${className}CreateRequest {
+public class ${className}CreateDTO {
 
-    #foreach ($column in $columns)
-
-        #if($column.columnName == $pk.columnName)
-        #end
-        /**
-         * $column.comments
-         */
-        private $column.attrType $column.attrname;
-    #end
+#foreach ($column in $columns)
+#if($column.createIgnore == false)
+    /**
+     * $column.comments
+     */
+    private $column.attrType $column.attrname;
+#end
+#end
 
 }

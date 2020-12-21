@@ -1,6 +1,5 @@
 package com.quan.common.request;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,10 +14,10 @@ import java.io.Serializable;
 @Data
 public class RequestPage implements Serializable {
 
-    @ApiModelProperty(value = "要查询的起始页码")
+    @ApiModelProperty(value = "要查询的起始页码" )
     @NotNull
     private Integer pageNumber = 0;
-    @ApiModelProperty(value = "每页显示数量")
+    @ApiModelProperty(value = "每页显示数量" )
     @NotNull
     private Integer pageSize = 10;
 }

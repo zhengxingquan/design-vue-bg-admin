@@ -7,7 +7,6 @@ import lombok.Setter;
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
-import java.util.Date;
 
 /**
  * ${comments} 编辑请求类
@@ -20,15 +19,15 @@ import java.util.Date;
 @Getter
 @Setter
 @Data
-public class ${className}UpdateDTO {
+public class ${className}DTO {
 
 #foreach ($column in $columns)
-#if($column.updateIgnore == false)
+    #if($column.dtoIgnore == false)
     /**
      * $column.comments
      */
     private $column.attrType $column.attrname;
-#end
+    #end
 #end
 
 }

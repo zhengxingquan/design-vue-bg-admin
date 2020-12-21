@@ -24,8 +24,33 @@ public class ColumnEntity {
     private String attrname;
     //属性类型
     private String attrType;
-    //auto_increment
+    /***
+     * 自动增长  auto_increment
+     */
     private String extra;
+    /***
+     * 查询是否忽略
+     */
+    private boolean reqIgnore;
+
+    /***
+     * DTO是否忽略
+     */
+    private boolean dtoIgnore;
+
+    /***
+     * model 是否忽略
+     */
+    private boolean modelIgnore;
+    /***
+     * 编辑 是否忽略
+     */
+    private boolean updateIgnore;
+    /***
+     * 新增 是否忽略
+     */
+    private boolean createIgnore;
+
 
     public String getColumnName() {
         return columnName;
@@ -81,5 +106,45 @@ public class ColumnEntity {
 
     public void setExtra(String extra) {
         this.extra = extra;
+    }
+
+    public boolean isDtoIgnore() {
+        return dtoIgnore;
+    }
+
+    public void setDtoIgnore(boolean dtoIgnore) {
+        this.dtoIgnore = dtoIgnore;
+    }
+
+    public boolean isModelIgnore() {
+        return modelIgnore;
+    }
+
+    public void setModelIgnore(boolean modelIgnore) {
+        this.modelIgnore = modelIgnore;
+    }
+
+    public boolean isReqIgnore() {
+        return reqIgnore;
+    }
+
+    public void setReqIgnore(boolean reqIgnore) {
+        this.reqIgnore = reqIgnore;
+    }
+
+    public boolean isUpdateIgnore() {
+        return updateIgnore;
+    }
+
+    public void setUpdateIgnore(boolean updateIgnore) {
+        this.updateIgnore = updateIgnore;
+    }
+
+    public boolean isCreateIgnore() {
+        return createIgnore;
+    }
+
+    public void setCreateIgnore(boolean createIgnore) {
+        this.createIgnore = createIgnore;
     }
 }

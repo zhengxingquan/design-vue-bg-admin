@@ -1,10 +1,13 @@
 package ${package}.${pkgName}.service;
 
-import ${package}.${pkgName}.entity.${className};
+import com.quan.common.web.PageResult;
+import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.request.create.${className}CreateRequest;
+import ${package}.${pkgName}.request.update.${className}UpdateRequest;
+import ${package}.${pkgName}.request.${className}PageQueryRequest;
+import ${package}.${pkgName}.request.${className}QueryRequest;
 
-import com.open.capacity.commons.PageResult;
-
-import java.util.Map;
+import java.util.List;
 
 /**
  * ${comments}
@@ -16,35 +19,65 @@ import java.util.Map;
 public interface ${className}Service {
     /**
      * 添加
-     * @param ${classname}
+     * @param data
      */
-    int save(${className} ${classname});
+    int save(${className}CreateRequest data);
+
+    /**
+     * 批量添加
+     * @param ${classname}s
+     */
+    int save(List<${className}CreateRequest> ${classname}s);
 
     /**
      * 修改
      * @param ${classname}
      */
-    int update(${className} ${classname});
+    int update(${className}UpdateRequest ${classname});
 
     /**
-     * 删除
+     * 单条删除
      * @param id
      */
     int delete(Long id);
 
     /**
- * 删除
- * @param id
- */
-    int delete(Long id);
+       * 批量删除
+       *
+       * @param id
+       */
+    int delete(List<Long> id);
+
+    /**
+    * 通过ID查找记录
+    * @param id 用户记录ID
+    * @return
+    */
+        ${className}DTO findOneById(Long id);
 
 
     /**
-     * 列表
-     * @param params
+     * 通过条件查找记录
+     * @param ${classname} 对象数据
      * @return
      */
-    PageResult<${className}> findAll(Map<String, Object> params);
+        ${className}DTO findOneByCnd(${className}QueryRequest ${classname});
+
+
+    /**
+     * 查询列表分页
+     * @param params 对象查询
+     * @return
+     */
+    PageResult<${className}DTO> findAll(${className}PageQueryRequest params);
+
+
+    /**
+     * 查询列表不分页
+     * @param params 对象查询
+     * @return
+     */
+    List<${className}DTO> list(${className}QueryRequest params);
 
 }
 

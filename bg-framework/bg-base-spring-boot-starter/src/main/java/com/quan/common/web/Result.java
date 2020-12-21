@@ -10,9 +10,6 @@ import java.io.Serializable;
  *
  * @author zxq(956607644 @ qq.com)
  * @date 2020/12/18 19:56
- * @param null
-
- * @return
  */
 @Data
 @NoArgsConstructor
@@ -27,6 +24,14 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> succeed(String msg) {
         return succeedWith(null, CodeEnum.SUCCESS.getCode(), msg);
+    }
+
+    public static <T> Result<T> succeed(T data) {
+        return succeedWith(null, CodeEnum.SUCCESS.getCode(), "");
+    }
+
+    public static <T> Result<T> succeed(String msg, T data) {
+        return succeedWith(data, CodeEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> Result<T> succeed(T model, String msg) {

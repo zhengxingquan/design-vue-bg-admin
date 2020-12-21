@@ -1,18 +1,23 @@
 package ${package}.${pkgName}.service.impl;
 
 import com.quan.common.annotation.PageQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.open.capacity.commons.PageResult;
-
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections4.MapUtils;
-
-import ${package}.${pkgName}.entity.${className};
+import com.quan.common.web.PageResult;
+import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.factory.${className}Factory;
 import ${package}.${pkgName}.dao.${className}Dao;
 import ${package}.${pkgName}.service.${className}Service;
+import ${package}.${pkgName}.request.${className}PageQueryRequest;
+import ${package}.${pkgName}.request.${className}QueryRequest;
+import ${package}.${pkgName}.request.create.${className}CreateRequest;
+import ${package}.${pkgName}.request.update.${className}UpdateRequest;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -23,42 +28,107 @@ public class ${className}ServiceImpl implements ${className}Service {
 
     /**
      * 添加
-     * @param ${classname}
+     *
+     * @param data
      */
+    @Transactional
     @Override
-    public int save(${className} ${classname}) {
-        return ${classname}Dao.save(${classname});
+    public int save(${className}CreateRequest data) {
+        return ${classname}Dao.save(${className}Factory.newInstance(data));
+    }
+
+    /**
+     * 批量添加
+     *
+     * @param ${classname}s
+     */
+    @Transactional
+    @Override
+    public int save(List<${className}CreateRequest> ${classname}s) {
+        return ${classname}Dao.save(${className}Factory.newInstance(${classname}s));
     }
 
     /**
      * 修改
      * @param ${classname}
      */
+    @Transactional
     @Override
-    public int update(${className} ${classname}) {
-        return ${classname}Dao.update(${classname});
+    public int update(${className}UpdateRequest ${classname}) {
+        return ${classname}Dao.update(${className}Factory.newInstance(${classname}));
     }
 
-
     /**
-     * 删除
+     * 单条删除
      * @param id
      */
+    @Transactional
     @Override
     public int delete(Long id) {
         return ${classname}Dao.delete(id);
     }
 
+    /**
+       * 批量删除
+       *
+       * @param id
+       */
+    @Transactional
+    @Override
+    public int delete(List<Long> id) {
+        if (CollectionUtils.isEmpty(id)) {
+            return 0;
+        }
+        return ${classname}Dao.batchDelete(id);
+    }
 
     /**
-     * 列表
-     * @param params
+    * 通过ID查找记录
+    * @param id 用户记录ID
+    * @return
+    */
+    @Override
+    public  ${className}DTO findOneById(Long id) {
+        return ${classname}Dao.findOneById(id);
+    }
+
+
+    /**
+     * 通过条件查找记录
+     * @param ${classname} 对象数据
+     * @return
+     */
+    @Override
+    public ${className}DTO findOneByCnd(${className}QueryRequest ${classname}) {
+            ${className}DTO data = ${classname}Dao.findOneByCnd(${className}Factory.newInstance(${classname}));
+        return data;
+    }
+
+
+    /**
+     * 查询列表分页
+     * @param params 对象查询
      * @return
      */
     @Override
     @PageQuery
-    public PageResult<${className}> findAll(Map<String, Object> params) {
-        List<${className}> list = ${classname}Dao.findAll(params);
+    public PageResult<${className}DTO> findAll(${className}PageQueryRequest params) {
+        return (PageResult<${className}DTO>) ${classname}Dao.findAll(${className}Factory.newInstance(params));
+    }
+
+
+    /**
+     * 查询列表不分页
+     * @param params 对象查询
+     * @return
+     */
+    @Override
+    public List<${className}DTO> list(${className}QueryRequest params) {
+        List<${className}DTO> list = ${classname}Dao.list(${className}Factory.newInstance(params));
+        if (CollectionUtils.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return list;
     }
 
 }
