@@ -3,33 +3,29 @@
 
 <mapper namespace="${package}.${pkgName}.dao.${className}Dao">
 
-    <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="${package}.${pkgName}.model.${className}" id="baseResultMap">
+    <!-- 通用查询映射结果  -->
+    <resultMap type="${package}.${pkgName}.model.${className}" id="BaseResultMap">
         #foreach($column in $columns)
-            <result property="${column.attrname}" jdbcType="${column.dataType}" column="${column.columnName}"/>
+            <result property="${column.attrname}" column="${column.columnName}"/>
         #end
     </resultMap>
 
-    <sql id="base_column_list">
-
+    <sql id="baseColumnList">
         #foreach($column in $columns)
-        ${column.columnName} as ${column.attrname}
+        ${column.columnName} as ${column.attrname}#if( $!{velocityCount} != $!{columns.size()}),#end
     #end
-
-    </sql>
-
-    <sql id="base_where_condition">
-        <where>
-            dataState = 0
-        </where>
     </sql>
 
 
     <sql id="where">
+        ##                <if test="searchKey != null and searchKey != '' and searchKey=='${column.columnName}'">
+        ##                    and t.${column.columnName} like concat('%', #{searchValue}, '%')
+        ##                </if>
         <where>
+            dataState = 0
             #foreach($column in $columns)
-                <if test="searchKey != null and searchKey != '' and searchKey=='${column.columnName}'">
-                    and t.${column.columnName} like concat('%', #{searchValue}, '%')
+                <if test="data.${column.columnName} != null">
+                    ${column.columnName} = #{data.${column.columnName}},
                 </if>
             #end
         </where>
@@ -38,14 +34,14 @@
     #* 保存 *#
     <insert id="save">
         insert into ${tableName}(
-        #foreach($column in $columns)
+            #foreach($column in $columns)
         #if( $!{velocityCount} == $!{columns.size()})
             ${column.columnName}
         #else
             ${column.columnName},
-            #end
+                #end
     #end
-      ) values (
+        ) values (
          #foreach($column in $columns)
         #if( $!{velocityCount} == $!{columns.size()})
                #{${column.columnName}}
@@ -53,8 +49,8 @@
                #{ ${column.columnName}},
             #end
     #end
-      )
-    </insert>
+        )
+        </insert>
 
     #* 批量保存 *#
     <insert id="batchSave">
@@ -71,9 +67,9 @@
             (
             #foreach($column in $columns)
                 #if( $!{velocityCount} == $!{columns.size()})
-                    #{${column.columnName}}
+                    #{item.${column.columnName}}
                 #else
-                    #{ ${column.columnName}},
+                    #{item.${column.columnName}},
                 #end
             #end
             )
@@ -83,7 +79,7 @@
 
     #* 编辑 *#
     <update id="update">
-        update ${tableName}
+        UPDATE ${tableName}
         <set>
             #foreach($column in $columns)
                 <if test="${column.columnName} != null">
@@ -91,33 +87,53 @@
                 </if>
             #end
         </set>
-        <include refid="base_where_condition"/>
-        AND id = #{id}
+        WHERE dataState = 0 AND id = #{id}
     </update>
 
     #* 删除 *#
-    <delete id="delete" parameterType="long" flushCache="true">
-        UPDATE ${tableName} SET dataState = 2
-        <include refid="base_where_condition"/>
-        AND id = #{id}
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE ${tableName} SET dataState = 2 WHERE dataState = 0 AND id = #{id}
     </delete>
 
     #* 批量删除 *#
     <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
 
         UPDATE ${tableName} SET dataState = 2
-        <include refid="base_where_condition"/>
-        AND id IN
+        WHERE dataState = 0 AND id IN
         <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
-            #{id,jdbcType=BIGINT}
+            #{id}
         </foreach>
     </delete>
 
-    #* 列表查询 *#
+    #* 通过ID 查询  *#
+    <select id="findOneById" parameterType="java.lang.Long" resultType="${package}.${pkgName}.model.${className}">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM ${tableName}
+        WHERE dataState = 0 AND id = #{id}
+    </select>
+
+    #* 条件 查询 *#
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="${package}.${pkgName}.model.${className}">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM ${tableName}
+        <include refid="where"/>
+    </select>
+
+    #* 列表查询 分页查询 *#
     <select id="findAll" resultType="${package}.${pkgName}.model.${className}">
-        select
-        <include refid="base_column_list"/>
-        from ${tableName} t
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM ${tableName} t
+        <include refid="where"/>
+    </select>
+
+    #* 列表查询 不分页查询 *#
+    <select id="list" resultType="${package}.${pkgName}.model.${className}">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM ${tableName} t
         <include refid="where"/>
     </select>
 

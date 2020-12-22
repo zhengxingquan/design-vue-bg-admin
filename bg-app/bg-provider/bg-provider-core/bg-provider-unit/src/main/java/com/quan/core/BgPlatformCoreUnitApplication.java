@@ -22,7 +22,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 /* 启动幂登 控制*/
 @EnableApiIdempotent
-//@MapperScan({"com.quan.core.unit.dao"})
 public class BgPlatformCoreUnitApplication {
 
     public static void main(String[] args) {

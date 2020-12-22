@@ -1,5 +1,6 @@
 package com.quan.core.unit.dao;
 
+import com.quan.core.unit.model.Unit;
 import com.quan.core.unit.dto.UnitDTO;
 import com.quan.core.unit.dto.UnitPageQueryDTO;
 import com.quan.core.unit.dto.UnitQueryDTO;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 20:03:28
+ * @date 2020-12-22 19:04:56
  */
 @Mapper
 public interface UnitDao {
@@ -56,7 +57,7 @@ public interface UnitDao {
     * @param id 用户记录ID
     * @return
     */
-    UnitDTO findOneById(Long id);
+    Unit findOneById(Long id);
 
 
     /**
@@ -64,7 +65,7 @@ public interface UnitDao {
      * @param params 对象数据
      * @return
      */
-     UnitDTO findOneByCnd(@Param("data") UnitQueryDTO params);
+     Unit findOneByCnd(@Param("data") UnitQueryDTO params);
 
 
     /**
@@ -72,7 +73,7 @@ public interface UnitDao {
      * @param params 对象查询
      * @return
      */
-    PageResult<UnitDTO> findAll(@Param("data") UnitPageQueryDTO params);
+    List<Unit> findAll(@Param("data") UnitPageQueryDTO params);
 
 
     /**
@@ -80,6 +81,6 @@ public interface UnitDao {
      * @param params 对象查询
      * @return
      */
-    List<UnitDTO> list(@Param("data") UnitQueryDTO params);
+    List<Unit> list(@Param("data") UnitQueryDTO params);
 
 }

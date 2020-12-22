@@ -1,5 +1,6 @@
 package ${package}.${pkgName}.dao;
 
+import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.dto.${className}DTO;
 import ${package}.${pkgName}.dto.${className}PageQueryDTO;
 import ${package}.${pkgName}.dto.${className}QueryDTO;
@@ -56,7 +57,7 @@ public interface ${className}Dao {
     * @param id 用户记录ID
     * @return
     */
-    ${className}DTO findOneById(Long id);
+    ${className} findOneById(Long id);
 
 
     /**
@@ -64,7 +65,7 @@ public interface ${className}Dao {
      * @param params 对象数据
      * @return
      */
-     ${className}DTO findOneByCnd(@Param("data") ${className}QueryDTO params);
+     ${className} findOneByCnd(@Param("data") ${className}QueryDTO params);
 
 
     /**
@@ -72,7 +73,7 @@ public interface ${className}Dao {
      * @param params 对象查询
      * @return
      */
-    PageResult<${className}DTO> findAll(@Param("data") ${className}PageQueryDTO params);
+    List<${className}> findAll(@Param("data") ${className}PageQueryDTO params);
 
 
     /**
@@ -80,6 +81,6 @@ public interface ${className}Dao {
      * @param params 对象查询
      * @return
      */
-    List<${className}DTO> list(@Param("data") ${className}QueryDTO params);
+    List<${className}> list(@Param("data") ${className}QueryDTO params);
 
 }

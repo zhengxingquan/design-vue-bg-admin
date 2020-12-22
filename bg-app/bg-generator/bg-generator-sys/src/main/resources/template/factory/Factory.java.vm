@@ -1,6 +1,7 @@
 package ${package}.${pkgName}.factory;
 
-
+import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.dto.${className}PageQueryDTO;
 import ${package}.${pkgName}.dto.${className}QueryDTO;
 import ${package}.${pkgName}.dto.create.${className}CreateDTO;
@@ -11,6 +12,7 @@ import ${package}.${pkgName}.request.update.${className}UpdateRequest;
 import ${package}.${pkgName}.request.${className}PageQueryRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -62,14 +64,9 @@ public final class ${className}Factory {
     }
 
     /***
-     * 新建
-     * @author ${author}
-     * @email ${email}
-     * @date ${datetime}
-
-     * @return
+     * 批量 新建
      */
-    public static List<${className}CreateDTO> newInstance(List<${className}CreateRequest> datas) {
+    public static List<${className}CreateDTO> newBatchInstance(List<${className}CreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
@@ -77,31 +74,42 @@ public final class ${className}Factory {
         return datas.stream().map(${className}Factory::newInstance).collect(Collectors.toList());
     }
 
-
+    /***
+    * 转换查询列表 req 到 DTO
+    */
     public static ${className}QueryDTO newInstance(${className}QueryRequest req) {
             ${className}QueryDTO queryData = new ${className}QueryDTO();
-
-        #foreach ($column in $columns)
-            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
-                queryData.set${column.attrName}(req.get${column.attrName}());
-            #end
-        #end
 
         return queryData;
     }
 
+    /***
+     * 转换分页 req 到 DTO
+     */
     public static ${className}PageQueryDTO newInstance(${className}PageQueryRequest req) {
             ${className}PageQueryDTO query = new ${className}PageQueryDTO();
         query.setPageNumber(req.getPageNumber());
         query.setPageSize(req.getPageSize());
-        #foreach ($column in $columns)
-            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
-                query.set${column.attrName}(req.get${column.attrName}());
-            #end
-        #end
 
         return query;
     }
 
+    /***
+     * 转换 PO 到 DTO
+     */
+    public static ${className}DTO newInstance(${className} data) {
+            ${className}DTO dto = new ${className}DTO();
+        #foreach ($column in $columns)
+            #if($column.dtoIgnore == false)
+                dto.set${column.attrName}(data.get${column.attrName}());
+            #end
+        #end
+
+        return dto;
+    }
+
+    public static List<${className}DTO> newInstance(List<${className}> data) {
+        return data.stream().map(${className}Factory::newInstance).collect(Collectors.toList());
+    }
 
 }

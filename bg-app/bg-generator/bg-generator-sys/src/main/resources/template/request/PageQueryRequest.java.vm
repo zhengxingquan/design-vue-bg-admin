@@ -23,16 +23,4 @@ import java.math.BigDecimal;
 @Data
 public class ${className}PageQueryRequest extends RequestPage {
 
-#foreach ($column in $columns)
-#if($column.columnName != $pk.columnName)
-#if($column.reqIgnore == false)
-    /**
-     * $column.comments
-     */
-    @ApiModelProperty(value = "$column.comments")
-    private $column.attrType $column.attrname;
-#end
-#end
-#end
-
 }

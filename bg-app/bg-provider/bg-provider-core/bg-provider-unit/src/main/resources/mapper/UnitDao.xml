@@ -3,113 +3,97 @@
 
 <mapper namespace="com.quan.core.unit.dao.UnitDao">
 
-    <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.quan.core.unit.model.Unit" id="baseResultMap">
-        <result property="id" jdbcType="bigint" column="id"/>
-        <result property="parentId" jdbcType="varchar" column="parent_id"/>
-        <result property="name" jdbcType="varchar" column="name"/>
-        <result property="aliasName" jdbcType="varchar" column="alias_name"/>
-        <result property="unitCode" jdbcType="varchar" column="unit_code"/>
-        <result property="note" jdbcType="varchar" column="note"/>
-        <result property="field1" jdbcType="varchar" column="field1"/>
-        <result property="field2" jdbcType="varchar" column="field2"/>
-        <result property="field3" jdbcType="varchar" column="field3"/>
-        <result property="sort" jdbcType="int" column="sort"/>
-        <result property="disabled" jdbcType="tinyint" column="disabled"/>
-        <result property="hasChildren" jdbcType="tinyint" column="has_children"/>
-        <result property="logo" jdbcType="varchar" column="logo"/>
-        <result property="createTime" jdbcType="timestamp" column="create_time"/>
-        <result property="createUserId" jdbcType="bigint" column="create_user_id"/>
-        <result property="updateTime" jdbcType="timestamp" column="update_time"/>
-        <result property="updateUserId" jdbcType="bigint" column="update_user_id"/>
-        <result property="dataState" jdbcType="tinyint" column="data_state"/>
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.unit.model.Unit" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="aliasName" column="alias_name"/>
+        <result property="unitCode" column="unit_code"/>
+        <result property="note" column="note"/>
+        <result property="field1" column="field1"/>
+        <result property="field2" column="field2"/>
+        <result property="field3" column="field3"/>
+        <result property="sort" column="sort"/>
+        <result property="disabled" column="disabled"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="logo" column="logo"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
     </resultMap>
 
-    <sql id="base_column_list">
-
-                id as id
-            parent_id as parentId
-            name as name
-            alias_name as aliasName
-            unit_code as unitCode
-            note as note
-            field1 as field1
-            field2 as field2
-            field3 as field3
-            sort as sort
-            disabled as disabled
-            has_children as hasChildren
-            logo as logo
-            create_time as createTime
-            create_user_id as createUserId
-            update_time as updateTime
-            update_user_id as updateUserId
-            data_state as dataState
-    
-    </sql>
-
-    <sql id="base_where_condition">
-        <where>
-            dataState = 0
-        </where>
+    <sql id="baseColumnList">
+        id as id,
+        parent_id as parentId,
+        `name` as name,
+        alias_name as aliasName,
+        note as note,
+        field1 as field1,
+        field2 as field2,
+        field3 as field3,
+        disabled as disabled
     </sql>
 
 
     <sql id="where">
         <where>
-            <if test="searchKey != null and searchKey != '' and searchKey=='id'">
-                and t.id like concat('%', #{searchValue}, '%')
+            dataState = 0
+            <if test="data.id != null">
+                id = #{data.id},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='parent_id'">
-                and t.parent_id like concat('%', #{searchValue}, '%')
+            <if test="data.parent_id != null">
+                parent_id = #{data.parent_id},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='name'">
-                and t.name like concat('%', #{searchValue}, '%')
+            <if test="data.name != null">
+                name = #{data.name},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='alias_name'">
-                and t.alias_name like concat('%', #{searchValue}, '%')
+            <if test="data.alias_name != null">
+                alias_name = #{data.alias_name},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='unit_code'">
-                and t.unit_code like concat('%', #{searchValue}, '%')
+            <if test="data.unit_code != null">
+                unit_code = #{data.unit_code},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='note'">
-                and t.note like concat('%', #{searchValue}, '%')
+            <if test="data.note != null">
+                note = #{data.note},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='field1'">
-                and t.field1 like concat('%', #{searchValue}, '%')
+            <if test="data.field1 != null">
+                field1 = #{data.field1},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='field2'">
-                and t.field2 like concat('%', #{searchValue}, '%')
+            <if test="data.field2 != null">
+                field2 = #{data.field2},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='field3'">
-                and t.field3 like concat('%', #{searchValue}, '%')
+            <if test="data.field3 != null">
+                field3 = #{data.field3},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='sort'">
-                and t.sort like concat('%', #{searchValue}, '%')
+            <if test="data.sort != null">
+                sort = #{data.sort},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='disabled'">
-                and t.disabled like concat('%', #{searchValue}, '%')
+            <if test="data.disabled != null">
+                disabled = #{data.disabled},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='has_children'">
-                and t.has_children like concat('%', #{searchValue}, '%')
+            <if test="data.has_children != null">
+                has_children = #{data.has_children},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='logo'">
-                and t.logo like concat('%', #{searchValue}, '%')
+            <if test="data.logo != null">
+                logo = #{data.logo},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='create_time'">
-                and t.create_time like concat('%', #{searchValue}, '%')
+            <if test="data.create_time != null">
+                create_time = #{data.create_time},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='create_user_id'">
-                and t.create_user_id like concat('%', #{searchValue}, '%')
+            <if test="data.create_user_id != null">
+                create_user_id = #{data.create_user_id},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='update_time'">
-                and t.update_time like concat('%', #{searchValue}, '%')
+            <if test="data.update_time != null">
+                update_time = #{data.update_time},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='update_user_id'">
-                and t.update_user_id like concat('%', #{searchValue}, '%')
+            <if test="data.update_user_id != null">
+                update_user_id = #{data.update_user_id},
             </if>
-            <if test="searchKey != null and searchKey != '' and searchKey=='data_state'">
-                and t.data_state like concat('%', #{searchValue}, '%')
+            <if test="data.data_state != null">
+                data_state = #{data.data_state},
             </if>
         </where>
     </sql>
@@ -117,25 +101,23 @@
 
     <insert id="save">
         insert into sys_unit(
-                            id,
-                                    parent_id,
-                                    name,
-                                    alias_name,
-                                    unit_code,
-                                    note,
-                                    field1,
-                                    field2,
-                                    field3,
-                                    sort,
-                                    disabled,
-                                    has_children,
-                                    logo,
-                                    create_time,
-                                    create_user_id,
-                                    update_time,
-                                    update_user_id,
-                                    data_state
-                  ) values (
+                                id,
+                                        parent_id,
+                                        `name`,
+                                        alias_name,
+                                        unit_code,
+                                        note,
+                                        field1,
+                                        field2,
+                                        field3,
+                                        sort,
+                                        disabled,
+                                        has_children,
+                                        logo,
+                                        create_time,
+                                        create_user_id,
+                                        data_state
+                    ) values (
                                 #{ id},
                                        #{ parent_id},
                                        #{ name},
@@ -151,18 +133,16 @@
                                        #{ logo},
                                        #{ create_time},
                                        #{ create_user_id},
-                                       #{ update_time},
-                                       #{ update_user_id},
-                                       #{data_state}
-                      )
-    </insert>
+                                       #{ data_state}
+                        )
+        </insert>
 
 
     <insert id="batchSave">
         insert into sys_unit(
         id,
         parent_id,
-        name,
+        `name`,
         alias_name,
         unit_code,
         note,
@@ -181,24 +161,24 @@
         ) values
         <foreach collection="java.util.List" item="item" index="index" separator=",">
             (
-            #{ id},
-            #{ parent_id},
-            #{ name},
-            #{ alias_name},
-            #{ unit_code},
-            #{ note},
-            #{ field1},
-            #{ field2},
-            #{ field3},
-            #{ sort},
-            #{ disabled},
-            #{ has_children},
-            #{ logo},
-            #{ create_time},
-            #{ create_user_id},
-            #{ update_time},
-            #{ update_user_id},
-            #{data_state}
+            #{item.id},
+            #{item.parent_id},
+            #{item.name},
+            #{item.alias_name},
+            #{item.unit_code},
+            #{item.note},
+            #{item.field1},
+            #{item.field2},
+            #{item.field3},
+            #{item.sort},
+            #{item.disabled},
+            #{item.has_children},
+            #{item.logo},
+            #{item.create_time},
+            #{item.create_user_id},
+            #{item.update_time},
+            #{item.update_user_id},
+            #{item.data_state}
             )
         </foreach>
 
@@ -206,7 +186,7 @@
 
 
     <update id="update">
-        update sys_unit
+        UPDATE sys_unit
         <set>
             <if test="id != null">
                 id = #{id},
@@ -215,81 +195,56 @@
                 parent_id = #{parent_id},
             </if>
             <if test="name != null">
-                name = #{name},
-            </if>
-            <if test="alias_name != null">
-                alias_name = #{alias_name},
-            </if>
-            <if test="unit_code != null">
-                unit_code = #{unit_code},
-            </if>
-            <if test="note != null">
-                note = #{note},
-            </if>
-            <if test="field1 != null">
-                field1 = #{field1},
-            </if>
-            <if test="field2 != null">
-                field2 = #{field2},
-            </if>
-            <if test="field3 != null">
-                field3 = #{field3},
-            </if>
-            <if test="sort != null">
-                sort = #{sort},
-            </if>
-            <if test="disabled != null">
-                disabled = #{disabled},
-            </if>
-            <if test="has_children != null">
-                has_children = #{has_children},
-            </if>
-            <if test="logo != null">
-                logo = #{logo},
-            </if>
-            <if test="create_time != null">
-                create_time = #{create_time},
-            </if>
-            <if test="create_user_id != null">
-                create_user_id = #{create_user_id},
-            </if>
-            <if test="update_time != null">
-                update_time = #{update_time},
-            </if>
-            <if test="update_user_id != null">
-                update_user_id = #{update_user_id},
-            </if>
-            <if test="data_state != null">
-                data_state = #{data_state},
+                `name` = #{name},
             </if>
         </set>
-        <include refid="base_where_condition"/>
-        AND id = #{id}
+        WHERE dataState = 0 AND id = #{id}
     </update>
 
 
-    <delete id="delete" parameterType="long" flushCache="true">
-        UPDATE sys_unit SET dataState = 2
-        <include refid="base_where_condition"/>
-        AND id = #{id}
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_unit SET dataState = 2 WHERE dataState = 0 AND id = #{id}
     </delete>
 
 
     <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
 
         UPDATE sys_unit SET dataState = 2
-        <include refid="base_where_condition"/>
-        AND id IN
+        WHERE dataState = 0 AND id IN
         <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
-            #{id,jdbcType=BIGINT}
+            #{id}
         </foreach>
     </delete>
 
 
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.unit.model.Unit">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_unit
+        WHERE dataState = 0 AND id = #{id}
+    </select>
+
+
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.unit.model.Unit">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_unit
+        <include refid="where"/>
+    </select>
+
+
     <select id="findAll" resultType="com.quan.core.unit.model.Unit">
-        select
-        <include refid="base_column_list"/>
-        from sys_unit t
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_unit t
+        <include refid="where"/>
+    </select>
+
+
+    <select id="list" resultType="com.quan.core.unit.model.Unit">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_unit t
         <include refid="where"/>
     </select>
 

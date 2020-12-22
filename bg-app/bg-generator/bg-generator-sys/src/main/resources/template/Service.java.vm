@@ -27,7 +27,7 @@ public interface ${className}Service {
      * 批量添加
      * @param ${classname}s
      */
-    int save(List<${className}CreateRequest> ${classname}s);
+    int batchSave(List<${className}CreateRequest> ${classname}s);
 
     /**
      * 修改
@@ -69,7 +69,7 @@ public interface ${className}Service {
      * @param params 对象查询
      * @return
      */
-    PageResult<${className}DTO> findAll(${className}PageQueryRequest params);
+    Object findAll(${className}PageQueryRequest params);
 
 
     /**

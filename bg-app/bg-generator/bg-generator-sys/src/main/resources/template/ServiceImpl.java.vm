@@ -3,6 +3,7 @@ package ${package}.${pkgName}.service.impl;
 import com.quan.common.annotation.PageQuery;
 import com.quan.common.web.PageResult;
 import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.factory.${className}Factory;
 import ${package}.${pkgName}.dao.${className}Dao;
 import ${package}.${pkgName}.service.${className}Service;
@@ -44,8 +45,8 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
     @Transactional
     @Override
-    public int save(List<${className}CreateRequest> ${classname}s) {
-        return ${classname}Dao.save(${className}Factory.newInstance(${classname}s));
+    public int batchSave(List<${className}CreateRequest> ${classname}s) {
+        return ${classname}Dao.save(${className}Factory.newBatchInstance(${classname}s));
     }
 
     /**
@@ -89,7 +90,11 @@ public class ${className}ServiceImpl implements ${className}Service {
     */
     @Override
     public  ${className}DTO findOneById(Long id) {
-        return ${classname}Dao.findOneById(id);
+        ${className} data = ${classname}Dao.findOneById(id);
+        if (data == null) {
+            return null;
+        }
+        return ${className}Factory.newInstance(data);
     }
 
 
@@ -100,8 +105,11 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
     @Override
     public ${className}DTO findOneByCnd(${className}QueryRequest ${classname}) {
-            ${className}DTO data = ${classname}Dao.findOneByCnd(${className}Factory.newInstance(${classname}));
-        return data;
+        ${className} data = ${classname}Dao.findOneByCnd(${className}Factory.newInstance(${classname}));
+        if (data == null) {
+            return null;
+        }
+        return ${className}Factory.newInstance(data);
     }
 
 
@@ -112,8 +120,8 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
     @Override
     @PageQuery
-    public PageResult<${className}DTO> findAll(${className}PageQueryRequest params) {
-        return (PageResult<${className}DTO>) ${classname}Dao.findAll(${className}Factory.newInstance(params));
+    public Object findAll(${className}PageQueryRequest params) {
+        return ${classname}Dao.findAll(${className}Factory.newInstance(params));
     }
 
 
@@ -124,11 +132,11 @@ public class ${className}ServiceImpl implements ${className}Service {
      */
     @Override
     public List<${className}DTO> list(${className}QueryRequest params) {
-        List<${className}DTO> list = ${classname}Dao.list(${className}Factory.newInstance(params));
+        List<${className}> list = ${classname}Dao.list(${className}Factory.newInstance(params));
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
-        return list;
+        return ${className}Factory.newInstance(list);
     }
 
 }

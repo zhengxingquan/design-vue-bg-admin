@@ -1,6 +1,7 @@
 package com.quan.core.unit.factory;
 
-
+import com.quan.core.unit.dto.UnitDTO;
+import com.quan.core.unit.model.Unit;
 import com.quan.core.unit.dto.UnitPageQueryDTO;
 import com.quan.core.unit.dto.UnitQueryDTO;
 import com.quan.core.unit.dto.create.UnitCreateDTO;
@@ -11,6 +12,7 @@ import com.quan.core.unit.request.update.UnitUpdateRequest;
 import com.quan.core.unit.request.UnitPageQueryRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
  *
  * @author ${author}
  * @email 956607644@qq.com
- * @date 2020-12-21 20:03:28
+ * @date 2020-12-22 19:04:56
  */
 public final class UnitFactory {
 
@@ -79,14 +81,9 @@ public final class UnitFactory {
     }
 
     /***
-     * 新建
-     * @author ${author}
-     * @email 956607644@qq.com
-     * @date 2020-12-21 20:03:28
-
-     * @return
+     * 批量 新建
      */
-    public static List<UnitCreateDTO> newInstance(List<UnitCreateRequest> datas) {
+    public static List<UnitCreateDTO> newBatchInstance(List<UnitCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
@@ -94,47 +91,51 @@ public final class UnitFactory {
         return datas.stream().map(UnitFactory::newInstance).collect(Collectors.toList());
     }
 
-
+    /***
+    * 转换查询列表 req 到 DTO
+    */
     public static UnitQueryDTO newInstance(UnitQueryRequest req) {
             UnitQueryDTO queryData = new UnitQueryDTO();
 
-                                                        queryData.setParentId(req.getParentId());
-                                                queryData.setName(req.getName());
-                                                queryData.setAliasName(req.getAliasName());
-                                                queryData.setUnitCode(req.getUnitCode());
-                                                queryData.setNote(req.getNote());
-                                                queryData.setField1(req.getField1());
-                                                queryData.setField2(req.getField2());
-                                                queryData.setField3(req.getField3());
-                                                queryData.setSort(req.getSort());
-                                                queryData.setDisabled(req.getDisabled());
-                                                queryData.setHasChildren(req.getHasChildren());
-                                                queryData.setLogo(req.getLogo());
-                                                                    queryData.setCreateUserId(req.getCreateUserId());
-                                                                                
         return queryData;
     }
 
+    /***
+     * 转换分页 req 到 DTO
+     */
     public static UnitPageQueryDTO newInstance(UnitPageQueryRequest req) {
             UnitPageQueryDTO query = new UnitPageQueryDTO();
         query.setPageNumber(req.getPageNumber());
         query.setPageSize(req.getPageSize());
-                                                        query.setParentId(req.getParentId());
-                                                query.setName(req.getName());
-                                                query.setAliasName(req.getAliasName());
-                                                query.setUnitCode(req.getUnitCode());
-                                                query.setNote(req.getNote());
-                                                query.setField1(req.getField1());
-                                                query.setField2(req.getField2());
-                                                query.setField3(req.getField3());
-                                                query.setSort(req.getSort());
-                                                query.setDisabled(req.getDisabled());
-                                                query.setHasChildren(req.getHasChildren());
-                                                query.setLogo(req.getLogo());
-                                                                    query.setCreateUserId(req.getCreateUserId());
-                                                                                
+
         return query;
     }
 
+    /***
+     * 转换 PO 到 DTO
+     */
+    public static UnitDTO newInstance(Unit data) {
+            UnitDTO dto = new UnitDTO();
+                                    dto.setId(data.getId());
+                                                dto.setParentId(data.getParentId());
+                                                dto.setName(data.getName());
+                                                dto.setAliasName(data.getAliasName());
+                                                dto.setUnitCode(data.getUnitCode());
+                                                dto.setNote(data.getNote());
+                                                dto.setField1(data.getField1());
+                                                dto.setField2(data.getField2());
+                                                dto.setField3(data.getField3());
+                                                dto.setSort(data.getSort());
+                                                dto.setDisabled(data.getDisabled());
+                                                dto.setHasChildren(data.getHasChildren());
+                                                dto.setLogo(data.getLogo());
+                                                                    dto.setCreateUserId(data.getCreateUserId());
+                                                                                
+        return dto;
+    }
+
+    public static List<UnitDTO> newInstance(List<Unit> data) {
+        return data.stream().map(UnitFactory::newInstance).collect(Collectors.toList());
+    }
 
 }

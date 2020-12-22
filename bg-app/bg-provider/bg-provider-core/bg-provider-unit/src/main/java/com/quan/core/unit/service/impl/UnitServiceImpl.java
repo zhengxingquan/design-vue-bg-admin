@@ -3,6 +3,7 @@ package com.quan.core.unit.service.impl;
 import com.quan.common.annotation.PageQuery;
 import com.quan.common.web.PageResult;
 import com.quan.core.unit.dto.UnitDTO;
+import com.quan.core.unit.model.Unit;
 import com.quan.core.unit.factory.UnitFactory;
 import com.quan.core.unit.dao.UnitDao;
 import com.quan.core.unit.service.UnitService;
@@ -44,8 +45,8 @@ public class UnitServiceImpl implements UnitService {
      */
     @Transactional
     @Override
-    public int save(List<UnitCreateRequest> units) {
-        return unitDao.save(UnitFactory.newInstance(units));
+    public int batchSave(List<UnitCreateRequest> units) {
+        return unitDao.save(UnitFactory.newBatchInstance(units));
     }
 
     /**
@@ -89,7 +90,11 @@ public class UnitServiceImpl implements UnitService {
     */
     @Override
     public  UnitDTO findOneById(Long id) {
-        return unitDao.findOneById(id);
+        Unit data = unitDao.findOneById(id);
+        if (data == null) {
+            return null;
+        }
+        return UnitFactory.newInstance(data);
     }
 
 
@@ -100,8 +105,11 @@ public class UnitServiceImpl implements UnitService {
      */
     @Override
     public UnitDTO findOneByCnd(UnitQueryRequest unit) {
-            UnitDTO data = unitDao.findOneByCnd(UnitFactory.newInstance(unit));
-        return data;
+        Unit data = unitDao.findOneByCnd(UnitFactory.newInstance(unit));
+        if (data == null) {
+            return null;
+        }
+        return UnitFactory.newInstance(data);
     }
 
 
@@ -112,8 +120,8 @@ public class UnitServiceImpl implements UnitService {
      */
     @Override
     @PageQuery
-    public PageResult<UnitDTO> findAll(UnitPageQueryRequest params) {
-        return (PageResult<UnitDTO>) unitDao.findAll(UnitFactory.newInstance(params));
+    public Object findAll(UnitPageQueryRequest params) {
+        return unitDao.findAll(UnitFactory.newInstance(params));
     }
 
 
@@ -124,11 +132,11 @@ public class UnitServiceImpl implements UnitService {
      */
     @Override
     public List<UnitDTO> list(UnitQueryRequest params) {
-        List<UnitDTO> list = unitDao.list(UnitFactory.newInstance(params));
+        List<Unit> list = unitDao.list(UnitFactory.newInstance(params));
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
-        return list;
+        return UnitFactory.newInstance(list);
     }
 
 }
