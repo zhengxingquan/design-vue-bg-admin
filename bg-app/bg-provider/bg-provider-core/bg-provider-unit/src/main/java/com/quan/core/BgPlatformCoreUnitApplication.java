@@ -5,7 +5,6 @@ package com.quan.core;
 
 import com.quan.common.annotation.EnableApiIdempotent;
 import com.quan.log.annotation.EnableLogging;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -19,7 +18,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /* 启动日志*/
 @EnableLogging
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.quan")
 /* 启动幂登 控制*/
 @EnableApiIdempotent
 public class BgPlatformCoreUnitApplication {

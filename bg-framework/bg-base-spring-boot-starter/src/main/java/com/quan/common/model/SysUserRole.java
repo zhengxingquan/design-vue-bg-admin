@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("sys_role_user")
 @EqualsAndHashCode(callSuper=true)
-public class SysUserRole  extends Model<SysUserRole> implements Serializable {
+public class SysUserRole  extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 2096687235759960875L;
 	

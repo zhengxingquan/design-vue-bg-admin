@@ -10,7 +10,7 @@ import com.quan.common.enume.DataEntityState;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author 郑兴泉 956607644@qq.com
@@ -19,6 +19,9 @@ import java.sql.Date;
  */
 @Data
 public abstract class BaseEntity implements Serializable {
+
+
+//    private static final long serialVersionUID = -1L;
 
     /* 主键字段，类型位  Long 雪花算法*/
     @TableId(value = "id", type = IdType.ASSIGN_ID)  //雪花算法  id生成策略
@@ -53,6 +56,6 @@ public abstract class BaseEntity implements Serializable {
     /***
      * 数据状态
      */
-    @TableField(value = "data_state" )
+    @TableField(value = "data_state")
     private Integer dataState = DataEntityState.ENABLE.getValue();
 }

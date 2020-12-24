@@ -199,6 +199,15 @@ zuul:
       service-id: user-center
       strip-prefix: true
       custom-sensitive-headers: true  #http://blog.didispace.com/spring-cloud-zuul-cookie-redirect/ zuul授权码跳转问题
+    unit:
+      path: /api-unit/**
+      service-id: unit-center
+      strip-prefix: true
+      custom-sensitive-headers: true  #http://blog.didispace.com/spring-cloud-zuul-cookie-redirect/ zuul授权码跳转问题
+    uid-generator:
+      path: /uid-generator/**
+      service-id: uid-generator-center
+      strip-prefix: true
     file:
       path: /api-file/**
       service-id: file-center

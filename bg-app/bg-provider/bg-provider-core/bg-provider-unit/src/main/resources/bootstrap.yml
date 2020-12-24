@@ -8,7 +8,7 @@ server:
 spring:
   application:
 #    name: system-platform-center
-    name: user-center
+    name: unit-center
 
   cloud:
     inetutils:

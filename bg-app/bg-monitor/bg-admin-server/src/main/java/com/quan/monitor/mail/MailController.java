@@ -40,13 +40,13 @@ public class MailController {
 		MimeMessage msg = javaMailSender.createMimeMessage();
 		MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "utf-8");
 
-		msgHelper.setFrom("18579068155@163.com");
-		msgHelper.setTo("wang.wen@neusoft.com");
+		msgHelper.setFrom("956607644@qq.com");
+		msgHelper.setTo("956607644@qq.com");
 		msgHelper.setSubject("测试发送带附件的邮件");
 		msgHelper.setText("测试邮件");
 
-		FileSystemResource file = new FileSystemResource(new File("D:"+ File.separator+"20171124150927.jpg"));
-		msgHelper.addAttachment("20171124150927.jpg", file); // 添加附件
+		FileSystemResource file = new FileSystemResource(new File("classpath:/images/test.jpg"));
+		msgHelper.addAttachment("测试.jpg", file); // 添加附件
 
 		// Properties prop = new Properties();
 		// prop.put("mail.smtp.auth", "true");

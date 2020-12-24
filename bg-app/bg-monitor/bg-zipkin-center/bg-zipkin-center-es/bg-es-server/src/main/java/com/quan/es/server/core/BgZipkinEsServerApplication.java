@@ -10,7 +10,7 @@ import zipkin2.server.internal.EnableZipkinServer;
 @EnableZipkinServer
 public class BgZipkinEsServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(EsServerApp.class, args);
+        SpringApplication.run(BgZipkinEsServerApplication.class, args);
     }
 }
  

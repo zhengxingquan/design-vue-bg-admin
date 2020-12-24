@@ -1,23 +1,22 @@
 package com.quan.core.unit.controller;
 
-import com.quan.common.web.PageResult;
 import com.quan.common.web.Result;
-import com.quan.core.unit.service.UnitService;
-import com.quan.core.unit.request.create.UnitCreateRequest;
-import com.quan.core.unit.request.update.UnitUpdateRequest;
-import com.quan.core.unit.request.del.UnitBatchDeleteRequest;
-import com.quan.core.unit.request.del.UnitDeleteRequest;
+import com.quan.core.unit.request.UnitFindOneByIdRequest;
 import com.quan.core.unit.request.UnitPageQueryRequest;
 import com.quan.core.unit.request.UnitQueryRequest;
-import com.quan.core.unit.request.UnitFindOneByIdRequest;
-
+import com.quan.core.unit.request.create.UnitCreateRequest;
+import com.quan.core.unit.request.del.UnitBatchDeleteRequest;
+import com.quan.core.unit.request.del.UnitDeleteRequest;
+import com.quan.core.unit.request.update.UnitUpdateRequest;
+import com.quan.core.unit.service.UnitService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 系统单位表
@@ -53,7 +52,7 @@ public class UnitController {
     @PostMapping("/save")
     @PreAuthorize("hasAnyAuthority('generator:sysroleuser:save')")
     public Result save(@RequestBody UnitCreateRequest req) {
-            unitService.save(req);
+        unitService.save(req);
         return Result.succeed("保存成功");
     }
 
@@ -64,7 +63,7 @@ public class UnitController {
     @PostMapping("/update")
     @PreAuthorize("hasAnyAuthority('generator:sysroleuser:update')")
     public Result update(@RequestBody UnitUpdateRequest req) {
-            unitService.update(req);
+        unitService.update(req);
         return Result.succeed("修改成功");
     }
 
@@ -79,8 +78,8 @@ public class UnitController {
     }
 
     /**
-  * 批量删除
-  */
+     * 批量删除
+     */
     @ApiOperation(value = "删除数据")
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('generator:sysroleuser:delete')")
@@ -102,6 +101,7 @@ public class UnitController {
 
     /**
      * 通过条件查找记录
+     *
      * @param req 对象数据
      * @return
      */

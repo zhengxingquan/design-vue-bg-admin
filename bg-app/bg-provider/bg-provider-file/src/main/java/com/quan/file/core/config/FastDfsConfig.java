@@ -8,7 +8,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @data 2020/12/18
  * 描述：
  */
-@SpringBootApplication
-@EnableScheduling
 public class FastDfsConfig {
 }

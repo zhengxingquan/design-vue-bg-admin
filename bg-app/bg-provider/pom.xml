@@ -22,6 +22,7 @@
         <!-- 文件中心 -->
         <module>bg-provider-file</module>
         <module>bg-provider-mail</module>
+        <module>bg-provider-common</module>
     </modules>
 
 </project>

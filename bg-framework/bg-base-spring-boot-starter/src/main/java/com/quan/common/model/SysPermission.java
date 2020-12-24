@@ -23,7 +23,7 @@ import java.util.Set;
 @Data
 @TableName("sys_permission")
 @EqualsAndHashCode(callSuper=true)
-public class SysPermission extends Model<SysPermission> implements Serializable {
+public class SysPermission extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1389727646460449239L;
 	@TableId(value="id",type=IdType.ASSIGN_ID)  //雪花算法  id生成策略
@@ -31,10 +31,6 @@ public class SysPermission extends Model<SysPermission> implements Serializable 
 	private Long id;
 	private String permission;
 	private String name;
-	@TableField(value="create_time")
-	private Date createTime;
-	@TableField(value="update_time")
-	private Date updateTime;
 	@TableField(exist=false)
 	private Long roleId;
 	

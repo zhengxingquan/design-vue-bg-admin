@@ -26,10 +26,15 @@ public class LoginAppUser extends SysUser implements UserDetails {
 
     private static final long serialVersionUID = -3685249101751401211L;
 
-    // 角色
+    /***
+     *   
+     * 角色
+     */  
     private Set<SysRole> sysRoles;
 
-    // 权限
+    /***
+     * 权限
+     */
     private Set<String> permissions;
 
     /***

@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Builder
 @TableName("sys_role_menu")
 @EqualsAndHashCode(callSuper=true)
-public class SysRoleMenu  extends Model<SysRoleMenu> implements Serializable {
+public class SysRoleMenu  extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 64240478379218861L;
 	 

@@ -14,7 +14,7 @@
     <modules>
         <module>bg-framework</module>
         <module>bg-app</module>
-        <module>bg-zipkin</module>
+        <module>bg-uid-generator-spring-boot-starter</module>
     </modules>
 
 
@@ -198,6 +198,15 @@
                 <artifactId>bg-ribbon-spring-boot-starter</artifactId>
                 <version>${core.version}</version>
             </dependency>
+
+            <!-- 分布式ID -->
+            <dependency>
+                <groupId>com.quan</groupId>
+                <artifactId>bg-uid-generator-master-spring-boot-starter</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+
+
 
 
         </dependencies>

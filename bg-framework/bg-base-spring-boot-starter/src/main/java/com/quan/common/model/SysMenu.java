@@ -21,7 +21,7 @@ import java.util.Set;
 @Data
 @TableName("sys_menu")
 @EqualsAndHashCode(callSuper=true)
-public class SysMenu extends Model<SysPermission> implements Serializable {
+public class SysMenu extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 749360940290141180L;
 	@JsonSerialize(using=ToStringSerializer.class)
@@ -34,10 +34,6 @@ public class SysMenu extends Model<SysPermission> implements Serializable {
 	private String path;
 	private String css;
 	private Integer sort;
-	@TableField(value="create_time")
-	private Date createTime;
-	@TableField(value="update_time")
-	private Date updateTime;
 	@TableField(value="is_menu")
 	private Integer isMenu;
 	private Boolean hidden;

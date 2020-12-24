@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 9200
+  port: 9900
 #  tomcat: 
 #    accept-count: 1024
 #    max-threads: 1024

@@ -6,6 +6,16 @@ server:
 spring:
   application:
     name: log-center
+
+
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - VM.*
+      preferredNetworks:
+        - 192.168
  
           
 management:

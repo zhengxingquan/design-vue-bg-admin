@@ -26,6 +26,8 @@
         <module>bg-swagger-spring-boot-starter</module>
         <!--缓存配置-->
         <module>bg-cache-spring-boot-starter</module>
+        <!-- 全局分布式ID  -->
+        <module>bg-uid-generator-spring-boot-starter</module>
 
     </modules>
 

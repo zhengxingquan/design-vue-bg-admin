@@ -21,10 +21,9 @@ import org.springframework.context.annotation.Import;
 /* 启动日志记录 */
 @EnableLogging
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.quan")
 @Import(OAuthServerConfig.class)
 @EnableFeignClients(defaultConfiguration = GlobalFeignConfig.class)
-@MapperScan("com.quan.*.dao")
 public class BgOAuthServerApplication {
 
     public static void main(String[] args) {

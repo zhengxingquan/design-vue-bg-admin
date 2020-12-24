@@ -62,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui",
+                "/swagger-resources", "/configuration/security",
                 "/swagger-ui.html", "/webjars/**", "/doc.html", "/login.html");
         web.ignoring().antMatchers("/js/**");
         web.ignoring().antMatchers("/css/**");
@@ -97,7 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .anyRequest().authenticated();
-        http.formLogin().loginPage(SecurityConstant.LOGIN_PAGE).loginProcessingUrl(SecurityConstant.LOGIN_PROCESSING_URL)
+        http.formLogin().loginPage(SecurityConstant.LOGIN_PAGE)
+                .loginProcessingUrl(SecurityConstant.LOGIN_PROCESSING_URL)
                 .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
 
         // 基于密码 等模式可以无session,不支持授权码模式

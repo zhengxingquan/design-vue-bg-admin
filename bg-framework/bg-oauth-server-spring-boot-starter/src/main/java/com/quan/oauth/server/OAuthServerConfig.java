@@ -75,7 +75,6 @@ import java.util.Map;
  */
 
 @Configuration
-@SuppressWarnings("all")
 @Import({RestTemplateConfig.class, FeignInterceptorConfig.class})
 public class OAuthServerConfig {
 

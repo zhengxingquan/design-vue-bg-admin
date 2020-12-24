@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.quan.platform.dao.SysRolePermissionDao">
+<mapper namespace="com.quan.core.user.dao.SysRolePermissionDao">
 
 	<!-- MySQL下批量保存，可以foreach遍历 mysql支持values(),(),()语法 -->
 	<insert id="saveBatch">

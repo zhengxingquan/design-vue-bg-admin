@@ -4,9 +4,9 @@
 <mapper namespace="com.quan.log.dao.LogDao">
 
 
-    <select id="save" resultType="int">
-       insert into sys_log(traceId, username, params, error, flag, `module`,os,browser,ip,mac,requestUrl,startTime,endTime,excuteTime)
-       values(#{traceId}, #{username}, #{params}, #{error}, #{flag}, #{module},#{os},#{browser},#{ip},#{mac},#{requestUrl},#{startTime},#{endTime},#{excuteTime})
-    </select>
+    <insert id="save">
+       insert into sys_log(trace_id, username, params, error, flag, `module`,os,browser,ip,mac,request_url,start_time,end_time,response_result)
+       values(#{traceId}, #{username}, #{params}, #{error}, #{flag}, #{module},#{os},#{browser},#{ip},#{mac},#{requestUrl},#{startTime},#{endTime},#{responseResult})
+    </insert>
 
 </mapper>

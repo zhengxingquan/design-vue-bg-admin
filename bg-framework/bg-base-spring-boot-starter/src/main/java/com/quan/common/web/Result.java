@@ -30,10 +30,6 @@ public class Result<T> implements Serializable {
         return succeedWith(null, CodeEnum.SUCCESS.getCode(), "");
     }
 
-    public static <T> Result<T> succeed(String msg, T data) {
-        return succeedWith(data, CodeEnum.SUCCESS.getCode(), msg);
-    }
-
     public static <T> Result<T> succeed(T model, String msg) {
         return succeedWith(model, CodeEnum.SUCCESS.getCode(), msg);
     }

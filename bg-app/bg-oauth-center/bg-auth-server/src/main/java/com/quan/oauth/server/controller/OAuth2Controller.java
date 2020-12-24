@@ -207,9 +207,6 @@ public class OAuth2Controller {
                 sysPermission.setPermission(o.toString());
                 permissions.add(sysPermission);
             });
-            // userInfo.put("authorities",
-            // AuthorityUtils.authorityListToSet(SecurityContextHolder.getContext().getAuthentication().getAuthorities())
-            // );
             userInfo.put("permissions", permissions);
             return userInfo;
         } catch (Exception e) {
