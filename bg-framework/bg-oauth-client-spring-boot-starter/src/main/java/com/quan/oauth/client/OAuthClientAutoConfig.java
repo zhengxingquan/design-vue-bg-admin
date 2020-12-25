@@ -30,10 +30,7 @@ import javax.annotation.Resource;
  *   
  * @author zxq(956607644@qq.com)  
  * @date 2020/11/30 18:54
- * @param null
-
- * @return   
- */  
+ */
 @Component
 @Configuration
 @EnableResourceServer
@@ -78,9 +75,6 @@ public class OAuthClientAutoConfig extends ResourceServerConfigurerAdapter {
 		web.ignoring().antMatchers(permitUrlProperties.getIgnored());
 	}
 	
-
-	
-	 
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

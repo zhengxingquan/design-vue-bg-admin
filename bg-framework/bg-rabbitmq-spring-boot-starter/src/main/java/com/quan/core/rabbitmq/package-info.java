@@ -1,0 +1,1 @@
+package com.quan.core.rabbitmq;

@@ -32,11 +32,8 @@ public class ResJwtTokenStore extends JwtTokenStore {
 
     @Override
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-
         LoginAppUser user = (LoginAppUser) authentication.getPrincipal();
-
         token.getAdditionalInformation().put("user", user);
-
     }
 
 }

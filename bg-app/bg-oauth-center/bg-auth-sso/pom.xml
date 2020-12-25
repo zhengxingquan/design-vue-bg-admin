@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bg-auth-sso</artifactId>
+    <description>单点登录中心</description>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

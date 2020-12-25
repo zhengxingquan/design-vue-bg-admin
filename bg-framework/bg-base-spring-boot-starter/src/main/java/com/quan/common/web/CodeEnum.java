@@ -1,18 +1,18 @@
 package com.quan.common.web;
 
-/**
- * @Author: [gitgeek]
- * @Date: [2018-08-02 08:50]
- * @Description: [ ]
- * @Version: [1.0.0]
- * @Copy: [com.zzg]
+/***
+ *  成功 与 失败 的状态码
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/25 13:41
  */
 public enum CodeEnum {
+
     SUCCESS(0),
     ERROR(1);
 
     private Integer code;
-    CodeEnum(Integer code){
+
+    CodeEnum(Integer code) {
         this.code = code;
     }
 

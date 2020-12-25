@@ -41,14 +41,16 @@ import java.util.Map;
 public final class RedisClientDetailsService extends JdbcClientDetailsService {
 
 
-    private static final String SELECT_CLIENT_DETAILS_SQL = "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
-            "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id " +
-            "from oauth_client_details where client_id = ? and status = 1  ";
+    private static final String SELECT_CLIENT_DETAILS_SQL =
+            "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
+                    "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id " +
+                    "from oauth_client_details where client_id = ? and status = 1  ";
 
     // 扩展 默认的 ClientDetailsService, 增加逻辑删除判断( status = 1)
-    private static final String SELECT_FIND_STATEMENT = "select client_id, client_secret,resource_ids, scope, "
-            + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
-            + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id  from oauth_client_details where status = 1 order by client_id ";
+    private static final String SELECT_FIND_STATEMENT =
+            "select client_id, client_secret,resource_ids, scope, "
+                    + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
+                    + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id  from oauth_client_details where status = 1 order by client_id ";
 
 
     private RedisTemplate<String, Object> redisTemplate;
@@ -196,7 +198,24 @@ public final class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
 
+    /***
+     * 结果集处理类
+     */
     private static class ClientDetailsRowMapper implements RowMapper<ClientDetails> {
+
+        /**
+         * json process
+         *
+         * @return
+         */
+        private static JsonMapper createJsonMapper() {
+            if (ClassUtils.isPresent("org.codehaus.jackson.map.ObjectMapper", null)) {
+                return new JacksonMapper();
+            } else if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", null)) {
+                return new Jackson2Mapper();
+            }
+            return new NotSupportedJsonMapper();
+        }
 
 
         public ClientDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -248,20 +267,4 @@ public final class RedisClientDetailsService extends JdbcClientDetailsService {
             return details;
         }
     }
-
-    /**
-     * json process
-     *
-     * @return
-     */
-    private static JsonMapper createJsonMapper() {
-        if (ClassUtils.isPresent("org.codehaus.jackson.map.ObjectMapper", null)) {
-            return new JacksonMapper();
-        } else if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", null)) {
-            return new Jackson2Mapper();
-        }
-        return new NotSupportedJsonMapper();
-    }
-
-
 }

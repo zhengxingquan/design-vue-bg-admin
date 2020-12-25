@@ -1,8 +1,10 @@
 package com.quan.oauth.server.token;
 
-import com.quan.common.util.StringUtil;
+import com.quan.common.enume.auth.AuthGrantType;
+import com.quan.common.util.Strings;
+import com.quan.oauth.server.constant.ValidateParamConstant;
 import com.quan.oauth.server.service.ValidateCodeService;
-import org.apache.commons.collections.MapUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
@@ -21,70 +23,76 @@ import java.util.Map;
  * 备注 : version20180909001
  * 序号 	       日期 		        修改人 		         修改原因
  */
+@Slf4j
 public class PasswordEnhanceTokenGranter extends AbstractTokenGranter {
 
-	private static final String GRANT_TYPE = "password";
+    private static final String GRANT_TYPE = AuthGrantType.PASSWORD.getValue();
 
-	private final AuthenticationManager authenticationManager;
-	
-	private final ValidateCodeService validateCodeService ;
+    private final AuthenticationManager authenticationManager;
 
-	public PasswordEnhanceTokenGranter(AuthenticationManager authenticationManager,
-			AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory,ValidateCodeService validateCodeService) {
-		this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE,validateCodeService);
-	}
+    private final ValidateCodeService validateCodeService;
 
-	protected PasswordEnhanceTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
+    public PasswordEnhanceTokenGranter(AuthenticationManager authenticationManager,
+                                       AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, ValidateCodeService validateCodeService) {
+        this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE, validateCodeService);
+    }
+
+    protected PasswordEnhanceTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
                                           ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType, ValidateCodeService validateCodeService) {
-		super(tokenServices, clientDetailsService, requestFactory, grantType);
-		this.authenticationManager = authenticationManager;
-		this.validateCodeService=validateCodeService;
-	}
+        super(tokenServices, clientDetailsService, requestFactory, grantType);
+        this.authenticationManager = authenticationManager;
+        this.validateCodeService = validateCodeService;
+    }
 
-	@Override
-	protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
+    @Override
+    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
 
-		Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-		String username = parameters.get("username");
-		String password = parameters.get("password");
-		
-		//终端
-		String deviceId  = MapUtils.getString(parameters, "deviceId") ;
-		//验证码
-		String validCode =  MapUtils.getString(parameters, "validCode") ;
-		
-		
-		//校验图形验证码
-		if(StringUtil.isNotBlank(deviceId) || StringUtil.isNotEmpty(validCode)){
-			try {
-				validateCodeService.validate(deviceId, validCode);
-			} catch (Exception e) {
-				throw new InvalidGrantException(e.getMessage());
-			}
-		}
-		
-		
-		// Protect from downstream leaks of password
-		parameters.remove("password");
-		parameters.remove("deviceId");
-		parameters.remove("validCode");
-		
+        Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
+        String username = Strings.sNull(parameters.get(ValidateParamConstant.USERNAME));
+        String password = Strings.sNull(parameters.get(ValidateParamConstant.PASSWORD));
 
-		Authentication userAuth = new UsernamePasswordAuthenticationToken(username, password);
-		((AbstractAuthenticationToken) userAuth).setDetails(parameters);
-		try {
-			userAuth = authenticationManager.authenticate(userAuth);
-		}catch (AccountStatusException ase) {
-			throw new InvalidGrantException(ase.getMessage());
-		}catch (BadCredentialsException e) {
-			throw new InvalidGrantException(e.getMessage());
-		}
-		if (userAuth == null || !userAuth.isAuthenticated()) {
-			throw new InvalidGrantException("Could not authenticate user: " + username);
-		}
-		
-		OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);		
-		return new OAuth2Authentication(storedOAuth2Request, userAuth);
-	}
+        //终端
+        String deviceId = Strings.sNull(parameters.get(ValidateParamConstant.DEVICE_ID));
+        //验证码
+        String validCode = Strings.sNull(parameters.get(ValidateParamConstant.VALID_CODE));
+
+        //校验图形验证码
+        if (Strings.isNotBlank(deviceId) || Strings.isNotBlank(validCode)) {
+            try {
+                validateCodeService.validate(deviceId, validCode);
+            } catch (Exception e) {
+                throw new InvalidGrantException(e.getMessage());
+            }
+        }
+
+        // Protect from downstream leaks of password
+        parameters.remove(ValidateParamConstant.PASSWORD);
+        parameters.remove(ValidateParamConstant.DEVICE_ID);
+        parameters.remove(ValidateParamConstant.VALID_CODE);
+
+
+        // 认证
+        Authentication userAuth = new UsernamePasswordAuthenticationToken(username, password);
+        ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
+        try {
+            // 认证
+            log.info("登录认证用户 {} , {}", username, password);
+            userAuth = authenticationManager.authenticate(userAuth);
+        } catch (AccountStatusException ase) {
+            log.info("登录认证用户失败 {} ", ase);
+            throw new InvalidGrantException(ase.getMessage());
+
+        } catch (BadCredentialsException e) {
+            log.info("登录认证用户失败 {} ", e);
+            throw new InvalidGrantException(e.getMessage());
+        }
+        if (userAuth == null || !userAuth.isAuthenticated()) {
+            log.info("无法验证用户身份 {} ", username);
+            throw new InvalidGrantException("Could not authenticate user: " + username);
+        }
+
+        OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
+        return new OAuth2Authentication(storedOAuth2Request, userAuth);
+    }
 
 }

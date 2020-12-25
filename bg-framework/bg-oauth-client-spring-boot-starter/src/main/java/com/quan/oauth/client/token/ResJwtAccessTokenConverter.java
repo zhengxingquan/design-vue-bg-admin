@@ -53,8 +53,6 @@ public class ResJwtAccessTokenConverter extends JwtAccessTokenConverter {
                     }
                     return new UsernamePasswordAuthenticationToken(loginUser, "N/A", loginUser.getAuthorities());
                 }
-
-
                 return null;
             }
 

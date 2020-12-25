@@ -27,7 +27,7 @@ public class OpenAuthorizeConfigManager implements AuthorizeConfigManager {
 	@Autowired(required=false)
 	private RbacService rbacService ;
 	
-	 
+
     @Value("${spring.application.name:}")
 	private String applicationName;
 
@@ -46,13 +46,11 @@ public class OpenAuthorizeConfigManager implements AuthorizeConfigManager {
 		if(AuthServiceConstant.GATEWAY_SERVICE.equalsIgnoreCase(applicationName)){
 			//网关API权限
 			flag = 1 ;
-			
 		} else if (AuthServiceConstant.AUTH_SERVICE.equalsIgnoreCase(applicationName)){
 			//认证中心
 			flag=  2 ;
 			
-		} 
-		
+		}
 		switch(flag){
 			
 			case 1 : 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.quan.core.unit.dao.UnitDao">
+<mapper namespace="com.quan.core.rabbitmq.unit.dao.UnitDao">
 
     <!-- 通用查询映射结果  -->
-    <resultMap type="com.quan.core.unit.model.Unit" id="BaseResultMap">
+    <resultMap type="com.quan.core.rabbitmq.unit.model.Unit" id="BaseResultMap">
         <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="name" column="name"/>
@@ -217,7 +217,7 @@
     </delete>
 
 
-    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.unit.model.Unit">
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.rabbitmq.unit.model.Unit">
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit
@@ -225,7 +225,7 @@
     </select>
 
 
-    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.unit.model.Unit">
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.rabbitmq.unit.model.Unit">
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit
@@ -233,7 +233,7 @@
     </select>
 
 
-    <select id="findAll" resultType="com.quan.core.unit.model.Unit">
+    <select id="findAll" resultType="com.quan.core.rabbitmq.unit.model.Unit">
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit t
@@ -241,7 +241,7 @@
     </select>
 
 
-    <select id="list" resultType="com.quan.core.unit.model.Unit">
+    <select id="list" resultType="com.quan.core.rabbitmq.unit.model.Unit">
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit t

@@ -6,6 +6,8 @@ import com.quan.common.auth.props.PermitUrlProperties;
 import com.quan.common.constant.OAuthConstant;
 import com.quan.common.feign.FeignInterceptorConfig;
 import com.quan.common.rest.RestTemplateConfig;
+import com.quan.common.util.Strings;
+import com.quan.common.web.Result;
 import com.quan.oauth.server.service.RedisAuthorizationCodeServices;
 import com.quan.oauth.server.service.RedisClientDetailsService;
 import com.quan.oauth.server.service.ValidateCodeService;
@@ -63,14 +65,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /***
  * spring security 配置类
  *
- * @author zxq(956607644@qq.com)
+ * @author zxq(956607644 @ qq.com)
  * @date 2020/11/29 22:11
  */
 
@@ -93,7 +93,7 @@ public class OAuthServerConfig {
     /***
      *   认证 code
      *
-     * @author zxq(956607644@qq.com)
+     * @author zxq(956607644 @ qq.com)
      * @date 2020/12/6 15:42
      * @param redisTemplate
 
@@ -108,7 +108,7 @@ public class OAuthServerConfig {
 
     /***
      *  DefaultTokenServices默认处理
-     * @author zxq(956607644@qq.com)
+     * @author zxq(956607644 @ qq.com)
      * @date 2020/12/6 15:42
      */
     @Component
@@ -133,8 +133,8 @@ public class OAuthServerConfig {
          * 用户输入的验证码 service
          */
         @Autowired
-        private ValidateCodeService validateCodeService ;
-        
+        private ValidateCodeService validateCodeService;
+
         @Autowired(required = false)
         private TokenStore tokenStore;
 
@@ -175,31 +175,30 @@ public class OAuthServerConfig {
             endpoints.authorizationCodeServices(authorizationCodeServices);
             // 处理 ExceptionTranslationFilter 抛出的异常
             endpoints.exceptionTranslator(webResponseExceptionTranslator);
-            
+
             //处理oauth 模式
             ClientDetailsService clientDetails = endpoints.getClientDetailsService();
             AuthorizationServerTokenServices tokenServices = endpoints.getTokenServices();
             AuthorizationCodeServices authorizationCodeServices = endpoints.getAuthorizationCodeServices();
             OAuth2RequestFactory requestFactory = endpoints.getOAuth2RequestFactory();
-     
+
             //tokenGranters添加oauth模式 ，可以让/oauth/token支持自定义模式，继承AbstractTokenGranter 扩展 
             List<TokenGranter> tokenGranters = new ArrayList<>();
             //客户端模式   GRANT_TYPE = "client_credentials"; 
             tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetails, requestFactory));
             //密码模式	  GRANT_TYPE = "password"; 	
-            tokenGranters.add(new PasswordEnhanceTokenGranter(authenticationManager, tokenServices,clientDetails, requestFactory,validateCodeService));
+            tokenGranters.add(new PasswordEnhanceTokenGranter(authenticationManager, tokenServices, clientDetails, requestFactory, validateCodeService));
             //授权码模式   GRANT_TYPE = "authorization_code";
-            tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientDetails,requestFactory));
+            tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientDetails, requestFactory));
             //刷新模式	  GRANT_TYPE = "refresh_token";
             tokenGranters.add(new RefreshTokenGranter(tokenServices, clientDetails, requestFactory));
             //简易模式	  GRANT_TYPE = "implicit";
             tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetails, requestFactory));
             //短信模式	  GRANT_TYPE = "sms"; 参考ResourceOwnerPasswordTokenGranter重写
-            tokenGranters.add(new SMSCodeTokenGranter( userDetailsService,  validateCodeService  ,  tokenServices, clientDetails, requestFactory));
+            tokenGranters.add(new SMSCodeTokenGranter(userDetailsService, validateCodeService, tokenServices, clientDetails, requestFactory));
             //组合模式
             endpoints.tokenGranter(new CompositeTokenGranter(tokenGranters));
 
-            
 
         }
 
@@ -267,43 +266,30 @@ public class OAuthServerConfig {
 
             // 自定义异常处理端口
             resources.authenticationEntryPoint(new AuthenticationEntryPoint() {
-
                 @Override
                 public void commence(HttpServletRequest request, HttpServletResponse response,
-                                     AuthenticationException authException) throws IOException, ServletException {
-
-                    Map<String, String> rsp = new HashMap<>();
+                                     AuthenticationException e) throws IOException, ServletException {
 
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
-                    rsp.put("code", HttpStatus.UNAUTHORIZED.value() + "");
-                    rsp.put("msg", authException.getMessage());
-
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write(objectMapper.writeValueAsString(rsp));
+                    response.getWriter().write(objectMapper.writeValueAsString(
+                            Result.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
+                    ));
                     response.getWriter().flush();
                     response.getWriter().close();
-
                 }
             });
             resources.accessDeniedHandler(new OAuth2AccessDeniedHandler() {
 
                 @Override
-                public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
-
-                    Map<String, String> rsp = new HashMap<>();
-                    response.setContentType("application/json;charset=UTF-8");
-
+                public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
-                    rsp.put("code", HttpStatus.UNAUTHORIZED.value() + "");
-                    rsp.put("msg", authException.getMessage());
-
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write(objectMapper.writeValueAsString(rsp));
+                    response.getWriter().write(objectMapper.writeValueAsString(
+                            Result.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
+                    ));
                     response.getWriter().flush();
                     response.getWriter().close();
-
                 }
             });
 
@@ -322,11 +308,11 @@ public class OAuthServerConfig {
                         @Override
                         public boolean matches(HttpServletRequest request) {
 
+                            String accessToken = Strings.sNull(request.getParameter(OAuth2AccessToken.ACCESS_TOKEN));
                             // 请求参数中包含access_token参数
-                            if (request.getParameter(OAuth2AccessToken.ACCESS_TOKEN) != null) {
+                            if (Strings.isNotBlank(accessToken)) {
                                 return true;
                             }
-
                             // 头部的Authorization值以Bearer开头
                             String auth = request.getHeader(OAuthConstant.AUTHORIZATION);
                             if (auth != null) {
@@ -348,15 +334,12 @@ public class OAuthServerConfig {
                             if (antPathMatcher.match(request.getRequestURI(), "/api-auth/oauth/refresh/token")) {
                                 return true;
                             }
-
                             if (antPathMatcher.match(request.getRequestURI(), "/api-auth/oauth/token/list")) {
                                 return true;
                             }
-
                             if (antPathMatcher.match("/**/clients/**", request.getRequestURI())) {
                                 return true;
                             }
-
                             if (antPathMatcher.match("/**/services/**", request.getRequestURI())) {
                                 return true;
                             }

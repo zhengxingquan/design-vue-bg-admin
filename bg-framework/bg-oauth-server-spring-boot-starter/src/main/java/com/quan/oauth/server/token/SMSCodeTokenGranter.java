@@ -1,7 +1,8 @@
 package com.quan.oauth.server.token;
 
+import com.quan.common.util.Strings;
+import com.quan.oauth.server.constant.ValidateParamConstant;
 import com.quan.oauth.server.service.ValidateCodeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,13 +50,16 @@ public class SMSCodeTokenGranter extends AbstractTokenGranter {
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
 
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-        String deviceId = parameters.get("deviceId"); // 客户端提交的用户名
-        String validCode = parameters.get("validCode"); // 客户端提交的验证码
 
-        if (StringUtils.isBlank(deviceId)) {
+        // 客户端提交的用户名
+        String deviceId = Strings.sNull(parameters.get(ValidateParamConstant.DEVICE_ID));
+        // 客户端提交的验证码
+        String validCode = Strings.sNull(parameters.get(ValidateParamConstant.VALID_CODE));
+
+        if (Strings.isBlank(deviceId)) {
             throw new InvalidGrantException("用户输入deviceId");
         }
-        if (StringUtils.isBlank(validCode)) {
+        if (Strings.isBlank(validCode)) {
             throw new InvalidGrantException("用户没有输入validCode");
         }
 

@@ -28,6 +28,7 @@
         <module>bg-cache-spring-boot-starter</module>
         <!-- 全局分布式ID  -->
         <module>bg-uid-generator-spring-boot-starter</module>
+        <module>bg-rabbitmq-spring-boot-starter</module>
 
     </modules>
 

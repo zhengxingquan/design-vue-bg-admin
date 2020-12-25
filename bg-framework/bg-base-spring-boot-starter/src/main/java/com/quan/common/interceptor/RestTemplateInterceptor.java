@@ -23,10 +23,14 @@ import java.io.IOException;
  * code: https://gitee.com/owenwangwen/open-capacity-platform
  */
 public class RestTemplateInterceptor implements ClientHttpRequestInterceptor {
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+
         ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
+
         HttpServletRequest httpRequest = attributes.getRequest();
         String header = httpRequest.getHeader(OAuthConstant.AUTHORIZATION);
 

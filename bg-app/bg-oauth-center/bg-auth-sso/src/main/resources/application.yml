@@ -9,17 +9,17 @@ security:
     client:
       client-id: owen
       client-secret: owen 
-      user-authorization-uri: http://127.0.0.1:9200/api-auth/oauth/authorize    #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
-      access-token-uri: http://127.0.0.1:9200/api-auth/oauth/token              #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
+      user-authorization-uri: http://127.0.0.1:9900/api-auth/oauth/authorize    #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
+      access-token-uri: http://127.0.0.1:9900/api-auth/oauth/token              #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
     resource: 
-      token-info-uri: http://127.0.0.1:9200/api-auth/oauth/check_token          #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
+      token-info-uri: http://127.0.0.1:9900/api-auth/oauth/check_token          #直接配置认证中心端口(http://127.0.0.1:9200/oauth/authorize)，也可以配置网关端口
       prefer-token-info: false
  
  
 spring:
   datasource:
     druid: 
-      url: jdbc:mysql://127.0.0.1:3306/bg-oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://127.0.0.1:3306/bg-oauth?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
       username: root
       password: root
       initial-size: 1
@@ -108,6 +108,6 @@ spring:
 mybatis-plus:
   global-config:
     banner: false
-  mapper-locations: classpath*:com/quan/**/dao/*.xml
+  mapper-locations: classpath*:mapper/*.xml
   
 

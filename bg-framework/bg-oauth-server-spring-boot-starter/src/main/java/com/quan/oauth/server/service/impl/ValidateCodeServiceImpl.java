@@ -1,5 +1,7 @@
 package com.quan.oauth.server.service.impl;
 
+import com.quan.common.util.Strings;
+import com.quan.oauth.server.constant.ValidateParamConstant;
 import com.quan.oauth.server.service.ValidateCodeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,9 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
     /**
      * 保存用户验证码，和randomStr绑定
-     * @param deviceId
-     *            客户端生成
-     * @param imageCode
-     *            验证码信息
+     *
+     * @param deviceId  客户端生成
+     * @param imageCode 验证码信息
      */
     @Override
     public void saveImageCode(String deviceId, String imageCode) {
@@ -64,8 +65,8 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
     /**
      * 获取验证码
-     * @param deviceId
-     *  前端唯一标识/手机号
+     *
+     * @param deviceId 前端唯一标识/手机号
      */
 
     @Override
@@ -74,15 +75,12 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         String code = "";
         try {
             code = redisTemplate.execute(new RedisCallback<String>() {
-
                 @Override
                 public String doInRedis(RedisConnection connection) throws DataAccessException {
 
                     // redis info
-                    byte[] temp = "".getBytes();
-                    temp = connection.get(buildKey(deviceId).getBytes());
+                    byte[] temp = connection.get(buildKey(deviceId).getBytes());
                     connection.close();
-
                     return new String(temp);
                 }
             });
@@ -97,8 +95,8 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
     /**
      * 删除验证码
-     * @param deviceId
-     *            前端唯一标识/手机号
+     *
+     * @param deviceId 前端唯一标识/手机号
      */
     @Override
     public void remove(String deviceId) {
@@ -122,27 +120,24 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     @Override
     public void validate(HttpServletRequest request) {
 
-        String deviceId = request.getParameter("deviceId");
-
-        if (StringUtils.isBlank(deviceId)) {
+        String deviceId = Strings.sNull(request.getParameter(ValidateParamConstant.DEVICE_ID));
+        if (Strings.isBlank(deviceId)) {
             throw new AuthenticationException("请在请求参数中携带deviceId参数") {
             };
         }
-        String code = this.getCode(deviceId);
-        String codeInRequest;
+        String codeInRequest = "", code = Strings.sNull(this.getCode(deviceId));
+        if (Strings.isBlank(code)) {
+            throw new AuthenticationException("验证码不存在或已过期") {
+            };
+        }
         try {
-            codeInRequest = ServletRequestUtils.getStringParameter(request, "validCode");
+            codeInRequest = ServletRequestUtils.getStringParameter(request, ValidateParamConstant.VALID_CODE);
         } catch (ServletRequestBindingException e) {
             throw new AuthenticationException("获取验证码的值失败") {
             };
         }
-        if (StringUtils.isBlank(codeInRequest)) {
+        if (Strings.isBlank(codeInRequest)) {
             throw new AuthenticationException("请填写验证码") {
-            };
-        }
-
-        if (code == null) {
-            throw new AuthenticationException("验证码不存在或已过期") {
             };
         }
 
@@ -150,7 +145,6 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             throw new AuthenticationException("验证码不正确") {
             };
         }
-
         this.remove(deviceId);
     }
 
@@ -160,6 +154,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
 
     @Override
     public void validate(String deviceId, String validCode) {
+
         if (StringUtils.isBlank(deviceId)) {
             throw new AuthenticationException("请在请求参数中携带deviceId参数") {
             };
