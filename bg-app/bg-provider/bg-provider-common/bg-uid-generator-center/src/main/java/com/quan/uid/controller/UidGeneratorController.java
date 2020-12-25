@@ -1,6 +1,7 @@
 package com.quan.uid.controller;
 
-import com.quan.uid.service.UidGenService;
+import com.quan.common.web.Result;
+import com.quan.uid.service.IUidGeneratorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController("/uid-generator")
 @Api(tags = "获取分布式全局ID")
-@RequestMapping("/uid")
-public class UidController {
+public class UidGeneratorController {
 
 
     @Autowired
-    private UidGenService uidGenService;
+    private IUidGeneratorService uidGenService;
 
-    @GetMapping("/next")
+    @GetMapping("/uid")
     @ApiOperation(value = "获取分布式ID")
-    public String test() {
-        return String.valueOf(uidGenService.getUid());
+    public Result test() {
+        return Result.succeed(uidGenService.getUID());
     }
 }

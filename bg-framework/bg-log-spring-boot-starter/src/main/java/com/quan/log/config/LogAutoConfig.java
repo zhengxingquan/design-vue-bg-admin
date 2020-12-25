@@ -40,7 +40,7 @@ public class LogAutoConfig implements WebMvcConfigurer {
                 "appName", appName,
                 "logTime", SystemClock.nowDate()
         });
-//
+
     }
 
     @Override

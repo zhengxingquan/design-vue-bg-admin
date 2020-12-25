@@ -61,43 +61,6 @@ spring:
       # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
       #aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
   ################### mysq end ##########################
-  #  zipkin:
-  #    base-url: http://127.0.0.1:11008
-  redis:
-    ################### redis 单机版 start ##########################
-    host: 127.0.0.1
-    port: 6379
-    timeout: 6000
-    database: 1
-    lettuce:
-      pool:
-        max-active: 10 # 连接池最大连接数（使用负值表示没有限制）,如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
-        max-idle: 8   # 连接池中的最大空闲连接 ，默认值也是8
-        max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException  
-        min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
-      shutdown-timeout: 100ms
-################### redis 单机版 end ##########################   
-#    cluster:
-#      nodes: 130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
-#        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
-#        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
-#    timeout: 1000 # 连接超时时间（毫秒）
-#    lettuce:
-#      pool:
-#        max-active: 10 # 连接池最大连接数（使用负值表示没有限制）,如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
-#        max-idle: 8   # 连接池中的最大空闲连接 ，默认值也是8
-#        max-wait: 100 # # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException  
-#        min-idle: 2    # 连接池中的最小空闲连接 ，默认值也是0
-#      shutdown-timeout: 100ms
-
-
-mybatis-plus:
-  global-config:
-    banner: false
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:mapper/*.xml
-
 
 # 以下为可选配置, 如未指定将采用默认值
 uid:
@@ -111,50 +74,3 @@ uid:
     boostPower: 3          # RingBuffer size扩容参数, 可提高UID生成的吞吐量, 默认:3
     paddingFactor: 50      # 指定何时向RingBuffer中填充UID, 取值为百分比(0, 100), 默认为50
     #scheduleInterval: 60    # 默认:不配置此项, 即不实用Schedule线程. 如需使用, 请指定Schedule线程时间间隔, 单位:秒
-
-
-security:
-  oauth2:
-    ignored: /uid-generator/**  , /doc.html   ,/document.html
-    token:
-      store:
-        type: redis
-
-#设置最大超时时间
-ribbon:
-  eager-load:
-    enabled: true
-  ServerListRefreshInterval: 10  #刷新服务列表源的间隔时间
-  OkToRetryOnAllOperations: true
-  MaxAutoRetries: 1
-  MaxAutoRetriesNextServer: 1
-  ReadTimeout: 16000
-  ConnectTimeout: 16000
-
-#设置最大容错超时时间
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 16000
-
-
-
-
-
-logging:
-  level:
-    com.quan: INFO
-    org.hibernate: INFO
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-  #    com.neusoft: DEBUG
-  #    com.netflix: DEBUG                    #用于心跳检测输出的日志
-
-
-  
- 

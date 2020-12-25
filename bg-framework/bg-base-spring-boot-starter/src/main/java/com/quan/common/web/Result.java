@@ -27,7 +27,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> succeed(T data) {
-        return succeedWith(null, CodeEnum.SUCCESS.getCode(), "");
+        return succeedWith(data, CodeEnum.SUCCESS.getCode(), "");
     }
 
     public static <T> Result<T> succeed(T model, String msg) {

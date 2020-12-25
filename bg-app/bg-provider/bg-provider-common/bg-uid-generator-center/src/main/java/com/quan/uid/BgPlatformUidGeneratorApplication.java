@@ -3,6 +3,7 @@
  */
 package com.quan.uid;
 
+import com.quan.log.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,8 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author zxq(956607644 @ qq.com)
  * @date 2020/12/1 23:08
  */
-
-/* 启动日志*/
+@EnableLogging
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"com.quan"})
 public class BgPlatformUidGeneratorApplication {

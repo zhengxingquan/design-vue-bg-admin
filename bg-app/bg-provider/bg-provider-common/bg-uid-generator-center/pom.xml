@@ -13,11 +13,28 @@
 
     <dependencies>
 
+        <!-- 日志-->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-log-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 公共 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-base-spring-boot-starter</artifactId>
+        </dependency>
 
         <!-- API文档配置 -->
         <dependency>
             <groupId>com.quan</groupId>
             <artifactId>bg-swagger-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 分布式ID -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-uid-generator-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- WEB守护进程启动springboot -->
@@ -49,10 +66,7 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-uid-generator-master-spring-boot-starter</artifactId>
-        </dependency>
+
 
 
     </dependencies>

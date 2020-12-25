@@ -202,7 +202,7 @@
             <!-- 分布式ID -->
             <dependency>
                 <groupId>com.quan</groupId>
-                <artifactId>bg-uid-generator-master-spring-boot-starter</artifactId>
+                <artifactId>bg-uid-generator-spring-boot-starter</artifactId>
                 <version>${core.version}</version>
             </dependency>
 
@@ -281,36 +281,5 @@
 
         </resources>
     </build>
-
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <maven.env>development</maven.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <maven.env>test</maven.env>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>pre</id>
-            <properties>
-                <maven.env>pre</maven.env>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <maven.env>prod</maven.env>
-            </properties>
-        </profile>
-    </profiles>
 
 </project>
