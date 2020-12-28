@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.quan.core.rabbitmq.user.dao.SysRoleDao">
+<mapper namespace="com.quan.core.dao.SysRoleDao">
 
 	<sql id="where">
 		<where>
@@ -20,7 +20,7 @@
 		<include refid="where" />
 	</select>
 
-	<select id="findList" resultType="com.quan.common.model.SysRole">
+	<select id="findList" resultType="com.quan.core.common.model.SysRole">
 		select  id ,code, name, create_time createTime , update_time  updateTime  from sys_role t
 		<include refid="where" />
 		order by t.id desc

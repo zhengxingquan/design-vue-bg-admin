@@ -8,7 +8,6 @@ import ${package}.${pkgName}.dto.create.${className}CreateDTO;
 import ${package}.${pkgName}.dto.update.${className}UpdateDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.quan.common.web.PageResult;
 
 import java.util.List;
 /**

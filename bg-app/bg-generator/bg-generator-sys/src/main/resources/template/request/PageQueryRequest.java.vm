@@ -1,13 +1,11 @@
 package ${package}.${pkgName}.request;
 
-import com.quan.common.request.RequestPage;
-import io.swagger.annotations.ApiModelProperty;
+import com.quan.core.common.request.RequestPage;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 #if(${hasBigDecimal})
-import java.math.BigDecimal;
 #end
 
 /**

@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.quan.common.model.BaseEntity;
 
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
-import java.util.Date;
+    #if(${hasBigDecimal})
+    #end
 
 /**
  * ${comments}

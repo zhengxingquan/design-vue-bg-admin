@@ -13,6 +13,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>bg-uid-generator-center</module>
+        <!-- 短信模块 -->
+        <module>bg-provider-sms</module>
+        <!-- 文件中心 -->
+        <module>bg-provider-file</module>
+        <module>bg-provider-mail</module>
     </modules>
 
 

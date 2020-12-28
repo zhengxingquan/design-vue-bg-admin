@@ -32,7 +32,6 @@
         <module>bg-job-center</module>
         <!-- 权限与鉴权中心 -->
         <module>bg-oauth-center</module>
-        <module>bg-uid-generator-center</module>
     </modules>
 
 </project>

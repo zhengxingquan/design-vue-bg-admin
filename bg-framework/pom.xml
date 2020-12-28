@@ -23,11 +23,13 @@
         <module>bg-oauth-client-spring-boot-starter</module>
         <module>bg-oauth-server-spring-boot-starter</module>
         <module>bg-base-spring-boot-starter</module>
+        <!-- swagger -->
         <module>bg-swagger-spring-boot-starter</module>
         <!--缓存配置-->
         <module>bg-cache-spring-boot-starter</module>
         <!-- 全局分布式ID  -->
         <module>bg-uid-generator-spring-boot-starter</module>
+        <!-- rabbit MQ -->
         <module>bg-rabbitmq-spring-boot-starter</module>
 
     </modules>

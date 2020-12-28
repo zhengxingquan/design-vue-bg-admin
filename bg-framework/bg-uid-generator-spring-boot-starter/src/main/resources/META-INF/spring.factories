@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.quan.baidu.uid.config.UidGeneratorAutoConfig
+  com.quan.core.config.UidGeneratorAutoConfig

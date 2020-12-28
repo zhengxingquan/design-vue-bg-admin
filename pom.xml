@@ -14,7 +14,6 @@
     <modules>
         <module>bg-framework</module>
         <module>bg-app</module>
-        <module>bg-uid-generator-spring-boot-starter</module>
     </modules>
 
 

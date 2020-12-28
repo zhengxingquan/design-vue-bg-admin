@@ -13,16 +13,13 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!-- 公共的业务 -->
+        <module>bg-provider-common</module>
         <!-- 系统核心模块功能 -->
         <module>bg-provider-core</module>
         <!-- 工作流 -->
         <module>bg-provider-workflow</module>
-        <!-- 短信模块 -->
-        <module>bg-provider-sms</module>
-        <!-- 文件中心 -->
-        <module>bg-provider-file</module>
-        <module>bg-provider-mail</module>
-        <module>bg-provider-common</module>
+
     </modules>
 
 </project>

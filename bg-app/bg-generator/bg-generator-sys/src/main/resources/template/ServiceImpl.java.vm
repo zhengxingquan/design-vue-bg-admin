@@ -1,7 +1,6 @@
 package ${package}.${pkgName}.service.impl;
 
-import com.quan.common.annotation.PageQuery;
-import com.quan.common.web.PageResult;
+import com.quan.core.common.annotation.PageQuery;
 import ${package}.${pkgName}.dto.${className}DTO;
 import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.factory.${className}Factory;

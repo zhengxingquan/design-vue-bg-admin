@@ -1,7 +1,7 @@
 package com.quan.generator.core;
 
-import com.quan.BgGeneratorCenterApplication;
-import com.quan.core.rabbitmq.service.SysGeneratorService;
+import com.quan.core.BgGeneratorCenterApplication;
+import com.quan.core.service.SysGeneratorService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
