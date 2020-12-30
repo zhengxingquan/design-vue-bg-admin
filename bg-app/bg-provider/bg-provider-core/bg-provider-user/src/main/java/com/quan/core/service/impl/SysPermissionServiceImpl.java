@@ -52,7 +52,6 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 				throw new IllegalArgumentException("权限标识已存在");
 			}
 			sysPermission.setCreateTime(new Date());
-			sysPermission.setUpdateTime(sysPermission.getCreateTime());
 
 			sysPermissionDao.insert(sysPermission);
 			log.info("保存权限标识：{}", sysPermission);

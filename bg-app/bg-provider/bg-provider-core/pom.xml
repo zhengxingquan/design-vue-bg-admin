@@ -14,7 +14,13 @@
 
     <description>系统核心模块功能</description>
     <modules>
+        <!-- 组织架构 -->
         <module>bg-provider-unit</module>
+        <!-- 用户管理 -->
         <module>bg-provider-user</module>
+        <!-- 角色管理 -->
+        <module>bg-provider-role</module>
+        <!-- 权限管理 -->
+        <module>bg-provider-permissions</module>
     </modules>
 </project>

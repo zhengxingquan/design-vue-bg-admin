@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.RoleDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.Role" id="BaseResultMap">
+
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="aliasName" column="alias_name"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="path" column="path"/>
+        <result property="note" column="note"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
+
+    </resultMap>
+
+    <sql id="baseColumnList">
+        `id` as id
+        ,`parent_id` as parentId
+        , `name` as name
+        ,`code` as code
+        ,`alias_name` as aliasName
+        ,`has_children` as hasChildren
+        ,`path` as path
+        ,`note` as note
+        ,`sort` as sort
+        ,`create_time` as createTime
+        ,`create_user_id` as createUserId
+        ,`update_time` as updateTime
+        ,`update_user_id` as updateUserId
+        ,`data_state` as dataState
+    </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+    <sql id="where">
+        <where>
+            <if test="data.id != null">
+                AND t.`id` = #{data.id}
+            </if>
+            <if test="data.parent_id != null">
+                AND t.`parent_id` = #{data.parentId}
+            </if>
+            <if test="data.name != null">
+                AND t.`name` = #{data.name}
+            </if>
+            <if test="data.code != null">
+                AND t.`code` = #{data.code}
+            </if>
+            <if test="data.alias_name != null">
+                AND t.`alias_name` = #{data.aliasName}
+            </if>
+            <if test="data.has_children != null">
+                AND t.`has_children` = #{data.hasChildren}
+            </if>
+            <if test="data.path != null">
+                AND t.`path` = #{data.path}
+            </if>
+            <if test="data.note != null">
+                AND t.`note` = #{data.note}
+            </if>
+            <if test="data.sort != null">
+                AND t.`sort` = #{data.sort}
+            </if>
+            <if test="data.create_time != null">
+                AND t.`create_time` = #{data.createTime}
+            </if>
+            <if test="data.create_user_id != null">
+                AND t.`create_user_id` = #{data.createUserId}
+            </if>
+            <if test="data.update_time != null">
+                AND t.`update_time` = #{data.updateTime}
+            </if>
+            <if test="data.update_user_id != null">
+                AND t.`update_user_id` = #{data.updateUserId}
+            </if>
+            <if test="data.data_state != null">
+                AND t.`data_state` = #{data.dataState}
+            </if>
+        </where>
+    </sql>
+
+
+    <insert id="save">
+        insert into sys_role(
+        `id`
+        ,`parent_id`
+        ,`name`
+        ,`code`
+        ,`alias_name`
+        ,`has_children`
+        ,`path`
+        ,`note`
+        ,`sort`
+        ,`create_time`
+        ,`create_user_id`
+        ) values (
+          #{id},
+          #{parentId},
+          #{name},
+          #{code},
+          #{aliasName},
+          #{hasChildren},
+          #{path},
+          #{note},
+          #{sort},
+          #{createTime},
+          #{createUserId}
+        )
+        </insert>
+
+
+    <insert id="batchSave">
+        insert into sys_role(
+        `id`
+        ,`parent_id`
+        ,`name`
+        ,`code`
+        ,`alias_name`
+        ,`has_children`
+        ,`path`
+        ,`note`
+        ,`sort`
+        ,`create_time`
+        ,`create_user_id`) values
+        <foreach collection="java.util.List" item="item" index="index" separator=",">
+            (
+            #{id},
+            #{parentId},
+            #{name},
+            #{code},
+            #{aliasName},
+            #{hasChildren},
+            #{path},
+            #{note},
+            #{sort},
+            #{createTime},
+            #{createUserId}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <update id="update">
+        UPDATE sys_role
+        <set>
+            <if test="id != null">
+                `id` = #{id} ,
+            </if>
+            <if test="parent_id != null">
+                `parent_id` = #{parentId} ,
+            </if>
+            <if test="name != null">
+                `name` = #{name} ,
+            </if>
+            <if test="code != null">
+                `code` = #{code} ,
+            </if>
+            <if test="alias_name != null">
+                `alias_name` = #{aliasName} ,
+            </if>
+            <if test="has_children != null">
+                `has_children` = #{hasChildren} ,
+            </if>
+            <if test="path != null">
+                `path` = #{path} ,
+            </if>
+            <if test="note != null">
+                `note` = #{note} ,
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort} ,
+            </if>
+            <if test="update_time != null">
+                `update_time` = #{updateTime} ,
+            </if>
+            <if test="update_user_id != null">
+                `update_user_id` = #{updateUserId} ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+
+    <update id="updateParentNodeAttrChildren">
+        UPDATE sys_role
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId">
+        SELECT COUNT(1)
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_role SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </delete>
+
+
+    <!-- collection 可以是：array，list，map,set -->
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE sys_role SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <delete id="deleteDataByPath">
+        UPDATE sys_role SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '%')
+    </delete>
+
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.model.Role">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.Role">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="findAll" resultType="com.quan.core.model.Role">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_role t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="list" resultType="com.quan.core.model.Role">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_role t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+</mapper>

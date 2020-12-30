@@ -2,6 +2,8 @@ package com.quan.core.common.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.*;
 
 import java.io.Serializable;
@@ -88,11 +90,13 @@ public class SysLog extends BaseEntity implements Serializable {
      * 开始时间
      */
     @TableField("start_time")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long startTime;
 
     /**
      * 结束时间
      */
     @TableField("end_time")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long endTime;
 }

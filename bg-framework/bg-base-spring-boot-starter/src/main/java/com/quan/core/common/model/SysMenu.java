@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -18,14 +19,9 @@ import java.util.Set;
 */
 @Data
 @TableName("sys_menu")
-@EqualsAndHashCode(callSuper=true)
 public class SysMenu extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 749360940290141180L;
-	@JsonSerialize(using=ToStringSerializer.class)
-	private Long id;
-	@TableField(value="parent_id")
-	@JsonSerialize(using=ToStringSerializer.class)
 	private Long parentId;
 	private String name;
 	private String url;
@@ -42,7 +38,4 @@ public class SysMenu extends BaseEntity implements Serializable {
 	private Long roleId;
 	@TableField(exist=false)
 	private Set<Long> menuIds;
-
-
-
 }

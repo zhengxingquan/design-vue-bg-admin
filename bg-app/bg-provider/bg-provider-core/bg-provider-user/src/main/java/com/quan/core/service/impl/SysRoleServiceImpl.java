@@ -49,8 +49,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 			}
 
 			sysRole.setCreateTime(new Date());
-			sysRole.setUpdateTime(sysRole.getCreateTime());
-
 			sysRoleDao.save(sysRole);
 			log.info("保存角色：{}", sysRole);
 		} catch (Exception e) {

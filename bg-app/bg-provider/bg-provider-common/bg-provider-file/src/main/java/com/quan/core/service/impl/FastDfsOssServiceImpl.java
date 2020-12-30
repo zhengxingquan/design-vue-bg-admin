@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -116,7 +117,7 @@ public class FastDfsOssServiceImpl extends AbstractFileService {
             fileExtend.setSize(file.getSize());
             fileExtend.setName(tempFilePath.toString());
             fileExtend.setSource(fileType().name());
-            fileExtend.setCreateTime(new Timestamp(System.currentTimeMillis()));
+            fileExtend.setCreateTime(new Date());
 
             FileExtend oldFileExtend = fileExtendDao.findById(fileExtend.getMd5Id());
             if (oldFileExtend != null) {

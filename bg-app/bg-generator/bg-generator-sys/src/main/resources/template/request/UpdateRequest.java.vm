@@ -1,5 +1,9 @@
 package ${package}.${pkgName}.request;
 
+#if(${serializableState})
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -25,13 +29,16 @@ public class ${className}UpdateRequest {
 
 #foreach ($column in $columns)
     #if($column.reqIgnore == false)
-        /**
-         * $column.comments
-         */
-        #if($column.columnName == $pk.columnName)
-        @NotNull
-        #end
+    /**
+    * $column.comments
+    */
+    #if($column.columnName == $pk.columnName)
+    @NotNull
+    #end
     @ApiModelProperty(value = "$column.comments")
+    #if($column.serializableState)
+    @JsonSerialize(using = ToStringSerializer.class)
+    #end
     private $column.attrType $column.attrname;
     #end
 #end

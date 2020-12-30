@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Data
 public class RequestPage implements Serializable {
 
+    private static final long serialVersionUID = -1L;
+
     @ApiModelProperty(value = "要查询的起始页码" )
     @NotNull
     private Integer pageNumber = 0;

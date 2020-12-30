@@ -32,6 +32,14 @@ public class TableEntity {
     //类名(第一个字母小写)，如：sys_user => sysUser
     private String classname;
 
+    // 权限前缀
+    private String permissionNamePrefix;
+    // 请求 URL 前缀
+    private String requestUrlPrefix;
+
+    // 是否序列化
+    private Boolean serializableState = false;
+
     public String getDbTableName() {
         return dbTableName;
     }
@@ -86,5 +94,29 @@ public class TableEntity {
 
     public void setClassname(String classname) {
         this.classname = classname;
+    }
+
+    public String getPermissionNamePrefix() {
+        return permissionNamePrefix;
+    }
+
+    public void setPermissionNamePrefix(String permissionNamePrefix) {
+        this.permissionNamePrefix = permissionNamePrefix;
+    }
+
+    public String getRequestUrlPrefix() {
+        return requestUrlPrefix;
+    }
+
+    public void setRequestUrlPrefix(String requestUrlPrefix) {
+        this.requestUrlPrefix = requestUrlPrefix;
+    }
+
+    public Boolean getSerializableState() {
+        return serializableState;
+    }
+
+    public void setSerializableState(Boolean serializableState) {
+        this.serializableState = serializableState;
     }
 }

@@ -45,7 +45,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Transactional
     @Override
     public int batchSave(List<${className}CreateRequest> ${classname}s) {
-        return ${classname}Dao.save(${className}Factory.newBatchInstance(${classname}s));
+        return ${classname}Dao.batchSave(${className}Factory.newBatchInstance(${classname}s));
     }
 
     /**

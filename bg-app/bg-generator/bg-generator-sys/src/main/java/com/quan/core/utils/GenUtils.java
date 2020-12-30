@@ -78,6 +78,8 @@ public final class GenUtils {
         List<String> modelIgnoreFields = config.getList("modelIgnore", Collections.EMPTY_LIST);
         List<String> updateIgnoreFields = config.getList("updateIgnore", Collections.EMPTY_LIST);
         List<String> createIgnoreFields = config.getList("createIgnore", Collections.EMPTY_LIST);
+        List<String> serializableFieldTypes = config.getList("serializableFieldType", Collections.EMPTY_LIST);
+        List<String> serializableFieldName = Lists.newArrayList("id", "create_user_id", "update_user_id");
 
         boolean hasBigDecimal = false;
         //表信息
@@ -90,10 +92,15 @@ public final class GenUtils {
 
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
+        // 用 : 分割数据
+        tableEntity.setPermissionNamePrefix(splitPermissionTableName(table.get("tableName")));
+        tableEntity.setRequestUrlPrefix(splitRequestTableName(table.get("tableName")));
 
 
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
+        boolean serializableState = false;
+        ColumnEntity createLast = null, updateLast = null;
         for (Map<String, String> column : columns) {
             ColumnEntity columnEntity = new ColumnEntity();
             columnEntity.setColumnName(column.get("columnName"));
@@ -135,9 +142,28 @@ public final class GenUtils {
                 tableEntity.setPk(columnEntity);
             }
 
+            if (serializableFieldTypes.contains(columnEntity.getAttrType()) || serializableFieldName.contains(columnEntity.getColumnName())) {
+                columnEntity.setSerializableState(true);
+            }
+
+            // 序列化
+            if (columnEntity.isSerializableState()) {
+                serializableState = true;
+            }
+
+            if (!columnEntity.isCreateIgnore()) {
+                createLast = columnEntity;
+            }
+
+            if (!columnEntity.isUpdateIgnore()) {
+                updateLast = columnEntity;
+            }
+
             columsList.add(columnEntity);
         }
+        tableEntity.setSerializableState(serializableState);
         tableEntity.setColumns(columsList);
+
 
         //没主键，则第一个字段为主键
         if (tableEntity.getPk() == null) {
@@ -153,14 +179,20 @@ public final class GenUtils {
         //封装模板数据
         Map<String, Object> map = new HashMap<>();
         map.put("tableName", tableEntity.getTableName());
+        map.put("permissionNamePrefix", tableEntity.getPermissionNamePrefix());
+        map.put("requestUrlPrefix", tableEntity.getRequestUrlPrefix());
         map.put("pkgName", className.toLowerCase());
         map.put("comments", tableEntity.getComments());
         map.put("pk", tableEntity.getPk());
+        map.put("createLast", createLast);
+        map.put("updateLast", updateLast);
+        map.put("columnLast", columsList.get(columsList.size() - 1));
         map.put("className", tableEntity.getClassName());
         map.put("classname", tableEntity.getClassname());
         map.put("pathName", tableEntity.getClassname().toLowerCase());
         map.put("columns", tableEntity.getColumns());
         map.put("hasBigDecimal", hasBigDecimal);
+        map.put("serializableState", tableEntity.getSerializableState());
         map.put("mainPath", mainPath);
         map.put("package", config.getString("package"));
         // 模块名称 主要前端调用
@@ -190,15 +222,18 @@ public final class GenUtils {
         }
     }
 
-    /***
-     *   得到忽略的字段名
-     */
-    private static List<String> getIgnoreFieldsByConfig(String ignoreFields) {
-        if (Strings.isBlank(ignoreFields)) {
-            return Collections.EMPTY_LIST;
+    private static String splitRequestTableName(String tableName) {
+        if (Strings.isBlank(tableName)) {
+            return tableName;
         }
+        return WordUtils.capitalizeFully(tableName, new char[]{'_'}).replace("_", "/").toLowerCase();
+    }
 
-        return Lists.newArrayList(ignoreFields.split(","));
+    private static String splitPermissionTableName(String tableName) {
+        if (Strings.isBlank(tableName)) {
+            return tableName;
+        }
+        return WordUtils.capitalizeFully(tableName, new char[]{'_'}).replace("_", ":").toLowerCase();
     }
 
 
@@ -293,7 +328,7 @@ public final class GenUtils {
 
         /* UpdateRequest request  */
         if (template.contains("FindOneByIdRequest.java.vm")) {
-            return packagePath + "request"  + File.separator + className + "FindOneByIdRequest.java";
+            return packagePath + "request" + File.separator + className + "FindOneByIdRequest.java";
         }
 
         /* DeleteRequest request  */

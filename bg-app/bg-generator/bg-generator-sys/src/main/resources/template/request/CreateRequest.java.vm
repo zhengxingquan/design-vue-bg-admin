@@ -1,12 +1,13 @@
 package ${package}.${pkgName}.request;
 
+#if(${serializableState})
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import io.swagger.annotations.ApiModelProperty;
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
 import java.util.Date;
 
 /**
@@ -30,6 +31,9 @@ public class ${className}CreateRequest {
     * $column.comments
     */
     @ApiModelProperty(value = "$column.comments")
+    #if($column.serializableState)
+    @JsonSerialize(using = ToStringSerializer.class)
+    #end
     private $column.attrType $column.attrname;
     #end
     #end

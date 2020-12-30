@@ -1,5 +1,7 @@
 package ${package}.${pkgName}.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,7 @@ public class ${className}DeleteRequest {
 
     @ApiModelProperty("删除id")
     @NotNull
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
 }

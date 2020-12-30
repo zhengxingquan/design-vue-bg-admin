@@ -5,27 +5,27 @@
 
     <!-- 通用查询映射结果  -->
     <resultMap type="${package}.${pkgName}.model.${className}" id="BaseResultMap">
+
         #foreach($column in $columns)
             <result property="${column.attrname}" column="${column.columnName}"/>
         #end
+
     </resultMap>
 
     <sql id="baseColumnList">
         #foreach($column in $columns)
-        ${column.columnName} as ${column.attrname}#if( $!{velocityCount} != $!{columns.size()}),#end
-    #end
-    </sql>
+        `${column.columnName}` as ${column.attrname}
+#if( ${columnLast.columnName} != $column.columnName),#end
+        #end
+</sql>
 
 
     <sql id="where">
-        ##                <if test="searchKey != null and searchKey != '' and searchKey=='${column.columnName}'">
-        ##                    and t.${column.columnName} like concat('%', #{searchValue}, '%')
-        ##                </if>
         <where>
             dataState = 0
             #foreach($column in $columns)
                 <if test="data.${column.columnName} != null">
-                    ${column.columnName} = #{data.${column.columnName}},
+                    AND t.`${column.columnName}` = #{data.${column.attrname}}
                 </if>
             #end
         </where>
@@ -33,21 +33,17 @@
 
     #* 保存 *#
     <insert id="save">
-        insert into ${tableName}(
-            #foreach($column in $columns)
-        #if( $!{velocityCount} == $!{columns.size()})
-            ${column.columnName}
-        #else
-            ${column.columnName},
-                #end
+        insert into ${tableName}(#foreach($column in $columns)
+        #if($column.createIgnore == false)
+            `${column.columnName}`
+            #if( ${createLast.columnName} != $column.columnName),#end
+        #end
     #end
-        ) values (
-         #foreach($column in $columns)
-        #if( $!{velocityCount} == $!{columns.size()})
-               #{${column.columnName}}
-            #else
-               #{ ${column.columnName}},
-            #end
+        ) values (#foreach($column in $columns)
+        #if($column.createIgnore == false)
+            #{${column.attrname}}
+            #if( ${createLast.columnName} != $column.columnName),#end
+        #end
     #end
         )
         </insert>
@@ -56,20 +52,18 @@
     <insert id="batchSave">
         insert into ${tableName}(
         #foreach($column in $columns)
-            #if( $!{velocityCount} == $!{columns.size()})
-                ${column.columnName}
-            #else
-                ${column.columnName},
+            #if($column.createIgnore == false)
+                `${column.columnName}
+                `#if( ${createLast.columnName} != $column.columnName), #end
             #end
         #end
         ) values
         <foreach collection="java.util.List" item="item" index="index" separator=",">
             (
             #foreach($column in $columns)
-                #if( $!{velocityCount} == $!{columns.size()})
-                    #{item.${column.columnName}}
-                #else
-                    #{item.${column.columnName}},
+                #if($column.createIgnore == false)
+                    #{item.${column.attrname}}
+                    #if( ${createLast.columnName} != $column.columnName), #end
                 #end
             #end
             )
@@ -82,9 +76,12 @@
         UPDATE ${tableName}
         <set>
             #foreach($column in $columns)
-                <if test="${column.columnName} != null">
-                    ${column.columnName} = #{${column.columnName}},
-                </if>
+                #if($column.updateIgnore == false)
+                    <if test="${column.columnName} != null">
+                        `${column.columnName}` = #{${column.attrname}}
+                        #if( ${updateLast} != $column.columnName),#end
+                    </if>
+                #end
             #end
         </set>
         WHERE dataState = 0 AND id = #{id}
@@ -100,7 +97,7 @@
 
         UPDATE ${tableName} SET dataState = 2
         WHERE dataState = 0 AND id IN
-        <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
+        <foreach collection="list" index="index" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </delete>

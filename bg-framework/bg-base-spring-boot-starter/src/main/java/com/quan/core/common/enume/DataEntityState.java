@@ -10,10 +10,16 @@ public enum DataEntityState {
      * 启用
      */
     ENABLE(0),
+
+    /***
+     * 不启用
+     */
+    DISABLED(-1),
     /***
      * 删除
      */
     DELETE(1);
+
     private int value;
 
     public int getValue() {

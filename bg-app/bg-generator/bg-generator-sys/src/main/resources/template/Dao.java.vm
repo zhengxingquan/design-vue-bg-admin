@@ -30,7 +30,7 @@ public interface ${className}Dao {
      * 批量添加
      * @param ${classname}s
      */
-    int save(List<${className}CreateDTO> ${classname}s);
+    int batchSave(List<${className}CreateDTO> ${classname}s);
 
     /**
      * 修改

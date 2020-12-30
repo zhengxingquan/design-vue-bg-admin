@@ -13,6 +13,20 @@ import java.lang.annotation.*;
 @Documented
 public @interface SLog {
     /**
+     * 标签
+     *
+     * @return
+     */
+    String tag()  default "";
+
+    /**
+     * 消息
+     *
+     * @return
+     */
+    String msg() default "";
+
+    /**
      * 模块
      *
      * @return
@@ -32,5 +46,12 @@ public @interface SLog {
      * @return the boolean
      */
     boolean saveResponseData() default false;
+
+    /**
+     * 是否异步执行,默认为true
+     *
+     * @return true, 如果需要异步执行
+     */
+    boolean async() default true;
 
 }

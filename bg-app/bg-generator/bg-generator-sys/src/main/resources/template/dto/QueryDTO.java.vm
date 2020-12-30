@@ -1,11 +1,12 @@
 package ${package}.${pkgName}.dto;
 
+#if(${serializableState})
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
 import java.util.Date;
 
 /**
@@ -24,10 +25,13 @@ public class ${className}QueryDTO {
 #foreach ($column in $columns)
 #if($column.columnName != $pk.columnName)
     #if($column.dtoIgnore == false)
-        /**
-         * $column.comments
-         */
-        private $column.attrType $column.attrname;
+    /**
+    * $column.comments
+    */
+    #if($column.serializableState)
+    @JsonSerialize(using = ToStringSerializer.class)
+    #end
+    private $column.attrType $column.attrname;
     #end
 #end
 #end

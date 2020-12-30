@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,8 +19,7 @@ import java.util.List;
  */
 @Data
 @TableName("sys_user")
-@EqualsAndHashCode(callSuper = true)
-public class SysUser extends BaseEntity implements Serializable {
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = -5886012896705137070L;
     @TableId(value = "id", type = IdType.ASSIGN_ID)  //雪花算法  id生成策略
@@ -47,5 +46,11 @@ public class SysUser extends BaseEntity implements Serializable {
     private String oldPassword;
     @TableField(exist = false)
     private String newPassword;
+
+    @TableField(value = "create_time")
+    private Date createTime;
+
+    @TableField(value = "update_time")
+    private Date updateTime;
 
 }

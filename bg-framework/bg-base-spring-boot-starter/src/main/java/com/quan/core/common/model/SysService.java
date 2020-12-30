@@ -15,8 +15,8 @@ import java.io.Serializable;
 public class SysService extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 749360940290141180L;
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+//    @JsonSerialize(using = ToStringSerializer.class)
+//    private Long id;
     @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
     private String name;

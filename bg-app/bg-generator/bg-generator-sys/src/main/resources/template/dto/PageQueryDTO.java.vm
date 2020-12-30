@@ -1,11 +1,13 @@
 package ${package}.${pkgName}.dto;
 
+#if(${serializableState})
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
+import com.quan.core.common.dto.query.PageQueryDTO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-#if(${hasBigDecimal})
-#end
 
 /**
  * ${comments} 分页查询DTO
@@ -26,6 +28,9 @@ public class ${className}PageQueryDTO extends PageQueryDTO {
     /**
      * $column.comments
      */
+    #if($column.serializableState)
+    @JsonSerialize(using = ToStringSerializer.class)
+    #end
     private $column.attrType $column.attrname;
     #end
 #end

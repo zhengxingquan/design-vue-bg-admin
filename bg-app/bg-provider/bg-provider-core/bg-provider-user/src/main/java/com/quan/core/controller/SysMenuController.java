@@ -1,7 +1,9 @@
 package com.quan.core.controller;
 
 import com.quan.core.annotation.SLog;
+import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.auth.details.LoginAppUser;
+import com.quan.core.common.enume.MenuType;
 import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysMenu;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @RestController
 @Api(tags = "MENU API")
 @RequestMapping("/menus")
+@AutoCreateMenuAuth(type = MenuType.MENU, name = "菜单管理")
 public class SysMenuController {
 
     @Autowired
@@ -40,7 +43,8 @@ public class SysMenuController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除菜单")
     @PreAuthorize("hasAuthority('menu:delete/menus/{id}')")
-    @SLog(module = "user-center")
+    @SLog(module = "user-center",tag = "查询列表")
+    @AutoCreateMenuAuth(type = MenuType.MENU, name = "菜单管理", shortNo = 3, parentPermission = "sys.manage")
     public Result delete(@PathVariable Long id) throws ControllerException {
         try {
             menuService.delete(id);

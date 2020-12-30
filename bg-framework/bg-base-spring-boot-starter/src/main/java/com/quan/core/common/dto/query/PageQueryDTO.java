@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class PageQueryDTO implements Serializable {
-    private int pageNumber = 0;
-    private int pageSize = 10;
+
+    private Integer pageNumber = 0;
+    private Integer pageSize = 10;
 }

@@ -1,13 +1,18 @@
 package ${package}.${pkgName}.entity;
 
+#if(${serializableState})
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
+import com.quan.core.common.model.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
 
-    #if(${hasBigDecimal})
-    #end
+
+
 
 /**
  * ${comments}
@@ -20,21 +25,24 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @Getter
 @Setter
 @Data
-@TableName("${tableName}" )
+@TableName("${tableName}")
 public class ${className} extends BaseEntity{
 
-    private static final long serialVersionUID=1L;
+private static final long serialVersionUID=1L;
 
 #foreach ($column in $columns)
     #if($column.columnName == $pk.columnName)
     #else
-    #if($column.modelIgnore == false)
-    /**
-     * $column.comments
-     */
-    @TableField(value = "$column.columnName")
-    private $column.attrType $column.attrname;
-    #end
+        #if($column.modelIgnore == false)
+        /**
+         * $column.comments
+         */
+        @TableField(value = "$column.columnName")
+        #if($column.serializableState)
+        @JsonSerialize(using = ToStringSerializer.class)
+        #end
+        private $column.attrType $column.attrname;
+        #end
     #end
 #end
 

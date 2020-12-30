@@ -3,11 +3,10 @@ package com.quan.core.config;
 import com.didispace.swagger.butler.EnableSwaggerButler;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author 作者 owen 
- * @version 创建时间：2018年4月5日 下午19:52:21 类说明
- * swagger 聚合文档配置
- * zuul routers 映射具体服务的/v2/api-docs swagger 
+/***
+ * 接口文档
+ * @author zxq(956607644 @ qq.com)
+ * @date 2020/12/29 11:06
  */
 @Configuration
 @EnableSwaggerButler

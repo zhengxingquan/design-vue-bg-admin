@@ -18,8 +18,6 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CorsConfig {
 
-	 
-
     /**
      * 跨域支持
      */

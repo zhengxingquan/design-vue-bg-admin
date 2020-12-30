@@ -205,9 +205,6 @@
                 <version>${core.version}</version>
             </dependency>
 
-
-
-
         </dependencies>
     </dependencyManagement>
 

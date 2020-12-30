@@ -24,6 +24,8 @@ public class ColumnEntity {
     private String attrname;
     //属性类型
     private String attrType;
+    // 序列化
+    private boolean serializableState;
     /***
      * 自动增长  auto_increment
      */
@@ -146,5 +148,13 @@ public class ColumnEntity {
 
     public void setCreateIgnore(boolean createIgnore) {
         this.createIgnore = createIgnore;
+    }
+
+    public boolean isSerializableState() {
+        return serializableState;
+    }
+
+    public void setSerializableState(boolean serializableState) {
+        this.serializableState = serializableState;
     }
 }

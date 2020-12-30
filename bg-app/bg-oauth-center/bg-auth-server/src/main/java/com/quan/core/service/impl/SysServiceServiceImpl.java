@@ -6,6 +6,7 @@ import com.quan.core.dao.SysClientServiceDao;
 import com.quan.core.dao.SysServiceDao;
 import com.quan.core.service.SysServiceService;
 import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.util.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: [gitgeek]
@@ -45,7 +47,6 @@ public class SysServiceServiceImpl implements SysServiceService {
     public void save(SysService service) {
         try {
         	service.setCreateTime(new Date());
-			service.setUpdateTime(new Date());
 			sysServiceDao.save(service);
 			log.info("添加服务：{}", service);
 		} catch (Exception e) {
@@ -61,7 +62,6 @@ public class SysServiceServiceImpl implements SysServiceService {
     @Override
     public void update(SysService service) {
         try {
-			service.setUpdateTime(new Date());
 			service.setUpdateTime(new Date());
 			sysServiceDao.updateByPrimaryKey(service);
 			log.info("更新服务：{}", service);

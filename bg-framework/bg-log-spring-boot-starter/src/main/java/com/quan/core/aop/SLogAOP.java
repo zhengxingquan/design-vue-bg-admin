@@ -2,12 +2,12 @@ package com.quan.core.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.quan.core.annotation.SLog;
 import com.quan.core.common.auth.details.LoginAppUser;
 import com.quan.core.common.constant.TraceConstant;
 import com.quan.core.common.model.SysLog;
 import com.quan.core.common.util.Strings;
 import com.quan.core.common.util.SysUserUtil;
-import com.quan.core.annotation.SLog;
 import com.quan.core.service.LogService;
 import com.quan.core.util.RequestUtil;
 import com.quan.core.util.TraceUtil;
@@ -70,7 +70,6 @@ public class SLogAOP {
 
         sysLog.setTraceId(traceId);
         sysLog.setStartTime(start);
-        sysLog.setStartTime(start);
         sysLog.setIp(ipAddress);
         sysLog.setOs(os);
         sysLog.setBrowser(browser);
@@ -130,17 +129,13 @@ public class SLogAOP {
             long end = System.currentTimeMillis();
             sysLog.setEndTime(end);
             //如果需要记录数据库开启异步操作
-            CompletableFuture.runAsync(() -> {
-                try {
-                    log.trace("日志落库开始：{}", sysLog);
-                    if (logService != null) {
-                        logService.save(sysLog);
-                    }
-                    log.trace("开始落库结束：{}", sysLog);
-                } catch (Exception e) {
-                    log.error("落库失败：{}", e.getMessage());
-                }
-            }, taskExecutor);
+            if (slog.async()) {
+                CompletableFuture.runAsync(() -> {
+                    insertLog(sysLog);
+                }, taskExecutor);
+            } else {
+                insertLog(sysLog);
+            }
             // 获取回执报文及耗时
             log.info("请求完成, traceId={}, 耗时={}, resp={}:", traceId, (end - start), result == null ? null : responseResultStr);
         }
@@ -155,5 +150,17 @@ public class SLogAOP {
         }
         return message;
 
+    }
+
+    private void insertLog(SysLog sysLog) {
+        try {
+            log.trace("日志落库开始：{}", sysLog);
+            if (logService != null) {
+                logService.save(sysLog);
+            }
+            log.trace("开始落库结束：{}", sysLog);
+        } catch (Exception e) {
+            log.error("落库失败：{}", e.getMessage());
+        }
     }
 }

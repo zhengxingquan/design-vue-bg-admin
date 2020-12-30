@@ -1,5 +1,8 @@
 package ${package}.${pkgName}.controller;
 
+import com.quan.core.annotation.SLog;
+import com.quan.core.common.annotation.AutoCreateMenuAuth;
+import com.quan.core.common.enume.MenuType;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.Result;
 import ${package}.${pkgName}.service.${className}Service;
@@ -21,34 +24,27 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * ${comments}
  *
  * @author ${author}
- * @email ${email}
- * @date ${datetime}
+ * @email  ${email}
+ * @date   ${datetime}
  */
 @RestController
-@RequestMapping("${pathName}")
+@RequestMapping("${requestUrlPrefix}")
 @Api(tags = "${comments}")
+@AutoCreateMenuAuth(type = MenuType.MENU, name = "${comments}", permission = "${permissionNamePrefix}")
 public class ${className}Controller {
 
     @Autowired
     private ${className}Service ${classname}Service;
 
-
     /**
      * 列表
      */
-    @ApiOperation(value = "查找列表")
-##    @ApiImplicitParams({
-##        #foreach ($column in $columns)
-##                @ApiImplicitParam(name = "$column.attrname", value = "$column.comments", required = false, dataType = "$column.attrType"),
-##        #end
-##            @ApiImplicitParam(name = "pageNumber", value = "起始页码", required = true, dataType = "int"),
-##            @ApiImplicitParam(name = "pageSize", value = "每页显示数量", required = true, dataType = "int")
-##    })
+    @ApiOperation(value = "查询列表")
     @PostMapping("/list")
-    @PreAuthorize("hasAnyAuthority('${tableName}:${pathName}:list')")
-    public PageResult list(${className}PageQueryRequest req) {
-        PageResult pageResult = ${classname}Service.findAll(req);
-        return pageResult;
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
+    @SLog(module = "role-center", tag = "查询列表")
+    public Object data(${className}PageQueryRequest req) {
+        return ${classname}Service.findAll(req);
     }
 
 
@@ -57,9 +53,24 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "添加数据")
     @PostMapping("/save")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:save')")
-    public Result save(@RequestBody ${className}CreateRequest req) {
-            ${classname}Service.save(req);
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:save')")
+    @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "${permissionNamePrefix}:save", parentPermission = "${permissionNamePrefix}")
+    @SLog(module = "role-center", tag = "添加数据")
+    public Result doSave(@RequestBody ${className}CreateRequest req) {
+        ${classname}Service.save(req);
+        return Result.succeed("保存成功");
+    }
+
+    /**
+    * 批量添加数据
+    */
+    @ApiOperation(value = "批量添加数据")
+    @PostMapping("/batchSave")
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:save')")
+    @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "${permissionNamePrefix}:save", parentPermission = "${permissionNamePrefix}")
+    @SLog(module = "role-center", tag = "批量添加数据")
+    public Result doBatchSaveSave(@RequestBody List<${className}CreateRequest> req) {
+        ${classname}Service.batchSave(req);
         return Result.succeed("保存成功");
     }
 
@@ -68,8 +79,10 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "编辑数据")
     @PostMapping("/update")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:update')")
-    public Result update(@RequestBody ${className}UpdateRequest req) {
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:update')")
+    @AutoCreateMenuAuth(name = "编辑", shortNo = 2, permission = "${permissionNamePrefix}:update", parentPermission = "${permissionNamePrefix}")
+    @SLog(module = "role-center", tag = "编辑数据")
+    public Result doUpdate(@RequestBody ${className}UpdateRequest req) {
             ${classname}Service.update(req);
         return Result.succeed("修改成功");
     }
@@ -79,18 +92,22 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "删除数据")
     @PostMapping("/delete")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:delete')")
-    public Result delete(@RequestBody ${className}DeleteRequest req) {
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:delete')")
+    @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
+    @SLog(module = "role-center", tag = "编辑数据")
+    public Result doDelete(@RequestBody ${className}DeleteRequest req) {
         return Result.succeed(${classname}Service.delete(req.getId()), "删除成功");
     }
 
     /**
-  * 批量删除
-  */
+    * 批量删除
+    */
     @ApiOperation(value = "删除数据")
     @PostMapping("/deletes")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:delete')")
-    public Result deletes(@RequestBody ${className}BatchDeleteRequest req) {
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:delete')")
+    @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
+    @SLog(module = "role-center", tag = "批量编辑数据")
+    public Result doDeletes(@RequestBody ${className}BatchDeleteRequest req) {
         return Result.succeed(${classname}Service.delete(req.getIds()), "删除成功");
     }
 
@@ -100,8 +117,9 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "查找记录（通过主键）")
     @PostMapping("/findById")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:findById')")
-    public Result findById(@RequestBody ${className}FindOneByIdRequest req) {
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
+    @SLog(module = "role-center", tag = "通过主键查找记录")
+    public Result doFindById(@RequestBody ${className}FindOneByIdRequest req) {
         return Result.succeed(${classname}Service.findOneById(req.getId()));
     }
 
@@ -111,17 +129,11 @@ public class ${className}Controller {
      * @param req 对象数据
      * @return
      */
-    @ApiOperation(value = "查找记录（通过主键）")
-##    @ApiImplicitParams({
-##        #foreach ($column in $columns)
-##            #if($column.reqIgnore == false)
-##            @ApiImplicitParam(name = "$column.attrname", value = "$column.comments", dataType = "$column.attrType"),
-##            #end
-##        #end
-##    })
+    @ApiOperation(value = "查找记录")
     @PostMapping("/findByCnd")
-    @PreAuthorize("hasAnyAuthority('generator:sysroleuser:findByCnd')")
-    public Result findOneByCnd(@RequestBody ${className}QueryRequest req) {
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
+    @SLog(module = "role-center", tag = "通过条件查找记录")
+    public Result doFindOneByCnd(@RequestBody ${className}QueryRequest req) {
         return Result.succeed(${classname}Service.findOneByCnd(req));
     }
 
@@ -129,15 +141,9 @@ public class ${className}Controller {
      * 查找记录
      */
     @ApiOperation(value = "查找数据不分页")
-##    @ApiImplicitParams({
-##        #foreach ($column in $columns)
-##            #if($column.reqIgnore == false)
-##            @ApiImplicitParam(name = "$column.attrname", value = "$column.comments", dataType = "$column.attrType"),
-##            #end
-##        #end
-##    })
     @PostMapping("/query")
-    @PreAuthorize("hasAnyAuthority('${tableName}:${pathName}:query')")
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
+    @SLog(module = "role-center", tag = "通过条件查找记录")
     public Result data(${className}QueryRequest req) {
         return Result.succeed(${classname}Service.list(req));
     }

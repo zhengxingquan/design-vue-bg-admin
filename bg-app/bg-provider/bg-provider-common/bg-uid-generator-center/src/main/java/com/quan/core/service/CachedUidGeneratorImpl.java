@@ -23,9 +23,7 @@ public class CachedUidGeneratorImpl implements IUidGeneratorService {
 
     @Override
     public Long getUID() throws UidGenerateException {
-        Long uid = cachedUidGenerator.getUID();
-        log.info("生成全局分布式ID: {} ", uid);
-        return uid;
+        return cachedUidGenerator.getUID();
     }
 
     @Override
