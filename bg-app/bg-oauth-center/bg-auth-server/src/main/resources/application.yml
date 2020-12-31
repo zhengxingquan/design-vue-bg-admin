@@ -138,7 +138,7 @@ feign:
   client:
     config:
       default:
-        ## 配合logging.level=trace debug用于开发调式日志
+#         配合logging.level=trace debug用于开发调式日志
         loggerLevel: full
   compression:
     request:
@@ -154,8 +154,8 @@ logging:
   level:
     ##lettuce 将连接池里处于空闲（idle）状态的client每隔一段时间就主动断开，然后再重新连接
     io.lettuce.core.protocol: ERROR
-    com.quan: info
-    org.hibernate: info
+    com.quan: DEBUG
+    org.hibernate: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
     #    com.neusoft: DEBUG

@@ -34,8 +34,8 @@ spring:
       web-stat-filter:
         enabled: true
         url-pattern: /*
-        exclusions:  "*.js , *.gif ,*.jpg ,*.png ,*.css ,*.ico , /druid/*"
-        session-stat-max-count:  1000
+        exclusions: "*.js , *.gif ,*.jpg ,*.png ,*.css ,*.ico , /druid/*"
+        session-stat-max-count: 1000
         profile-enable: true
       # StatViewServlet配置
       #展示Druid的统计信息,StatViewServlet的用途包括：1.提供监控信息展示的html页面2.提供监控信息的JSON API
@@ -151,7 +151,7 @@ hystrix:
           enabled: true
       circuitBreaker:
         forceOpen: false
-        sleepWindowInMilliseconds:  5000
+        sleepWindowInMilliseconds: 5000
   threadpool:
     default:
       coreSize: 100
@@ -282,14 +282,15 @@ zuul:
 
 swagger:
   butler:
-    api-docs-path:  v2/api-docs
+    api-docs-path: v2/api-docs
     auto-generate-from-zuul-routes: true
-    ignore-routes:  eureka , eureka-server ,user-center,auth-server
+    ignore-routes: eureka , eureka-server ,user-center,auth-server
 
 #  generate-routes: auth-server, auth-client 
 
 logging:
   level:
+    root: INFO
     com.quan: INFO
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE

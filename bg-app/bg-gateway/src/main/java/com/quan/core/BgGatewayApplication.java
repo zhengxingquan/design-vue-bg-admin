@@ -15,16 +15,16 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/11/18 15:18
  *
  *
- *  网关 启动器
+ *  网关 启动器 zuul
  */
 @Configuration
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableHystrixDashboard
-public class BgCloudGatewayApplication {
+public class BgGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BgCloudGatewayApplication.class, args);
+        SpringApplication.run(BgGatewayApplication.class, args);
     }
 }

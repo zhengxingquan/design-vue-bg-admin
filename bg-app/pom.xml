@@ -14,10 +14,8 @@
     <artifactId>bg-app</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <!-- 配置文件中心 -->
-        <module>bg-discovery</module>
-        <!-- 服务注册中心 -->
-        <module>bg-eureka</module>
+        <!-- 配置中心 -->
+        <module>bg-config</module>
         <!-- 网关中心 -->
         <module>bg-gateway</module>
         <!-- 代码生成中心 -->
@@ -32,6 +30,8 @@
         <module>bg-job-center</module>
         <!-- 权限与鉴权中心 -->
         <module>bg-oauth-center</module>
+        <!-- 服务注册中心 -->
+        <module>bg-registry-center</module>
     </modules>
 
 </project>

@@ -16,11 +16,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 @EnableConfigServer
 @EnableEurekaClient
-public class BgCloudDiscoveryApplication {
+public class BgConfigApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(BgCloudDiscoveryApplication.class, args);
+        SpringApplication.run(BgConfigApplication.class, args);
 
     }
 }

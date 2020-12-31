@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <artifactId>bg-discovery</artifactId>
+    <artifactId>bg-config</artifactId>
     <description>配置中心</description>
 
     <dependencies>
