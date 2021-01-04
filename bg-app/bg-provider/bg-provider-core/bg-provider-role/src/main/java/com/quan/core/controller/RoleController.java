@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public class RoleController {
     @PreAuthorize("hasAnyAuthority('sys:role:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "sys:role:save", parentPermission = "sys:role")
     @SLog(module = "role-center", tag = "添加数据")
-    public Result doSave(@RequestBody RoleCreateRequest req) {
+    public Result doSave(@RequestBody RoleCreateRequest req, HttpServletResponse resp) {
         roleService.save(req);
         return Result.succeed("保存成功");
     }

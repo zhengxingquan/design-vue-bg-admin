@@ -604,18 +604,21 @@ public final class Files {
      */
     public static InputStream findFileAsStream(String path, Class<?> klass, String enc) {
         File f = new File(path);
-        if (f.exists())
+        if (f.exists()) {
             try {
                 return new FileInputStream(f);
             } catch (FileNotFoundException e1) {
                 return null;
             }
+        }
         if (null != klass) {
             InputStream ins = klass.getClassLoader().getResourceAsStream(path);
-            if (null == ins)
+            if (null == ins) {
                 ins = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-            if (null != ins)
+            }
+            if (null != ins) {
                 return ins;
+            }
         }
         return ClassLoader.getSystemResourceAsStream(path);
     }

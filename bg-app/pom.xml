@@ -26,12 +26,15 @@
         <module>bg-provider</module>
         <!-- 具体业务API -->
         <module>bg-provider-api</module>
+        <!-- 微信服务 -->
+        <module>bg-provider-wx</module>
         <!-- 平台任务中心 -->
         <module>bg-job-center</module>
         <!-- 权限与鉴权中心 -->
         <module>bg-oauth-center</module>
         <!-- 服务注册中心 -->
         <module>bg-registry-center</module>
+
     </modules>
 
 </project>
