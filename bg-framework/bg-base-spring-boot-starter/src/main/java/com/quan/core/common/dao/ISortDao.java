@@ -1,6 +1,7 @@
 package com.quan.core.common.dao;
 
 import com.quan.core.common.dto.model.SortDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**

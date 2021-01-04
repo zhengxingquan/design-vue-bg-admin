@@ -3,21 +3,24 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.Result;
-import com.quan.core.request.del.RoleDeleteRequest;
-import com.quan.core.service.RoleService;
-import com.quan.core.request.create.RoleCreateRequest;
-import com.quan.core.request.update.RoleUpdateRequest;
-import com.quan.core.request.del.RoleBatchDeleteRequest;
+import com.quan.core.request.RoleFindOneByIdRequest;
 import com.quan.core.request.RolePageQueryRequest;
 import com.quan.core.request.RoleQueryRequest;
-import com.quan.core.request.RoleFindOneByIdRequest;
-
+import com.quan.core.request.create.RoleCreateRequest;
+import com.quan.core.request.del.RoleBatchDeleteRequest;
+import com.quan.core.request.del.RoleDeleteRequest;
+import com.quan.core.request.update.RoleUpdateRequest;
+import com.quan.core.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,13 +28,13 @@ import java.util.List;
  * 系统角色表
  *
  * @author ${author}
- * @email  956607644@qq.com
- * @date   2020-12-30 17:42:13
+ * @email 956607644@qq.com
+ * @date 2020-12-30 17:42:13
  */
 @RestController
 @RequestMapping("sys/role")
-@Api(tags = "系统角色表")
-@AutoCreateMenuAuth(type = MenuType.MENU, name = "系统角色表", permission = "sys:role")
+@Api(tags = "角色管理")
+@AutoCreateMenuAuth(type = MenuType.MENU, name = "角色管理", permission = "sys:role")
 public class RoleController {
 
     @Autowired
@@ -44,8 +47,8 @@ public class RoleController {
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('sys:role:list')")
     @SLog(module = "role-center", tag = "查询列表")
-    public Object data(@RequestBody RolePageQueryRequest req) {
-        return roleService.findAll(req);
+    public PageResult data(@RequestBody RolePageQueryRequest req) {
+        return (PageResult) roleService.findAll(req);
     }
 
 
@@ -63,8 +66,8 @@ public class RoleController {
     }
 
     /**
-    * 批量添加数据
-    */
+     * 批量添加数据
+     */
     @ApiOperation(value = "批量添加数据")
     @PostMapping("/batchSave")
     @PreAuthorize("hasAnyAuthority('sys:role:save')")
@@ -84,7 +87,7 @@ public class RoleController {
     @AutoCreateMenuAuth(name = "编辑", shortNo = 2, permission = "sys:role:update", parentPermission = "sys:role")
     @SLog(module = "role-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody RoleUpdateRequest req) {
-            roleService.update(req);
+        roleService.update(req);
         return Result.succeed("修改成功");
     }
 
@@ -101,8 +104,8 @@ public class RoleController {
     }
 
     /**
-    * 批量删除
-    */
+     * 批量删除
+     */
     @ApiOperation(value = "删除数据")
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('sys:role:delete')")
@@ -127,6 +130,7 @@ public class RoleController {
 
     /**
      * 通过条件查找记录
+     *
      * @param req 对象数据
      * @return
      */

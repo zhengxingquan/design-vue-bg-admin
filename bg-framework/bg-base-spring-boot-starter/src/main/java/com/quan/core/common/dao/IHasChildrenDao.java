@@ -32,9 +32,12 @@ public interface IHasChildrenDao {
     default Integer hasChildrenState(Long parentId) {
         HasChildrenDTO data = new HasChildrenDTO();
         data.setValue(parentId);
-        return hasChildren(data) >= 1 ? 1 : 0;
+        return hasChildrenState(data);
     }
 
+    /***
+     * 删除节点时 更新父节点  has_children 字段值
+     */
     default void createNodeUpdateParentNodeAttrChildren(Long parentId) {
         // 判断节点是有有子节点
         if (parentId != null && parentId > 0) {
@@ -46,6 +49,9 @@ public interface IHasChildrenDao {
     }
 
 
+    /***
+     * 删除节点时 更新  has_children 字段值
+     */
     default void deleteNodeUpdateParentNodeAttrChildren(Long parentId) {
         if (parentId != null && parentId > 0) {
             // 判断节点是有有子节点

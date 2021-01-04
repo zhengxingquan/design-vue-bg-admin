@@ -35,7 +35,7 @@ public final class RoleFactory {
     public static RoleCreateDTO newInstance(UidGeneratorFeignClient uidGenerator, RoleCreateRequest req) {
         RoleCreateDTO createData = new RoleCreateDTO();
 
-        createData.setId(Long.valueOf(uidGenerator.getUID()));
+        createData.setId(uidGenerator.getUID());
         createData.setParentId(req.getParentId());
         createData.setName(req.getName());
         createData.setCode(req.getCode());

@@ -18,53 +18,60 @@ import java.util.List;
 public interface RoleService {
     /**
      * 添加
+     *
      * @param data
      */
     int save(RoleCreateRequest data);
 
     /**
      * 批量添加
+     *
      * @param roles
      */
     int batchSave(List<RoleCreateRequest> roles);
 
     /**
      * 修改
+     *
      * @param role
      */
     int update(RoleUpdateRequest role);
 
     /**
      * 单条删除
+     *
      * @param id
      */
     int delete(Long id);
 
     /**
-       * 批量删除
-       *
-       * @param id
-       */
+     * 批量删除
+     *
+     * @param id
+     */
     int delete(List<Long> id);
 
     /**
-    * 通过ID查找记录
-    * @param id 用户记录ID
-    * @return
-    */
-        RoleDTO findOneById(Long id);
+     * 通过ID查找记录
+     *
+     * @param id 用户记录ID
+     * @return
+     */
+    RoleDTO findOneById(Long id);
 
 
     /**
      * 通过条件查找记录
+     *
      * @param role 对象数据
      * @return
      */
-        RoleDTO findOneByCnd(RoleQueryRequest role);
+    RoleDTO findOneByCnd(RoleQueryRequest role);
 
 
     /**
      * 查询列表分页
+     *
      * @param params 对象查询
      * @return
      */
@@ -73,6 +80,7 @@ public interface RoleService {
 
     /**
      * 查询列表不分页
+     *
      * @param params 对象查询
      * @return
      */

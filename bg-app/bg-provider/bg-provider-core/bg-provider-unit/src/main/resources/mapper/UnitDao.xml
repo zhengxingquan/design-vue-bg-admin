@@ -5,95 +5,89 @@
 
     <!-- 通用查询映射结果  -->
     <resultMap type="com.quan.core.model.Unit" id="BaseResultMap">
+
         <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="name" column="name"/>
         <result property="aliasName" column="alias_name"/>
         <result property="unitCode" column="unit_code"/>
-        <result property="note" column="note"/>
+        <result property="path" column="path"/>
         <result property="field1" column="field1"/>
         <result property="field2" column="field2"/>
         <result property="field3" column="field3"/>
+        <result property="note" column="note"/>
         <result property="sort" column="sort"/>
-        <result property="disabled" column="disabled"/>
         <result property="hasChildren" column="has_children"/>
-        <result property="logo" column="logo"/>
         <result property="createTime" column="create_time"/>
         <result property="createUserId" column="create_user_id"/>
         <result property="updateTime" column="update_time"/>
         <result property="updateUserId" column="update_user_id"/>
         <result property="dataState" column="data_state"/>
+
     </resultMap>
 
     <sql id="baseColumnList">
-        id as id,
-        parent_id as parentId,
-        `name` as name,
-        alias_name as aliasName,
-        note as note,
-        field1 as field1,
-        field2 as field2,
-        field3 as field3,
-        disabled as disabled
+                `id` as id
+        ,            `parent_id` as parentId
+        ,            `name` as name
+        ,            `alias_name` as aliasName
+        ,            `unit_code` as unitCode
+        ,            `path` as path
+        ,            `field1` as field1
+        ,            `field2` as field2
+        ,            `field3` as field3
+        ,            `note` as note
+        ,            `sort` as sort
+        ,            `has_children` as hasChildren
+        ,            `create_time` as createTime
+        ,            `create_user_id` as createUserId
+        ,            `update_time` as updateTime
+        ,            `update_user_id` as updateUserId
+        ,            `data_state` as dataState
+                </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
     </sql>
 
 
     <sql id="where">
         <where>
-            dataState = 0
             <if test="data.id != null">
-                id = #{data.id},
+                AND t.`id` = #{data.id}
             </if>
             <if test="data.parent_id != null">
-                parent_id = #{data.parent_id},
+                AND t.`parent_id` = #{data.parentId}
             </if>
             <if test="data.name != null">
-                name = #{data.name},
+                AND t.`name` LIKE concat('%',#{data.name}, '%')
             </if>
             <if test="data.alias_name != null">
-                alias_name = #{data.alias_name},
+                AND t.`alias_name` LIKE concat('%',#{data.aliasName}, '%')
             </if>
             <if test="data.unit_code != null">
-                unit_code = #{data.unit_code},
+                AND t.`unit_code` LIKE concat('%',#{data.unitCode}, '%')
             </if>
-            <if test="data.note != null">
-                note = #{data.note},
+            <if test="data.path != null">
+                AND t.`path` LIKE concat('%',#{data.path}, '%')
             </if>
             <if test="data.field1 != null">
-                field1 = #{data.field1},
+                AND t.`field1` LIKE concat('%',#{data.field1}, '%')
             </if>
             <if test="data.field2 != null">
-                field2 = #{data.field2},
+                AND t.`field2` LIKE concat('%',#{data.field2}, '%')
             </if>
             <if test="data.field3 != null">
-                field3 = #{data.field3},
+                AND t.`field3` LIKE concat('%',#{data.field3}, '%')
+            </if>
+            <if test="data.note != null">
+                AND t.`note` LIKE concat('%',#{data.note}, '%')
             </if>
             <if test="data.sort != null">
-                sort = #{data.sort},
-            </if>
-            <if test="data.disabled != null">
-                disabled = #{data.disabled},
+                AND t.`sort` = #{data.sort}
             </if>
             <if test="data.has_children != null">
-                has_children = #{data.has_children},
-            </if>
-            <if test="data.logo != null">
-                logo = #{data.logo},
-            </if>
-            <if test="data.create_time != null">
-                create_time = #{data.create_time},
-            </if>
-            <if test="data.create_user_id != null">
-                create_user_id = #{data.create_user_id},
-            </if>
-            <if test="data.update_time != null">
-                update_time = #{data.update_time},
-            </if>
-            <if test="data.update_user_id != null">
-                update_user_id = #{data.update_user_id},
-            </if>
-            <if test="data.data_state != null">
-                data_state = #{data.data_state},
+                AND t.`has_children` = #{data.hasChildren}
             </if>
         </where>
     </sql>
@@ -101,84 +95,72 @@
 
     <insert id="save">
         insert into sys_unit(
-                                id,
-                                        parent_id,
-                                        `name`,
-                                        alias_name,
-                                        unit_code,
-                                        note,
-                                        field1,
-                                        field2,
-                                        field3,
-                                        sort,
-                                        disabled,
-                                        has_children,
-                                        logo,
-                                        create_time,
-                                        create_user_id,
-                                        data_state
-                    ) values (
-                                #{ id},
-                                       #{ parent_id},
-                                       #{ name},
-                                       #{ alias_name},
-                                       #{ unit_code},
-                                       #{ note},
-                                       #{ field1},
-                                       #{ field2},
-                                       #{ field3},
-                                       #{ sort},
-                                       #{ disabled},
-                                       #{ has_children},
-                                       #{ logo},
-                                       #{ create_time},
-                                       #{ create_user_id},
-                                       #{ data_state}
-                        )
+         `id`,
+         `parent_id`,
+         `name`,
+         `alias_name`,
+         `unit_code`,
+         `path`,
+         `field1`,
+         `field2`,
+         `field3`,
+         `note`,
+         `sort`,
+         `has_children`,
+         `create_time`,
+         `create_user_id`
+         ) values (
+         #{id},
+         #{parentId},
+         #{name},
+         #{aliasName},
+         #{unitCode},
+         #{path},
+         #{field1},
+         #{field2},
+         #{field3},
+         #{note},
+         #{sort},
+         #{hasChildren},
+         #{createTime},
+          #{createUserId}
+          )
         </insert>
 
 
     <insert id="batchSave">
         insert into sys_unit(
-        id,
-        parent_id,
-        `name`,
-        alias_name,
-        unit_code,
-        note,
-        field1,
-        field2,
-        field3,
-        sort,
-        disabled,
-        has_children,
-        logo,
-        create_time,
-        create_user_id,
-        update_time,
-        update_user_id,
-        data_state
+        `id`
+        , `parent_id`
+        , `name`
+        , `alias_name`
+        , `unit_code`
+        , `path`
+        , `field1`
+        , `field2`
+        , `field3`
+        , `note`
+        , `sort`
+        , `has_children`
+        , `create_time`
+        , `create_user_id`
         ) values
-        <foreach collection="java.util.List" item="item" index="index" separator=",">
+        <foreach collection="java.util.List" item="item" separator=",">
             (
-            #{item.id},
-            #{item.parent_id},
-            #{item.name},
-            #{item.alias_name},
-            #{item.unit_code},
-            #{item.note},
-            #{item.field1},
-            #{item.field2},
-            #{item.field3},
-            #{item.sort},
-            #{item.disabled},
-            #{item.has_children},
-            #{item.logo},
-            #{item.create_time},
-            #{item.create_user_id},
-            #{item.update_time},
-            #{item.update_user_id},
-            #{item.data_state}
+            #{item.id}
+            , #{item.parentId}
+            , #{item.name}
+            , #{item.aliasName}
+            , #{item.unitCode}
+            , #{item.path}
+            , #{item.field1}
+            , #{item.field2}
+            , #{item.field3}
+            , #{item.note}
+            , #{item.sort}
+            , #{item.hasChildren}
+            , #{item.createTime}
+            , #{item.createUserId}
             )
         </foreach>
 
@@ -189,29 +171,142 @@
         UPDATE sys_unit
         <set>
             <if test="id != null">
-                id = #{id},
+                `id` = #{id}
+                ,
             </if>
-            <if test="parent_id != null">
-                parent_id = #{parent_id},
+            <if test="parentId != null">
+                `parent_id` = #{parentId}
+                ,
             </if>
             <if test="name != null">
-                `name` = #{name},
+                `name` = #{name}
+                ,
+            </if>
+            <if test="aliasName != null">
+                `alias_name` = #{aliasName}
+                ,
+            </if>
+            <if test="unitCode != null">
+                `unit_code` = #{unitCode}
+                ,
+            </if>
+            <if test="path != null">
+                `path` = #{path}
+                ,
+            </if>
+            <if test="field1 != null">
+                `field1` = #{field1}
+                ,
+            </if>
+            <if test="field2 != null">
+                `field2` = #{field2}
+                ,
+            </if>
+            <if test="field3 != null">
+                `field3` = #{field3}
+                ,
+            </if>
+            <if test="note != null">
+                `note` = #{note}
+                ,
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort}
+                ,
+            </if>
+            <if test="hasChildren != null">
+                `has_children` = #{hasChildren}
+                ,
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime}
+                ,
+            </if>
+            <if test="updateUserId != null">
+                `update_user_id` = #{updateUserId}
+                ,
             </if>
         </set>
-        WHERE dataState = 0 AND id = #{id}
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </update>
 
 
+    <update id="updateParentNodeAttrChildren">
+        UPDATE sys_unit
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId">
+        SELECT COUNT(1)
+        FROM sys_unit
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <delete id="deleteDataByPath">
+        UPDATE sys_unit SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '%')
+    </delete>
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_unit
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM sys_unit
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM sys_unit
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM sys_unit
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+
     <delete id="delete" parameterType="java.lang.Long" flushCache="true">
-        UPDATE sys_unit SET dataState = 2 WHERE dataState = 0 AND id = #{id}
+        UPDATE sys_unit SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </delete>
 
 
     <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
 
-        UPDATE sys_unit SET dataState = 2
-        WHERE dataState = 0 AND id IN
-        <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
+        UPDATE sys_unit SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </delete>
@@ -221,7 +316,8 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit
-        WHERE dataState = 0 AND id = #{id}
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </select>
 
 
@@ -229,6 +325,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
@@ -237,6 +334,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit t
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
@@ -245,6 +343,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_unit t
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 

@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.List;
+
 /**
  * ${comments}
  *
@@ -42,7 +44,7 @@ public class ${className}Controller {
     @ApiOperation(value = "查询列表")
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
-    @SLog(module = "role-center", tag = "查询列表")
+    @SLog(module = "${classname}-center", tag = "查询列表")
     public Object data(${className}PageQueryRequest req) {
         return ${classname}Service.findAll(req);
     }
@@ -55,9 +57,9 @@ public class ${className}Controller {
     @PostMapping("/save")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "${permissionNamePrefix}:save", parentPermission = "${permissionNamePrefix}")
-    @SLog(module = "role-center", tag = "添加数据")
+    @SLog(module = "${classname}-center", tag = "添加数据")
     public Result doSave(@RequestBody ${className}CreateRequest req) {
-        ${classname}Service.save(req);
+            ${classname}Service.save(req);
         return Result.succeed("保存成功");
     }
 
@@ -68,9 +70,9 @@ public class ${className}Controller {
     @PostMapping("/batchSave")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "${permissionNamePrefix}:save", parentPermission = "${permissionNamePrefix}")
-    @SLog(module = "role-center", tag = "批量添加数据")
+    @SLog(module = "${classname}-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<${className}CreateRequest> req) {
-        ${classname}Service.batchSave(req);
+            ${classname}Service.batchSave(req);
         return Result.succeed("保存成功");
     }
 
@@ -81,7 +83,7 @@ public class ${className}Controller {
     @PostMapping("/update")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:update')")
     @AutoCreateMenuAuth(name = "编辑", shortNo = 2, permission = "${permissionNamePrefix}:update", parentPermission = "${permissionNamePrefix}")
-    @SLog(module = "role-center", tag = "编辑数据")
+    @SLog(module = "${classname}-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody ${className}UpdateRequest req) {
             ${classname}Service.update(req);
         return Result.succeed("修改成功");
@@ -94,7 +96,7 @@ public class ${className}Controller {
     @PostMapping("/delete")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
-    @SLog(module = "role-center", tag = "编辑数据")
+    @SLog(module = "${classname}-center", tag = "编辑数据")
     public Result doDelete(@RequestBody ${className}DeleteRequest req) {
         return Result.succeed(${classname}Service.delete(req.getId()), "删除成功");
     }
@@ -106,7 +108,7 @@ public class ${className}Controller {
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
-    @SLog(module = "role-center", tag = "批量编辑数据")
+    @SLog(module = "${classname}-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody ${className}BatchDeleteRequest req) {
         return Result.succeed(${classname}Service.delete(req.getIds()), "删除成功");
     }
@@ -118,7 +120,7 @@ public class ${className}Controller {
     @ApiOperation(value = "查找记录（通过主键）")
     @PostMapping("/findById")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
-    @SLog(module = "role-center", tag = "通过主键查找记录")
+    @SLog(module = "${classname}-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody ${className}FindOneByIdRequest req) {
         return Result.succeed(${classname}Service.findOneById(req.getId()));
     }
@@ -132,7 +134,7 @@ public class ${className}Controller {
     @ApiOperation(value = "查找记录")
     @PostMapping("/findByCnd")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
-    @SLog(module = "role-center", tag = "通过条件查找记录")
+    @SLog(module = "${classname}-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody ${className}QueryRequest req) {
         return Result.succeed(${classname}Service.findOneByCnd(req));
     }
@@ -143,7 +145,7 @@ public class ${className}Controller {
     @ApiOperation(value = "查找数据不分页")
     @PostMapping("/query")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
-    @SLog(module = "role-center", tag = "通过条件查找记录")
+    @SLog(module = "${classname}-center", tag = "通过条件查找记录")
     public Result data(${className}QueryRequest req) {
         return Result.succeed(${classname}Service.list(req));
     }

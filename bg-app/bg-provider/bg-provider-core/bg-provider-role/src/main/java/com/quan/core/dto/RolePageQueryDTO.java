@@ -20,6 +20,9 @@ import lombok.Setter;
 @Data
 public class RolePageQueryDTO extends PageQueryDTO {
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
     /**
      * 父节点
      */

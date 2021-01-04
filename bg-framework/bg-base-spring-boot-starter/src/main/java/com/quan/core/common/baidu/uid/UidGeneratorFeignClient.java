@@ -24,7 +24,7 @@ public interface UidGeneratorFeignClient {
      */
 
     @GetMapping("/uid-generator-rpc/getUID")
-    String getUID();
+    Long getUID();
 
     @GetMapping(value = "/uid-generator-rpc/parseUID", params = "uid")
     String parseUID(@RequestParam Long uid);

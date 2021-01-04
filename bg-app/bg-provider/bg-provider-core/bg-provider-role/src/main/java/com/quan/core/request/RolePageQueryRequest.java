@@ -1,6 +1,7 @@
 package com.quan.core.request;
 
 import com.quan.core.common.request.RequestPage;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,16 @@ import lombok.Setter;
 @Setter
 @Data
 public class RolePageQueryRequest extends RequestPage {
+
+    /**
+     * 角色名称
+     */
+    @ApiModelProperty("角色名称")
+    private String name;
+    /**
+     * 角色别名
+     */
+    @ApiModelProperty("角色别名")
+    private String aliasName;
 
 }

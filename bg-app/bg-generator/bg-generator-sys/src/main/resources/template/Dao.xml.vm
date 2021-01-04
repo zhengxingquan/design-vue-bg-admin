@@ -15,18 +15,27 @@
     <sql id="baseColumnList">
         #foreach($column in $columns)
         `${column.columnName}` as ${column.attrname}
-#if( ${columnLast.columnName} != $column.columnName),#end
-        #end
-</sql>
+        #if( ${columnLast.columnName} != $column.columnName),#end
+    #end
+    </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
 
 
     <sql id="where">
         <where>
-            dataState = 0
             #foreach($column in $columns)
-                <if test="data.${column.columnName} != null">
-                    AND t.`${column.columnName}` = #{data.${column.attrname}}
-                </if>
+                #if(!($column.dtoIgnore))
+                    <if test="data.${column.columnName} != null">
+                        #if($column.attrType == 'String')
+                            AND t.`${column.columnName}` LIKE concat('%',#{data.${column.attrname}}, '%')
+                        #else
+                            AND t.`${column.columnName}` = #{data.${column.attrname}}
+                        #end
+                    </if>
+                #end
             #end
         </where>
     </sql>
@@ -35,17 +44,13 @@
     <insert id="save">
         insert into ${tableName}(#foreach($column in $columns)
         #if($column.createIgnore == false)
-            `${column.columnName}`
-            #if( ${createLast.columnName} != $column.columnName),#end
+            `${column.columnName}`#if( ${createLast.columnName} != $column.columnName),#end
         #end
-    #end
-        ) values (#foreach($column in $columns)
+    #end) values (#foreach($column in $columns)
         #if($column.createIgnore == false)
-            #{${column.attrname}}
-            #if( ${createLast.columnName} != $column.columnName),#end
+            #{${column.attrname}}#if( ${createLast.columnName} != $column.columnName),#end
         #end
-    #end
-        )
+    #end)
         </insert>
 
     #* 批量保存 *#
@@ -53,8 +58,8 @@
         insert into ${tableName}(
         #foreach($column in $columns)
             #if($column.createIgnore == false)
-                `${column.columnName}
-                `#if( ${createLast.columnName} != $column.columnName), #end
+                `${column.columnName}`
+                #if( ${createLast.columnName} != $column.columnName), #end
             #end
         #end
         ) values
@@ -77,27 +82,31 @@
         <set>
             #foreach($column in $columns)
                 #if($column.updateIgnore == false)
-                    <if test="${column.columnName} != null">
+                    <if test="${column.attrname} != null">
                         `${column.columnName}` = #{${column.attrname}}
                         #if( ${updateLast} != $column.columnName),#end
                     </if>
                 #end
             #end
         </set>
-        WHERE dataState = 0 AND id = #{id}
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </update>
 
     #* 删除 *#
     <delete id="delete" parameterType="java.lang.Long" flushCache="true">
-        UPDATE ${tableName} SET dataState = 2 WHERE dataState = 0 AND id = #{id}
+        UPDATE ${tableName} SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </delete>
 
     #* 批量删除 *#
     <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
 
-        UPDATE ${tableName} SET dataState = 2
-        WHERE dataState = 0 AND id IN
-        <foreach collection="list" index="index" item="id" separator="," open="(" close=")">
+        UPDATE ${tableName} SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </delete>
@@ -107,7 +116,8 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM ${tableName}
-        WHERE dataState = 0 AND id = #{id}
+        <include refid="BaseWhere"/>
+        AND id = #{id}
     </select>
 
     #* 条件 查询 *#
@@ -115,6 +125,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM ${tableName}
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
@@ -123,6 +134,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM ${tableName} t
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
@@ -131,6 +143,7 @@
         SELECT
         <include refid="baseColumnList"/>
         FROM ${tableName} t
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 

@@ -1,6 +1,9 @@
 package com.quan.core.request;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -19,5 +22,19 @@ import lombok.Setter;
 @Setter
 @Data
 public class RoleQueryRequest {
+
+    @ApiModelProperty("ID")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+    /**
+     * 角色名称
+     */
+    @ApiModelProperty("角色名称")
+    private String name;
+    /**
+     * 角色别名
+     */
+    @ApiModelProperty("角色别名")
+    private String aliasName;
 
 }

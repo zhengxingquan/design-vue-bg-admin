@@ -13,7 +13,7 @@ public class UidGeneratorFeignClientFallbackFactory implements FallbackFactory<U
         return new UidGeneratorFeignClient() {
 
             @Override
-            public String getUID() {
+            public Long getUID() {
                 log.error("获取分布式ID 异常 :{}", throwable);
                 return null;
             }

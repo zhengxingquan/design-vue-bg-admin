@@ -10,7 +10,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,12 +30,10 @@ import java.util.List;
 @Slf4j
 @Component
 @Aspect
-@Order(-3) // 保证该AOP在@Transactional之前执行
 public class PageQueryAOP {
 
     @Around("@annotation(query)")
     public Object exec(ProceedingJoinPoint joinPoint, PageQuery query) throws Throwable {
-        log.info("设置分页信息");
         // 判断是否 有 分页的信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         // 参数值
@@ -45,6 +42,8 @@ public class PageQueryAOP {
             PageQuery pageQuery = methodSignature.getMethod().getDeclaredAnnotation(PageQuery.class);
             log.info("设置分页信息 pageNumber：{} -> pageSize：{}", page.getPageNumber(), page.getPageSize());
             PageHelper.startPage(page.getPageNumber(), page.getPageSize(), pageQuery.countState());
+        } else {
+            PageHelper.startPage(0, 10, true);
         }
         String msg = "";
         Object result = null;
@@ -52,6 +51,7 @@ public class PageQueryAOP {
             // 调用原来的方法
             result = joinPoint.proceed();
         } catch (Exception e) {
+            log.error("查询分页异常 {} ", e.getMessage());
             msg = e.getMessage();
         }
         PageInfo pageInfo = new PageInfo<>((List<? extends Object>) result);

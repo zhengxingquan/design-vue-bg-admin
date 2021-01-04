@@ -2,6 +2,7 @@ package com.quan.core.common.dao;
 
 import com.quan.core.common.dto.model.PathDTO;
 import com.quan.core.common.util.Strings;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -9,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @data 2020/12/30
  * 描述： 得到 路径的 公用接口
  */
-public interface IPathDao {
+ public interface IPathDao {
 
     /**
      * 得到路径
