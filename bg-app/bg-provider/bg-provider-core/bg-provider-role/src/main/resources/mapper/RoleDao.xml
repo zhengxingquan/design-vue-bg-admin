@@ -205,7 +205,7 @@
     </update>
 
 
-    <select id="existsChildrenNodeByParentId">
+    <select id="existsChildrenNodeByParentId" resultType="integer">
         SELECT COUNT(1)
         FROM sys_role
         <include refid="BaseWhere"/>
@@ -233,11 +233,11 @@
     </delete>
 
 
-    <delete id="deleteDataByPath">
+    <update id="deleteDataByPath">
         UPDATE sys_role SET data_state = 2
         <include refid="BaseWhere"/>
-        AND ${data.queryColName} LIKE concat(#{data.value}, '%')
-    </delete>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
 
 
 

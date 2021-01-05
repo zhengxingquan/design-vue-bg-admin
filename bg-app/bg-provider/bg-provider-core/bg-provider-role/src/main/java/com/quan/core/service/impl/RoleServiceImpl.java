@@ -39,7 +39,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int save(RoleCreateRequest data) {
         RoleCreateDTO dto = RoleFactory.newInstance(uidGenerator, data);
-//        dto.setHasChildren(roleDao.hasChildrenState(data.getParentId()));
         dto.setSort(roleDao.sortState(data.getParentId()));
         dto.setPath(roleDao.getSubPath(data.getParentId()));
         // 修改父节点 children 属性

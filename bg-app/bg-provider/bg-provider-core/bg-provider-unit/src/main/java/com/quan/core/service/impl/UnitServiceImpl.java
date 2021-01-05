@@ -35,12 +35,11 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public int save(UnitCreateRequest data) {
         UnitCreateDTO dto = UnitFactory.newInstance(data);
-//        dto.setHasChildren(roleDao.hasChildrenState(data.getParentId()));
         dto.setSort(unitDao.sortState(data.getParentId()));
         dto.setPath(unitDao.getSubPath(data.getParentId()));
         // 修改父节点 children 属性
         unitDao.createNodeUpdateParentNodeAttrChildren(dto.getParentId());
-        return unitDao.save(UnitFactory.newInstance(data));
+        return unitDao.save(dto);
     }
 
     /**

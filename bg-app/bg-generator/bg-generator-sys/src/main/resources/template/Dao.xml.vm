@@ -120,6 +120,22 @@
         AND id = #{id}
     </select>
 
+
+    #* 通过ID 查询  *#
+    <select id="findAllById" parameterType="list" resultType="${package}.${pkgName}.model.${className}">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM ${tableName}
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
     #* 条件 查询 *#
     <select id="findOneByCnd" parameterType="java.lang.Long" resultType="${package}.${pkgName}.model.${className}">
         SELECT

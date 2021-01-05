@@ -3,9 +3,8 @@ package com.quan.core.common.http;
 import com.quan.core.common.exception.HttpException;
 import com.quan.core.common.http.send.DefaultSenderFactory;
 import com.quan.core.common.stream.VoidInputStream;
-import com.quan.core.common.util.Callback;
+import com.quan.core.common.reflect.Callback;
 import com.quan.core.common.util.Langs;
-import com.quan.core.common.util.NutMap;
 import com.quan.core.common.util.Strings;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +33,7 @@ import java.util.zip.InflaterInputStream;
  * 描述：
  */
 @Slf4j
-public class Sender implements Callable<Response> {
+public abstract class Sender implements Callable<Response> {
 
     /**
      * 默认连接超时, 30秒

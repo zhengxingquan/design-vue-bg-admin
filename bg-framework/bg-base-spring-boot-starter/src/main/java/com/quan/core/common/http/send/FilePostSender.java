@@ -1,6 +1,5 @@
 package com.quan.core.common.http.send;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.quan.core.common.exception.HttpException;
 import com.quan.core.common.exception.other.ContinueLoop;
 import com.quan.core.common.exception.other.ExitLoop;
@@ -10,6 +9,7 @@ import com.quan.core.common.http.Response;
 import com.quan.core.common.stream.Streams;
 import com.quan.core.common.util.Each;
 import com.quan.core.common.util.Langs;
+import com.quan.core.common.util.UUIDUtils;
 
 import java.io.*;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class FilePostSender extends PostSender {
     @Override
     public Response send() throws HttpException {
         try {
-            String boundary = "------FormBoundary" + R.UU32();
+            String boundary = "------FormBoundary" + UUIDUtils.getGUID32();
             openConnection();
             setupRequestHeader();
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
@@ -66,7 +66,7 @@ public class FilePostSender extends PostSender {
                     try {
                         outs.writeBytes("--" + boundary + SEPARATOR);
                         if (ele != null && ele instanceof File) {
-                            writeFile((File)ele, key, outs, boundary, enc);
+                            writeFile((File) ele, key, outs, boundary, enc);
                             return;
                         }
                         outs.writeBytes("Content-Disposition: form-data; name=\""
@@ -76,8 +76,7 @@ public class FilePostSender extends PostSender {
                                 + SEPARATOR);
                         outs.write(String.valueOf(ele).getBytes(enc));
                         outs.writeBytes(SEPARATOR);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         throw Langs.wrapThrow(e);
                     }
                 }
@@ -101,11 +100,10 @@ public class FilePostSender extends PostSender {
         outs.writeBytes("Content-Type: " + ct + SEPARATOR + SEPARATOR);
         InputStream is = null;
         try {
-            is = Streams.fileIn(f);
+            is = new FileInputStream(f);
             Streams.write(outs, is);
             outs.writeBytes(SEPARATOR);
-        }
-        finally {
+        } finally {
             Streams.safeClose(is);
         }
     }
@@ -119,15 +117,14 @@ public class FilePostSender extends PostSender {
             Object val = entry.getValue();
             if (val == null)
                 val = "";
-            Lang.each(val, new Each<Object>() {
-                public void invoke(int index, Object ele, int length){
+            Langs.each(val, new Each<Object>() {
+                public void invoke(int index, Object ele, int length) {
                     if (ele instanceof File)
-                        count[0]+= ((File)ele).length() + 100;
+                        count[0] += ((File) ele).length() + 100;
                     else
                         try {
-                            count[0] += (key+ele).getBytes(request.getEnc()).length + 100;
-                        }
-                        catch (UnsupportedEncodingException e) {
+                            count[0] += (key + ele).getBytes(request.getEnc()).length + 100;
+                        } catch (UnsupportedEncodingException e) {
                         }
                 }
             });

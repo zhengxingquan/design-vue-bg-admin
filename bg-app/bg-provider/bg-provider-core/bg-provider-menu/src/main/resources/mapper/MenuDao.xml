@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.MenuDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.Menu" id="BaseResultMap">
+
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="aliasName" column="alias_name"/>
+        <result property="code" column="code"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="href" column="href"/>
+        <result property="target" column="target"/>
+        <result property="menuIcon" column="menu_icon"/>
+        <result property="permission" column="permission"/>
+        <result property="note" column="note"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
+
+    </resultMap>
+
+    <sql id="baseColumnList">
+                `id` as id
+        ,            `parent_id` as parentId
+        ,            `name` as name
+        ,            `alias_name` as aliasName
+        ,            `code` as code
+        ,            `path` as path
+        ,            `type` as type
+        ,            `href` as href
+        ,            `target` as target
+        ,            `menu_icon` as menuIcon
+        ,            `permission` as permission
+        ,            `note` as note
+        ,            `has_children` as hasChildren
+        ,            `sort` as sort
+        ,            `create_time` as createTime
+        ,            `create_user_id` as createUserId
+        ,            `update_time` as updateTime
+        ,            `update_user_id` as updateUserId
+        ,            `data_state` as dataState
+                </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <sql id="where">
+        <where>
+            <if test="data.id != null">
+                AND t.`id` = #{data.id}
+            </if>
+            <if test="data.parent_id != null">
+                AND t.`parent_id` = #{data.parentId}
+            </if>
+            <if test="data.name != null">
+                AND t.`name` LIKE concat('%',#{data.name}, '%')
+            </if>
+            <if test="data.alias_name != null">
+                AND t.`alias_name` LIKE concat('%',#{data.aliasName}, '%')
+            </if>
+            <if test="data.code != null">
+                AND t.`code` LIKE concat('%',#{data.code}, '%')
+            </if>
+            <if test="data.path != null">
+                AND t.`path` LIKE concat('%',#{data.path}, '%')
+            </if>
+            <if test="data.type != null">
+                AND t.`type` = #{data.type}
+            </if>
+            <if test="data.href != null">
+                AND t.`href` LIKE concat('%',#{data.href}, '%')
+            </if>
+            <if test="data.target != null">
+                AND t.`target` LIKE concat('%',#{data.target}, '%')
+            </if>
+            <if test="data.menu_icon != null">
+                AND t.`menu_icon` LIKE concat('%',#{data.menuIcon}, '%')
+            </if>
+            <if test="data.permission != null">
+                AND t.`permission` LIKE concat('%',#{data.permission}, '%')
+            </if>
+            <if test="data.note != null">
+                AND t.`note` LIKE concat('%',#{data.note}, '%')
+            </if>
+            <if test="data.has_children != null">
+                AND t.`has_children` = #{data.hasChildren}
+            </if>
+            <if test="data.sort != null">
+                AND t.`sort` = #{data.sort}
+            </if>
+        </where>
+    </sql>
+
+
+    <insert id="save">
+        insert into sys_menu(
+        `id`,
+        `parent_id`,
+        `name`,
+        `alias_name`,
+        `code`,
+        `path`,
+        `type`,
+        `href`,
+        `target`,
+        `menu_icon`,
+        `permission`,
+        `note`,
+        `has_children`,
+        `sort`,
+        `create_time`,
+        `create_user_id`
+        ) values (
+            #{id},
+            #{parentId},
+         #{name},
+         #{aliasName},
+         #{code},
+          #{path},
+          #{type},
+          #{href},
+          #{target},
+          #{menuIcon},
+          #{permission},
+          #{note},
+          #{hasChildren},
+          #{sort},
+          #{createTime},
+          #{createUserId}
+    )
+        </insert>
+
+
+    <insert id="batchSave">
+        insert into sys_menu(
+        `id`
+        , `parent_id`
+        , `name`
+        , `alias_name`
+        , `code`
+        , `path`
+        , `type`
+        , `href`
+        , `target`
+        , `menu_icon`
+        , `permission`
+        , `note`
+        , `has_children`
+        , `sort`
+        , `create_time`
+        , `create_user_id`
+        ) values
+        <foreach collection="java.util.List" item="item" index="index" separator=",">
+            (
+            #{item.id}
+            , #{item.parentId}
+            , #{item.name}
+            , #{item.aliasName}
+            , #{item.code}
+            , #{item.path}
+            , #{item.type}
+            , #{item.href}
+            , #{item.target}
+            , #{item.menuIcon}
+            , #{item.permission}
+            , #{item.note}
+            , #{item.hasChildren}
+            , #{item.sort}
+            , #{item.createTime}
+            , #{item.createUserId}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <update id="update">
+        UPDATE sys_menu
+        <set>
+            <if test="id != null">
+                `id` = #{id}
+                ,
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId}
+                ,
+            </if>
+            <if test="name != null">
+                `name` = #{name}
+                ,
+            </if>
+            <if test="aliasName != null">
+                `alias_name` = #{aliasName}
+                ,
+            </if>
+            <if test="code != null">
+                `code` = #{code}
+                ,
+            </if>
+            <if test="path != null">
+                `path` = #{path}
+                ,
+            </if>
+            <if test="type != null">
+                `type` = #{type}
+                ,
+            </if>
+            <if test="href != null">
+                `href` = #{href}
+                ,
+            </if>
+            <if test="target != null">
+                `target` = #{target}
+                ,
+            </if>
+            <if test="menuIcon != null">
+                `menu_icon` = #{menuIcon}
+                ,
+            </if>
+            <if test="permission != null">
+                `permission` = #{permission}
+                ,
+            </if>
+            <if test="note != null">
+                `note` = #{note}
+                ,
+            </if>
+            <if test="hasChildren != null">
+                `has_children` = #{hasChildren}
+                ,
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort}
+                ,
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime}
+                ,
+            </if>
+            <if test="updateUserId != null">
+                `update_user_id` = #{updateUserId}
+                ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_menu SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </delete>
+
+
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE sys_menu SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <select id="findAllById" parameterType="list" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="findAll" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="list" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+
+    <update id="deleteDataByPath">
+        UPDATE sys_menu SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
+
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+
+
+    <update id="updateParentNodeAttrChildren">
+        UPDATE sys_menu
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId" resultType="integer">
+        SELECT COUNT(1)
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+</mapper>

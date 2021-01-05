@@ -6,6 +6,9 @@ import com.quan.core.common.exception.ComboException;
 import com.quan.core.common.exception.OtherException;
 import com.quan.core.common.exception.other.ContinueLoop;
 import com.quan.core.common.exception.other.ExitLoop;
+import com.quan.core.common.exception.other.LoopException;
+import com.quan.core.common.reflect.Loop;
+import com.quan.core.common.reflect.Mirror;
 import com.quan.core.common.stream.Streams;
 import com.quan.core.common.stream.StringInputStream;
 import com.quan.core.common.stream.StringOutputStream;
@@ -1032,7 +1035,6 @@ public class Langs {
         return null;
     }
 
-
     /**
      * 获取一个 Type 类型实际对应的Class
      *
@@ -1641,5 +1643,126 @@ public class Langs {
         }
         return JSONUtil.toBean("{" + str + "}", Map.class);
 //        return Json.fromJson(NutMap.class, "{" + str + "}");
+    }
+
+    /**
+     * 用回调的方式，遍历一个对象，可以支持遍历
+     * <ul>
+     * <li>数组
+     * <li>集合
+     * <li>Map
+     * <li>单一元素
+     * </ul>
+     *
+     * @param obj
+     *            对象
+     * @param callback
+     *            回调
+     */
+    public static <T> void each(Object obj, Each<T> callback) {
+        each(obj, true, callback);
+    }
+
+    /**
+     * 用回调的方式，遍历一个对象，可以支持遍历
+     * <ul>
+     * <li>数组
+     * <li>集合
+     * <li>Map
+     * <li>单一元素
+     * </ul>
+     *
+     * @param obj
+     *            对象
+     * @param loopMap
+     *            是否循环 Map，如果循环 Map 则主要看 callback 的 T，如果是 Map.Entry 则循环 Entry
+     *            否循环 value。如果本值为 false， 则将 Map 当作一个完整的对象来看待
+     * @param callback
+     *            回调
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static <T> void each(Object obj, boolean loopMap, Each<T> callback) {
+        if (null == obj || null == callback)
+            return;
+        try {
+            // 循环开始
+            if (callback instanceof Loop)
+                if (!((Loop) callback).begin())
+                    return;
+
+            // 进行循环
+            if (obj.getClass().isArray()) {
+                int len = Array.getLength(obj);
+                for (int i = 0; i < len; i++)
+                    try {
+                        callback.invoke(i, (T) Array.get(obj, i), len);
+                    }
+                    catch (ContinueLoop e) {}
+                    catch (ExitLoop e) {
+                        break;
+                    }
+            } else if (obj instanceof Collection) {
+                int len = ((Collection) obj).size();
+                int i = 0;
+                for (Iterator<T> it = ((Collection) obj).iterator(); it.hasNext();)
+                    try {
+                        callback.invoke(i++, it.next(), len);
+                    }
+                    catch (ContinueLoop e) {}
+                    catch (ExitLoop e) {
+                        break;
+                    }
+            } else if (loopMap && obj instanceof Map) {
+                Map map = (Map) obj;
+                int len = map.size();
+                int i = 0;
+                Class<T> eType = Mirror.getTypeParam(callback.getClass(), 0);
+                if (null != eType && eType != Object.class && eType.isAssignableFrom(Map.Entry.class)) {
+                    for (Object v : map.entrySet())
+                        try {
+                            callback.invoke(i++, (T) v, len);
+                        }
+                        catch (ContinueLoop e) {}
+                        catch (ExitLoop e) {
+                            break;
+                        }
+
+                } else {
+                    for (Object v : map.entrySet())
+                        try {
+                            callback.invoke(i++, (T) ((Map.Entry) v).getValue(), len);
+                        }
+                        catch (ContinueLoop e) {}
+                        catch (ExitLoop e) {
+                            break;
+                        }
+                }
+            } else if (obj instanceof Iterator<?>) {
+                Iterator<?> it = (Iterator<?>) obj;
+                int i = 0;
+                while (it.hasNext()) {
+                    try {
+                        callback.invoke(i++, (T) it.next(), -1);
+                    }
+                    catch (ContinueLoop e) {}
+                    catch (ExitLoop e) {
+                        break;
+                    }
+                }
+            } else {
+                try {
+                    callback.invoke(0, (T) obj, 1);
+                } catch (ContinueLoop e) {
+                } catch (ExitLoop e) {
+                }
+            }
+
+            // 循环结束
+            if (callback instanceof Loop)
+                ((Loop) callback).end();
+        }
+        catch (LoopException e) {
+            throw Langs.wrapThrow(e.getCause());
+        }
     }
 }

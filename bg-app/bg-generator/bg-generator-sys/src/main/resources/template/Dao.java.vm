@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 /**
  * ${comments}
  *
@@ -58,13 +59,20 @@ public interface ${className}Dao {
     */
     ${className} findOneById(Long id);
 
+    /**
+    * 通过ID查找所有的记录记录
+    * @param ids 用户记录ID
+    * @return
+    */
+    List<${className}> findAllById(List<Long> ids);
+
 
     /**
      * 通过条件查找记录
      * @param params 对象数据
      * @return
      */
-     ${className} findOneByCnd(@Param("data") ${className}QueryDTO params);
+    ${className} findOneByCnd(@Param("data") ${className}QueryDTO params);
 
 
     /**

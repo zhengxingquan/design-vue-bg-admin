@@ -1,9 +1,9 @@
 
-    <delete id="deleteDataByPath">
+    <update id="deleteDataByPath">
         UPDATE sys_role SET data_state = 2
         <include refid="BaseWhere"/>
-        AND ${data.queryColName} LIKE concat(#{data.value}, '%')
-    </delete>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
 
 
 
@@ -42,4 +42,23 @@
             AND (parent_id IS NULL OR parent_id = '')
         </if>
 
+    </select>
+
+
+
+    <update id="updateParentNodeAttrChildren">
+        UPDATE sys_role
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId">
+        SELECT COUNT(1)
+        FROM sys_role
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
     </select>

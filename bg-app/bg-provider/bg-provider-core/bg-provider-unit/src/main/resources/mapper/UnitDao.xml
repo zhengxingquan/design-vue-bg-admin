@@ -242,18 +242,18 @@
     </update>
 
 
-    <select id="existsChildrenNodeByParentId">
+    <select id="existsChildrenNodeByParentId" resultType="integer">
         SELECT COUNT(1)
         FROM sys_unit
         <include refid="BaseWhere"/>
         AND parent_id = #{data.value}
     </select>
 
-    <delete id="deleteDataByPath">
+    <update id="deleteDataByPath">
         UPDATE sys_unit SET data_state = 2
         <include refid="BaseWhere"/>
-        AND ${data.queryColName} LIKE concat(#{data.value}, '%')
-    </delete>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
 
 
     <select id="hasChildren" resultType="java.lang.Integer">

@@ -58,8 +58,12 @@ public interface IHasChildrenDao {
             HasChildrenDTO data = new HasChildrenDTO();
             data.setValue(parentId);
             // 判断父节点还有子节点没
-            data.setHasChildren(existsChildrenNodeByParentId(data) > 0 ? 1 : 0);
-            updateParentNodeAttrChildren(data);
+            boolean existsChildrenNode = existsChildrenNodeByParentId(data) > 0;
+            if (!existsChildrenNode) {
+                data.setHasChildren(0);
+                updateParentNodeAttrChildren(data);
+            }
+
         }
     }
 

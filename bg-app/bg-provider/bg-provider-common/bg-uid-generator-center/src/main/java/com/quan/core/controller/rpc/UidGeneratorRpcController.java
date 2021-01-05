@@ -20,8 +20,8 @@ public class UidGeneratorRpcController {
     private IUidGeneratorService uidGenService;
 
     @GetMapping("/getUID")
-    public String getUID() {
-        return String.valueOf(uidGenService.getUID());
+    public Long getUID() {
+        return uidGenService.getUID();
     }
 
     @GetMapping("/parseUID")

@@ -36,13 +36,14 @@ public final class ${className}Factory {
     public static ${className}CreateDTO newInstance(${className}CreateRequest req) {
             ${className}CreateDTO createData = new ${className}CreateDTO();
 
-        #foreach ($column in $columns)
-            #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
-                createData.set${column.attrName}(req.get${column.attrName}());
-            #end
+    #foreach ($column in $columns)
+        #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
+            createData.set${column.attrName}(req.get${column.attrName}());
         #end
+    #end
         createData.setCreateTime(new Date());
         createData.setCreateUserId(0L);
+        createData.setHasChildren(0);
         return createData;
     }
 
@@ -52,12 +53,12 @@ public final class ${className}Factory {
      * @return
      */
     public static ${className}UpdateDTO newInstance(${className}UpdateRequest req) {
-            ${className}UpdateDTO updateData = new ${className}UpdateDTO();
-        #foreach ($column in $columns)
-            #if($column.reqIgnore == false)
-                updateData.set${column.attrName}(req.get${column.attrName}());
-            #end
-        #end
+        ${className}UpdateDTO updateData = new ${className}UpdateDTO();
+#foreach ($column in $columns)
+    #if($column.reqIgnore == false)
+        updateData.set${column.attrName}(req.get${column.attrName}());
+    #end
+#end
         updateData.setUpdateTime(new Date());
         updateData.setUpdateUserId(0L);
         return updateData;

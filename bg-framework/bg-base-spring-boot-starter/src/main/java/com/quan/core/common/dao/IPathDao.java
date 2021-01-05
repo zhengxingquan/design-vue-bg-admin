@@ -2,7 +2,6 @@ package com.quan.core.common.dao;
 
 import com.quan.core.common.dto.model.PathDTO;
 import com.quan.core.common.util.Strings;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -10,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * @data 2020/12/30
  * 描述： 得到 路径的 公用接口
  */
- public interface IPathDao {
+public interface IPathDao {
 
     /**
      * 得到路径
@@ -29,16 +28,22 @@ import org.apache.ibatis.annotations.Param;
 
     Integer deleteDataByPath(@Param("data") PathDTO data);
 
+    default Integer deleteDataByPath(String path) {
+        PathDTO dto = new PathDTO();
+        dto.setPath(path);
+        return deleteDataByPath(dto);
+    }
+
 
     default String getSubPath(PathDTO data) {
         String path = "";
         // 父节点不为空
         if (data.getPatentId() != null) {
             // 得到父亲的 path 路径
-            path = getParentPath(data);
+            path = Strings.sNull(getParentPath(data));
         }
         // 设置父亲的 path 路径
-        data.setValue(Strings.sNull(path));
+        data.setValue(path);
         // 查询当前的 节点的 path
         String rs = getPath(data);
         String rsValue = path + "0001";
