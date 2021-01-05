@@ -13,5 +13,14 @@
     <packaging>pom</packaging>
     <description>系统平台功能模块</description>
 
+    <modules>
+        <!-- 业务数据维护模块 主要用于 数据的导入 -->
+        <module>bg-provider-business-data-maintenance</module>
+        <!-- 用户数据维护模块 主要用于 数据的导入  -->
+        <module>bg-provider-user-data-maintenance</module>
+        <!-- 业务数据审核模块 主要用于 对数据的审核操作-->
+        <module>bg-provider-business-data-audit</module>
+    </modules>
+
 
 </project>

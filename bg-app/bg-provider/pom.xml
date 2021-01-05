@@ -23,6 +23,8 @@
         <module>bg-provider-extension</module>
         <!-- 系统工作流模块功能 -->
         <module>bg-provider-workflow</module>
+        <!-- 系统报表模块，主要用于对用户数据进行分析报表 -->
+        <module>bg-provider-report</module>
     </modules>
 
 </project>
