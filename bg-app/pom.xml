@@ -34,6 +34,7 @@
         <module>bg-oauth-center</module>
         <!-- 服务注册中心 -->
         <module>bg-registry-center</module>
+        <module>bg-event-center</module>
 
     </modules>
 
