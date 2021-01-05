@@ -17,9 +17,12 @@
         <module>bg-provider-common</module>
         <!-- 系统核心模块功能 -->
         <module>bg-provider-core</module>
-        <!-- 工作流 -->
+        <!-- 系统平台模块功能 -->
+        <module>bg-provider-platform</module>
+        <!-- 平台扩展功能-->
+        <module>bg-provider-extension</module>
+        <!-- 系统工作流模块功能 -->
         <module>bg-provider-workflow</module>
-
     </modules>
 
 </project>
