@@ -1,13 +1,13 @@
 package com.quan.core.common.constant;
 
 
-/**
- * @author 作者 owen
- * @version 创建时间：2017年11月12日 上午22:57:51
+/***
+ *   
+ * @author zxq(956607644@qq.com)  
+ * @date 2021/1/6 10:18
+ *
  * 用户类型
- * blog: https://blog.51cto.com/13005375
- * code: https://gitee.com/owenwangwen/open-capacity-platform
- */
+ */  
 public enum UserType {
 
     /**

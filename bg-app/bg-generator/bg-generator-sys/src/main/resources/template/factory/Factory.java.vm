@@ -1,5 +1,6 @@
 package ${package}.${pkgName}.factory;
 
+import com.quan.core.common.uid.IUidGenerator;
 import ${package}.${pkgName}.dto.${className}DTO;
 import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.dto.${className}PageQueryDTO;
@@ -33,14 +34,14 @@ public final class ${className}Factory {
      *
      * @return
      */
-    public static ${className}CreateDTO newInstance(${className}CreateRequest req) {
-            ${className}CreateDTO createData = new ${className}CreateDTO();
-
-    #foreach ($column in $columns)
+    public static ${className}CreateDTO newInstance(IUidGenerator, uidGenerator, ${className}CreateRequest req) {
+        ${className}CreateDTO createData = new ${className}CreateDTO();
+        createData.setId(uidGenerator.uid());
+        #foreach ($column in $columns)
         #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
-            createData.set${column.attrName}(req.get${column.attrName}());
+        createData.set${column.attrName}(req.get${column.attrName}());
         #end
-    #end
+        #end
         createData.setCreateTime(new Date());
         createData.setCreateUserId(0L);
         createData.setHasChildren(0);
@@ -54,11 +55,11 @@ public final class ${className}Factory {
      */
     public static ${className}UpdateDTO newInstance(${className}UpdateRequest req) {
         ${className}UpdateDTO updateData = new ${className}UpdateDTO();
-#foreach ($column in $columns)
-    #if($column.reqIgnore == false)
+        #foreach ($column in $columns)
+        #if($column.reqIgnore == false)
         updateData.set${column.attrName}(req.get${column.attrName}());
-    #end
-#end
+        #end
+        #end
         updateData.setUpdateTime(new Date());
         updateData.setUpdateUserId(0L);
         return updateData;
@@ -67,19 +68,19 @@ public final class ${className}Factory {
     /***
      * 批量 新建
      */
-    public static List<${className}CreateDTO> newBatchInstance(List<${className}CreateRequest> datas) {
+    public static List<${className}CreateDTO> newBatchInstance(IUidGenerator, uidGenerator, List<${className}CreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
         }
-        return datas.stream().map(${className}Factory::newInstance).collect(Collectors.toList());
+        return datas.stream().map(d -> newInstance(uidGenerator, d)).collect(Collectors.toList());
     }
 
     /***
     * 转换查询列表 req 到 DTO
     */
     public static ${className}QueryDTO newInstance(${className}QueryRequest req) {
-            ${className}QueryDTO queryData = new ${className}QueryDTO();
+        ${className}QueryDTO queryData = new ${className}QueryDTO();
 
         return queryData;
     }
@@ -88,7 +89,7 @@ public final class ${className}Factory {
      * 转换分页 req 到 DTO
      */
     public static ${className}PageQueryDTO newInstance(${className}PageQueryRequest req) {
-            ${className}PageQueryDTO query = new ${className}PageQueryDTO();
+        ${className}PageQueryDTO query = new ${className}PageQueryDTO();
         query.setPageNumber(req.getPageNumber());
         query.setPageSize(req.getPageSize());
 
@@ -99,11 +100,11 @@ public final class ${className}Factory {
      * 转换 PO 到 DTO
      */
     public static ${className}DTO newInstance(${className} data) {
-            ${className}DTO dto = new ${className}DTO();
+        ${className}DTO dto = new ${className}DTO();
         #foreach ($column in $columns)
-            #if($column.dtoIgnore == false)
-                dto.set${column.attrName}(data.get${column.attrName}());
-            #end
+        #if($column.dtoIgnore == false)
+        dto.set${column.attrName}(data.get${column.attrName}());
+        #end
         #end
 
         return dto;

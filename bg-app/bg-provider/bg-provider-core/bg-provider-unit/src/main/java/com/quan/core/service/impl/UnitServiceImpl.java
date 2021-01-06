@@ -1,6 +1,7 @@
 package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.UnitDao;
 import com.quan.core.dto.UnitDTO;
 import com.quan.core.dto.create.UnitCreateDTO;
@@ -26,6 +27,9 @@ public class UnitServiceImpl implements UnitService {
     @Autowired
     private UnitDao unitDao;
 
+    @Autowired
+    private IUidGenerator uidGenerator;
+
     /**
      * 添加
      *
@@ -34,7 +38,7 @@ public class UnitServiceImpl implements UnitService {
     @Transactional
     @Override
     public int save(UnitCreateRequest data) {
-        UnitCreateDTO dto = UnitFactory.newInstance(data);
+        UnitCreateDTO dto = UnitFactory.newInstance(uidGenerator,data);
         dto.setSort(unitDao.sortState(data.getParentId()));
         dto.setPath(unitDao.getSubPath(data.getParentId()));
         // 修改父节点 children 属性
@@ -50,7 +54,7 @@ public class UnitServiceImpl implements UnitService {
     @Transactional
     @Override
     public int batchSave(List<UnitCreateRequest> units) {
-        return unitDao.batchSave(UnitFactory.newBatchInstance(units));
+        return unitDao.batchSave(UnitFactory.newBatchInstance(uidGenerator,units));
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.baidu.uid.UidGeneratorFeignClient;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.DictDao;
 import com.quan.core.dto.DictDTO;
 import com.quan.core.dto.create.DictCreateDTO;
@@ -28,7 +28,7 @@ public class DictServiceImpl implements DictService {
     private DictDao dictDao;
 
     @Autowired
-    private UidGeneratorFeignClient uidGenerator;
+    private IUidGenerator uidGenerator;
 
     /**
      * 添加

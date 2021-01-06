@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.baidu.uid.UidGeneratorFeignClient;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.RoleDTO;
 import com.quan.core.dto.RolePageQueryDTO;
 import com.quan.core.dto.RoleQueryDTO;
@@ -32,10 +32,10 @@ public final class RoleFactory {
      *
      * @return
      */
-    public static RoleCreateDTO newInstance(UidGeneratorFeignClient uidGenerator, RoleCreateRequest req) {
+    public static RoleCreateDTO newInstance(IUidGenerator uidGenerator, RoleCreateRequest req) {
         RoleCreateDTO createData = new RoleCreateDTO();
 
-        createData.setId(uidGenerator.getUID());
+        createData.setId(uidGenerator.uid());
         createData.setParentId(req.getParentId());
         createData.setName(req.getName());
         createData.setCode(req.getCode());
@@ -67,7 +67,7 @@ public final class RoleFactory {
     /***
      * 批量 新建
      */
-    public static List<RoleCreateDTO> newBatchInstance(UidGeneratorFeignClient uidGenerator, List<RoleCreateRequest> datas) {
+    public static List<RoleCreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<RoleCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();

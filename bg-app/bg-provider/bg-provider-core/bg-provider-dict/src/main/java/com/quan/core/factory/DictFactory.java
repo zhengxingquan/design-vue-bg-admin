@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.baidu.uid.UidGeneratorFeignClient;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.DictDTO;
 import com.quan.core.dto.DictPageQueryDTO;
 import com.quan.core.dto.DictQueryDTO;
@@ -33,11 +33,11 @@ public final class DictFactory {
      *
      * @return
      */
-    public static DictCreateDTO newInstance(UidGeneratorFeignClient uidGenerator, DictCreateRequest req) {
+    public static DictCreateDTO newInstance(IUidGenerator uidGenerator, DictCreateRequest req) {
         DictCreateDTO createData = new DictCreateDTO();
 
         createData.setParentId(req.getParentId());
-        createData.setId(uidGenerator.getUID());
+        createData.setId(uidGenerator.uid());
         createData.setName(req.getName());
         createData.setCode(req.getCode());
         createData.setSysCode(req.getSysCode());
@@ -75,7 +75,7 @@ public final class DictFactory {
     /***
      * 批量 新建
      */
-    public static List<DictCreateDTO> newBatchInstance(UidGeneratorFeignClient uidGenerator, List<DictCreateRequest> datas) {
+    public static List<DictCreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<DictCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();

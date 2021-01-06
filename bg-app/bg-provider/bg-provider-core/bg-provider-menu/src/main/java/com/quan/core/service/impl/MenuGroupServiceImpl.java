@@ -1,20 +1,20 @@
 package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.dto.MenuGroupDTO;
-import com.quan.core.model.MenuGroup;
-import com.quan.core.factory.MenuGroupFactory;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.MenuGroupDao;
-import com.quan.core.service.MenuGroupService;
+import com.quan.core.dto.MenuGroupDTO;
+import com.quan.core.factory.MenuGroupFactory;
+import com.quan.core.model.MenuGroup;
 import com.quan.core.request.MenuGroupPageQueryRequest;
 import com.quan.core.request.MenuGroupQueryRequest;
 import com.quan.core.request.create.MenuGroupCreateRequest;
 import com.quan.core.request.update.MenuGroupUpdateRequest;
-
-import org.springframework.transaction.annotation.Transactional;
+import com.quan.core.service.MenuGroupService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +26,9 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     @Autowired
     private MenuGroupDao menuGroupDao;
 
+    @Autowired
+    private IUidGenerator uidGenerator;
+
     /**
      * 添加
      *
@@ -34,7 +37,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     @Transactional
     @Override
     public int save(MenuGroupCreateRequest data) {
-        return menuGroupDao.save(MenuGroupFactory.newInstance(data));
+        return menuGroupDao.save(MenuGroupFactory.newInstance(uidGenerator, data));
     }
 
     /**
@@ -45,11 +48,12 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     @Transactional
     @Override
     public int batchSave(List<MenuGroupCreateRequest> menuGroups) {
-        return menuGroupDao.batchSave(MenuGroupFactory.newBatchInstance(menuGroups));
+        return menuGroupDao.batchSave(MenuGroupFactory.newBatchInstance(uidGenerator, menuGroups));
     }
 
     /**
      * 修改
+     *
      * @param menuGroup
      */
     @Transactional
@@ -60,6 +64,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 
     /**
      * 单条删除
+     *
      * @param id
      */
     @Transactional
@@ -69,10 +74,10 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     }
 
     /**
-       * 批量删除
-       *
-       * @param id
-       */
+     * 批量删除
+     *
+     * @param id
+     */
     @Transactional
     @Override
     public int delete(List<Long> id) {
@@ -83,12 +88,13 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     }
 
     /**
-    * 通过ID查找记录
-    * @param id 用户记录ID
-    * @return
-    */
+     * 通过ID查找记录
+     *
+     * @param id 用户记录ID
+     * @return
+     */
     @Override
-    public  MenuGroupDTO findOneById(Long id) {
+    public MenuGroupDTO findOneById(Long id) {
         MenuGroup data = menuGroupDao.findOneById(id);
         if (data == null) {
             return null;
@@ -99,6 +105,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 
     /**
      * 通过条件查找记录
+     *
      * @param menuGroup 对象数据
      * @return
      */
@@ -114,6 +121,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 
     /**
      * 查询列表分页
+     *
      * @param params 对象查询
      * @return
      */
@@ -126,6 +134,7 @@ public class MenuGroupServiceImpl implements MenuGroupService {
 
     /**
      * 查询列表不分页
+     *
      * @param params 对象查询
      * @return
      */

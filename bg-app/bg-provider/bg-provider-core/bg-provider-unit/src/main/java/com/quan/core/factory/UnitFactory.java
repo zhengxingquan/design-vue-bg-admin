@@ -1,5 +1,6 @@
 package com.quan.core.factory;
 
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.UnitDTO;
 import com.quan.core.dto.UnitPageQueryDTO;
 import com.quan.core.dto.UnitQueryDTO;
@@ -32,10 +33,11 @@ public final class UnitFactory {
      *
      * @return
      */
-    public static UnitCreateDTO newInstance(UnitCreateRequest req) {
+    public static UnitCreateDTO newInstance(IUidGenerator uidGenerator, UnitCreateRequest req) {
         UnitCreateDTO createData = new UnitCreateDTO();
 
         createData.setParentId(req.getParentId());
+        createData.setId(uidGenerator.uid());
         createData.setName(req.getName());
         createData.setAliasName(req.getAliasName());
         createData.setUnitCode(req.getUnitCode());
@@ -72,12 +74,12 @@ public final class UnitFactory {
     /***
      * 批量 新建
      */
-    public static List<UnitCreateDTO> newBatchInstance(List<UnitCreateRequest> datas) {
+    public static List<UnitCreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<UnitCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
         }
-        return datas.stream().map(UnitFactory::newInstance).collect(Collectors.toList());
+        return datas.stream().map(d -> newInstance(uidGenerator, d)).collect(Collectors.toList());
     }
 
     /***

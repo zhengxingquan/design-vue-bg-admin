@@ -1,16 +1,16 @@
 package com.quan.core.factory;
 
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.MenuGroupDTO;
-import com.quan.core.model.MenuGroup;
 import com.quan.core.dto.MenuGroupPageQueryDTO;
 import com.quan.core.dto.MenuGroupQueryDTO;
 import com.quan.core.dto.create.MenuGroupCreateDTO;
 import com.quan.core.dto.update.MenuGroupUpdateDTO;
+import com.quan.core.model.MenuGroup;
+import com.quan.core.request.MenuGroupPageQueryRequest;
 import com.quan.core.request.MenuGroupQueryRequest;
 import com.quan.core.request.create.MenuGroupCreateRequest;
 import com.quan.core.request.update.MenuGroupUpdateRequest;
-import com.quan.core.request.MenuGroupPageQueryRequest;
-
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
@@ -33,15 +33,16 @@ public final class MenuGroupFactory {
      *
      * @return
      */
-    public static MenuGroupCreateDTO newInstance(MenuGroupCreateRequest req) {
-            MenuGroupCreateDTO createData = new MenuGroupCreateDTO();
+    public static MenuGroupCreateDTO newInstance(IUidGenerator uidGenerator, MenuGroupCreateRequest req) {
+        MenuGroupCreateDTO createData = new MenuGroupCreateDTO();
 
-                                    createData.setParentId(req.getParentId());
-                                createData.setGroupName(req.getGroupName());
-                                createData.setGroupAliasName(req.getGroupAliasName());
-                                createData.setGroupCode(req.getGroupCode());
-                                            createData.setNote(req.getNote());
-                                                                                                        createData.setCreateTime(new Date());
+        createData.setId(uidGenerator.uid());
+        createData.setParentId(req.getParentId());
+        createData.setGroupName(req.getGroupName());
+        createData.setGroupAliasName(req.getGroupAliasName());
+        createData.setGroupCode(req.getGroupCode());
+        createData.setNote(req.getNote());
+        createData.setCreateTime(new Date());
         createData.setCreateUserId(0L);
         createData.setHasChildren(0);
         return createData;
@@ -54,13 +55,13 @@ public final class MenuGroupFactory {
      */
     public static MenuGroupUpdateDTO newInstance(MenuGroupUpdateRequest req) {
         MenuGroupUpdateDTO updateData = new MenuGroupUpdateDTO();
-            updateData.setId(req.getId());
-                updateData.setParentId(req.getParentId());
-                updateData.setGroupName(req.getGroupName());
-                updateData.setGroupAliasName(req.getGroupAliasName());
-                updateData.setGroupCode(req.getGroupCode());
-                    updateData.setNote(req.getNote());
-                                        updateData.setUpdateTime(new Date());
+        updateData.setId(req.getId());
+        updateData.setParentId(req.getParentId());
+        updateData.setGroupName(req.getGroupName());
+        updateData.setGroupAliasName(req.getGroupAliasName());
+        updateData.setGroupCode(req.getGroupCode());
+        updateData.setNote(req.getNote());
+        updateData.setUpdateTime(new Date());
         updateData.setUpdateUserId(0L);
         return updateData;
     }
@@ -68,19 +69,19 @@ public final class MenuGroupFactory {
     /***
      * 批量 新建
      */
-    public static List<MenuGroupCreateDTO> newBatchInstance(List<MenuGroupCreateRequest> datas) {
+    public static List<MenuGroupCreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<MenuGroupCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
         }
-        return datas.stream().map(MenuGroupFactory::newInstance).collect(Collectors.toList());
+        return datas.stream().map(d -> newInstance(uidGenerator, d)).collect(Collectors.toList());
     }
 
     /***
-    * 转换查询列表 req 到 DTO
-    */
+     * 转换查询列表 req 到 DTO
+     */
     public static MenuGroupQueryDTO newInstance(MenuGroupQueryRequest req) {
-            MenuGroupQueryDTO queryData = new MenuGroupQueryDTO();
+        MenuGroupQueryDTO queryData = new MenuGroupQueryDTO();
 
         return queryData;
     }
@@ -89,7 +90,7 @@ public final class MenuGroupFactory {
      * 转换分页 req 到 DTO
      */
     public static MenuGroupPageQueryDTO newInstance(MenuGroupPageQueryRequest req) {
-            MenuGroupPageQueryDTO query = new MenuGroupPageQueryDTO();
+        MenuGroupPageQueryDTO query = new MenuGroupPageQueryDTO();
         query.setPageNumber(req.getPageNumber());
         query.setPageSize(req.getPageSize());
 
@@ -100,17 +101,17 @@ public final class MenuGroupFactory {
      * 转换 PO 到 DTO
      */
     public static MenuGroupDTO newInstance(MenuGroup data) {
-            MenuGroupDTO dto = new MenuGroupDTO();
-                                    dto.setId(data.getId());
-                                                dto.setParentId(data.getParentId());
-                                                dto.setGroupName(data.getGroupName());
-                                                dto.setGroupAliasName(data.getGroupAliasName());
-                                                dto.setGroupCode(data.getGroupCode());
-                                                dto.setPath(data.getPath());
-                                                dto.setNote(data.getNote());
-                                                dto.setHasChildren(data.getHasChildren());
-                                                dto.setSort(data.getSort());
-                                                                                                                        
+        MenuGroupDTO dto = new MenuGroupDTO();
+        dto.setId(data.getId());
+        dto.setParentId(data.getParentId());
+        dto.setGroupName(data.getGroupName());
+        dto.setGroupAliasName(data.getGroupAliasName());
+        dto.setGroupCode(data.getGroupCode());
+        dto.setPath(data.getPath());
+        dto.setNote(data.getNote());
+        dto.setHasChildren(data.getHasChildren());
+        dto.setSort(data.getSort());
+
         return dto;
     }
 

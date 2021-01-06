@@ -1,7 +1,7 @@
 package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.baidu.uid.UidGeneratorFeignClient;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.RoleDao;
 import com.quan.core.dto.RoleDTO;
 import com.quan.core.dto.create.RoleCreateDTO;
@@ -27,8 +27,9 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleDao roleDao;
 
+
     @Autowired
-    private UidGeneratorFeignClient uidGenerator;
+    private IUidGenerator uidGenerator;
 
     /**
      * 添加

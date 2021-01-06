@@ -3,6 +3,7 @@ package com.quan.core.common.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.quan.core.common.annotation.batis.AutoInsertFill;
 import com.quan.core.common.enume.DataEntityState;
 import lombok.Data;
 
@@ -23,19 +24,20 @@ public abstract class BaseEntity implements Serializable {
      * 百度的UUid 雪花算法
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    protected Long id;
     /***
      * 创建时间 （存放时间戳）
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "create_time")
-    private Date createTime;
+    @AutoInsertFill
+    protected Date createTime;
     /***
      * 修改时间 （存放时间戳）
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "update_time")
-    private Date updateTime;
+    protected Date updateTime;
 
     /***
      * 创建人员ID
@@ -43,18 +45,18 @@ public abstract class BaseEntity implements Serializable {
      */
     @TableField(value = "create_user_id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long createUserId;
+    protected Long createUserId;
     /***
      * 修改人员ID
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "update_user_id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long updateUserId;
+    protected Long updateUserId;
 
     /***
      * 数据状态
      */
     @TableField(value = "data_state")
-    private Integer dataState = DataEntityState.ENABLE.getValue();
+    protected Integer dataState = DataEntityState.ENABLE.getValue();
 }

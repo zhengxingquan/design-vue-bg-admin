@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.baidu.uid.UidGeneratorFeignClient;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.MenuDTO;
 import com.quan.core.dto.MenuPageQueryDTO;
 import com.quan.core.dto.MenuQueryDTO;
@@ -33,10 +33,10 @@ public final class MenuFactory {
      *
      * @return
      */
-    public static MenuCreateDTO newInstance(UidGeneratorFeignClient uidGenerator, MenuCreateRequest req) {
+    public static MenuCreateDTO newInstance(IUidGenerator uidGenerator, MenuCreateRequest req) {
         MenuCreateDTO createData = new MenuCreateDTO();
 
-        createData.setId(uidGenerator.getUID());
+        createData.setId(uidGenerator.uid());
         createData.setParentId(req.getParentId());
         createData.setName(req.getName());
         createData.setAliasName(req.getAliasName());
@@ -79,7 +79,7 @@ public final class MenuFactory {
     /***
      * 批量 新建
      */
-    public static List<MenuCreateDTO> newBatchInstance(UidGeneratorFeignClient uidGenerator,List<MenuCreateRequest> datas) {
+    public static List<MenuCreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<MenuCreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();
