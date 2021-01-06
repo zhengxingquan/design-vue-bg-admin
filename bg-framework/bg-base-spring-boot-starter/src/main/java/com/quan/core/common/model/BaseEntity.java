@@ -3,7 +3,7 @@ package com.quan.core.common.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.quan.core.common.annotation.batis.AutoInsertFill;
+import com.quan.core.common.annotation.batis.PrevInsert;
 import com.quan.core.common.enume.DataEntityState;
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public abstract class BaseEntity implements Serializable {
      * 注意！这里需要标记为填充字段
      */
     @TableField(value = "create_time")
-    @AutoInsertFill
+    @PrevInsert
     protected Date createTime;
     /***
      * 修改时间 （存放时间戳）

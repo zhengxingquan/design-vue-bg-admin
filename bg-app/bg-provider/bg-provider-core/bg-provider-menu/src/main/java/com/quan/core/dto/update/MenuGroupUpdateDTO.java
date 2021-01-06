@@ -2,6 +2,7 @@ package com.quan.core.dto.update;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.quan.core.common.annotation.batis.PrevInsert;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,49 +25,51 @@ public class MenuGroupUpdateDTO {
     /**
      * ID
      */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
     /**
      * 父级ID
      */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long parentId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long parentId;
     /**
      * 组名称
      */
-        private String groupName;
+    private String groupName;
     /**
      * 组别名
      */
-        private String groupAliasName;
+    private String groupAliasName;
     /**
      * 编码
      */
-        private String groupCode;
+    private String groupCode;
     /**
      * 树路径
      */
-        private String path;
+    private String path;
     /**
      * 菜单介绍
      */
-        private String note;
+    private String note;
     /**
      * 是否有子节点
      */
-        private Integer hasChildren;
+    private Integer hasChildren;
     /**
      * 排序字段
      */
-        private Integer sort;
+    private Integer sort;
     /**
      * 修改时间
      */
-        private Date updateTime;
+    @PrevInsert
+    private Date updateTime;
     /**
-     * 
+     *
      */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long updateUserId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    @PrevInsert
+    private Long updateUserId;
 
 }

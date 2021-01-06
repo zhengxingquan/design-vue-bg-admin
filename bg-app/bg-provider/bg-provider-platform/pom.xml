@@ -15,11 +15,11 @@
 
     <modules>
         <!-- 业务数据维护模块 主要用于 数据的导入 -->
-        <module>bg-provider-business-data-maintenance</module>
+        <module>bg-provider-data-maintenance</module>
         <!-- 用户数据维护模块 主要用于 数据的导入  -->
-        <module>bg-provider-user-data-maintenance</module>
+        <module>bg-provider-user-maintenance</module>
         <!-- 业务数据审核模块 主要用于 对数据的审核操作-->
-        <module>bg-provider-business-data-audit</module>
+        <module>bg-provider-data-audit</module>
     </modules>
 
 

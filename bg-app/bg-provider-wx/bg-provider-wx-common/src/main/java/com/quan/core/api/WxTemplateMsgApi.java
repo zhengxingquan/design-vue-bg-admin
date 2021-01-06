@@ -1,5 +1,7 @@
 package com.quan.core.api;
 
+import com.quan.core.model.WxTemplateData;
+
 import java.util.Map;
 
 /**

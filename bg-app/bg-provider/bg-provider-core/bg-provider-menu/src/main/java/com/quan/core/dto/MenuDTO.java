@@ -20,63 +20,63 @@ import lombok.Setter;
 @Data
 public class MenuDTO {
 
-        /**
+    /**
      * ID
      */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long id;
-            /**
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+    /**
      * 父级ID
      */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long parentId;
-            /**
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long parentId;
+    /**
      * 菜单名称
      */
-        private String name;
-            /**
+    private String name;
+    /**
      * 菜单别名
      */
-        private String aliasName;
-            /**
-     * 
+    private String aliasName;
+    /**
+     *
      */
-        private String code;
-            /**
+    private String code;
+    /**
      * 树路径
      */
-        private String path;
-            /**
+    private String path;
+    /**
      * 资源类型(0 资源对象 1 菜单对象)
      */
-        private Integer type;
-            /**
+    private Integer type;
+    /**
      * 菜单链接
      */
-        private String href;
-            /**
+    private String href;
+    /**
      * 打开方式
      */
-        private String target;
-            /**
+    private String target;
+    /**
      * 菜单图标
      */
-        private String menuIcon;
-            /**
+    private String menuIcon;
+    /**
      * 权限标识
      */
-        private String permission;
-            /**
+    private String permission;
+    /**
      * 菜单介绍
      */
-        private String note;
-            /**
+    private String note;
+    /**
      * 是否有子节点
      */
-        private Integer hasChildren;
-            /**
+    private Integer hasChildren;
+    /**
      * 排序字段
      */
-        private Integer sort;
-                        
+    private Integer sort;
+
 }

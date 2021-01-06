@@ -7,6 +7,7 @@ import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.Result;
 import com.quan.core.util.RedisUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -25,7 +26,7 @@ import java.io.OutputStream;
 @SuppressWarnings("all")
 public class AccessLimitInterceptor extends HandlerInterceptorAdapter {
 
-    @Resource
+    @Autowired
     private RedisUtil redisUtil;
 
     @Override

@@ -1,7 +1,8 @@
 # design-vue-bg-admin
 
 
-
+在线表单设计器：SpreadJS ， 支持在线 PDF ，excel 设计，
+通过后台填充数据
 
 
 

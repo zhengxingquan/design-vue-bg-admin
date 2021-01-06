@@ -3,6 +3,7 @@ package com.quan.core.common.config;
 import com.quan.core.common.interceptor.AccessLimitInterceptor;
 import com.quan.core.common.interceptor.ApiIdempotentInterceptor;
 import com.quan.core.util.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,10 +21,10 @@ import javax.annotation.Resource;
 public class ApiIdempotentConfig implements WebMvcConfigurer {
 
 
-    @Resource
+    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    @Resource
+    @Autowired
     private RedisUtil redisUtil;
 
     @Override

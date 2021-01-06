@@ -3,6 +3,8 @@ package com.quan.core.api;
 import com.quan.core.model.WxInMsg;
 import com.quan.core.model.WxOutMsg;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

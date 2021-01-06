@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author 郑兴泉 956607644@qq.com
  * @data 2021/1/1
- * 描述：
+ * 描述：视频
  */
 @Data
 public class WxVideo extends BaseModel {
