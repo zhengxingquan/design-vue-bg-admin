@@ -19,7 +19,9 @@
         <!-- 用户数据维护模块 主要用于 数据的导入  -->
         <module>bg-provider-user-maintenance</module>
         <!-- 业务数据审核模块 主要用于 对数据的审核操作-->
-        <module>bg-provider-data-audit</module>
+        <module>bg-provider-dataaudit</module>
+        <!--  数据查询功能  -->
+        <module>bg-provider-dataquery</module>
     </modules>
 
 
