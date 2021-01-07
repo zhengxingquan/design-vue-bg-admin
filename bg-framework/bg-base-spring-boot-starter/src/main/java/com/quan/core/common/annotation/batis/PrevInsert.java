@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * @author 郑兴泉 956607644@qq.com
  * @data 2021/1/6
  * 描述：
- *
+ * <p>
  * 在执行插入操作时触发
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -25,12 +25,18 @@ public @interface PrevInsert {
     boolean now() default false;
 
     /**
-     * 设置为UUID, 为nutz定义的UU32格式,通常配合@Name使用
+     * 设置为UUID, 定义的UU32格式,通常配合@Name使用
      */
     boolean uu32() default false;
+
+    /**
+     * 设置分布式ID
+     */
+    boolean uid() default false;
 
     /**
      * nullEffective=true时上面的赋值规则要起效必须是在[当前字段==null]时才能生效
      */
     boolean nullEffective() default false;
+
 }

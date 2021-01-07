@@ -4,6 +4,7 @@ import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.MenuGroupDao;
 import com.quan.core.dto.MenuGroupDTO;
+import com.quan.core.dto.create.MenuGroupCreateDTO;
 import com.quan.core.factory.MenuGroupFactory;
 import com.quan.core.model.MenuGroup;
 import com.quan.core.request.MenuGroupPageQueryRequest;
@@ -37,7 +38,12 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     @Transactional
     @Override
     public int save(MenuGroupCreateRequest data) {
-        return menuGroupDao.save(MenuGroupFactory.newInstance(uidGenerator, data));
+        MenuGroupCreateDTO dto = MenuGroupFactory.newInstance(uidGenerator, data);
+        dto.setSort(menuGroupDao.sortState(data.getParentId()));
+        dto.setPath(menuGroupDao.getSubPath(data.getParentId()));
+        // 修改父节点 children 属性
+        menuGroupDao.createNodeUpdateParentNodeAttrChildren(dto.getParentId());
+        return menuGroupDao.save(dto);
     }
 
     /**
@@ -70,7 +76,16 @@ public class MenuGroupServiceImpl implements MenuGroupService {
     @Transactional
     @Override
     public int delete(Long id) {
-        return menuGroupDao.delete(id);
+
+        // 修改父节点 children 属性
+        MenuGroup data = menuGroupDao.findOneById(id);
+        if (data == null) {
+            return 0;
+        }
+        // 批量删除
+        menuGroupDao.deleteDataByPath(data.getPath());
+        menuGroupDao.deleteNodeUpdateParentNodeAttrChildren(id);
+        return 1;
     }
 
     /**
@@ -84,7 +99,18 @@ public class MenuGroupServiceImpl implements MenuGroupService {
         if (CollectionUtils.isEmpty(id)) {
             return 0;
         }
-        return menuGroupDao.batchDelete(id);
+        if (CollectionUtils.isEmpty(id)) {
+            return 0;
+        }
+        List<MenuGroup> datas = menuGroupDao.findAllById(id);
+        if (CollectionUtils.isEmpty(datas)) {
+            return 0;
+        }
+        datas.forEach(dict -> {
+            // 批量删除
+            menuGroupDao.deleteDataByPath(dict.getPath());
+        });
+        return 1;
     }
 
     /**

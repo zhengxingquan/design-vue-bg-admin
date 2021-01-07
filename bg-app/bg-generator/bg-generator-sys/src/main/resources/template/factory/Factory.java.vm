@@ -34,7 +34,7 @@ public final class ${className}Factory {
      *
      * @return
      */
-    public static ${className}CreateDTO newInstance(IUidGenerator, uidGenerator, ${className}CreateRequest req) {
+    public static ${className}CreateDTO newInstance(IUidGenerator uidGenerator, ${className}CreateRequest req) {
         ${className}CreateDTO createData = new ${className}CreateDTO();
         createData.setId(uidGenerator.uid());
         #foreach ($column in $columns)
@@ -68,7 +68,7 @@ public final class ${className}Factory {
     /***
      * 批量 新建
      */
-    public static List<${className}CreateDTO> newBatchInstance(IUidGenerator, uidGenerator, List<${className}CreateRequest> datas) {
+    public static List<${className}CreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<${className}CreateRequest> datas) {
 
         if (CollectionUtils.isEmpty(datas)) {
             return Collections.emptyList();

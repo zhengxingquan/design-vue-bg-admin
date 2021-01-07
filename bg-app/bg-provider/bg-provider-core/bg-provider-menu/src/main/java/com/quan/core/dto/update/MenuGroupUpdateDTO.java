@@ -63,7 +63,7 @@ public class MenuGroupUpdateDTO {
     /**
      * 修改时间
      */
-    @PrevInsert
+    @PrevInsert(now = true)
     private Date updateTime;
     /**
      *

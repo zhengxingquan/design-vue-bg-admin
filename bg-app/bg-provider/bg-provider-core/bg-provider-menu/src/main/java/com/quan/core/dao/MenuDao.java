@@ -77,6 +77,44 @@ public interface MenuDao extends IBaseDao, ISortDao, IPathDao, IHasChildrenDao {
 
 
     /**
+     * 通过ID查找当前节点下面的所有的子节点
+     *
+     * @param path 用户记录ID
+     * @return
+     */
+    List<Menu> findChildrenAllByPath(String path);
+
+
+    /**
+     * 通过ID查找当前节点下面的所有的子节点
+     *
+     * @param id 用户记录ID
+     * @return
+     */
+    List<Menu> findChildrenAllById(Long id);
+
+
+    /**
+     * 通过ID查找当前节点下面的所有的子节点
+     *
+     * @param id 用户记录ID
+     * @return
+     */
+    List<Long> findChildrenAttrIdAllById(Long id);
+
+
+
+
+    /**
+     * 通过ID查找当前节点下面的所有的子节点
+     *
+     * @param path 用户记录ID
+     * @return
+     */
+    List<Long> findChildrenAttrIdAllByPath(String path);
+
+
+    /**
      * 通过条件查找记录
      *
      * @param params 对象数据

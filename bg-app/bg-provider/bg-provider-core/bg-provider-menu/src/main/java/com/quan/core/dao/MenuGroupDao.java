@@ -1,5 +1,9 @@
 package com.quan.core.dao;
 
+import com.quan.core.common.dao.IBaseDao;
+import com.quan.core.common.dao.IHasChildrenDao;
+import com.quan.core.common.dao.IPathDao;
+import com.quan.core.common.dao.ISortDao;
 import com.quan.core.model.MenuGroup;
 import com.quan.core.dto.MenuGroupPageQueryDTO;
 import com.quan.core.dto.MenuGroupQueryDTO;
@@ -18,7 +22,7 @@ import java.util.List;
  * @date 2021-01-05 18:42:13
  */
 @Mapper
-public interface MenuGroupDao {
+public interface MenuGroupDao extends IBaseDao, ISortDao, IPathDao, IHasChildrenDao {
 
     /**
      * 添加

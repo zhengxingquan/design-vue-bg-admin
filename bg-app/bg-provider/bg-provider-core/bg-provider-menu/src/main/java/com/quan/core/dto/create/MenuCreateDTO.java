@@ -83,7 +83,7 @@ public class MenuCreateDTO {
     /**
      * 操作时间
      */
-    @PrevInsert
+    @PrevInsert(now = true)
     private Date createTime;
     /**
      * 操作人

@@ -1,7 +1,9 @@
 package com.quan.core.common.mybatis.interceptor;
 
+import lombok.Builder;
 import lombok.Data;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
@@ -10,15 +12,11 @@ import java.lang.reflect.Field;
  * 描述：
  */
 @Data
+@Builder
 public class FieldCache {
 
-    private final Field field;
-    private final boolean hasAnnotation;
-    private final Class annotationClazz;
-
-    public FieldCache(Field field, boolean hasAnnotation, Class annotationClazz) {
-        this.field = field;
-        this.hasAnnotation = hasAnnotation;
-        this.annotationClazz = annotationClazz;
-    }
+    private Object aClass;
+    private Field field;
+    private boolean hasAnnotation;
+    private Annotation annotation;
 }

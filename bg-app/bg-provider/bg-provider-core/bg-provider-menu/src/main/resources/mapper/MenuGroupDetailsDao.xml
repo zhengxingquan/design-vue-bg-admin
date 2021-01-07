@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.MenuGroupDetailsDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.MenuGroupDetails" id="BaseResultMap">
+
+        <result property="menuGroupId" column="menu_group_id"/>
+        <result property="menuId" column="menu_id"/>
+
+    </resultMap>
+
+    <sql id="baseColumnList">
+                `menu_group_id` as menuGroupId
+        ,            `menu_id` as menuId
+    </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <sql id="where">
+        <where>
+            <if test="data.menu_group_id != null">
+                AND t.`menu_group_id` = #{data.menuGroupId}
+            </if>
+            <if test="data.menu_id != null">
+                AND t.`menu_id` = #{data.menuId}
+            </if>
+        </where>
+    </sql>
+
+
+    <insert id="save">
+        insert into sys_menu_group_details(
+         `menu_group_id`,
+         `menu_id`            )
+         values (
+          #{menuGroupId},
+           #{menuId}
+            )
+        </insert>
+
+
+    <insert id="batchSave">
+        insert into sys_menu_group_details(
+        `menu_group_id`
+        , `menu_id`
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.menuGroupId},
+            #{item.menuId}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <update id="update">
+        UPDATE sys_menu_group_details
+        <set>
+            <if test="menuGroupId != null">
+                `menu_group_id` = #{menuGroupId}
+                ,
+            </if>
+            <if test="menuId != null">
+                `menu_id` = #{menuId}
+                ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_menu_group_details SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </delete>
+
+
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE sys_menu_group_details SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="findOneById" parameterType="java.lang.Long"
+            resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <select id="findMenuIdDetails" parameterType="list" resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details
+        <include refid="BaseWhere"/>
+        AND menu_group_id = #{id}
+    </select>
+
+    <select id="findAllById" parameterType="list" resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <select id="findOneByCnd" parameterType="java.lang.Long"
+            resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="findAll" resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="list" resultType="com.quan.core.model.MenuGroupDetails">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu_group_details t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+</mapper>

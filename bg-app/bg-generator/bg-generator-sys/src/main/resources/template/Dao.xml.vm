@@ -63,7 +63,7 @@
             #end
         #end
         ) values
-        <foreach collection="java.util.List" item="item" index="index" separator=",">
+        <foreach collection="list" item="item" index="index" separator=",">
             (
             #foreach($column in $columns)
                 #if($column.createIgnore == false)

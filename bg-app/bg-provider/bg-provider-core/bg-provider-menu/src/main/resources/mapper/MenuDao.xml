@@ -290,14 +290,58 @@
         <include refid="baseColumnList"/>
         FROM sys_menu
         <include refid="BaseWhere"/>
-        AND id IN
+         AND id IN
         <foreach collection="list" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </select>
 
 
-    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.Menu">
+    <select id="findChildrenAllByPath" parameterType="string" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND path LIKE concat(#{path}, '%')
+        ORDER BY sort
+    </select>
+
+
+    <select id="findChildrenAllById" parameterType="java.lang.Long" resultType="com.quan.core.model.Menu">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND parent_id = (
+        SELECT id FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+        )
+    </select>
+
+
+    <select id="findChildrenAttrIdAllByPath" resultType="java.lang.Long">
+        SELECT
+        id
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND path LIKE concat(#{path}, '%')
+        ORDER BY sort
+    </select>
+
+
+    <select id="findChildrenAttrIdAllById"  resultType="java.lang.Long">
+        SELECT id
+        FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND parent_id = (
+        SELECT id FROM sys_menu
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+        )
+    </select>
+
+    <select id="findOneByCnd"  resultType="com.quan.core.model.Menu">
         SELECT
         <include refid="baseColumnList"/>
         FROM sys_menu
@@ -324,13 +368,11 @@
     </select>
 
 
-
     <update id="deleteDataByPath">
         UPDATE sys_menu SET data_state = 2
         <include refid="BaseWhere"/>
         AND ${data.queryColName} LIKE concat(#{data.path}, '%')
     </update>
-
 
 
     <select id="hasChildren" resultType="java.lang.Integer">
@@ -369,7 +411,6 @@
         </if>
 
     </select>
-
 
 
     <update id="updateParentNodeAttrChildren">
