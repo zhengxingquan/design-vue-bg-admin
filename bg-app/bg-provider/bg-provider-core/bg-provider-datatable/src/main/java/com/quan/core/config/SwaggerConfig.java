@@ -45,7 +45,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
                 // .apis(RequestHandlerSelectors.basePackage("com.open.capacity"))
                 .apis(RequestHandlerSelectors.any())
-                .paths(input -> PathSelectors.regex("/sys/dict.*").apply(input)
+                .paths(input -> PathSelectors.regex("/sys/datatable.*").apply(input)
+                        || PathSelectors.regex("/sys/database.*").apply(input)
+                        || PathSelectors.regex("/sys/data/field.*").apply(input)
                         || PathSelectors.regex("/test.*").apply(input)
                 )
                 // .paths(PathSelectors.any())
@@ -53,10 +55,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("系统字段管理中心api")
-                .description("系统字段管理中心api")
-                .version("1.0").build();
+        return new ApiInfoBuilder().title("系统数据表管理中心api").description("系统数据表管理中心api").version("1.0").build();
     }
 
     @Bean

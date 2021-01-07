@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.DataTableDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.DataTable" id="BaseResultMap">
+
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="physicalName" column="physical_name"/>
+        <result property="tableType" column="table_type"/>
+        <result property="tableCode" column="table_code"/>
+        <result property="note" column="note"/>
+        <result property="tooltip" column="tooltip"/>
+        <result property="copyTableId" column="copy_table_id"/>
+        <result property="path" column="path"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
+
+    </resultMap>
+
+    <sql id="baseColumnList">
+        `id`
+        as id
+        ,            `parent_id` as parentId
+        ,            `name` as name
+        ,            `physical_name` as physicalName
+        ,            `table_type` as tableType
+        ,            `table_code` as tableCode
+        ,            `note` as note
+        ,            `tooltip` as tooltip
+        ,            `copy_table_id` as copyTableId
+        ,            `path` as path
+        ,            `has_children` as hasChildren
+        ,            `sort` as sort
+        ,            `create_time` as createTime
+        ,            `create_user_id` as createUserId
+        ,            `update_time` as updateTime
+        ,            `update_user_id` as updateUserId
+        ,            `data_state` as dataState
+    </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <sql id="where">
+        <where>
+            <if test="data.id != null">
+                AND t.`id` = #{data.id}
+            </if>
+            <if test="data.parent_id != null">
+                AND t.`parent_id` = #{data.parentId}
+            </if>
+            <if test="data.name != null">
+                AND t.`name` LIKE concat('%',#{data.name}, '%')
+            </if>
+            <if test="data.physical_name != null">
+                AND t.`physical_name` LIKE concat('%',#{data.physicalName}, '%')
+            </if>
+            <if test="data.table_type != null">
+                AND t.`table_type` = #{data.tableType}
+            </if>
+            <if test="data.table_code != null">
+                AND t.`table_code` LIKE concat('%',#{data.tableCode}, '%')
+            </if>
+            <if test="data.note != null">
+                AND t.`note` LIKE concat('%',#{data.note}, '%')
+            </if>
+            <if test="data.tooltip != null">
+                AND t.`tooltip` LIKE concat('%',#{data.tooltip}, '%')
+            </if>
+            <if test="data.copy_table_id != null">
+                AND t.`copy_table_id` = #{data.copyTableId}
+            </if>
+            <if test="data.path != null">
+                AND t.`path` LIKE concat('%',#{data.path}, '%')
+            </if>
+            <if test="data.has_children != null">
+                AND t.`has_children` = #{data.hasChildren}
+            </if>
+            <if test="data.sort != null">
+                AND t.`sort` = #{data.sort}
+            </if>
+        </where>
+    </sql>
+
+
+    <insert id="save">
+        insert into sys_data_table(`id`, `parent_id`, `name`, `physical_name`, `table_type`, `table_code`, `note`,
+                                   `tooltip`, `copy_table_id`, `path`, `has_children`, `sort`, `create_time`,
+                                   `create_user_id`)
+        values (#{id}, #{parentId}, #{name}, #{physicalName}, #{tableType}, #{tableCode}, #{note}, #{tooltip},
+                #{copyTableId}, #{path}, #{hasChildren}, #{sort}, #{createTime}, #{createUserId})
+    </insert>
+
+
+    <insert id="batchSave">
+        insert into sys_data_table(
+        `id`
+        , `parent_id`
+        , `name`
+        , `physical_name`
+        , `table_type`
+        , `table_code`
+        , `note`
+        , `tooltip`
+        , `copy_table_id`
+        , `path`
+        , `has_children`
+        , `sort`
+        , `create_time`
+        , `create_user_id`
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id}
+            , #{item.parentId}
+            , #{item.name}
+            , #{item.physicalName}
+            , #{item.tableType}
+            , #{item.tableCode}
+            , #{item.note}
+            , #{item.tooltip}
+            , #{item.copyTableId}
+            , #{item.path}
+            , #{item.hasChildren}
+            , #{item.sort}
+            , #{item.createTime}
+            , #{item.createUserId}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <update id="update">
+        UPDATE sys_data_table
+        <set>
+            <if test="id != null">
+                `id` = #{id}
+                ,
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId}
+                ,
+            </if>
+            <if test="name != null">
+                `name` = #{name}
+                ,
+            </if>
+            <if test="physicalName != null">
+                `physical_name` = #{physicalName}
+                ,
+            </if>
+            <if test="tableType != null">
+                `table_type` = #{tableType}
+                ,
+            </if>
+            <if test="tableCode != null">
+                `table_code` = #{tableCode}
+                ,
+            </if>
+            <if test="note != null">
+                `note` = #{note}
+                ,
+            </if>
+            <if test="tooltip != null">
+                `tooltip` = #{tooltip}
+                ,
+            </if>
+            <if test="copyTableId != null">
+                `copy_table_id` = #{copyTableId}
+                ,
+            </if>
+            <if test="path != null">
+                `path` = #{path}
+                ,
+            </if>
+            <if test="hasChildren != null">
+                `has_children` = #{hasChildren}
+                ,
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort}
+                ,
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime}
+                ,
+            </if>
+            <if test="updateUserId != null">
+                `update_user_id` = #{updateUserId}
+                ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_data_table SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </delete>
+
+
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE sys_data_table SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.model.DataTable">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <select id="findAllById" parameterType="list" resultType="com.quan.core.model.DataTable">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.DataTable">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="findAll" resultType="com.quan.core.model.DataTable">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_table t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <select id="list" resultType="com.quan.core.model.DataTable">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_table t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+
+    <update id="deleteDataByPath">
+        UPDATE sys_data_table SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+    <update id="updateParentNodeAttrChildren">
+        UPDATE sys_data_table
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId" resultType="integer">
+        SELECT COUNT(1)
+        FROM sys_data_table
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+</mapper>

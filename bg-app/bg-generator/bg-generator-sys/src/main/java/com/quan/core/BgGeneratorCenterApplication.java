@@ -14,7 +14,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableLogging
 @EnableDiscoveryClient
 @SpringBootApplication
-@MapperScan({"com.quan.core.dao"})
 public class BgGeneratorCenterApplication {
     public static void main(String[] args) {
         SpringApplication.run(BgGeneratorCenterApplication.class, args);

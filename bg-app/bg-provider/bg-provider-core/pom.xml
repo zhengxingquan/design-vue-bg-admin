@@ -24,5 +24,6 @@
         <module>bg-provider-permissions</module>
         <module>bg-provider-dict</module>
         <module>bg-provider-menu</module>
+        <module>bg-provider-datatable</module>
     </modules>
 </project>

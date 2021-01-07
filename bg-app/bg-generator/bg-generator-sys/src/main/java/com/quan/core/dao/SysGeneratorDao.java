@@ -12,6 +12,7 @@ import java.util.Map;
  * @author zxq(956607644 @ qq.com)
  * @date 2020/12/16 10:54
  */
+@Mapper
 public interface SysGeneratorDao {
 
     List<Map<String, Object>> queryList(@Param("data") GeneratorQueryDTO data);

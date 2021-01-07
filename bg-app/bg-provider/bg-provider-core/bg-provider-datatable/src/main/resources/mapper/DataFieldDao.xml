@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.DataFieldDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.DataField" id="BaseResultMap">
+
+                    <result property="id" column="id"/>
+                    <result property="parentId" column="parent_id"/>
+                    <result property="name" column="name"/>
+                    <result property="dataFieldCode" column="data_field_code"/>
+                    <result property="physicalName" column="physical_name"/>
+                    <result property="enumDataFieldId" column="enum_data_field_id"/>
+                    <result property="enumDependFieldId" column="enum_depend_field_id"/>
+                    <result property="associationId" column="association_id"/>
+                    <result property="enumId" column="enum_id"/>
+                    <result property="dataFieldProperty" column="data_field_property"/>
+                    <result property="dataFieldLength" column="data_field_length"/>
+                    <result property="requiredDataField" column="required_data_field"/>
+                    <result property="dataFieldTypeId" column="data_field_type_id"/>
+                    <result property="decimalLength" column="decimal_length"/>
+                    <result property="regexExpression" column="regex_expression"/>
+                    <result property="expressionId" column="expression_id"/>
+                    <result property="tooltip" column="tooltip"/>
+                    <result property="note" column="note"/>
+                    <result property="indexAble" column="index_able"/>
+                    <result property="dataFieldState" column="data_field_state"/>
+                    <result property="sort" column="sort"/>
+                    <result property="path" column="path"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="updateTime" column="update_time"/>
+                    <result property="updateUserId" column="update_user_id"/>
+                    <result property="dataState" column="data_state"/>
+        
+    </resultMap>
+
+    <sql id="baseColumnList">
+                `id` as id
+        ,            `parent_id` as parentId
+        ,            `name` as name
+        ,            `data_field_code` as dataFieldCode
+        ,            `physical_name` as physicalName
+        ,            `enum_data_field_id` as enumDataFieldId
+        ,            `enum_depend_field_id` as enumDependFieldId
+        ,            `association_id` as associationId
+        ,            `enum_id` as enumId
+        ,            `data_field_property` as dataFieldProperty
+        ,            `data_field_length` as dataFieldLength
+        ,            `required_data_field` as requiredDataField
+        ,            `data_field_type_id` as dataFieldTypeId
+        ,            `decimal_length` as decimalLength
+        ,            `regex_expression` as regexExpression
+        ,            `expression_id` as expressionId
+        ,            `tooltip` as tooltip
+        ,            `note` as note
+        ,            `index_able` as indexAble
+        ,            `data_field_state` as dataFieldState
+        ,            `sort` as sort
+        ,            `path` as path
+        ,            `create_time` as createTime
+        ,            `create_user_id` as createUserId
+        ,            `update_time` as updateTime
+        ,            `update_user_id` as updateUserId
+        ,            `data_state` as dataState
+                </sql>
+
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <sql id="where">
+        <where>
+                                                <if test="data.id != null">
+                                                    AND t.`id` = #{data.id}
+                                            </if>
+                                                                <if test="data.parent_id != null">
+                                                    AND t.`parent_id` = #{data.parentId}
+                                            </if>
+                                                                <if test="data.name != null">
+                                                    AND t.`name` LIKE concat('%',#{data.name}, '%')
+                                            </if>
+                                                                <if test="data.data_field_code != null">
+                                                    AND t.`data_field_code` LIKE concat('%',#{data.dataFieldCode}, '%')
+                                            </if>
+                                                                <if test="data.physical_name != null">
+                                                    AND t.`physical_name` LIKE concat('%',#{data.physicalName}, '%')
+                                            </if>
+                                                                <if test="data.enum_data_field_id != null">
+                                                    AND t.`enum_data_field_id` = #{data.enumDataFieldId}
+                                            </if>
+                                                                <if test="data.enum_depend_field_id != null">
+                                                    AND t.`enum_depend_field_id` LIKE concat('%',#{data.enumDependFieldId}, '%')
+                                            </if>
+                                                                <if test="data.association_id != null">
+                                                    AND t.`association_id` LIKE concat('%',#{data.associationId}, '%')
+                                            </if>
+                                                                <if test="data.enum_id != null">
+                                                    AND t.`enum_id` = #{data.enumId}
+                                            </if>
+                                                                <if test="data.data_field_property != null">
+                                                    AND t.`data_field_property` = #{data.dataFieldProperty}
+                                            </if>
+                                                                <if test="data.data_field_length != null">
+                                                    AND t.`data_field_length` = #{data.dataFieldLength}
+                                            </if>
+                                                                <if test="data.required_data_field != null">
+                                                    AND t.`required_data_field` = #{data.requiredDataField}
+                                            </if>
+                                                                <if test="data.data_field_type_id != null">
+                                                    AND t.`data_field_type_id` = #{data.dataFieldTypeId}
+                                            </if>
+                                                                <if test="data.decimal_length != null">
+                                                    AND t.`decimal_length` = #{data.decimalLength}
+                                            </if>
+                                                                <if test="data.regex_expression != null">
+                                                    AND t.`regex_expression` LIKE concat('%',#{data.regexExpression}, '%')
+                                            </if>
+                                                                <if test="data.expression_id != null">
+                                                    AND t.`expression_id` LIKE concat('%',#{data.expressionId}, '%')
+                                            </if>
+                                                                <if test="data.tooltip != null">
+                                                    AND t.`tooltip` LIKE concat('%',#{data.tooltip}, '%')
+                                            </if>
+                                                                <if test="data.note != null">
+                                                    AND t.`note` LIKE concat('%',#{data.note}, '%')
+                                            </if>
+                                                                <if test="data.index_able != null">
+                                                    AND t.`index_able` = #{data.indexAble}
+                                            </if>
+                                                                <if test="data.data_field_state != null">
+                                                    AND t.`data_field_state` = #{data.dataFieldState}
+                                            </if>
+                                                                <if test="data.sort != null">
+                                                    AND t.`sort` = #{data.sort}
+                                            </if>
+                                                                <if test="data.path != null">
+                                                    AND t.`path` LIKE concat('%',#{data.path}, '%')
+                                            </if>
+                                                                                                                                                                                </where>
+    </sql>
+
+    
+    <insert id="save">
+        insert into sys_data_field(                    `id`,                                `parent_id`,                                `name`,                                `data_field_code`,                                `physical_name`,                                `enum_data_field_id`,                                `enum_depend_field_id`,                                `association_id`,                                `enum_id`,                                `data_field_property`,                                `data_field_length`,                                `required_data_field`,                                `data_field_type_id`,                                `decimal_length`,                                `regex_expression`,                                `expression_id`,                                `tooltip`,                                `note`,                                `index_able`,                                `data_field_state`,                                `sort`,                                `path`,                                `create_time`,                                `create_user_id`                                                ) values (                    #{id},                                #{parentId},                                #{name},                                #{dataFieldCode},                                #{physicalName},                                #{enumDataFieldId},                                #{enumDependFieldId},                                #{associationId},                                #{enumId},                                #{dataFieldProperty},                                #{dataFieldLength},                                #{requiredDataField},                                #{dataFieldTypeId},                                #{decimalLength},                                #{regexExpression},                                #{expressionId},                                #{tooltip},                                #{note},                                #{indexAble},                                #{dataFieldState},                                #{sort},                                #{path},                                #{createTime},                                #{createUserId}                                                )
+        </insert>
+
+    
+    <insert id="batchSave">
+        insert into sys_data_field(
+                                    `id`
+                ,                                                 `parent_id`
+                ,                                                 `name`
+                ,                                                 `data_field_code`
+                ,                                                 `physical_name`
+                ,                                                 `enum_data_field_id`
+                ,                                                 `enum_depend_field_id`
+                ,                                                 `association_id`
+                ,                                                 `enum_id`
+                ,                                                 `data_field_property`
+                ,                                                 `data_field_length`
+                ,                                                 `required_data_field`
+                ,                                                 `data_field_type_id`
+                ,                                                 `decimal_length`
+                ,                                                 `regex_expression`
+                ,                                                 `expression_id`
+                ,                                                 `tooltip`
+                ,                                                 `note`
+                ,                                                 `index_able`
+                ,                                                 `data_field_state`
+                ,                                                 `sort`
+                ,                                                 `path`
+                ,                                                 `create_time`
+                ,                                                 `create_user_id`
+                                                                                                        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                                #{item.id}
+                    ,                                                                 #{item.parentId}
+                    ,                                                                 #{item.name}
+                    ,                                                                 #{item.dataFieldCode}
+                    ,                                                                 #{item.physicalName}
+                    ,                                                                 #{item.enumDataFieldId}
+                    ,                                                                 #{item.enumDependFieldId}
+                    ,                                                                 #{item.associationId}
+                    ,                                                                 #{item.enumId}
+                    ,                                                                 #{item.dataFieldProperty}
+                    ,                                                                 #{item.dataFieldLength}
+                    ,                                                                 #{item.requiredDataField}
+                    ,                                                                 #{item.dataFieldTypeId}
+                    ,                                                                 #{item.decimalLength}
+                    ,                                                                 #{item.regexExpression}
+                    ,                                                                 #{item.expressionId}
+                    ,                                                                 #{item.tooltip}
+                    ,                                                                 #{item.note}
+                    ,                                                                 #{item.indexAble}
+                    ,                                                                 #{item.dataFieldState}
+                    ,                                                                 #{item.sort}
+                    ,                                                                 #{item.path}
+                    ,                                                                 #{item.createTime}
+                    ,                                                                 #{item.createUserId}
+                                                                                                                                                )
+        </foreach>
+
+    </insert>
+
+    
+    <update id="update">
+        UPDATE sys_data_field
+        <set>
+                                                <if test="id != null">
+                        `id` = #{id}
+                        ,                    </if>
+                                                                <if test="parentId != null">
+                        `parent_id` = #{parentId}
+                        ,                    </if>
+                                                                <if test="name != null">
+                        `name` = #{name}
+                        ,                    </if>
+                                                                <if test="dataFieldCode != null">
+                        `data_field_code` = #{dataFieldCode}
+                        ,                    </if>
+                                                                <if test="physicalName != null">
+                        `physical_name` = #{physicalName}
+                        ,                    </if>
+                                                                <if test="enumDataFieldId != null">
+                        `enum_data_field_id` = #{enumDataFieldId}
+                        ,                    </if>
+                                                                <if test="enumDependFieldId != null">
+                        `enum_depend_field_id` = #{enumDependFieldId}
+                        ,                    </if>
+                                                                <if test="associationId != null">
+                        `association_id` = #{associationId}
+                        ,                    </if>
+                                                                <if test="enumId != null">
+                        `enum_id` = #{enumId}
+                        ,                    </if>
+                                                                <if test="dataFieldProperty != null">
+                        `data_field_property` = #{dataFieldProperty}
+                        ,                    </if>
+                                                                <if test="dataFieldLength != null">
+                        `data_field_length` = #{dataFieldLength}
+                        ,                    </if>
+                                                                <if test="requiredDataField != null">
+                        `required_data_field` = #{requiredDataField}
+                        ,                    </if>
+                                                                <if test="dataFieldTypeId != null">
+                        `data_field_type_id` = #{dataFieldTypeId}
+                        ,                    </if>
+                                                                <if test="decimalLength != null">
+                        `decimal_length` = #{decimalLength}
+                        ,                    </if>
+                                                                <if test="regexExpression != null">
+                        `regex_expression` = #{regexExpression}
+                        ,                    </if>
+                                                                <if test="expressionId != null">
+                        `expression_id` = #{expressionId}
+                        ,                    </if>
+                                                                <if test="tooltip != null">
+                        `tooltip` = #{tooltip}
+                        ,                    </if>
+                                                                <if test="note != null">
+                        `note` = #{note}
+                        ,                    </if>
+                                                                <if test="indexAble != null">
+                        `index_able` = #{indexAble}
+                        ,                    </if>
+                                                                <if test="dataFieldState != null">
+                        `data_field_state` = #{dataFieldState}
+                        ,                    </if>
+                                                                <if test="sort != null">
+                        `sort` = #{sort}
+                        ,                    </if>
+                                                                <if test="path != null">
+                        `path` = #{path}
+                        ,                    </if>
+                                                                                                                        <if test="updateTime != null">
+                        `update_time` = #{updateTime}
+                        ,                    </if>
+                                                                <if test="updateUserId != null">
+                        `update_user_id` = #{updateUserId}
+                        ,                    </if>
+                                                                </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    
+    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
+        UPDATE sys_data_field SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </delete>
+
+    
+    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+
+        UPDATE sys_data_field SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    
+    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.model.DataField">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_field
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    
+    <select id="findAllById" parameterType="list" resultType="com.quan.core.model.DataField">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_field
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
+    
+    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.DataField">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_field
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+    
+    <select id="findAll" resultType="com.quan.core.model.DataField">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_field t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+    
+    <select id="list" resultType="com.quan.core.model.DataField">
+        SELECT
+        <include refid="baseColumnList"/>
+        FROM sys_data_field t
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+
+    <update id="deleteDataByPath">
+        UPDATE sys_database SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_database
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM sys_database
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM sys_database
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM sys_database
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+</mapper>

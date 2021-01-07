@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <parent>
         <artifactId>bg-provider-platform</artifactId>
         <groupId>com.quan</groupId>
@@ -10,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bg-privider-data-maintenance</artifactId>
-
+    <artifactId>bg-provider-data-maintenance</artifactId>
+    <description>业务数据维护模块 主要用于 数据的导入</description>
 
 </project>
