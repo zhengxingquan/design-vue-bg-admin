@@ -22,8 +22,13 @@
         <module>bg-provider-role</module>
         <!-- 权限管理 -->
         <module>bg-provider-permissions</module>
+        <!-- 字典模块 -->
         <module>bg-provider-dict</module>
+        <!-- 菜单模块 -->
         <module>bg-provider-menu</module>
+        <!-- 数据表模块 -->
         <module>bg-provider-datatable</module>
+        <!-- 数据映射模块 实现针对不同的配置-->
+        <module>bg-provider-datamapping</module>
     </modules>
 </project>
