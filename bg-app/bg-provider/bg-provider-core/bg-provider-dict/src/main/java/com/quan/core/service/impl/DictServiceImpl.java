@@ -2,9 +2,11 @@ package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.common.util.Strings;
 import com.quan.core.dao.DictDao;
 import com.quan.core.dto.DictDTO;
 import com.quan.core.dto.create.DictCreateDTO;
+import com.quan.core.dto.update.DictUpdateDTO;
 import com.quan.core.factory.DictFactory;
 import com.quan.core.model.Dict;
 import com.quan.core.request.DictPageQueryRequest;
@@ -38,8 +40,14 @@ public class DictServiceImpl implements DictService {
     @Transactional
     @Override
     public int save(DictCreateRequest data) {
-
+        // 系统编码是否修改过
+        if (Strings.isNotBlank(data.getSysCode())) {
+            if (dictDao.sysCodeIsExists(data.getSysCode()) > 0) {
+                // 编码相同
+            }
+        }
         DictCreateDTO dto = DictFactory.newInstance(uidGenerator, data);
+
         dto.setSort(dictDao.sortState(data.getParentId()));
         dto.setPath(dictDao.getSubPath(data.getParentId()));
         // 修改父节点 children 属性
@@ -66,8 +74,25 @@ public class DictServiceImpl implements DictService {
     @Transactional
     @Override
     public int update(DictUpdateRequest dict) {
-
-        return dictDao.update(DictFactory.newInstance(dict));
+        Dict oldDict = dictDao.findOneById(dict.getId());
+        if (oldDict == null) {
+            return 0;
+        }
+        DictUpdateDTO data = DictFactory.newInstance(dict);
+        // 系统编码是否修改过
+        if (!Strings.sNull(oldDict.getSysCode()).equals(data.getSysCode())) {
+            if (dictDao.sysCodeIsExists(data.getSysCode()) > 1) {
+                // 编码相同
+            }
+        }
+        // 重新计算 path 与 sort
+        if (!oldDict.getParentId().equals(data.getParentId())) {
+            data.setSort(dictDao.sortState(data.getParentId()));
+            data.setPath(dictDao.getSubPath(data.getParentId()));
+            // 修改父节点 children 属性
+            dictDao.createNodeUpdateParentNodeAttrChildren(data.getParentId());
+        }
+        return dictDao.update(data);
     }
 
     /**
@@ -171,4 +196,19 @@ public class DictServiceImpl implements DictService {
         return DictFactory.newInstance(list);
     }
 
+    @Override
+    public int enable(List<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return 0;
+        }
+        return dictDao.enable(ids);
+    }
+
+    @Override
+    public int disable(List<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return 0;
+        }
+        return dictDao.disable(ids);
+    }
 }

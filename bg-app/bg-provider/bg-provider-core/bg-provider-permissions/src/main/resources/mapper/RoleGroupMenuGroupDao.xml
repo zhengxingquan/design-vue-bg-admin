@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.dao.RoleGroupMenuGroupDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.model.RoleGroupMenuGroup" id="BaseResultMap">
+        <result property="roleGroupId" column="role_group_id"/>
+        <result property="menuGroupId" column="menu_group_id"/>
+    </resultMap>
+
+
+    <!-- 查询字段映射配置 -->
+    <sql id="BaseColumnList">
+
+            `role_group_id` as `roleGroupId`
+        ,            `menu_group_id` as `menuGroupId`
+                </sql>
+
+
+    <!-- 表名称 -->
+    <sql id="TableName">
+        sys_role_group_menu_group
+    </sql>
+
+    <!-- 通用基本查询条件 -->
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <!-- 查询一条记录通用条件 -->
+    <!-- 格式：
+    注意：字段名前面 要加上 前缀 data.
+      <where>
+      <if test="">
+        AND 字段名称 LIKE concat('%',具体的值, '%')
+      <if>
+      </where>
+     -->
+    <sql id="FindOneCndWhere">
+
+    </sql>
+    <!-- 查询分页数据条记录通用条件 -->
+    <!-- LIMIT 分页参数 为 pageSize (页大小) , pageNumber (当前页的编号) -->
+    <sql id="PageWhere">
+
+    </sql>
+    <!-- 查询不分页数据条记录通用条件 -->
+    <sql id="ListWhere">
+
+    </sql>
+
+    <!-- 保存 -->
+    <insert id="save">
+        INSERT INTO
+        <include refid="TableName"/>
+        (
+        `role_group_id`, `menu_group_id` ) VALUES (
+        #{roleGroupId}, #{menuGroupId} )
+    </insert>
+
+    <!-- 批量保存 -->
+    <insert id="batchSave">
+        INSERT INTO
+        <include refid="TableName"/>
+        (
+        `role_group_id`
+        , `menu_group_id`
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.roleGroupId}
+            , #{item.menuGroupId}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 编辑 -->
+    <update id="update">
+        UPDATE
+        <include refid="TableName"/>
+        <set>
+            <if test="roleGroupId != null">
+                `role_group_id` = #{roleGroupId}
+                ,
+            </if>
+            <if test="menuGroupId != null">
+                `menu_group_id` = #{menuGroupId}
+                ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <update id="delete" parameterType="long" flushCache="true">
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <update id="batchDelete" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 通过ID 查询单条记录  -->
+    <select id="findOneById" parameterType="long"
+            resultType="com.quan.core.model.RoleGroupMenuGroup">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <!-- 通过 批量ID 查询多个数据 -->
+    <select id="findAllById" parameterType="long"
+            resultType="com.quan.core.model.RoleGroupMenuGroup">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <!-- 条件 查询 -->
+    <select id="findOneByCnd" resultType="com.quan.core.model.RoleGroupMenuGroup">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="FindOneCndWhere"/>
+    </select>
+
+
+    <!-- 列表查询 分页查询 -->
+    <select id="findAll" resultType="com.quan.core.model.RoleGroupMenuGroup">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="PageWhere"/>
+    </select>
+
+    <!-- 列表查询 不分页查询 -->
+    <select id="list" resultType="com.quan.core.model.RoleGroupMenuGroup">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="ListWhere"/>
+    </select>
+
+
+    <!-- 批量启用 -->
+    <update id="enable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 0
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 批量禁用 -->
+    <update id="disable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = -1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+</mapper>

@@ -4,7 +4,7 @@ import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.model.SysClient;
 import com.quan.core.common.model.SysService;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.SysServiceService;
 import io.swagger.annotations.Api;
@@ -79,10 +79,10 @@ public class SysServiceController {
     @ApiOperation(value = "删除服务")
     @PreAuthorize("hasAuthority('service:delete/service/{id}')")
     @SLog(module="auth-server")
-    public Result delete(@PathVariable Long id){
+    public JsonResult delete(@PathVariable Long id){
         try {
 			sysServiceService.delete(id);
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		} catch (Exception e) {
 			throw new ControllerException(e);
 		}
@@ -93,14 +93,14 @@ public class SysServiceController {
     @PostMapping("/saveOrUpdate")
     @SLog(module="auth-server")
     @PreAuthorize("hasAnyAuthority('service:post/saveOrUpdate')")
-    public Result saveOrUpdate(@RequestBody SysService service) {
+    public JsonResult saveOrUpdate(@RequestBody SysService service) {
         try{
             if (service.getId() != null){
                 sysServiceService.update(service);
             }else {
                 sysServiceService.save(service);
             }
-            return Result.succeed("操作成功");
+            return JsonResult.succeed("操作成功");
         }catch (Exception ex){
         	throw new ControllerException(ex);
         }
@@ -139,10 +139,10 @@ public class SysServiceController {
 
     @PostMapping("/granted")
     @SLog(module="auth-server")
-    public Result setMenuToClient(@RequestBody SysClient sysClient) {
+    public JsonResult setMenuToClient(@RequestBody SysClient sysClient) {
         try {
 			sysServiceService.setMenuToClient(sysClient.getId(), sysClient.getServiceIds());
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		} catch (Exception e) {
 			throw new ControllerException(e);
 		}

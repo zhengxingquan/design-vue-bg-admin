@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.quan.core.common.annotation.AccessLimit;
 import com.quan.core.common.auth.details.LoginAppUser;
 import com.quan.core.common.util.SysUserUtil;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.util.RedisUtil;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
@@ -46,7 +46,7 @@ public class AccessLimitInterceptor extends HandlerInterceptorAdapter {
             if (needLogin) {
                 LoginAppUser user = SysUserUtil.getLoginAppUser();
                 if (user == null) {
-                    render(response, Result.failed("用户鉴权异常！"));
+                    render(response, JsonResult.failed("用户鉴权异常！"));
                     return false;
                 }
                 key += ":" + user.getId();
@@ -58,7 +58,7 @@ public class AccessLimitInterceptor extends HandlerInterceptorAdapter {
                 redisUtil.set(key, 0, seconds);
             }
             if (redisUtil.incr(key, 1) > maxCount) {
-                render(response, Result.failed("访问太频繁！"));
+                render(response, JsonResult.failed("访问太频繁！"));
                 return false;
             }
 

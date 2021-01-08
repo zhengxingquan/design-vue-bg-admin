@@ -7,7 +7,13 @@ package com.quan.core.common.web;
  */
 public enum CodeEnum {
 
+    /***
+     * 成功
+     */
     SUCCESS(0),
+    /***
+     * 失败
+     */
     ERROR(1);
 
     private Integer code;

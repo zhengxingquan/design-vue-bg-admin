@@ -4,6 +4,7 @@ import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.exception.dao.DataAccessException;
 import com.quan.core.common.exception.hystrix.HystrixException;
 import com.quan.core.common.exception.service.ServiceException;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,7 +39,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result badRequestException(IllegalArgumentException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
 
@@ -51,92 +52,92 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler({AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public Result badMethodExpressException(AccessDeniedException e) {
-        return Result.failed(HttpStatus.FORBIDDEN.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.FORBIDDEN.value(), e.getMessage());
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result handleError(MissingServletRequestParameterException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result handleError(MethodArgumentTypeMismatchException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result handleError(MethodArgumentNotValidException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result handleError(BindException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result handleError(ConstraintViolationException e) {
-        return Result.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result handleError(NoHandlerFoundException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result handleError(HttpMessageNotReadableException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public Result handleError(HttpRequestMethodNotSupportedException e) {
-        return Result.failed(HttpStatus.METHOD_NOT_ALLOWED.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.METHOD_NOT_ALLOWED.value(), e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Result handleError(HttpMediaTypeNotSupportedException e) {
-        return Result.failed(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), e.getMessage());
     }
 
 
     @ExceptionHandler({DataAccessException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result dataAccessException(DataAccessException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler({ServiceException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result serviceException(ServiceException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler({ControllerException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result controllerException(ControllerException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler({HystrixException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result hytrixException(HystrixException e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result handleError(Throwable e) {
-        return Result.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 }

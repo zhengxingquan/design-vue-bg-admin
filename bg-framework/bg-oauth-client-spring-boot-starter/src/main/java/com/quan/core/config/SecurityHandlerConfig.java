@@ -1,7 +1,7 @@
 package com.quan.core.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -69,7 +69,7 @@ public class SecurityHandlerConfig {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(
                         objectMapper.writeValueAsString(
-                                Result.failed(HttpStatus.UNAUTHORIZED.value(), msg))
+                                JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), msg))
                 );
                 response.getWriter().flush();
                 response.getWriter().close();
@@ -99,7 +99,7 @@ public class SecurityHandlerConfig {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(
                         objectMapper.writeValueAsString(
-                                Result.failed(HttpStatus.UNAUTHORIZED.value(), authException.getMessage()))
+                                JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), authException.getMessage()))
                 );
                 response.getWriter().flush();
                 response.getWriter().close();
@@ -131,7 +131,7 @@ public class SecurityHandlerConfig {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(
-                        Result.failed(HttpStatus.UNAUTHORIZED.value(), authException.getMessage())));
+                        JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), authException.getMessage())));
                 response.getWriter().flush();
                 response.getWriter().close();
 

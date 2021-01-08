@@ -3,6 +3,7 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.request.DataFieldPropertyFindOneByIdRequest;
 import com.quan.core.request.DataFieldPropertyPageQueryRequest;
@@ -45,7 +46,7 @@ public class DataFieldPropertyController {
     @ApiOperation(value = "查询列表")
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:list')")
-    @SLog(module = "dataFieldProperty-center", tag = "查询列表")
+    @SLog(module = "datatable-center", tag = "查询列表")
     public Object data(DataFieldPropertyPageQueryRequest req) {
         return dataFieldPropertyService.findAll(req);
     }
@@ -58,10 +59,10 @@ public class DataFieldPropertyController {
     @PostMapping("/save")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "sys:data:field:property:save", parentPermission = "sys:data:field:property")
-    @SLog(module = "dataFieldProperty-center", tag = "添加数据")
+    @SLog(module = "datatable-center", tag = "添加数据")
     public Result doSave(@RequestBody DataFieldPropertyCreateRequest req) {
             dataFieldPropertyService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -71,10 +72,10 @@ public class DataFieldPropertyController {
     @PostMapping("/batchSave")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "sys:data:field:property:save", parentPermission = "sys:data:field:property")
-    @SLog(module = "dataFieldProperty-center", tag = "批量添加数据")
+    @SLog(module = "datatable-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<DataFieldPropertyCreateRequest> req) {
             dataFieldPropertyService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -84,10 +85,10 @@ public class DataFieldPropertyController {
     @PostMapping("/update")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:update')")
     @AutoCreateMenuAuth(name = "编辑", shortNo = 2, permission = "sys:data:field:property:update", parentPermission = "sys:data:field:property")
-    @SLog(module = "dataFieldProperty-center", tag = "编辑数据")
+    @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody DataFieldPropertyUpdateRequest req) {
             dataFieldPropertyService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -97,9 +98,9 @@ public class DataFieldPropertyController {
     @PostMapping("/delete")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:data:field:property:delete", parentPermission = "sys:data:field:property")
-    @SLog(module = "dataFieldProperty-center", tag = "编辑数据")
+    @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doDelete(@RequestBody DataFieldPropertyDeleteRequest req) {
-        return Result.succeed(dataFieldPropertyService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(dataFieldPropertyService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -109,9 +110,9 @@ public class DataFieldPropertyController {
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:data:field:property:delete", parentPermission = "sys:data:field:property")
-    @SLog(module = "dataFieldProperty-center", tag = "批量编辑数据")
+    @SLog(module = "datatable-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody DataFieldPropertyBatchDeleteRequest req) {
-        return Result.succeed(dataFieldPropertyService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(dataFieldPropertyService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -121,9 +122,9 @@ public class DataFieldPropertyController {
     @ApiOperation(value = "查找记录（通过主键）")
     @PostMapping("/findById")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:list')")
-    @SLog(module = "dataFieldProperty-center", tag = "通过主键查找记录")
+    @SLog(module = "datatable-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody DataFieldPropertyFindOneByIdRequest req) {
-        return Result.succeed(dataFieldPropertyService.findOneById(req.getId()));
+        return JsonResult.succeed(dataFieldPropertyService.findOneById(req.getId()));
     }
 
 
@@ -135,9 +136,9 @@ public class DataFieldPropertyController {
     @ApiOperation(value = "查找记录")
     @PostMapping("/findByCnd")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:list')")
-    @SLog(module = "dataFieldProperty-center", tag = "通过条件查找记录")
+    @SLog(module = "datatable-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody DataFieldPropertyQueryRequest req) {
-        return Result.succeed(dataFieldPropertyService.findOneByCnd(req));
+        return JsonResult.succeed(dataFieldPropertyService.findOneByCnd(req));
     }
 
     /**
@@ -146,9 +147,9 @@ public class DataFieldPropertyController {
     @ApiOperation(value = "查找数据不分页")
     @PostMapping("/query")
     @PreAuthorize("hasAnyAuthority('sys:data:field:property:list')")
-    @SLog(module = "dataFieldProperty-center", tag = "通过条件查找记录")
+    @SLog(module = "datatable-center", tag = "通过条件查找记录")
     public Result data(DataFieldPropertyQueryRequest req) {
-        return Result.succeed(dataFieldPropertyService.list(req));
+        return JsonResult.succeed(dataFieldPropertyService.list(req));
     }
 
 

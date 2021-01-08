@@ -3,6 +3,8 @@ package com.quan.core.handle;
 import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.exception.hystrix.HystrixException;
 import com.quan.core.common.exception.service.ServiceException;
+import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -19,188 +21,123 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * @author 作者 owen 
+ * @author 作者 owen
  * @version 创建时间：2017年11月12日 上午22:57:51 异常通用处理
  */
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-	/**
-	 * IllegalArgumentException异常处理返回json 状态码:400
-	 * 
-	 * @param exception
-	 * @return
-	 */
-	@ExceptionHandler({ IllegalArgumentException.class })
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> badRequestException(IllegalArgumentException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", exception.getMessage());
+    /**
+     * IllegalArgumentException异常处理返回json 状态码:400
+     *
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler({IllegalArgumentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result badRequestException(IllegalArgumentException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-		return data;
-	}
 
-	
-	/**
-	 * AccessDeniedException异常处理返回json 状态码:403
-	 * 
-	 * @param exception
-	 * @return
-	 */
-	@ExceptionHandler({ AccessDeniedException.class })
-	@ResponseStatus(HttpStatus.FORBIDDEN)
-	public Map<String, Object> badMethodExpressException(AccessDeniedException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.FORBIDDEN.value());
-		data.put("msg", exception.getMessage());
+    /**
+     * AccessDeniedException异常处理返回json 状态码:403
+     *
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler({AccessDeniedException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Result badMethodExpressException(AccessDeniedException exception) {
+        return JsonResult.failed(HttpStatus.FORBIDDEN.value(), exception.getMessage());
+    }
 
-		return data;
-	}
-@ExceptionHandler(MissingServletRequestParameterException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleError(MissingServletRequestParameterException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", e.getMessage());
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handleError(MissingServletRequestParameterException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-		return data;
-	}
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handleError(MethodArgumentTypeMismatchException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleError(MethodArgumentTypeMismatchException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", e.getMessage());
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handleError(MethodArgumentNotValidException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-		return data;
-	}
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handleError(BindException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleError(MethodArgumentNotValidException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", e.getMessage());
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handleError(ConstraintViolationException exception) {
+        return JsonResult.failed(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
 
-		return data;
-	}
 
-	@ExceptionHandler(BindException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleError(BindException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", e.getMessage());
+    @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result handleError(NoHandlerFoundException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 
-		return data;
-	}
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result handleError(HttpMessageNotReadableException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 
-	@ExceptionHandler(ConstraintViolationException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleError(ConstraintViolationException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.BAD_REQUEST.value());
-		data.put("msg", e.getMessage());
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public Result handleError(HttpRequestMethodNotSupportedException exception) {
+        return JsonResult.failed(HttpStatus.METHOD_NOT_ALLOWED.value(), exception.getMessage());
+    }
 
-		return data;
-	}
-	
-
-	@ExceptionHandler(NoHandlerFoundException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> handleError(NoHandlerFoundException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", e.getMessage());
-
-		return data;
-	}
-
-	@ExceptionHandler(HttpMessageNotReadableException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> handleError(HttpMessageNotReadableException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", e.getMessage());
-
-		return data;
-	}
-
-	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-	public Map<String, Object> handleError(HttpRequestMethodNotSupportedException e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.METHOD_NOT_ALLOWED.value());
-		data.put("msg", e.getMessage());
-
-		return data;
-	}
-	
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public Map<String, Object> handleError(HttpMediaTypeNotSupportedException e) {
-    	Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
-		data.put("msg", e.getMessage());
-		return data;
+    public Result handleError(HttpMediaTypeNotSupportedException exception) {
+        return JsonResult.failed(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), exception.getMessage());
     }
-	 
 
 
-	@ExceptionHandler({ DataAccessException.class })
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> dataAccessException(DataAccessException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", exception.getMessage());
+    @ExceptionHandler({DataAccessException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result dataAccessException(DataAccessException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
 
-		return data;
+    }
 
-	}
+    @ExceptionHandler({ServiceException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result serviceException(ServiceException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 
-	@ExceptionHandler({ ServiceException.class })
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> serviceException(ServiceException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", exception.getMessage());
+    @ExceptionHandler({ControllerException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result controllerException(ControllerException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 
-		return data;
-	}
+    @ExceptionHandler({HystrixException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result hytrixException(HystrixException exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 
-	@ExceptionHandler({ ControllerException.class })
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> controllerException(ControllerException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", exception.getMessage());
-
-		return data;
-	}
-
-	@ExceptionHandler({ HystrixException.class })
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> hytrixException(HystrixException exception) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", exception.getMessage());
-
-		return data;
-	}
-
-	@ExceptionHandler(Throwable.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> handleError(Throwable e) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		data.put("msg", e.getMessage());
-
-		return data;
-	}
+    @ExceptionHandler(Throwable.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result handleError(Throwable exception) {
+        return JsonResult.failed(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    }
 }

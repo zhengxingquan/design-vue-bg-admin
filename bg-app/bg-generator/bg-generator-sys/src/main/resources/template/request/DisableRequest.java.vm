@@ -1,0 +1,32 @@
+package ${package}.${pkgName}.request;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * ${comments} 禁用请求类
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+
+@Getter
+@Setter
+@Data
+@ApiModel
+public class ${className}DisableRequest {
+
+    @ApiModelProperty("记录ID编号")
+    @NotNull
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
+}

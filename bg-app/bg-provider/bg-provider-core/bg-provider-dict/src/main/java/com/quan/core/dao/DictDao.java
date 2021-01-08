@@ -103,4 +103,30 @@ public interface DictDao extends IBaseDao, ISortDao, IPathDao, IHasChildrenDao {
      */
     List<Dict> list(@Param("data") DictQueryDTO params);
 
+
+    /***
+     *  启用
+     * @param ids 主键id集合
+
+     * @return int
+     */
+    int enable(List<Long> ids);
+
+
+    /**
+     * 禁用
+     * @param ids 主键id集合
+     *
+     * @return int
+     */
+    int disable(List<Long> ids);
+
+    /**
+     * 查询 sysCode 是否有相同的数据
+     * @param sysCode 系统编码
+     *
+     * @return int
+     */
+    int sysCodeIsExists(String sysCode);
+
 }

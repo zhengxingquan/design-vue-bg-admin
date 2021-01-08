@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.model.SysClient;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.SysClientService;
 import io.swagger.annotations.Api;
@@ -82,7 +82,7 @@ public class SysClientController {
 	@PostMapping("/saveOrUpdate")
     @ApiOperation(value = "保存或者修改应用")
     @PreAuthorize("hasAuthority('client:post/clients')")
-    public Result saveOrUpdate(@RequestBody SysClient sysClient){
+    public JsonResult saveOrUpdate(@RequestBody SysClient sysClient){
         try {
 			return  sysClientService.saveOrUpdate(sysClient);
 		} catch (Exception e) {
@@ -93,7 +93,7 @@ public class SysClientController {
     @ApiOperation(value = "修改状态")
     @PreAuthorize("hasAuthority('client:post/clients')")
     @SLog(module="auth-server")
-    public Result updateEnabled(@RequestBody Map<String, Object> params){
+    public JsonResult updateEnabled(@RequestBody Map<String, Object> params){
         try {
 			return  sysClientService.updateEnabled(params);
 		} catch (Exception e) {

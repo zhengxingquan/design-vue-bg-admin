@@ -46,6 +46,9 @@ public final class GenUtils {
         templates.add("template/request/DeleteRequest.java.vm");
         templates.add("template/request/DeleteBatchRequest.java.vm");
         templates.add("template/request/FindOneByIdRequest.java.vm");
+        templates.add("template/request/DisableRequest.java.vm");
+        templates.add("template/request/EnableRequest.java.vm");
+        templates.add("template/request/BatchRequest.java.vm");
 
         /* server 与 dao 层的转换类 */
         templates.add("template/dto/PageQueryDTO.java.vm");
@@ -347,6 +350,20 @@ public final class GenUtils {
             return packagePath + "request" + File.separator + "update" + File.separator + className + "UpdateRequest.java";
         }
 
+        /* DisableRequest request  */
+        if (template.contains("DisableRequest.java.vm")) {
+            return packagePath + "request" + File.separator + className + "DisableRequest.java";
+        }
+
+        /* EnableRequest request  */
+        if (template.contains("EnableRequest.java.vm")) {
+            return packagePath + "request" + File.separator + className + "EnableRequest.java";
+        }
+
+        /* BatchRequest request  */
+        if (template.contains("BatchRequest.java.vm")) {
+            return packagePath + "request" + File.separator + className + "BatchEnableAndDisableRequest.java";
+        }
 
         /* CreateDTO DTO  */
         if (template.contains("CreateDTO.java.vm")) {

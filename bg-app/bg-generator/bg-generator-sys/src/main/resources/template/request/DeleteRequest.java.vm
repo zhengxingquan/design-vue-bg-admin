@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Data
+@ApiModel
 public class ${className}DeleteRequest {
 
     @ApiModelProperty("删除id")

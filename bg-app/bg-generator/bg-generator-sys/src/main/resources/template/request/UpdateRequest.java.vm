@@ -5,14 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 #end
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
 
 /**
  * ${comments} 编辑请求类
@@ -25,6 +23,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Data
+@ApiModel
 public class ${className}UpdateRequest {
 
 #foreach ($column in $columns)

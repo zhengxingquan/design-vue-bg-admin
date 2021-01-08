@@ -3,6 +3,7 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.service.UnitService;
 import com.quan.core.request.create.UnitCreateRequest;
@@ -59,7 +60,7 @@ public class UnitController {
     @SLog(module = "unit-center", tag = "添加数据")
     public Result doSave(@RequestBody UnitCreateRequest req) {
         unitService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -72,7 +73,7 @@ public class UnitController {
     @SLog(module = "unit-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<UnitCreateRequest> req) {
         unitService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -85,7 +86,7 @@ public class UnitController {
     @SLog(module = "unit-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody UnitUpdateRequest req) {
             unitService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -97,7 +98,7 @@ public class UnitController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:unit:delete", parentPermission = "sys:unit")
     @SLog(module = "unit-center", tag = "编辑数据")
     public Result doDelete(@RequestBody UnitDeleteRequest req) {
-        return Result.succeed(unitService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(unitService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -109,7 +110,7 @@ public class UnitController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:unit:delete", parentPermission = "sys:unit")
     @SLog(module = "unit-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody UnitBatchDeleteRequest req) {
-        return Result.succeed(unitService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(unitService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -121,7 +122,7 @@ public class UnitController {
     @PreAuthorize("hasAnyAuthority('sys:unit:list')")
     @SLog(module = "unit-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody UnitFindOneByIdRequest req) {
-        return Result.succeed(unitService.findOneById(req.getId()));
+        return JsonResult.succeed(unitService.findOneById(req.getId()));
     }
 
 
@@ -135,7 +136,7 @@ public class UnitController {
     @PreAuthorize("hasAnyAuthority('sys:unit:list')")
     @SLog(module = "unit-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody UnitQueryRequest req) {
-        return Result.succeed(unitService.findOneByCnd(req));
+        return JsonResult.succeed(unitService.findOneByCnd(req));
     }
 
     /**
@@ -146,7 +147,7 @@ public class UnitController {
     @PreAuthorize("hasAnyAuthority('sys:unit:list')")
     @SLog(module = "unit-center", tag = "通过条件查找记录")
     public Result data(UnitQueryRequest req) {
-        return Result.succeed(unitService.list(req));
+        return JsonResult.succeed(unitService.list(req));
     }
 
 

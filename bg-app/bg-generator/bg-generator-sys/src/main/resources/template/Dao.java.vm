@@ -57,7 +57,7 @@ public interface ${className}Dao {
     * @param id 用户记录ID
     * @return
     */
-    ${className} findOneById(Long id);
+        ${className} findOneById(Long id);
 
     /**
     * 通过ID查找所有的记录记录
@@ -72,7 +72,7 @@ public interface ${className}Dao {
      * @param params 对象数据
      * @return
      */
-    ${className} findOneByCnd(@Param("data") ${className}QueryDTO params);
+        ${className} findOneByCnd(@Param("data") ${className}QueryDTO params);
 
 
     /**
@@ -89,5 +89,23 @@ public interface ${className}Dao {
      * @return
      */
     List<${className}> list(@Param("data") ${className}QueryDTO params);
+
+
+    /***
+     *  启用
+     * @param ids 主键id集合
+    
+     * @return int  
+     */
+    int enable(List<Long> ids);
+
+
+    /**
+    * 禁用
+    * @param ids 主键id集合
+    *
+    * @return int
+    */
+    int disable(List<Long> ids);
 
 }

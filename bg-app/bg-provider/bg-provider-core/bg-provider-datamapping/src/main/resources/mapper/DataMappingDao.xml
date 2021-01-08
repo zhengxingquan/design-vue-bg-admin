@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.quan.core.datamapping.dao.DataMappingDao">
+
+    <!-- 通用查询映射结果  -->
+    <resultMap type="com.quan.core.datamapping.model.DataMapping" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="modelName" column="model_name"/>
+        <result property="name" column="name"/>
+        <result property="databaseId" column="database_id"/>
+        <result property="tableId" column="table_id"/>
+        <result property="filedId" column="filed_id"/>
+        <result property="condition" column="condition"/>
+        <result property="sysCode" column="sys_code"/>
+        <result property="fields" column="fields"/>
+        <result property="type" column="type"/>
+        <result property="note" column="note"/>
+        <result property="sql" column="sql"/>
+        <result property="hasChildren" column="has_children"/>
+        <result property="sort" column="sort"/>
+        <result property="path" column="path"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="dataState" column="data_state"/>
+    </resultMap>
+
+
+    <!-- 查询字段映射配置 -->
+    <sql id="BaseColumnList">
+
+            `id` as `id`
+        ,            `parent_id` as `parentId`
+        ,            `model_name` as `modelName`
+        ,            `name` as `name`
+        ,            `database_id` as `databaseId`
+        ,            `table_id` as `tableId`
+        ,            `filed_id` as `filedId`
+        ,            `condition` as `condition`
+        ,            `sys_code` as `sysCode`
+        ,            `fields` as `fields`
+        ,            `type` as `type`
+        ,            `note` as `note`
+        ,            `sql` as `sql`
+        ,            `has_children` as `hasChildren`
+        ,            `sort` as `sort`
+        ,            `path` as `path`
+        ,            `create_time` as `createTime`
+        ,            `create_user_id` as `createUserId`
+        ,            `update_time` as `updateTime`
+        ,            `update_user_id` as `updateUserId`
+        ,            `data_state` as `dataState`
+                </sql>
+
+
+    <!-- 表名称 -->
+    <sql id="TableName">
+        sys_data_mapping
+    </sql>
+
+    <!-- 通用基本查询条件 -->
+    <sql id="BaseWhere">
+        WHERE data_state = 0
+    </sql>
+
+
+    <!-- 查询一条记录通用条件 -->
+    <!-- 格式：
+    注意：字段名前面 要加上 前缀 data.
+      <where>
+      <if test="">
+        AND 字段名称 LIKE concat('%',具体的值, '%')
+      <if>
+      </where>
+     -->
+    <sql id="FindOneCndWhere">
+
+    </sql>
+    <!-- 查询分页数据条记录通用条件 -->
+    <!-- LIMIT 分页参数 为 pageSize (页大小) , pageNumber (当前页的编号) -->
+    <sql id="PageWhere">
+
+    </sql>
+    <!-- 查询不分页数据条记录通用条件 -->
+    <sql id="ListWhere">
+
+    </sql>
+
+    <!-- 保存 -->
+    <insert id="save">
+        INSERT INTO
+        <include refid="TableName"/>
+        (
+        `id`, `parent_id`, `model_name`, `name`, `database_id`, `table_id`, `filed_id`, `condition`, `sys_code`,
+        `fields`, `type`, `note`, `sql`, `has_children`, `sort`, `path`, `create_time`, `create_user_id` ) VALUES (
+        #{id}, #{parentId}, #{modelName}, #{name}, #{databaseId}, #{tableId}, #{filedId}, #{condition}, #{sysCode},
+        #{fields}, #{type}, #{note}, #{sql}, #{hasChildren}, #{sort}, #{path}, #{createTime}, #{createUserId} )
+    </insert>
+
+    <!-- 批量保存 -->
+    <insert id="batchSave">
+        INSERT INTO
+        <include refid="TableName"/>
+        (
+        `id`
+        , `parent_id`
+        , `model_name`
+        , `name`
+        , `database_id`
+        , `table_id`
+        , `filed_id`
+        , `condition`
+        , `sys_code`
+        , `fields`
+        , `type`
+        , `note`
+        , `sql`
+        , `has_children`
+        , `sort`
+        , `path`
+        , `create_time`
+        , `create_user_id`
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id}
+            , #{item.parentId}
+            , #{item.modelName}
+            , #{item.name}
+            , #{item.databaseId}
+            , #{item.tableId}
+            , #{item.filedId}
+            , #{item.condition}
+            , #{item.sysCode}
+            , #{item.fields}
+            , #{item.type}
+            , #{item.note}
+            , #{item.sql}
+            , #{item.hasChildren}
+            , #{item.sort}
+            , #{item.path}
+            , #{item.createTime}
+            , #{item.createUserId}
+            )
+        </foreach>
+    </insert>
+
+    <!-- 编辑 -->
+    <update id="update">
+        UPDATE
+        <include refid="TableName"/>
+        <set>
+            <if test="id != null">
+                `id` = #{id}
+                ,
+            </if>
+            <if test="parentId != null">
+                `parent_id` = #{parentId}
+                ,
+            </if>
+            <if test="modelName != null">
+                `model_name` = #{modelName}
+                ,
+            </if>
+            <if test="name != null">
+                `name` = #{name}
+                ,
+            </if>
+            <if test="databaseId != null">
+                `database_id` = #{databaseId}
+                ,
+            </if>
+            <if test="tableId != null">
+                `table_id` = #{tableId}
+                ,
+            </if>
+            <if test="filedId != null">
+                `filed_id` = #{filedId}
+                ,
+            </if>
+            <if test="condition != null">
+                `condition` = #{condition}
+                ,
+            </if>
+            <if test="sysCode != null">
+                `sys_code` = #{sysCode}
+                ,
+            </if>
+            <if test="fields != null">
+                `fields` = #{fields}
+                ,
+            </if>
+            <if test="type != null">
+                `type` = #{type}
+                ,
+            </if>
+            <if test="note != null">
+                `note` = #{note}
+                ,
+            </if>
+            <if test="sql != null">
+                `sql` = #{sql}
+                ,
+            </if>
+            <if test="hasChildren != null">
+                `has_children` = #{hasChildren}
+                ,
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort}
+                ,
+            </if>
+            <if test="path != null">
+                `path` = #{path}
+                ,
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime}
+                ,
+            </if>
+            <if test="updateUserId != null">
+                `update_user_id` = #{updateUserId}
+                ,
+            </if>
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <update id="delete" parameterType="long" flushCache="true">
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    <!-- 批量删除 -->
+    <update id="batchDelete" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 通过ID 查询单条记录  -->
+    <select id="findOneById" parameterType="long" resultType="com.quan.core.datamapping.model.DataMapping">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+
+    <!-- 通过 批量ID 查询多个数据 -->
+    <select id="findAllById" parameterType="long" resultType="com.quan.core.datamapping.model.DataMapping">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+    <!-- 条件 查询 -->
+    <select id="findOneByCnd" resultType="com.quan.core.datamapping.model.DataMapping">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="FindOneCndWhere"/>
+    </select>
+
+
+    <!-- 列表查询 分页查询 -->
+    <select id="findAll" resultType="com.quan.core.datamapping.model.DataMapping">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="PageWhere"/>
+    </select>
+
+
+    <!-- 列表查询 分页查询 -->
+    <select id="sysCodeIsExists" resultType="int" parameterType="string">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND `sys_code` = #{sysCode}
+    </select>
+
+
+    <!-- 列表查询 不分页查询 -->
+    <select id="list" resultType="com.quan.core.datamapping.model.DataMapping">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="ListWhere"/>
+    </select>
+
+
+    <!-- 批量启用 -->
+    <update id="enable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 0
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 批量禁用 -->
+    <update id="disable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = -1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <update id="deleteDataByPath">
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.path}, '%')
+    </update>
+
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+    <select id="getParentPath" resultType="java.lang.String">
+        SELECT `${data.queryColName}`
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id = #{data.patentId}
+    </select>
+
+
+    <select id="getPath" resultType="java.lang.String">
+        SELECT ${data.queryColName}
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND ${data.queryColName} LIKE concat(#{data.value}, '____')
+        ORDER BY `${data.queryColName}` DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="getSort" resultType="java.lang.Integer">
+        SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <if test="data.value != null and data.value != ''">
+            AND parent_id = #{data.value}
+        </if>
+        <if test="data.value == null and data.value == ''">
+            AND (parent_id IS NULL OR parent_id = '')
+        </if>
+
+    </select>
+
+    <update id="updateParentNodeAttrChildren">
+        UPDATE
+        <include refid="TableName"/>
+        <set>
+            `has_children` = #{data.hasChildren}
+        </set>
+        <include refid="BaseWhere"/>
+        AND id = #{data.value}
+    </update>
+
+
+    <select id="existsChildrenNodeByParentId" resultType="integer">
+        SELECT COUNT(1)
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND parent_id = #{data.value}
+    </select>
+
+
+</mapper>

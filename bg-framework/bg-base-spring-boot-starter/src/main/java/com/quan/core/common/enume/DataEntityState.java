@@ -12,7 +12,7 @@ public enum DataEntityState {
     ENABLE(0),
 
     /***
-     * 不启用
+     * 不启用（禁用）
      */
     DISABLED(-1),
     /***

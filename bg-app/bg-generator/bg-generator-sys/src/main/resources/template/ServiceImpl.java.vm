@@ -11,12 +11,16 @@ import ${package}.${pkgName}.request.${className}PageQueryRequest;
 import ${package}.${pkgName}.request.${className}QueryRequest;
 import ${package}.${pkgName}.request.create.${className}CreateRequest;
 import ${package}.${pkgName}.request.update.${className}UpdateRequest;
+import ${package}.${pkgName}.request.${className}EnableRequest;
+import ${package}.${pkgName}.request.${className}DisableRequest;
+import ${package}.${pkgName}.request.${className}BatchEnableAndDisableRequest;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -140,6 +144,60 @@ public class ${className}ServiceImpl implements ${className}Service {
             return Collections.emptyList();
         }
         return ${className}Factory.newInstance(list);
+    }
+
+
+    /***
+     *   启用
+     * @author zxq(956607644@qq.com)
+     * @date 2021/1/8 9:39
+     * @param params
+
+     * @return int
+     */
+    @Override
+    public int enable(${className}EnableRequest params){
+        return ${classname}Dao.enable(Arrays.asList(params.getId()));
+    }
+
+
+    /***
+     *   禁用
+     * @author zxq(956607644@qq.com)
+     * @date 2021/1/8 9:39
+     * @param params
+
+     * @return int
+     */
+    public int disable(${className}DisableRequest params){
+        return ${classname}Dao.disable(Arrays.asList(params.getId()));
+    }
+
+    /***
+    *   批量启用
+    * @author zxq(956607644@qq.com)
+    * @date 2021/1/8 9:39
+    * @param params
+
+    * @return int
+    */
+    @Override
+    public int batchEnable(${className}BatchEnableAndDisableRequest params){
+        return ${classname}Dao.enable(params.getId());
+    }
+
+
+    /***
+     *   批量禁用
+     * @author zxq(956607644@qq.com)
+     * @date 2021/1/8 9:39
+     * @param params
+
+     * @return int
+     */
+    @Override
+    public int batchDisable(${className}BatchEnableAndDisableRequest params){
+        return ${classname}Dao.disable(params.getId());
     }
 
 }

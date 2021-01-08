@@ -3,13 +3,11 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.auth.details.LoginAppUser;
 import com.quan.core.common.exception.controller.ControllerException;
-import com.quan.core.common.model.SysMenu;
 import com.quan.core.common.model.SysPermission;
-import com.quan.core.common.model.SysRole;
 import com.quan.core.common.util.ResponseUtil;
 import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.service.SysTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +26,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author 作者 owen
@@ -196,7 +192,7 @@ public class OAuth2Controller {
     @ApiOperation(value = "当前登陆用户信息")
     @GetMapping(value = {"/oauth/userinfo"})
     @SLog(module = "auth-server")
-    public Result getCurrentUserDetail() throws ControllerException {
+    public JsonResult getCurrentUserDetail() throws ControllerException {
 
         Map<String, Object> userInfo = new HashMap<>();
         LoginAppUser loginUser = SysUserUtil.getLoginAppUser();
@@ -208,7 +204,7 @@ public class OAuth2Controller {
             permissions.add(sysPermission);
         });
         userInfo.put("permissions", permissions);
-        return Result.succeed(userInfo);
+        return JsonResult.succeed(userInfo);
     }
 
 

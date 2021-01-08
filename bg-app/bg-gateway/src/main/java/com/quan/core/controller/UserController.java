@@ -3,7 +3,7 @@ package com.quan.core.controller;
 
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.RandomUtil;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,12 +54,12 @@ public class UserController {
 
 
     @GetMapping("/getVersion")
-    public Result token() {
+    public JsonResult token() {
         String str = RandomUtil.randomString(24);
         StrBuilder token = new StrBuilder();
         token.append(str);
         redisTemplate.opsForValue().set(token.toString(), token.toString(), 300);
-        return Result.succeed(token.toString(), "");
+        return JsonResult.succeed(token.toString(), "");
     }
 
 

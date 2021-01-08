@@ -5,6 +5,9 @@ import ${package}.${pkgName}.request.create.${className}CreateRequest;
 import ${package}.${pkgName}.request.update.${className}UpdateRequest;
 import ${package}.${pkgName}.request.${className}PageQueryRequest;
 import ${package}.${pkgName}.request.${className}QueryRequest;
+import ${package}.${pkgName}.request.${className}EnableRequest;
+import ${package}.${pkgName}.request.${className}DisableRequest;
+import ${package}.${pkgName}.request.${className}BatchEnableAndDisableRequest;
 
 import java.util.List;
 
@@ -41,10 +44,10 @@ public interface ${className}Service {
     int delete(Long id);
 
     /**
-       * 批量删除
-       *
-       * @param id
-       */
+    * 批量删除
+    *
+    * @param id
+    */
     int delete(List<Long> id);
 
     /**
@@ -52,7 +55,7 @@ public interface ${className}Service {
     * @param id 用户记录ID
     * @return
     */
-        ${className}DTO findOneById(Long id);
+    ${className}DTO findOneById(Long id);
 
 
     /**
@@ -60,7 +63,7 @@ public interface ${className}Service {
      * @param ${classname} 对象数据
      * @return
      */
-        ${className}DTO findOneByCnd(${className}QueryRequest ${classname});
+    ${className}DTO findOneByCnd(${className}QueryRequest ${classname});
 
 
     /**
@@ -77,6 +80,31 @@ public interface ${className}Service {
      * @return
      */
     List<${className}DTO> list(${className}QueryRequest params);
+
+
+    /**
+    * 启用
+    */
+    int enable(${className}EnableRequest req);
+
+
+    /**
+    * 禁用
+    */
+    int disable(${className}DisableRequest req);
+
+
+    /***
+    *   批量启用
+    */
+    int batchEnable(${className}BatchEnableAndDisableRequest params);
+
+
+    /***
+    *   批量禁用
+    */
+    int batchDisable(${className}BatchEnableAndDisableRequest params);
+
 
 }
 

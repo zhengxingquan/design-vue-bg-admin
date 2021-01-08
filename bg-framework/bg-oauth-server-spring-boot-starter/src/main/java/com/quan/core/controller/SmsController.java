@@ -1,7 +1,7 @@
 package com.quan.core.controller;
 
 import com.quan.core.common.util.StringUtil;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.ValidateCodeService;
 import io.swagger.annotations.Api;
@@ -34,7 +34,7 @@ public class SmsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "mobile", value = "手机号码", required = true, dataType = "String")
     })
-    public Result sendSms(@RequestParam(value = "mobile",required = false) String mobile) {
+    public JsonResult sendSms(@RequestParam(value = "mobile",required = false) String mobile) {
 		String content = SmsController.SYSMSG_LOGIN_PWD_MSG.replace("{0}", StringUtil.generateRamdomNum());
 //        SendMsgResult sendMsgResult = MobileMsgConfig.sendMsg(mobile, content);
 
@@ -43,7 +43,7 @@ public class SmsController {
         // TODO: 2019-08-29 发送短信验证码 每个公司对接不同，自己实现
 
         validateCodeService.saveImageCode(mobile, calidateCode);
-        return  Result.succeed(  calidateCode, "发送成功");
+        return  JsonResult.succeed(  calidateCode, "发送成功");
     }
 
 }

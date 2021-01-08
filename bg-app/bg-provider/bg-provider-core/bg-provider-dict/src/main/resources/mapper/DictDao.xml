@@ -26,7 +26,8 @@
 
     </resultMap>
 
-    <sql id="baseColumnList">
+    <!-- 查询公共字段 -->
+    <sql id="BaseColumnList">
                 `id` as id
         ,            `parent_id` as parentId
         ,            `path` as path
@@ -46,6 +47,13 @@
         ,            `data_state` as dataState
                 </sql>
 
+
+    <!-- 表名称 -->
+    <sql id="TableName">
+        sys_dict
+    </sql>
+
+    <!-- 基本条件 -->
     <sql id="BaseWhere">
         WHERE data_state = 0
     </sql>
@@ -54,52 +62,70 @@
     <sql id="where">
         <where>
             <if test="data.id != null">
-                AND t.`id` = #{data.id}
+                AND `id` = #{data.id}
             </if>
             <if test="data.parent_id != null">
-                AND t.`parent_id` = #{data.parentId}
+                AND `parent_id` = #{data.parentId}
             </if>
             <if test="data.path != null">
-                AND t.`path` LIKE concat('%',#{data.path}, '%')
+                AND `path` LIKE concat('%',#{data.path}, '%')
             </if>
             <if test="data.name != null">
-                AND t.`name` LIKE concat('%',#{data.name}, '%')
+                AND `name` LIKE concat('%',#{data.name}, '%')
             </if>
             <if test="data.code != null">
-                AND t.`code` LIKE concat('%',#{data.code}, '%')
+                AND `code` LIKE concat('%',#{data.code}, '%')
             </if>
             <if test="data.sys_code != null">
-                AND t.`sys_code` LIKE concat('%',#{data.sysCode}, '%')
-            </if>
-            <if test="data.has_children != null">
-                AND t.`has_children` = #{data.hasChildren}
-            </if>
-            <if test="data.field1 != null">
-                AND t.`field1` LIKE concat('%',#{data.field1}, '%')
-            </if>
-            <if test="data.field2 != null">
-                AND t.`field2` LIKE concat('%',#{data.field2}, '%')
-            </if>
-            <if test="data.field3 != null">
-                AND t.`field3` LIKE concat('%',#{data.field3}, '%')
-            </if>
-            <if test="data.note != null">
-                AND t.`note` LIKE concat('%',#{data.note}, '%')
-            </if>
-            <if test="data.sort != null">
-                AND t.`sort` = #{data.sort}
+                AND `sys_code` LIKE concat('%',#{data.sysCode}, '%')
             </if>
         </where>
     </sql>
 
 
     <insert id="save">
-        insert into sys_dict(                    `id`,                                `parent_id`,                                `path`,                                `name`,                                `code`,                                `sys_code`,                                `has_children`,                                `field1`,                                `field2`,                                `field3`,                                `note`,                                `sort`,                                `create_time`,                                `create_user_id`                                                ) values (                    #{id},                                #{parentId},                                #{path},                                #{name},                                #{code},                                #{sysCode},                                #{hasChildren},                                #{field1},                                #{field2},                                #{field3},                                #{note},                                #{sort},                                #{createTime},                                #{createUserId}                                                )
-        </insert>
+
+        insert into
+        <include refid="TableName"/>
+        (
+        `id`,
+        `parent_id`,
+        `path`,
+        `name`,
+        `code`,
+        `sys_code`,
+        `has_children`,
+        `field1`,
+        `field2`,
+        `field3`,
+        `note`,
+        `sort`,
+        `create_time`,
+        `create_user_id`
+        ) values (
+        #{id},
+        #{parentId},
+        #{path},
+        #{name},
+        #{code},
+        #{sysCode},
+        #{hasChildren},
+        #{field1},
+        #{field2},
+        #{field3},
+        #{note},
+        #{sort},
+        #{createTime},
+        #{createUserId}
+        )
+
+    </insert>
 
 
     <insert id="batchSave">
-        insert into sys_dict(
+        insert into
+        <include refid="TableName"/>
+        (
         `id`
         , `parent_id`
         , `path`
@@ -115,7 +141,7 @@
         , `create_time`
         , `create_user_id`
         ) values
-        <foreach collection="java.util.List" item="item" index="index" separator=",">
+        <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.id}
             , #{item.parentId}
@@ -138,7 +164,8 @@
 
 
     <update id="update">
-        UPDATE sys_dict
+        UPDATE
+        <include refid="TableName"/>
         <set>
             <if test="id != null">
                 `id` = #{id}
@@ -202,37 +229,43 @@
     </update>
 
 
-    <delete id="delete" parameterType="java.lang.Long" flushCache="true">
-        UPDATE sys_dict SET data_state = 2
+    <update id="delete" parameterType="long" flushCache="true">
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
         <include refid="BaseWhere"/>
         AND id = #{id}
-    </delete>
+    </update>
 
 
-    <delete id="batchDelete" parameterType="java.util.List" flushCache="true">
+    <update id="batchDelete" parameterType="long" flushCache="true">
 
-        UPDATE sys_dict SET data_state = 2
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
         <include refid="BaseWhere"/>
         AND id IN
         <foreach collection="list" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
-    </delete>
+    </update>
 
 
-    <select id="findOneById" parameterType="java.lang.Long" resultType="com.quan.core.model.Dict">
+    <select id="findOneById" parameterType="long" resultType="com.quan.core.model.Dict">
         SELECT
-        <include refid="baseColumnList"/>
-        FROM sys_dict
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND id = #{id}
     </select>
 
 
-    <select id="findAllById" parameterType="list" resultType="com.quan.core.model.Dict">
+    <select id="findAllById" parameterType="long" resultType="com.quan.core.model.Dict">
         SELECT
-        <include refid="baseColumnList"/>
-        FROM sys_dict
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND id IN
         <foreach collection="list" item="id" separator="," open="(" close=")">
@@ -241,11 +274,11 @@
     </select>
 
 
-
-    <select id="findOneByCnd" parameterType="java.lang.Long" resultType="com.quan.core.model.Dict">
+    <select id="findOneByCnd" resultType="com.quan.core.model.Dict">
         SELECT
-        <include refid="baseColumnList"/>
-        FROM sys_dict
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
@@ -253,8 +286,9 @@
 
     <select id="findAll" resultType="com.quan.core.model.Dict">
         SELECT
-        <include refid="baseColumnList"/>
-        FROM sys_dict t
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
@@ -262,15 +296,55 @@
 
     <select id="list" resultType="com.quan.core.model.Dict">
         SELECT
-        <include refid="baseColumnList"/>
-        FROM sys_dict t
+        <include refid="BaseColumnList"/>
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
 
+    <select id="sysCodeIsExists" resultType="integer" parameterType="string">
+        SELECT
+        COUNT(1)
+        FROM
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND sys_code = #{sysCode}
+    </select>
+
+
+    <!-- 批量启用 -->
+    <update id="enable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 0
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 批量禁用 -->
+    <update id="disable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = -1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
     <update id="deleteDataByPath">
-        UPDATE sys_dict SET data_state = 2
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 2
         <include refid="BaseWhere"/>
         AND ${data.queryColName} LIKE concat(#{data.path}, '%')
     </update>
@@ -278,14 +352,16 @@
 
     <select id="hasChildren" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM sys_dict
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND parent_id = #{data.value}
     </select>
 
     <select id="getParentPath" resultType="java.lang.String">
         SELECT `${data.queryColName}`
-        FROM sys_dict
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND id = #{data.patentId}
     </select>
@@ -293,7 +369,8 @@
 
     <select id="getPath" resultType="java.lang.String">
         SELECT ${data.queryColName}
-        FROM sys_dict
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND ${data.queryColName} LIKE concat(#{data.value}, '____')
         ORDER BY `${data.queryColName}` DESC
@@ -302,7 +379,8 @@
 
     <select id="getSort" resultType="java.lang.Integer">
         SELECT IFNULL(MAX(`${data.queryColName}`),0)+1
-        FROM sys_dict
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         <if test="data.value != null and data.value != ''">
             AND parent_id = #{data.value}
@@ -314,7 +392,8 @@
     </select>
 
     <update id="updateParentNodeAttrChildren">
-        UPDATE sys_dict
+        UPDATE
+        <include refid="TableName"/>
         <set>
             `has_children` = #{data.hasChildren}
         </set>
@@ -325,7 +404,8 @@
 
     <select id="existsChildrenNodeByParentId" resultType="integer">
         SELECT COUNT(1)
-        FROM sys_dict
+        FROM
+        <include refid="TableName"/>
         <include refid="BaseWhere"/>
         AND parent_id = #{data.value}
     </select>

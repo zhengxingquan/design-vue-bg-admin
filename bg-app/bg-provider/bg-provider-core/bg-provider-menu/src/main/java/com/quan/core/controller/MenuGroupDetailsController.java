@@ -3,6 +3,7 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.request.MenuGroupDetailsFindOneByIdRequest;
 import com.quan.core.request.MenuGroupDetailsPageQueryRequest;
@@ -61,7 +62,7 @@ public class MenuGroupDetailsController {
     @SLog(module = "menu-center", tag = "添加数据")
     public Result doSave(@RequestBody MenuGroupDetailsCreateRequest req) {
         menuGroupDetailsService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -74,7 +75,7 @@ public class MenuGroupDetailsController {
     @SLog(module = "menu-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<MenuGroupDetailsCreateRequest> req) {
         menuGroupDetailsService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -87,7 +88,7 @@ public class MenuGroupDetailsController {
     @SLog(module = "menu-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody MenuGroupDetailsUpdateRequest req) {
         menuGroupDetailsService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -99,7 +100,7 @@ public class MenuGroupDetailsController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:menu:group:details:delete", parentPermission = "sys:menu:group:details")
     @SLog(module = "menu-center", tag = "编辑数据")
     public Result doDelete(@RequestBody MenuGroupDetailsDeleteRequest req) {
-        return Result.succeed(menuGroupDetailsService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(menuGroupDetailsService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -111,7 +112,7 @@ public class MenuGroupDetailsController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:menu:group:details:delete", parentPermission = "sys:menu:group:details")
     @SLog(module = "menu-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody MenuGroupDetailsBatchDeleteRequest req) {
-        return Result.succeed(menuGroupDetailsService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(menuGroupDetailsService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -123,7 +124,7 @@ public class MenuGroupDetailsController {
     @PreAuthorize("hasAnyAuthority('sys:menu:group:details:list')")
     @SLog(module = "menu-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody MenuGroupDetailsFindOneByIdRequest req) {
-        return Result.succeed(menuGroupDetailsService.findOneById(req.getId()));
+        return JsonResult.succeed(menuGroupDetailsService.findOneById(req.getId()));
     }
 
 
@@ -138,7 +139,7 @@ public class MenuGroupDetailsController {
     @PreAuthorize("hasAnyAuthority('sys:menu:group:details:list')")
     @SLog(module = "menu-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody MenuGroupDetailsQueryRequest req) {
-        return Result.succeed(menuGroupDetailsService.findOneByCnd(req));
+        return JsonResult.succeed(menuGroupDetailsService.findOneByCnd(req));
     }
 
     /**
@@ -149,7 +150,7 @@ public class MenuGroupDetailsController {
     @PreAuthorize("hasAnyAuthority('sys:menu:group:details:list')")
     @SLog(module = "menu-center", tag = "通过条件查找记录")
     public Result data(MenuGroupDetailsQueryRequest req) {
-        return Result.succeed(menuGroupDetailsService.list(req));
+        return JsonResult.succeed(menuGroupDetailsService.list(req));
     }
 
 

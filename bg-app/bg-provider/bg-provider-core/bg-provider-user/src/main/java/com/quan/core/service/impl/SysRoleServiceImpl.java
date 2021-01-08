@@ -7,7 +7,7 @@ import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysPermission;
 import com.quan.core.common.model.SysRole;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.dao.SysRolePermissionDao;
 import com.quan.core.service.SysRoleService;
 import com.quan.core.dao.SysRoleDao;
@@ -125,13 +125,13 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public Result saveOrUpdate(SysRole sysRole)  throws ServiceException {
+	public JsonResult saveOrUpdate(SysRole sysRole)  throws ServiceException {
 		try {
 			int i = 0;
 			if (sysRole.getId()==null){
 				SysRole role = sysRoleDao.findByCode(sysRole.getCode());
 				if (role != null) {
-					return Result.failed("角色code已存在");
+					return JsonResult.failed("角色code已存在");
 				}
 				sysRole.setCreateTime(new Date());
 				sysRole.setUpdateTime(sysRole.getCreateTime());
@@ -140,7 +140,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 				sysRole.setUpdateTime(new Date());
 				i = sysRoleDao.updateByPrimaryKey(sysRole);
 			}
-			return i>0?Result.succeed("操作成功"):Result.failed("操作失败");
+			return i>0? JsonResult.succeed("操作成功"): JsonResult.failed("操作失败");
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}

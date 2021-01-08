@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
 
 /**
  * 系统字典表 查询DTO
@@ -20,50 +19,50 @@ import java.util.Date;
 @Data
 public class DictQueryDTO {
 
-        /**
-    * 父级ID
-    */
-        @JsonSerialize(using = ToStringSerializer.class)
-        private Long parentId;
-            /**
-    * 树路径
-    */
-        private String path;
-            /**
-    * 名称
-    */
-        private String name;
-            /**
-    * 编码
-    */
-        private String code;
-            /**
-    * 系统编码(用于查询使用，全局唯一)
-    */
-        private String sysCode;
-            /**
-    * 有子节点
-    */
-        private Integer hasChildren;
-            /**
-    * 附加值一
-    */
-        private String field1;
-            /**
-    * 附加值二
-    */
-        private String field2;
-            /**
-    * 附加值三
-    */
-        private String field3;
-            /**
-    * 字典简介
-    */
-        private String note;
-            /**
-    * 排序字段
-    */
-        private Integer sort;
-                        
+    /**
+     * 父级ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long parentId;
+    /**
+     * 树路径
+     */
+    private String path;
+    /**
+     * 名称
+     */
+    private String name;
+    /**
+     * 编码
+     */
+    private String code;
+    /**
+     * 系统编码(用于查询使用，全局唯一)
+     */
+    private String sysCode;
+    /**
+     * 有子节点
+     */
+    private Integer hasChildren;
+    /**
+     * 附加值一
+     */
+    private String field1;
+    /**
+     * 附加值二
+     */
+    private String field2;
+    /**
+     * 附加值三
+     */
+    private String field3;
+    /**
+     * 字典简介
+     */
+    private String note;
+    /**
+     * 排序字段
+     */
+    private Integer sort;
+
 }

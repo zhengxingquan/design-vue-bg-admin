@@ -1,5 +1,6 @@
 package com.quan.core.common.web;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel
 public class PageResult<T> implements Serializable {
 
     private static final long serialVersionUID = -275582248840137389L;
@@ -36,7 +38,7 @@ public class PageResult<T> implements Serializable {
     @ApiModelProperty(value = "错误消息")
     protected String msg;
     @ApiModelProperty(value = "状态码")
-    protected Integer code = 0;
+    protected Integer code = CodeEnum.SUCCESS.getCode();
     @ApiModelProperty(value = "数据集合")
     private List<T> data;
 }

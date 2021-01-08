@@ -86,5 +86,23 @@ public interface DictService {
      */
     List<DictDTO> list(DictQueryRequest params);
 
+
+    /***
+     *  启用
+     * @param ids 主键id集合
+
+     * @return int
+     */
+    int enable(List<Long> ids);
+
+
+    /**
+     * 禁用
+     * @param ids 主键id集合
+     *
+     * @return int
+     */
+    int disable(List<Long> ids);
+
 }
 

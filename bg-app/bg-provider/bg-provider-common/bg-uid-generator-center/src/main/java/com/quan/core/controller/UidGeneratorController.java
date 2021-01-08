@@ -1,6 +1,6 @@
 package com.quan.core.controller;
 
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.service.IUidGeneratorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +23,7 @@ public class UidGeneratorController {
 
     @GetMapping("/uid")
     @ApiOperation(value = "获取分布式ID")
-    public Result test() {
-        return Result.succeed(uidGenService.getUID());
+    public JsonResult test() {
+        return JsonResult.succeed(uidGenService.getUID());
     }
 }

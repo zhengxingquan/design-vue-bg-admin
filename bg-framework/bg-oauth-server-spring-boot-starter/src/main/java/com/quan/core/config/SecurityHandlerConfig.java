@@ -1,7 +1,7 @@
 package com.quan.core.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.handle.OauthLogoutHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -89,7 +89,7 @@ public class SecurityHandlerConfig {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(
-                        Result.failed(HttpStatus.UNAUTHORIZED.value(), msg)
+                        JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), msg)
                 ));
                 response.getWriter().flush();
                 response.getWriter().close();

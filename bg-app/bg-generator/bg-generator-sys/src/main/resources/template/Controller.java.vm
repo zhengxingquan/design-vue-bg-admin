@@ -3,7 +3,7 @@ package ${package}.${pkgName}.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import ${package}.${pkgName}.service.${className}Service;
 import ${package}.${pkgName}.request.create.${className}CreateRequest;
@@ -13,6 +13,8 @@ import ${package}.${pkgName}.request.del.${className}DeleteRequest;
 import ${package}.${pkgName}.request.${className}PageQueryRequest;
 import ${package}.${pkgName}.request.${className}QueryRequest;
 import ${package}.${pkgName}.request.${className}FindOneByIdRequest;
+import ${package}.${pkgName}.request.${className}EnableRequest;
+import ${package}.${pkgName}.request.${className}DisableRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,7 +47,7 @@ public class ${className}Controller {
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
     @SLog(module = "${classname}-center", tag = "查询列表")
-    public Object data(${className}PageQueryRequest req) {
+    public Object data(@RequestBody ${className}PageQueryRequest req) {
         return ${classname}Service.findAll(req);
     }
 
@@ -60,7 +62,7 @@ public class ${className}Controller {
     @SLog(module = "${classname}-center", tag = "添加数据")
     public Result doSave(@RequestBody ${className}CreateRequest req) {
             ${classname}Service.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -73,7 +75,7 @@ public class ${className}Controller {
     @SLog(module = "${classname}-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<${className}CreateRequest> req) {
             ${classname}Service.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -86,7 +88,7 @@ public class ${className}Controller {
     @SLog(module = "${classname}-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody ${className}UpdateRequest req) {
             ${classname}Service.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -98,7 +100,7 @@ public class ${className}Controller {
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
     @SLog(module = "${classname}-center", tag = "编辑数据")
     public Result doDelete(@RequestBody ${className}DeleteRequest req) {
-        return Result.succeed(${classname}Service.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(${classname}Service.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -110,7 +112,7 @@ public class ${className}Controller {
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "${permissionNamePrefix}:delete", parentPermission = "${permissionNamePrefix}")
     @SLog(module = "${classname}-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody ${className}BatchDeleteRequest req) {
-        return Result.succeed(${classname}Service.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(${classname}Service.delete(req.getIds()), "删除成功");
     }
 
 
@@ -122,7 +124,7 @@ public class ${className}Controller {
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
     @SLog(module = "${classname}-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody ${className}FindOneByIdRequest req) {
-        return Result.succeed(${classname}Service.findOneById(req.getId()));
+        return JsonResult.succeed(${classname}Service.findOneById(req.getId()));
     }
 
 
@@ -136,7 +138,7 @@ public class ${className}Controller {
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
     @SLog(module = "${classname}-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody ${className}QueryRequest req) {
-        return Result.succeed(${classname}Service.findOneByCnd(req));
+        return JsonResult.succeed(${classname}Service.findOneByCnd(req));
     }
 
     /**
@@ -146,9 +148,35 @@ public class ${className}Controller {
     @PostMapping("/query")
     @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:list')")
     @SLog(module = "${classname}-center", tag = "通过条件查找记录")
-    public Result data(${className}QueryRequest req) {
-        return Result.succeed(${classname}Service.list(req));
+    public Result data(@RequestBody ${className}QueryRequest req) {
+        return JsonResult.succeed(${classname}Service.list(req));
     }
+
+
+    /**
+    * 启用
+    */
+    @ApiOperation(value = "启用")
+    @PostMapping("/enable")
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:enable')")
+    @SLog(module = "${classname}-center", tag = "启用")
+    public Result doEnable(@RequestBody ${className}EnableRequest req) {
+        return JsonResult.succeed(${classname}Service.enable(req));
+    }
+
+
+    /**
+    * 禁用
+    */
+    @ApiOperation(value = "禁用")
+    @PostMapping("/disable")
+    @PreAuthorize("hasAnyAuthority('${permissionNamePrefix}:disable')")
+    @SLog(module = "${classname}-center", tag = "禁用")
+    public Result doDisable(@RequestBody ${className}DisableRequest req) {
+        return JsonResult.succeed(${classname}Service.disable(req));
+    }
+
+
 
 
 }

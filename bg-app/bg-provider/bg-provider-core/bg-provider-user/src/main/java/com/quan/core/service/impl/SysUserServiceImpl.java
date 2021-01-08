@@ -10,7 +10,7 @@ import com.quan.core.common.util.PageUtil;
 import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.util.ValidatorUtil;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.model.SysUserExcel;
 import com.quan.core.service.SysPermissionService;
 import com.quan.core.service.SysUserService;
@@ -284,12 +284,12 @@ public class SysUserServiceImpl implements SysUserService {
 	
 	@Override
 	@Transactional
-	public Result updatePassword(Long id, String oldPassword, String newPassword)  throws ServiceException {
+	public JsonResult updatePassword(Long id, String oldPassword, String newPassword)  throws ServiceException {
 		try {
 			SysUser sysUser = sysUserDao.findById(id);
 			if (StringUtils.isNoneBlank(oldPassword)) {
 				if (!passwordEncoder.matches(oldPassword, sysUser.getPassword())) {
-					return Result.failed("旧密码错误");
+					return JsonResult.failed("旧密码错误");
 				}
 			}
 
@@ -299,7 +299,7 @@ public class SysUserServiceImpl implements SysUserService {
 
 			updateSysUser(user);
 			log.info("修改密码：{}", user);
-			return Result.succeed("修改成功");
+			return JsonResult.succeed("修改成功");
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -339,14 +339,14 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
-	public Result updateEnabled(Map<String, Object> params)  throws ServiceException {
+	public JsonResult updateEnabled(Map<String, Object> params)  throws ServiceException {
 		try {
 			Long id = MapUtils.getLong(params, "id");
 			Boolean enabled = MapUtils.getBoolean(params, "enabled");
 
 			SysUser appUser = sysUserDao.findById(id);
 			if (appUser == null) {
-				return Result.failed("用户不存在");
+				return JsonResult.failed("用户不存在");
 				//throw new IllegalArgumentException("用户不存在");
 			}
 			appUser.setEnabled(enabled);
@@ -354,7 +354,7 @@ public class SysUserServiceImpl implements SysUserService {
 			int i = sysUserDao.updateByPrimaryKey(appUser);
 			log.info("修改用户：{}", appUser);
 
-			return i > 0 ? Result.succeed(appUser, "更新成功") : Result.failed("更新失败");
+			return i > 0 ? JsonResult.succeed(appUser, "更新成功") : JsonResult.failed("更新失败");
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -363,27 +363,27 @@ public class SysUserServiceImpl implements SysUserService {
 	
 	@Override
 	@Transactional
-	public Result saveOrUpdate(SysUser sysUser)  throws ServiceException {
+	public JsonResult saveOrUpdate(SysUser sysUser)  throws ServiceException {
 		try {
 			String username = sysUser.getUsername();
 			if (StringUtils.isBlank(username)) {
 				//throw new IllegalArgumentException("用户名不能为空");
-				return Result.failed("用户名不能为空");
+				return JsonResult.failed("用户名不能为空");
 			}
 
 			if (ValidatorUtil.checkPhone(username)) {// 防止用手机号直接当用户名，手机号要发短信验证
 				//throw new IllegalArgumentException("用户名要包含英文字符");
-				return Result.failed("用户名要包含英文字符");
+				return JsonResult.failed("用户名要包含英文字符");
 			}
 
 			if (username.contains("@")) {// 防止用邮箱直接当用户名，邮箱也要发送验证（暂未开发）
 				//throw new IllegalArgumentException("用户名不能包含@");
-				return Result.failed("用户名不能包含@");
+				return JsonResult.failed("用户名不能包含@");
 			}
 
 			if (username.contains("|")) {
 				//throw new IllegalArgumentException("用户名不能包含|字符");
-				return Result.failed("用户名不能包含|字符");
+				return JsonResult.failed("用户名不能包含|字符");
 			}
 
 			if (StringUtils.isBlank(sysUser.getNickname())) {
@@ -398,7 +398,7 @@ public class SysUserServiceImpl implements SysUserService {
 				
 				if (!ValidatorUtil.checkPhone(sysUser.getPhone())) {// 防止用手机号直接当用户名，手机号要发短信验证
 					//throw new IllegalArgumentException("用户名要包含英文字符");
-					return Result.failed("手机号格式不正确");
+					return JsonResult.failed("手机号格式不正确");
 				}
 				
 			}
@@ -414,7 +414,7 @@ public class SysUserServiceImpl implements SysUserService {
 				SysUser persistenceUser = sysUserDao.findByUsername(sysUser.getUsername());
 				if (persistenceUser != null && persistenceUser.getUsername() != null) {
 					//throw new IllegalArgumentException("用户名已存在");
-					return Result.failed("用户名已存在");
+					return JsonResult.failed("用户名已存在");
 				}
 				sysUser.setUpdateTime(sysUser.getCreateTime());
 				i = sysUserDao.insert(sysUser);
@@ -430,7 +430,7 @@ public class SysUserServiceImpl implements SysUserService {
 				});
 			}
 
-			return i > 0 ? Result.succeed(sysUser, "操作成功") : Result.failed("操作失败");
+			return i > 0 ? JsonResult.succeed(sysUser, "操作成功") : JsonResult.failed("操作失败");
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}

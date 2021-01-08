@@ -54,8 +54,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("系统字段管理中心api")
-                .description("系统字段管理中心api")
+                .title("系统字典管理中心api")
+                .description("系统字典管理中心api")
                 .version("1.0").build();
     }
 

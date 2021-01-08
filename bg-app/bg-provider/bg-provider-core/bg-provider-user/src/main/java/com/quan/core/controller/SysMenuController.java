@@ -10,7 +10,7 @@ import com.quan.core.common.model.SysMenu;
 import com.quan.core.common.model.SysRole;
 import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.service.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,10 +45,10 @@ public class SysMenuController {
     @PreAuthorize("hasAuthority('menu:delete/menus/{id}')")
     @SLog(module = "user-center",tag = "查询列表")
     @AutoCreateMenuAuth(type = MenuType.MENU, name = "菜单管理", shortNo = 3, parentPermission = "sys.manage")
-    public Result delete(@PathVariable Long id) throws ControllerException {
+    public JsonResult delete(@PathVariable Long id) throws ControllerException {
         try {
             menuService.delete(id);
-            return Result.succeed("操作成功");
+            return JsonResult.succeed("操作成功");
         } catch (Exception e) {
             throw new ControllerException(e);
         }
@@ -96,10 +96,10 @@ public class SysMenuController {
     @ApiOperation(value = "角色分配菜单")
     @PreAuthorize("hasAuthority('menu:post/menus/granted')")
     @SLog(module = "user-center")
-    public Result setMenuToRole(@RequestBody SysMenu sysMenu) throws ControllerException {
+    public JsonResult setMenuToRole(@RequestBody SysMenu sysMenu) throws ControllerException {
         try {
             menuService.setMenuToRole(sysMenu.getRoleId(), sysMenu.getMenuIds());
-            return Result.succeed("操作成功");
+            return JsonResult.succeed("操作成功");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }
@@ -142,14 +142,14 @@ public class SysMenuController {
     @ApiOperation(value = "新增菜单")
     @PreAuthorize("hasAnyAuthority('menu:post/menus','menu:put/menus')")
     @SLog(module = "user-center")
-    public Result saveOrUpdate(@RequestBody SysMenu menu) throws ControllerException {
+    public JsonResult saveOrUpdate(@RequestBody SysMenu menu) throws ControllerException {
         try {
             if (menu.getId() != null) {
                 menuService.update(menu);
             } else {
                 menuService.save(menu);
             }
-            return Result.succeed("操作成功");
+            return JsonResult.succeed("操作成功");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

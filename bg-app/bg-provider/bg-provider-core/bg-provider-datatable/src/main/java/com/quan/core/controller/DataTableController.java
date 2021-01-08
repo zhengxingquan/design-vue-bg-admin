@@ -3,6 +3,7 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.service.DataTableService;
 import com.quan.core.request.create.DataTableCreateRequest;
@@ -59,7 +60,7 @@ public class DataTableController {
     @SLog(module = "datatable-center", tag = "添加数据")
     public Result doSave(@RequestBody DataTableCreateRequest req) {
             dataTableService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -72,7 +73,7 @@ public class DataTableController {
     @SLog(module = "datatable-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<DataTableCreateRequest> req) {
             dataTableService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -85,7 +86,7 @@ public class DataTableController {
     @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody DataTableUpdateRequest req) {
             dataTableService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -97,7 +98,7 @@ public class DataTableController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:datatable:delete", parentPermission = "sys:datatable")
     @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doDelete(@RequestBody DataTableDeleteRequest req) {
-        return Result.succeed(dataTableService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(dataTableService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -109,7 +110,7 @@ public class DataTableController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:datatable:delete", parentPermission = "sys:datatable")
     @SLog(module = "datatable-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody DataTableBatchDeleteRequest req) {
-        return Result.succeed(dataTableService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(dataTableService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -121,7 +122,7 @@ public class DataTableController {
     @PreAuthorize("hasAnyAuthority('sys:datatable:list')")
     @SLog(module = "datatable-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody DataTableFindOneByIdRequest req) {
-        return Result.succeed(dataTableService.findOneById(req.getId()));
+        return JsonResult.succeed(dataTableService.findOneById(req.getId()));
     }
 
 
@@ -135,7 +136,7 @@ public class DataTableController {
     @PreAuthorize("hasAnyAuthority('sys:datatable:list')")
     @SLog(module = "datatable-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody DataTableQueryRequest req) {
-        return Result.succeed(dataTableService.findOneByCnd(req));
+        return JsonResult.succeed(dataTableService.findOneByCnd(req));
     }
 
     /**
@@ -146,7 +147,7 @@ public class DataTableController {
     @PreAuthorize("hasAnyAuthority('sys:datatable:list')")
     @SLog(module = "datatable-center", tag = "通过条件查找记录")
     public Result data(DataTableQueryRequest req) {
-        return Result.succeed(dataTableService.list(req));
+        return JsonResult.succeed(dataTableService.list(req));
     }
 
 

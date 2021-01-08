@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @Data
+@ApiModel
 public class ${className}BatchDeleteRequest {
 
     @ApiModelProperty("记录ID的集合")

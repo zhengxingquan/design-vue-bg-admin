@@ -2,13 +2,11 @@ package ${package}.${pkgName}.request;
 
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-#if(${hasBigDecimal})
-import java.math.BigDecimal;
-#end
 
 /**
  * ${comments} 条件查询请求类
@@ -21,6 +19,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Data
+@ApiModel
 public class ${className}QueryRequest {
 
 }

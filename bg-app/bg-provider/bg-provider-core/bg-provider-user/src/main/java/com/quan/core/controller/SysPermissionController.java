@@ -4,7 +4,7 @@ import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysPermission;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.SysPermissionService;
 import io.swagger.annotations.Api;
@@ -41,11 +41,11 @@ public class SysPermissionController {
 	@ApiOperation(value = "后台管理删除权限标识")
 	@PreAuthorize("hasAuthority('permission:delete/permissions/{id}')")
 	@SLog(module="user-center")
-	public Result delete(@PathVariable Long id) throws ControllerException {
+	public JsonResult delete(@PathVariable Long id) throws ControllerException {
 
 		try {
 			sysPermissionService.delete(id);
-			return  Result.succeed("操作成功");
+			return  JsonResult.succeed("操作成功");
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}
@@ -85,14 +85,14 @@ public class SysPermissionController {
 	@PostMapping("/permissions/saveOrUpdate")
 	@PreAuthorize("hasAnyAuthority('permission:put/permissions','permission:post/permissions')")
 	@SLog(module="user-center")
-	public Result saveOrUpdate(@RequestBody SysPermission sysPermission) throws ControllerException {
+	public JsonResult saveOrUpdate(@RequestBody SysPermission sysPermission) throws ControllerException {
 		try{
 			if (sysPermission.getId()!=null){
 				sysPermissionService.update(sysPermission);
 			}else {
 				sysPermissionService.save(sysPermission);
 			}
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		}catch (ServiceException e){
 			throw new ControllerException(e);
 		}
@@ -140,10 +140,10 @@ public class SysPermissionController {
 	@PostMapping("/permissions/granted")
 	@PreAuthorize("hasAuthority('permission:post/permissions/granted')")
 	@SLog(module="user-center")
-	public Result setPermissionToRole(@RequestBody SysPermission sysPermission) throws ControllerException {
+	public JsonResult setPermissionToRole(@RequestBody SysPermission sysPermission) throws ControllerException {
 		try {
 			sysPermissionService.setPermissionToRole(sysPermission.getRoleId(),sysPermission.getAuthIds());
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}

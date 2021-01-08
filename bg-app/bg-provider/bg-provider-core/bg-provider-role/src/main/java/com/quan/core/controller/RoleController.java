@@ -4,6 +4,7 @@ import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
 import com.quan.core.common.web.PageResult;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.request.RoleFindOneByIdRequest;
 import com.quan.core.request.RolePageQueryRequest;
@@ -63,7 +64,7 @@ public class RoleController {
     @SLog(module = "role-center", tag = "添加数据")
     public Result doSave(@RequestBody RoleCreateRequest req, HttpServletResponse resp) {
         roleService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -76,7 +77,7 @@ public class RoleController {
     @SLog(module = "role-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<RoleCreateRequest> req) {
         roleService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -89,7 +90,7 @@ public class RoleController {
     @SLog(module = "role-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody RoleUpdateRequest req) {
         roleService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -101,7 +102,7 @@ public class RoleController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:role:delete", parentPermission = "sys:role")
     @SLog(module = "role-center", tag = "编辑数据")
     public Result doDelete(@RequestBody RoleDeleteRequest req) {
-        return Result.succeed(roleService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(roleService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -113,7 +114,7 @@ public class RoleController {
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:role:delete", parentPermission = "sys:role")
     @SLog(module = "role-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody RoleBatchDeleteRequest req) {
-        return Result.succeed(roleService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(roleService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -125,7 +126,7 @@ public class RoleController {
     @PreAuthorize("hasAnyAuthority('sys:role:list')")
     @SLog(module = "role-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody RoleFindOneByIdRequest req) {
-        return Result.succeed(roleService.findOneById(req.getId()));
+        return JsonResult.succeed(roleService.findOneById(req.getId()));
     }
 
 
@@ -140,7 +141,7 @@ public class RoleController {
     @PreAuthorize("hasAnyAuthority('sys:role:list')")
     @SLog(module = "role-center", tag = "通过条件查找记录")
     public Result doFindOneByCnd(@RequestBody RoleQueryRequest req) {
-        return Result.succeed(roleService.findOneByCnd(req));
+        return JsonResult.succeed(roleService.findOneByCnd(req));
     }
 
     /**
@@ -151,7 +152,7 @@ public class RoleController {
     @PreAuthorize("hasAnyAuthority('sys:role:list')")
     @SLog(module = "role-center", tag = "通过条件查找记录")
     public Result data(RoleQueryRequest req) {
-        return Result.succeed(roleService.list(req));
+        return JsonResult.succeed(roleService.list(req));
     }
 
 

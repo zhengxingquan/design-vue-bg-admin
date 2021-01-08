@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2021-01-07 20:33:20
+Date: 2021-01-08 19:42:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,6 +72,35 @@ CREATE TABLE `sys_data_field_property` (
   `data_state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '数据状态 (0启动 -1 冻结 1删除)',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统字段属性表';
+
+-- ----------------------------
+-- Table structure for sys_data_mapping
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_data_mapping`;
+CREATE TABLE `sys_data_mapping` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父节点ID',
+  `model_name` varchar(128) NOT NULL COMMENT '模块名称',
+  `name` varchar(1000) DEFAULT NULL COMMENT '模块显示字段名称',
+  `database_id` bigint(20) DEFAULT NULL COMMENT '字段所在仓库的ID',
+  `table_id` bigint(20) DEFAULT NULL COMMENT '字段所在表的ID',
+  `filed_id` bigint(20) DEFAULT NULL COMMENT '字段ID',
+  `condition` varchar(1000) DEFAULT NULL COMMENT '数据查询条件',
+  `sys_code` varchar(255) NOT NULL COMMENT '系统编码(用作查询使用，全局唯一)',
+  `fields` varchar(2000) DEFAULT '0' COMMENT '需要更新的字段或者插入的字段(多字段)',
+  `type` tinyint(1) NOT NULL COMMENT '映射类型 \r\n0 字段名 \r\n1 字段列表 \r\n2 表名 \r\n3 数据库名 \r\n4 表数据集合(表示将会查询一张表的多个字段组成一条数据集合)\r\n5 插入SQL\r\n6 更新SQL\r\n7 删除SQL\r\n8 查询SQL\r\n9 JS语句',
+  `note` varchar(200) DEFAULT '' COMMENT '描述',
+  `sql` varchar(2000) DEFAULT '' COMMENT 'SQL语句',
+  `has_children` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否有子节点',
+  `sort` int(32) DEFAULT NULL COMMENT '排序号',
+  `path` varchar(255) DEFAULT NULL COMMENT '树路径',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_user_id` bigint(20) NOT NULL COMMENT '创建人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '修改人',
+  `data_state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '数据状态 (0启动 -1 冻结 1删除)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统映射配置表';
 
 -- ----------------------------
 -- Table structure for sys_data_table
@@ -145,6 +174,36 @@ CREATE TABLE `sys_dict` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `INDEX_SYS_DICT_PATH` (`path`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统字典表';
+
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `trace_id` varchar(32) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL COMMENT '用户名',
+  `excute_time` bigint(20) DEFAULT NULL,
+  `end_time` bigint(20) DEFAULT NULL,
+  `start_time` bigint(20) DEFAULT NULL,
+  `request_url` varchar(200) DEFAULT NULL,
+  `response_result` varchar(2200) DEFAULT NULL,
+  `mac` varchar(30) DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  `browser` varchar(50) DEFAULT NULL,
+  `os` varchar(20) DEFAULT NULL,
+  `error` varchar(2200) DEFAULT NULL,
+  `module` varchar(255) DEFAULT NULL COMMENT '模块名',
+  `params` text COMMENT '方法参数',
+  `remark` text COMMENT '备注',
+  `flag` tinyint(1) NOT NULL,
+  `create_user_id` bigint(20) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `data_state` tinyint(1) DEFAULT NULL,
+  `update_user_id` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=ARCHIVE AUTO_INCREMENT=422 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -261,22 +320,40 @@ CREATE TABLE `sys_role_group_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统角色分组与角色对应表';
 
 -- ----------------------------
+-- Table structure for sys_role_group_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_group_menu`;
+CREATE TABLE `sys_role_group_menu` (
+  `role_group_id` bigint(20) NOT NULL COMMENT '角色组ID',
+  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色组与菜单';
+
+-- ----------------------------
+-- Table structure for sys_role_group_menu_group
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_group_menu_group`;
+CREATE TABLE `sys_role_group_menu_group` (
+  `role_group_id` bigint(20) NOT NULL COMMENT '角色组ID',
+  `menu_group_id` bigint(20) NOT NULL COMMENT '菜单组ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色组与菜单组';
+
+-- ----------------------------
 -- Table structure for sys_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `menu_id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与菜单';
 
 -- ----------------------------
 -- Table structure for sys_role_menu_group
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu_group`;
 CREATE TABLE `sys_role_menu_group` (
-  `menu_group_id` bigint(20) NOT NULL,
-  `role_group_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `menu_group_id` bigint(20) NOT NULL COMMENT '菜单组ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与菜单组';
 
 -- ----------------------------
 -- Table structure for sys_unit
@@ -305,6 +382,24 @@ CREATE TABLE `sys_unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统单位表';
 
 -- ----------------------------
+-- Table structure for sys_user_group_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_group_role`;
+CREATE TABLE `sys_user_group_role` (
+  `user_group_id` bigint(20) NOT NULL COMMENT '用户组ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组与角色';
+
+-- ----------------------------
+-- Table structure for sys_user_group_role_group
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_group_role_group`;
+CREATE TABLE `sys_user_group_role_group` (
+  `user_group_id` bigint(20) NOT NULL COMMENT '用户组ID',
+  `role_group_id` bigint(20) NOT NULL COMMENT '角色组ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组与角色组';
+
+-- ----------------------------
 -- Table structure for sys_user_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_menu`;
@@ -318,15 +413,15 @@ CREATE TABLE `sys_user_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `role_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色';
 
 -- ----------------------------
 -- Table structure for sys_user_role_group
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role_group`;
 CREATE TABLE `sys_user_role_group` (
-  `group_role_id` bigint(20) NOT NULL,
-  `group_user_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_group_id` bigint(20) NOT NULL COMMENT '角色组ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色组';

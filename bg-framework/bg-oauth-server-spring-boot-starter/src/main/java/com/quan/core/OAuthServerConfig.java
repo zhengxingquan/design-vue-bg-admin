@@ -7,7 +7,7 @@ import com.quan.core.common.constant.OAuthConstant;
 import com.quan.core.common.feign.FeignInterceptorConfig;
 import com.quan.core.common.rest.RestTemplateConfig;
 import com.quan.core.common.util.Strings;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.service.RedisAuthorizationCodeServices;
 import com.quan.core.service.RedisClientDetailsService;
 import com.quan.core.service.ValidateCodeService;
@@ -273,7 +273,7 @@ public class OAuthServerConfig {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(objectMapper.writeValueAsString(
-                            Result.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
+                            JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
                     ));
                     response.getWriter().flush();
                     response.getWriter().close();
@@ -286,7 +286,7 @@ public class OAuthServerConfig {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(objectMapper.writeValueAsString(
-                            Result.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
+                            JsonResult.failed(HttpStatus.UNAUTHORIZED.value(), e.getMessage())
                     ));
                     response.getWriter().flush();
                     response.getWriter().close();

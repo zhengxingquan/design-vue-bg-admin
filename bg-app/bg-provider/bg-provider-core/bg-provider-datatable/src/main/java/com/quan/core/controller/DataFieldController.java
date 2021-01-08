@@ -3,6 +3,7 @@ package com.quan.core.controller;
 import com.quan.core.annotation.SLog;
 import com.quan.core.common.annotation.AutoCreateMenuAuth;
 import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.request.DataFieldFindOneByIdRequest;
 import com.quan.core.request.DataFieldPageQueryRequest;
@@ -45,7 +46,7 @@ public class DataFieldController {
     @ApiOperation(value = "查询列表")
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('sys:data:field:list')")
-    @SLog(module = "dataField-center", tag = "查询列表")
+    @SLog(module = "datatable-center", tag = "查询列表")
     public Object data(DataFieldPageQueryRequest req) {
         return dataFieldService.findAll(req);
     }
@@ -58,10 +59,10 @@ public class DataFieldController {
     @PostMapping("/save")
     @PreAuthorize("hasAnyAuthority('sys:data:field:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "sys:data:field:save", parentPermission = "sys:data:field")
-    @SLog(module = "dataField-center", tag = "添加数据")
+    @SLog(module = "datatable-center", tag = "添加数据")
     public Result doSave(@RequestBody DataFieldCreateRequest req) {
             dataFieldService.save(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -71,10 +72,10 @@ public class DataFieldController {
     @PostMapping("/batchSave")
     @PreAuthorize("hasAnyAuthority('sys:data:field:save')")
     @AutoCreateMenuAuth(name = "新建", shortNo = 1, permission = "sys:data:field:save", parentPermission = "sys:data:field")
-    @SLog(module = "dataField-center", tag = "批量添加数据")
+    @SLog(module = "datatable-center", tag = "批量添加数据")
     public Result doBatchSaveSave(@RequestBody List<DataFieldCreateRequest> req) {
             dataFieldService.batchSave(req);
-        return Result.succeed("保存成功");
+        return JsonResult.succeed("保存成功");
     }
 
     /**
@@ -84,10 +85,10 @@ public class DataFieldController {
     @PostMapping("/update")
     @PreAuthorize("hasAnyAuthority('sys:data:field:update')")
     @AutoCreateMenuAuth(name = "编辑", shortNo = 2, permission = "sys:data:field:update", parentPermission = "sys:data:field")
-    @SLog(module = "dataField-center", tag = "编辑数据")
+    @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doUpdate(@RequestBody DataFieldUpdateRequest req) {
             dataFieldService.update(req);
-        return Result.succeed("修改成功");
+        return JsonResult.succeed("修改成功");
     }
 
     /**
@@ -97,9 +98,9 @@ public class DataFieldController {
     @PostMapping("/delete")
     @PreAuthorize("hasAnyAuthority('sys:data:field:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 3, permission = "sys:data:field:delete", parentPermission = "sys:data:field")
-    @SLog(module = "dataField-center", tag = "编辑数据")
+    @SLog(module = "datatable-center", tag = "编辑数据")
     public Result doDelete(@RequestBody DataFieldDeleteRequest req) {
-        return Result.succeed(dataFieldService.delete(req.getId()), "删除成功");
+        return JsonResult.succeed(dataFieldService.delete(req.getId()), "删除成功");
     }
 
     /**
@@ -109,9 +110,9 @@ public class DataFieldController {
     @PostMapping("/deletes")
     @PreAuthorize("hasAnyAuthority('sys:data:field:delete')")
     @AutoCreateMenuAuth(name = "删除", shortNo = 4, permission = "sys:data:field:delete", parentPermission = "sys:data:field")
-    @SLog(module = "dataField-center", tag = "批量编辑数据")
+    @SLog(module = "datatable-center", tag = "批量编辑数据")
     public Result doDeletes(@RequestBody DataFieldBatchDeleteRequest req) {
-        return Result.succeed(dataFieldService.delete(req.getIds()), "删除成功");
+        return JsonResult.succeed(dataFieldService.delete(req.getIds()), "删除成功");
     }
 
 
@@ -121,9 +122,9 @@ public class DataFieldController {
     @ApiOperation(value = "查找记录（通过主键）")
     @PostMapping("/findById")
     @PreAuthorize("hasAnyAuthority('sys:data:field:list')")
-    @SLog(module = "dataField-center", tag = "通过主键查找记录")
+    @SLog(module = "datatable-center", tag = "通过主键查找记录")
     public Result doFindById(@RequestBody DataFieldFindOneByIdRequest req) {
-        return Result.succeed(dataFieldService.findOneById(req.getId()));
+        return JsonResult.succeed(dataFieldService.findOneById(req.getId()));
     }
 
 
@@ -135,9 +136,9 @@ public class DataFieldController {
     @ApiOperation(value = "查找记录")
     @PostMapping("/findByCnd")
     @PreAuthorize("hasAnyAuthority('sys:data:field:list')")
-    @SLog(module = "dataField-center", tag = "通过条件查找记录")
-    public Result doFindOneByCnd(@RequestBody DataFieldQueryRequest req) {
-        return Result.succeed(dataFieldService.findOneByCnd(req));
+    @SLog(module = "datatable-center", tag = "通过条件查找记录")
+    public JsonResult doFindOneByCnd(@RequestBody DataFieldQueryRequest req) {
+        return JsonResult.succeed(dataFieldService.findOneByCnd(req));
     }
 
     /**
@@ -146,9 +147,9 @@ public class DataFieldController {
     @ApiOperation(value = "查找数据不分页")
     @PostMapping("/query")
     @PreAuthorize("hasAnyAuthority('sys:data:field:list')")
-    @SLog(module = "dataField-center", tag = "通过条件查找记录")
-    public Result data(DataFieldQueryRequest req) {
-        return Result.succeed(dataFieldService.list(req));
+    @SLog(module = "datatable-center", tag = "通过条件查找记录")
+    public JsonResult data(DataFieldQueryRequest req) {
+        return JsonResult.succeed(dataFieldService.list(req));
     }
 
 

@@ -7,7 +7,7 @@ import com.quan.core.common.constant.OAuthConstant;
 import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysClient;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.dao.SysClientDao;
 import com.quan.core.dao.SysClientServiceDao;
 import com.quan.core.service.SysClientService;
@@ -50,7 +50,7 @@ public class SysClientServiceImpl implements SysClientService {
 
      
     @Override
-    public Result saveOrUpdate(SysClient sysClient) {
+    public JsonResult saveOrUpdate(SysClient sysClient) {
         try {
 			sysClient.setClientSecret(passwordEncoder.encode(sysClient.getClientSecretStr()));
 
@@ -59,11 +59,11 @@ public class SysClientServiceImpl implements SysClientService {
 			} else {// 新增
 				SysClient r = sysClientDao.getClient(sysClient.getClientId());
 			    if (r != null) {
-			        return Result.failed(sysClient.getClientId()+"已存在");
+			        return JsonResult.failed(sysClient.getClientId()+"已存在");
 			    }
 			    sysClientDao.save(sysClient);
 			}
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -115,13 +115,13 @@ public class SysClientServiceImpl implements SysClientService {
 
 
 	@Override
-	public Result updateEnabled(Map<String, Object> params) {
+	public JsonResult updateEnabled(Map<String, Object> params) {
 		try {
 			Long id = MapUtils.getLong(params, "id");
 			Boolean enabled = MapUtils.getBoolean(params, "status");
 			SysClient client = sysClientDao.getById(id);
 			if (client == null) {
-				return Result.failed("应用不存在");
+				return JsonResult.failed("应用不存在");
 				//throw new IllegalArgumentException("用户不存在");
 			}
 			client.setStatus(enabled);
@@ -138,7 +138,7 @@ public class SysClientServiceImpl implements SysClientService {
 			
 			log.info("应用状态修改：{}", client);
 
-			return i > 0 ? Result.succeed(client, "更新成功") : Result.failed("更新失败");
+			return i > 0 ? JsonResult.succeed(client, "更新成功") : JsonResult.failed("更新失败");
 		} catch (InvalidClientException e) {
 			throw new ServiceException(e);
 		}

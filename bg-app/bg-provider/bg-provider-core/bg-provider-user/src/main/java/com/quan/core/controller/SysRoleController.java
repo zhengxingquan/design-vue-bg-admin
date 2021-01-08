@@ -5,7 +5,7 @@ import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysRole;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.SysRoleService;
 import io.swagger.annotations.Api;
@@ -57,7 +57,7 @@ public class SysRoleController {
 	@PostMapping("/roles/saveOrUpdate")
 	@PreAuthorize("hasAnyAuthority('role:post/roles','role:put/roles')")
 	@SLog(module="user-center")
-	public Result saveOrUpdate(@RequestBody SysRole sysRole) throws ControllerException {
+	public JsonResult saveOrUpdate(@RequestBody SysRole sysRole) throws ControllerException {
 		try {
 			return sysRoleService.saveOrUpdate(sysRole);
 		} catch (ServiceException e) {
@@ -75,13 +75,13 @@ public class SysRoleController {
 	@ApiOperation(value = "后台管理删除角色")
 	@PreAuthorize("hasAuthority('role:delete/roles/{id}')")
 	@SLog(module="user-center")
-	public Result deleteRole(@PathVariable Long id) throws ControllerException {
+	public JsonResult deleteRole(@PathVariable Long id) throws ControllerException {
 		try {
 			if (id == 1L){
-				return Result.failed("管理员不可以删除");
+				return JsonResult.failed("管理员不可以删除");
 			}
 			sysRoleService.deleteRole(id);
-			return Result.succeed("操作成功");
+			return JsonResult.succeed("操作成功");
 		}catch (Exception e){
 			 throw new ControllerException(e);
 		}

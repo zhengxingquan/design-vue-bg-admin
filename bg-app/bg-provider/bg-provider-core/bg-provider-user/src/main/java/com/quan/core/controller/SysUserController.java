@@ -11,7 +11,7 @@ import com.quan.core.common.model.SysRole;
 import com.quan.core.common.model.SysUser;
 import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.model.SysUserExcel;
 import com.quan.core.service.SysUserService;
@@ -206,12 +206,12 @@ public class SysUserController {
     @PutMapping("/users/me")
     @SLog(module = "user-center")
     @PreAuthorize("hasAnyAuthority('user:put/users/me','user:post/users/saveOrUpdate')")
-    public Result updateMe(@RequestBody SysUser sysUser) throws ControllerException {
+    public JsonResult updateMe(@RequestBody SysUser sysUser) throws ControllerException {
 //        SysUser user = SysUserUtil.getLoginAppUser();
 //        sysUser.setId(user.getId());
         try {
             SysUser user = sysUserService.updateSysUser(sysUser);
-            return Result.succeed(user, "操作成功");
+            return JsonResult.succeed(user, "操作成功");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }
@@ -225,7 +225,7 @@ public class SysUserController {
     @PutMapping(value = "/users/password")
     @PreAuthorize("hasAuthority('user:put/users/password')")
     @SLog(module = "user-center")
-    public Result updatePassword(@RequestBody SysUser sysUser) throws ControllerException {
+    public JsonResult updatePassword(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             if (StringUtils.isBlank(sysUser.getOldPassword())) {
                 throw new IllegalArgumentException("旧密码不能为空");
@@ -234,7 +234,7 @@ public class SysUserController {
                 throw new IllegalArgumentException("新密码不能为空");
             }
             if (sysUser.getId() == 1277137734524300032L) {
-                return Result.failed("超级管理员不给予修改");
+                return JsonResult.failed("超级管理员不给予修改");
             }
             return sysUserService.updatePassword(sysUser.getId(), sysUser.getOldPassword(), sysUser.getNewPassword());
         } catch (ServiceException e) {
@@ -257,11 +257,11 @@ public class SysUserController {
     })
     @SLog(module = "user-center")
     @PreAuthorize("hasAnyAuthority('user:get/users/updateEnabled' ,'user:put/users/me')")
-    public Result updateEnabled(@RequestParam Map<String, Object> params) throws ControllerException {
+    public JsonResult updateEnabled(@RequestParam Map<String, Object> params) throws ControllerException {
         try {
             Long id = MapUtils.getLong(params, "id");
             if (id == 1277137734524300032L) {
-                return Result.failed("超级管理员不给予修改");
+                return JsonResult.failed("超级管理员不给予修改");
             }
             return sysUserService.updateEnabled(params);
         } catch (ServiceException e) {
@@ -278,13 +278,13 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('user:post/users/{id}/resetPassword' )")
     @PostMapping(value = "/users/{id}/resetPassword")
     @SLog(module = "user-center")
-    public Result resetPassword(@PathVariable Long id) throws ControllerException {
+    public JsonResult resetPassword(@PathVariable Long id) throws ControllerException {
         try {
             if (id == 1277137734524300032L) {
-                return Result.failed("超级管理员不给予修改");
+                return JsonResult.failed("超级管理员不给予修改");
             }
             sysUserService.updatePassword(id, null, "123456");
-            return Result.succeed(null, "重置成功");
+            return JsonResult.succeed(null, "重置成功");
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }
@@ -300,7 +300,7 @@ public class SysUserController {
     @PostMapping("/users/saveOrUpdate")
     @PreAuthorize("hasAnyAuthority('user:post/users/saveOrUpdate')")
     @SLog(module = "user-center")
-    public Result saveOrUpdate(@RequestBody SysUser sysUser) throws ControllerException {
+    public JsonResult saveOrUpdate(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             return sysUserService.saveOrUpdate(sysUser);
         } catch (ServiceException e) {
@@ -343,7 +343,7 @@ public class SysUserController {
      */
     @PostMapping("/users/save")
     @ApiIdempotent
-    public Result save(@RequestBody SysUser sysUser) throws ControllerException {
+    public JsonResult save(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             return sysUserService.saveOrUpdate(sysUser);
         } catch (ServiceException e) {

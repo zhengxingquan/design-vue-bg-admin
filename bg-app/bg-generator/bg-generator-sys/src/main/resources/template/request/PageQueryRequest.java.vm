@@ -4,9 +4,7 @@ import com.quan.core.common.request.RequestPage;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-#if(${hasBigDecimal})
-#end
+import io.swagger.annotations.ApiModel;
 
 /**
  * ${comments} 分页查询请求类
@@ -19,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
+@ApiModel
 public class ${className}PageQueryRequest extends RequestPage {
 
 }
