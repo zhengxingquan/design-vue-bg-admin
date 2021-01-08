@@ -5,6 +5,7 @@ import com.quan.core.common.model.SysPermission;
 import com.quan.core.common.model.SysRole;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
 
 import java.util.Map;
 import java.util.Set;
@@ -60,6 +61,6 @@ public interface SysRoleService {
 	 * 更新角色
 	 * @param sysRole
 	 */
-	JsonResult saveOrUpdate(SysRole sysRole)  throws ServiceException;
+	Result saveOrUpdate(SysRole sysRole)  throws ServiceException;
 
 }

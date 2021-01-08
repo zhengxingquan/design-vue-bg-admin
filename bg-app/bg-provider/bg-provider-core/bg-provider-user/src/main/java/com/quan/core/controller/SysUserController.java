@@ -13,6 +13,7 @@ import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
+import com.quan.core.common.web.Result;
 import com.quan.core.model.SysUserExcel;
 import com.quan.core.service.SysUserService;
 import io.swagger.annotations.Api;
@@ -206,7 +207,7 @@ public class SysUserController {
     @PutMapping("/users/me")
     @SLog(module = "user-center")
     @PreAuthorize("hasAnyAuthority('user:put/users/me','user:post/users/saveOrUpdate')")
-    public JsonResult updateMe(@RequestBody SysUser sysUser) throws ControllerException {
+    public Result updateMe(@RequestBody SysUser sysUser) throws ControllerException {
 //        SysUser user = SysUserUtil.getLoginAppUser();
 //        sysUser.setId(user.getId());
         try {
@@ -225,7 +226,7 @@ public class SysUserController {
     @PutMapping(value = "/users/password")
     @PreAuthorize("hasAuthority('user:put/users/password')")
     @SLog(module = "user-center")
-    public JsonResult updatePassword(@RequestBody SysUser sysUser) throws ControllerException {
+    public Result updatePassword(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             if (StringUtils.isBlank(sysUser.getOldPassword())) {
                 throw new IllegalArgumentException("旧密码不能为空");
@@ -257,7 +258,7 @@ public class SysUserController {
     })
     @SLog(module = "user-center")
     @PreAuthorize("hasAnyAuthority('user:get/users/updateEnabled' ,'user:put/users/me')")
-    public JsonResult updateEnabled(@RequestParam Map<String, Object> params) throws ControllerException {
+    public Result updateEnabled(@RequestParam Map<String, Object> params) throws ControllerException {
         try {
             Long id = MapUtils.getLong(params, "id");
             if (id == 1277137734524300032L) {
@@ -278,7 +279,7 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('user:post/users/{id}/resetPassword' )")
     @PostMapping(value = "/users/{id}/resetPassword")
     @SLog(module = "user-center")
-    public JsonResult resetPassword(@PathVariable Long id) throws ControllerException {
+    public Result resetPassword(@PathVariable Long id) throws ControllerException {
         try {
             if (id == 1277137734524300032L) {
                 return JsonResult.failed("超级管理员不给予修改");
@@ -300,7 +301,7 @@ public class SysUserController {
     @PostMapping("/users/saveOrUpdate")
     @PreAuthorize("hasAnyAuthority('user:post/users/saveOrUpdate')")
     @SLog(module = "user-center")
-    public JsonResult saveOrUpdate(@RequestBody SysUser sysUser) throws ControllerException {
+    public Result saveOrUpdate(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             return sysUserService.saveOrUpdate(sysUser);
         } catch (ServiceException e) {
@@ -343,7 +344,7 @@ public class SysUserController {
      */
     @PostMapping("/users/save")
     @ApiIdempotent
-    public JsonResult save(@RequestBody SysUser sysUser) throws ControllerException {
+    public Result save(@RequestBody SysUser sysUser) throws ControllerException {
         try {
             return sysUserService.saveOrUpdate(sysUser);
         } catch (ServiceException e) {

@@ -6,6 +6,7 @@ import com.quan.core.common.model.SysService;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
 import com.quan.core.annotation.SLog;
+import com.quan.core.common.web.Result;
 import com.quan.core.service.SysServiceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -79,7 +80,7 @@ public class SysServiceController {
     @ApiOperation(value = "删除服务")
     @PreAuthorize("hasAuthority('service:delete/service/{id}')")
     @SLog(module="auth-server")
-    public JsonResult delete(@PathVariable Long id){
+    public Result delete(@PathVariable Long id){
         try {
 			sysServiceService.delete(id);
 			return JsonResult.succeed("操作成功");
@@ -93,7 +94,7 @@ public class SysServiceController {
     @PostMapping("/saveOrUpdate")
     @SLog(module="auth-server")
     @PreAuthorize("hasAnyAuthority('service:post/saveOrUpdate')")
-    public JsonResult saveOrUpdate(@RequestBody SysService service) {
+    public Result saveOrUpdate(@RequestBody SysService service) {
         try{
             if (service.getId() != null){
                 sysServiceService.update(service);
@@ -139,7 +140,7 @@ public class SysServiceController {
 
     @PostMapping("/granted")
     @SLog(module="auth-server")
-    public JsonResult setMenuToClient(@RequestBody SysClient sysClient) {
+    public Result setMenuToClient(@RequestBody SysClient sysClient) {
         try {
 			sysServiceService.setMenuToClient(sysClient.getId(), sysClient.getServiceIds());
 			return JsonResult.succeed("操作成功");

@@ -6,8 +6,9 @@ import com.github.pagehelper.PageInfo;
 import com.quan.core.common.constant.OAuthConstant;
 import com.quan.core.common.exception.service.ServiceException;
 import com.quan.core.common.model.SysClient;
-import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.PageResult;
+import com.quan.core.common.web.Result;
 import com.quan.core.dao.SysClientDao;
 import com.quan.core.dao.SysClientServiceDao;
 import com.quan.core.service.SysClientService;
@@ -39,109 +40,106 @@ public class SysClientServiceImpl implements SysClientService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-  
+
     @Autowired
-    private JdbcClientDetailsService jdbcClientDetailsService ;
+    private JdbcClientDetailsService jdbcClientDetailsService;
 
 
-
-     
     @Override
-    public JsonResult saveOrUpdate(SysClient sysClient) {
+    public Result saveOrUpdate(SysClient sysClient) {
         try {
-			sysClient.setClientSecret(passwordEncoder.encode(sysClient.getClientSecretStr()));
+            sysClient.setClientSecret(passwordEncoder.encode(sysClient.getClientSecretStr()));
 
-			if (sysClient.getId() != null) {// 修改
-			    sysClientDao.updateByPrimaryKey(sysClient);
-			} else {// 新增
-				SysClient r = sysClientDao.getClient(sysClient.getClientId());
-			    if (r != null) {
-			        return JsonResult.failed(sysClient.getClientId()+"已存在");
-			    }
-			    sysClientDao.save(sysClient);
-			}
-			return JsonResult.succeed("操作成功");
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
+            if (sysClient.getId() != null) {// 修改
+                sysClientDao.updateByPrimaryKey(sysClient);
+            } else {// 新增
+                SysClient r = sysClientDao.getClient(sysClient.getClientId());
+                if (r != null) {
+                    return JsonResult.failed(sysClient.getClientId() + "已存在");
+                }
+                sysClientDao.save(sysClient);
+            }
+            return JsonResult.succeed("操作成功");
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
     }
 
-     
 
     @Override
     @Transactional
     public void delete(Long id) {
         try {
-        	SysClient client = sysClientDao.getById(id);
-			sysClientDao.delete(id);
-			sysClientServiceDao.delete(id,null);
-			redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).delete(client.map().getClientId()) ;
-			log.debug("删除应用id:{}", id);
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
+            SysClient client = sysClientDao.getById(id);
+            sysClientDao.delete(id);
+            sysClientServiceDao.delete(id, null);
+            redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).delete(client.map().getClientId());
+            log.debug("删除应用id:{}", id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
     }
 
-	@Override
-	public PageResult<SysClient> list(Map<String, Object> params) {
+    @Override
+    public PageResult<SysClient> list(Map<String, Object> params) {
 
         try {
-			//设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
-			PageHelper.startPage(MapUtils.getInteger(params, "page"),MapUtils.getInteger(params, "limit"),true);
-			List<SysClient> list = sysClientDao.findList(params);
-			PageInfo<SysClient> pageInfo = new PageInfo<>(list);
-			return PageResult.<SysClient>builder().data(pageInfo.getList()).code(0).count(pageInfo.getTotal()).build()  ;
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
+            //设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
+            PageHelper.startPage(MapUtils.getInteger(params, "page"), MapUtils.getInteger(params, "limit"), true);
+            List<SysClient> list = sysClientDao.findList(params);
+            PageInfo<SysClient> pageInfo = new PageInfo<>(list);
+            return PageResult.<SysClient>builder().data(pageInfo.getList()).code(0).count(pageInfo.getTotal()).build();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
 
-	}
-	public  SysClient getById(Long id) {
-		try {
-			return sysClientDao.getById(id);
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
-	}
+    }
 
-	@Override
-	public List<SysClient> findList(Map<String, Object> params) {
-		return sysClientDao.findList(params);
-	}
+    public SysClient getById(Long id) {
+        try {
+            return sysClientDao.getById(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<SysClient> findList(Map<String, Object> params) {
+        return sysClientDao.findList(params);
+    }
 
 
+    @Override
+    public Result updateEnabled(Map<String, Object> params) {
+        try {
+            Long id = MapUtils.getLong(params, "id");
+            Boolean enabled = MapUtils.getBoolean(params, "status");
+            SysClient client = sysClientDao.getById(id);
+            if (client == null) {
+                return JsonResult.failed("应用不存在");
+                //throw new IllegalArgumentException("用户不存在");
+            }
+            client.setStatus(enabled);
 
-	@Override
-	public JsonResult updateEnabled(Map<String, Object> params) {
-		try {
-			Long id = MapUtils.getLong(params, "id");
-			Boolean enabled = MapUtils.getBoolean(params, "status");
-			SysClient client = sysClientDao.getById(id);
-			if (client == null) {
-				return JsonResult.failed("应用不存在");
-				//throw new IllegalArgumentException("用户不存在");
-			}
-			client.setStatus(enabled);
+            int i = sysClientDao.updateByPrimaryKey(client);
 
-			int i = sysClientDao.updateByPrimaryKey(client) ;
-			
-			ClientDetails clientDetails = client.map();
-			
-			if(enabled){
-				redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(clientDetails));
-			}else{
-				redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).delete(client.getClientId()) ;
-			}
-			
-			log.info("应用状态修改：{}", client);
+            ClientDetails clientDetails = client.map();
 
-			return i > 0 ? JsonResult.succeed(client, "更新成功") : JsonResult.failed("更新失败");
-		} catch (InvalidClientException e) {
-			throw new ServiceException(e);
-		}
-	}
+            if (enabled) {
+                redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(clientDetails));
+            } else {
+                redisTemplate.boundHashOps(OAuthConstant.CACHE_CLIENT_KEY).delete(client.getClientId());
+            }
+
+            log.info("应用状态修改：{}", client);
+
+            return i > 0 ? JsonResult.succeed(client, "更新成功") : JsonResult.failed("更新失败");
+        } catch (InvalidClientException e) {
+            throw new ServiceException(e);
+        }
+    }
 
 }

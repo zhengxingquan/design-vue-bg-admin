@@ -8,6 +8,7 @@ import com.quan.core.common.model.SysPermission;
 import com.quan.core.common.model.SysRole;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
 import com.quan.core.dao.SysRolePermissionDao;
 import com.quan.core.service.SysRoleService;
 import com.quan.core.dao.SysRoleDao;
@@ -125,7 +126,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public JsonResult saveOrUpdate(SysRole sysRole)  throws ServiceException {
+	public Result saveOrUpdate(SysRole sysRole)  throws ServiceException {
 		try {
 			int i = 0;
 			if (sysRole.getId()==null){

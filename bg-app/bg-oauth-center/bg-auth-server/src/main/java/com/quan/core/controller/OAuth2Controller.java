@@ -8,6 +8,7 @@ import com.quan.core.common.util.ResponseUtil;
 import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
 import com.quan.core.service.SysTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -192,7 +193,7 @@ public class OAuth2Controller {
     @ApiOperation(value = "当前登陆用户信息")
     @GetMapping(value = {"/oauth/userinfo"})
     @SLog(module = "auth-server")
-    public JsonResult getCurrentUserDetail() throws ControllerException {
+    public Result getCurrentUserDetail() throws ControllerException {
 
         Map<String, Object> userInfo = new HashMap<>();
         LoginAppUser loginUser = SysUserUtil.getLoginAppUser();

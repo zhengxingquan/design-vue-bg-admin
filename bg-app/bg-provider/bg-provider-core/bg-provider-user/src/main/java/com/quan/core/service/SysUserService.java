@@ -7,6 +7,7 @@ import com.quan.core.common.model.SysRole;
 import com.quan.core.common.model.SysUser;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
 import com.quan.core.model.SysUserExcel;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public interface SysUserService {
 	 * @param newPassword
 	 * @return
 	 */
-	JsonResult updatePassword(Long id, String oldPassword, String newPassword)  throws ServiceException;
+	Result updatePassword(Long id, String oldPassword, String newPassword)  throws ServiceException;
 
 	/**
 	 * 用户列表
@@ -78,14 +79,14 @@ public interface SysUserService {
 	 * @param params
 	 * @return
 	 */
-	JsonResult updateEnabled(Map<String, Object> params)  throws ServiceException;
+	Result updateEnabled(Map<String, Object> params)  throws ServiceException;
 
 	/**
 	 * 更新
 	 * @param sysUser
 	 * @return
 	 */
-	JsonResult saveOrUpdate(SysUser sysUser)  throws ServiceException;
+	Result saveOrUpdate(SysUser sysUser)  throws ServiceException;
 
 	/**
 	 * 查询全部用户
