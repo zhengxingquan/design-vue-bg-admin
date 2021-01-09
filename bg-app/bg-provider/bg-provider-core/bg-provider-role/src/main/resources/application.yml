@@ -7,13 +7,13 @@ spring:
         url: jdbc:mysql://127.0.0.1:3306/bg-user?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
         username: root
         password: root
-        driver-class-name:  com.mysql.cj.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
       core:
         # JDBC 配置(驱动类自动从url的mysql识别,数据源类型自动识别)
         url: jdbc:mysql://127.0.0.1:3306/bg-user?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
         username: root
         password: root
-        driver-class-name:  com.mysql.cj.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         #连接池配置(通常来说，只需要修改initialSize、minIdle、maxActive
         initial-size: 1
         max-active: 20
@@ -42,8 +42,8 @@ spring:
         web-stat-filter:
           enabled: true
           url-pattern: /*
-          exclusions:  "*.js , *.gif ,*.jpg ,*.png ,*.css ,*.ico , /druid/*"
-          session-stat-max-count:  1000
+          exclusions: "*.js , *.gif ,*.jpg ,*.png ,*.css ,*.ico , /druid/*"
+          session-stat-max-count: 1000
           profile-enable: true
         # StatViewServlet配置
         #展示Druid的统计信息,StatViewServlet的用途包括：1.提供监控信息展示的html页面2.提供监控信息的JSON API
@@ -68,9 +68,14 @@ spring:
         #stat-view-servlet.deny=128.242.127.1/24,128.242.128.1
         # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
         #aop-patterns= # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
-  ################### mysq end ##########################
-  #  zipkin:
-  #    base-url: http://127.0.0.1:11008
+    ################### mysq end ##########################
+
+    ### 链路跟踪  start ########
+    zipkin:
+      base-url: http://127.0.0.1:9991 # 本地
+#      base-url: http://127.0.0.1:9990 # mysql
+
+  ### 链路跟踪  end ########
   redis:
     ################### redis 单机版 start ##########################
     host: 127.0.0.1

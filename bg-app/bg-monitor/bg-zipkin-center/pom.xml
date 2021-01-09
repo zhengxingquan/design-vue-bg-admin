@@ -15,7 +15,11 @@
 
     <modules>
         <!-- zipkin + kafka + es -->
-        <module>bg-zipkin-center-es</module>
+        <module>bg-zipkin-es</module>
+        <!-- 本地存储（内存中） -->
+        <module>bg-zipkin-native</module>
+        <!-- mysql 中存储-->
+        <module>bg-zipkin-mysql</module>
     </modules>
 
 </project>
