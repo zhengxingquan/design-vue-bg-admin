@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @EnableEurekaClient
-@SpringBootApplication()
+@SpringBootApplication
 public class BgEsLogMonitorApplication {
     public static void main(String[] args) {
 

@@ -84,11 +84,6 @@ spring:
   #    base-url: http://127.0.0.1:11008
   #elasticsearch服务配置
   data:
-
-#    spring.data.elasticsearch.repositories.enabled=true
-#    spring.data.elasticsearch.cluster-nodes=10.11.3.173:9300
-#    spring.data.elasticsearch.properties.path.logs=./elasticsearch/log
-#    spring.data.elasticsearch.properties.path.data=./elasticsearch/data
     elasticsearch:
       cluster-name:  elasticsearch
       cluster-nodes: 192.168.68.10:9200
@@ -103,6 +98,8 @@ spring:
         transport:
           tcp:
             connect_timeout: 120s
+
+
 # 设置连接超时时间
 ##spring.data.elasticsearch.properties.transport.tcp.connect_timeout=120s
 #  http:
@@ -118,6 +115,7 @@ security:
     token:
       store:
         type: redis
+
 
 mybatis-plus:
   global-config:
@@ -152,7 +150,7 @@ hystrix:
 
 logging:
   level:
-    com.quan: INFO
+    com.quan.core: INFO
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
