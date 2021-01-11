@@ -4,6 +4,7 @@
 package com.quan.core;
 
 import com.quan.core.annotation.EnableLogging;
+import com.quan.core.cache.annotation.EnableRedisCache;
 import com.quan.core.common.annotation.EnableApiIdempotent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 /* 启动幂登 控制*/
 @EnableApiIdempotent
+@EnableRedisCache
 public class BgPlatformCoreRoleApplication {
 
 

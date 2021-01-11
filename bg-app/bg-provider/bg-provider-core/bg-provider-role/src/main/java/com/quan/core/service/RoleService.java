@@ -86,5 +86,17 @@ public interface RoleService {
      */
     List<RoleDTO> list(RoleQueryRequest params);
 
+
+    /****
+     *  删除缓存
+     *  @param id 对象查询
+     */
+    //可以通过el表达式加 * 通配符来批量删除一批缓存
+    void deleteCache(Long id);
+
+    /****
+     *  删除所有的缓存
+     */
+    void clearCache();
 }
 

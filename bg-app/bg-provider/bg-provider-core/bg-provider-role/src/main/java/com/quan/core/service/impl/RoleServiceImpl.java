@@ -1,5 +1,6 @@
 package com.quan.core.service.impl;
 
+import com.quan.core.cache.annotation.*;
 import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dao.RoleDao;
@@ -22,6 +23,7 @@ import java.util.List;
 
 
 @Service
+@CacheDefaults(cacheName = "sys:role")
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
@@ -65,6 +67,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Transactional
     @Override
+    @CacheRemove(cacheKey = "${#role.id}")
     public int update(RoleUpdateRequest role) {
         return roleDao.update(RoleFactory.newInstance(role));
     }
@@ -76,6 +79,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Transactional
     @Override
+    @CacheRemove(cacheKey = "${#args[0]}")
     public int delete(Long id) {
         return roleDao.delete(id);
     }
@@ -87,6 +91,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Transactional
     @Override
+    @CacheRemove(cacheKey = "${#args[0]}")
     public int delete(List<Long> id) {
         if (CollectionUtils.isEmpty(id)) {
             return 0;
@@ -101,6 +106,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @CacheResult(cacheKey = "${#id}")
     public RoleDTO findOneById(Long id) {
         Role data = roleDao.findOneById(id);
         if (data == null) {
@@ -117,6 +123,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @CacheResult
     public RoleDTO findOneByCnd(RoleQueryRequest role) {
         Role data = roleDao.findOneByCnd(RoleFactory.newInstance(role));
         if (data == null) {
@@ -152,6 +159,19 @@ public class RoleServiceImpl implements RoleService {
             return Collections.emptyList();
         }
         return RoleFactory.newInstance(list);
+    }
+
+    @Override
+    @CacheRemove(cacheKey = "${#id}*")
+    //可以通过el表达式加 * 通配符来批量删除一批缓存
+    public void deleteCache(Long id) {
+
+    }
+
+    @CacheRemoveAll
+    @Override
+    public void clearCache() {
+
     }
 
 }

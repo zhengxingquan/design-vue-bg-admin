@@ -198,6 +198,14 @@
                 <version>${core.version}</version>
             </dependency>
 
+
+            <!-- redis 缓存注解 -->
+            <dependency>
+                <groupId>com.quan</groupId>
+                <artifactId>bg-cache-spring-boot-starter</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+
             <!-- 分布式ID -->
             <dependency>
                 <groupId>com.quan</groupId>

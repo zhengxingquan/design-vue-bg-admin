@@ -1,6 +1,9 @@
 package com.quan.core.cache.aop;
 
+import com.quan.core.cache.annotation.CacheDefaults;
 import com.quan.core.cache.annotation.CacheRemove;
+import com.quan.core.cache.constant.CacheCons;
+import com.quan.core.cache.parser.SpelParseExpressionHandle;
 import com.quan.core.cache.util.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,6 +11,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.lang.reflect.Method;
@@ -23,11 +27,17 @@ import java.util.Arrays;
 //@Order(-1) // 保证该AOP在@Transactional之前执行
 public class CacheRemoveAop {
 
-    @Autowired(required = false)
+    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    /***
+     * 表达式委托
+     */
+    private final LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
+
+
     @Around("@annotation(ds)")
-    public void exec(ProceedingJoinPoint joinPoint, CacheRemove ds) throws Throwable {
+    public Object exec(ProceedingJoinPoint joinPoint, CacheRemove ds) throws Throwable {
         log.info("CacheRemoveAll exec ....");
 
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -46,26 +56,37 @@ public class CacheRemoveAop {
                     + Arrays.toString(joinPoint.getArgs());
         } else {
             // TODO 解析参数是否表达式
-//            String key = new CharSegment(cacheKey);
-//            if (key.hasKey()) {
-//                Map<String, Object> ctx = new LinkedHashMap<>();
-//                Object[] args = joinPoint.getArgs();
-//                List<String> names = MethodParamNamesScaner.getParamNames(method);//不支持nutz低于1.60的版本
-//                if (names != null) {
-//                    for (int i = 0; i < names.size() && i < args.length; i++) {
-//                        ctx.set(names.get(i), args[i]);
-//                    }
-//                }
-//                ctx.set("args", args);
-//                Context _ctx = Lang.context();
-//                for (String key : key.keys()) {
-//                    _ctx.set(key, new El(key).eval(ctx));
-//                }
-//                cacheKey = key.render(_ctx).toString();
-//            } else {
-//                cacheKey = key.getOrginalString();
-//            }
+            String key = cacheKey;
+            SpelParseExpressionHandle parseExpressionDelegation = new SpelParseExpressionHandle();
+            if (parseExpressionDelegation.hasExpression(cacheKey)) {
+                Object[] args = joinPoint.getArgs();
+                //获取被拦截方法参数名列表(使用Spring支持类库)
+                String[] names = u.getParameterNames(method);
+                if (names != null) {
+                    // 设置变量
+                    for (int i = 0; i < names.length && i < args.length; i++) {
+                        parseExpressionDelegation.setVariable(names[i], args[i]);
+                    }
+                }
+                parseExpressionDelegation.setVariable("args", args);
+                // 解析表达式
+                cacheKey = parseExpressionDelegation.renderExpression(key, String.class);
+            }
         }
-    }
 
+        if (Strings.isBlank(cacheName)) {
+            CacheDefaults cacheDefaults = method.getDeclaringClass()
+                    .getAnnotation(CacheDefaults.class);
+            cacheName = cacheDefaults != null ? cacheDefaults.cacheName() : "bg";
+        }
+
+        String key = CacheCons.REDIS_PREFIX + cacheName + ":" + cacheKey;
+        if (cacheKey.endsWith("*")) {
+            redisTemplate.delete(redisTemplate.keys(key));
+        } else {
+            redisTemplate.delete(key);
+        }
+        // TODO 继续执行下面的方法
+        return joinPoint.proceed();
+    }
 }

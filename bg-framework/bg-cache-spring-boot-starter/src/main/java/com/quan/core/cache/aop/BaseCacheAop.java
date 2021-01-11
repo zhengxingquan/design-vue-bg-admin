@@ -7,8 +7,5 @@ package com.quan.core.cache.aop;
  */
 public abstract class BaseCacheAop {
 
-    protected String getRedisKey(String cacheName) {
-        return cacheName + ":";
-    }
 
 }

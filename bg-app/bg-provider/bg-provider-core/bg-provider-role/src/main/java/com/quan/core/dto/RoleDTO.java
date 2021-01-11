@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 
 /**
  * 系统角色表 编辑请求类
@@ -18,7 +20,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class RoleDTO {
+public class RoleDTO implements Serializable {
+
+    private static final long serialVersionUID = -1L;
 
     /**
      * 主键ID

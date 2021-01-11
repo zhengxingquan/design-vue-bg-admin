@@ -19,7 +19,7 @@ public @interface CacheDefaults {
     String cacheName() default "bg";
 
     /***
-     * 缓存的时间
+     * 缓存的时间 默认缓存 5 分钟
      */
-    int cacheLiveTime() default 0;
+    int cacheLiveTime() default 5 * 60;
 }

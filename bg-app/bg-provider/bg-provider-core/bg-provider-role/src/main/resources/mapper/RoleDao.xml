@@ -45,50 +45,7 @@
     </sql>
 
     <sql id="where">
-        <where>
-            <if test="data.id != null">
-                AND t.`id` = #{data.id}
-            </if>
-            <if test="data.parent_id != null">
-                AND t.`parent_id` = #{data.parentId}
-            </if>
-            <if test="data.name != null">
-                AND t.`name` = #{data.name}
-            </if>
-            <if test="data.code != null">
-                AND t.`code` = #{data.code}
-            </if>
-            <if test="data.alias_name != null">
-                AND t.`alias_name` = #{data.aliasName}
-            </if>
-            <if test="data.has_children != null">
-                AND t.`has_children` = #{data.hasChildren}
-            </if>
-            <if test="data.path != null">
-                AND t.`path` = #{data.path}
-            </if>
-            <if test="data.note != null">
-                AND t.`note` = #{data.note}
-            </if>
-            <if test="data.sort != null">
-                AND t.`sort` = #{data.sort}
-            </if>
-            <if test="data.create_time != null">
-                AND t.`create_time` = #{data.createTime}
-            </if>
-            <if test="data.create_user_id != null">
-                AND t.`create_user_id` = #{data.createUserId}
-            </if>
-            <if test="data.update_time != null">
-                AND t.`update_time` = #{data.updateTime}
-            </if>
-            <if test="data.update_user_id != null">
-                AND t.`update_user_id` = #{data.updateUserId}
-            </if>
-            <if test="data.data_state != null">
-                AND t.`data_state` = #{data.dataState}
-            </if>
-        </where>
+
     </sql>
 
 

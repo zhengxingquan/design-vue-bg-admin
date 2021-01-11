@@ -1,11 +1,13 @@
 #端口
 server:
   port: 9990
+
 #服务名称  
 spring:
   application:
     name: zipkin-center-mysql
 
+## 数据库MYSQL对象
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/bg-zipkin-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
     username: root
@@ -21,12 +23,14 @@ spring:
       preferredNetworks:
         - 192.168
 
+
 #去除控制台异常
 management:
   metrics:
     web:
       server:
         auto-time-requests: false
+
 
 
 

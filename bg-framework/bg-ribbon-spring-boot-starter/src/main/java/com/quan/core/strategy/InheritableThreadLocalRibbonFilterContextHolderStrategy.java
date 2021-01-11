@@ -28,8 +28,7 @@ import org.springframework.util.Assert;
  *
  * @see java.lang.ThreadLocal
  */
-public   class InheritableThreadLocalRibbonFilterContextHolderStrategy implements
-RibbonFilterContextHolderStrategy {
+public   class InheritableThreadLocalRibbonFilterContextHolderStrategy implements RibbonFilterContextHolderStrategy {
 	// ~ Static fields/initializers
 	// =====================================================================================
 	private static final ThreadLocal<RibbonFilterContext> CONTEXT_HOLDER = new InheritableThreadLocal<>();

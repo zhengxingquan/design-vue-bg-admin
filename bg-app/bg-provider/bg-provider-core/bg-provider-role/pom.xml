@@ -50,6 +50,12 @@
             <artifactId>bg-swagger-spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- cache 配置 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-cache-spring-boot-starter</artifactId>
+        </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>com.quan</groupId>-->
 <!--            <artifactId>bg-uid-generator-center</artifactId>-->

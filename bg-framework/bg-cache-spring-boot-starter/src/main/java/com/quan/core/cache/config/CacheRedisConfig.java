@@ -5,5 +5,5 @@ package com.quan.core.cache.config;
  * @data 2020/12/16
  * 描述：
  */
-public class cacheRedisConfig {
+public class CacheRedisConfig {
 }
