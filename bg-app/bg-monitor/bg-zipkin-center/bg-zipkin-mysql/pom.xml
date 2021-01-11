@@ -23,6 +23,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- zipkin http 可以 -->
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-server</artifactId>
@@ -37,7 +39,7 @@
         <dependency>
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-autoconfigure-storage-mysql</artifactId>
-<!--            <version>${zipkin.web.version}</version>-->
+            <version>${zipkin.web.version}</version>
         </dependency>
 
         <dependency>

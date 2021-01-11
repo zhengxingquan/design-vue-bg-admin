@@ -32,14 +32,15 @@ management:
         auto-time-requests: false
 
 
-
-
 zipkin:
   storage:
     type: mysql
 
+
+
 sleuth:
   enabled: false
+
 
 #eureka client配置    
 
