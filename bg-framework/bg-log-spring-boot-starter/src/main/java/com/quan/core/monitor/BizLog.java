@@ -7,6 +7,7 @@ import com.github.structlog4j.SLoggerFactory;
  *  业务结构化日志
  */
 public class BizLog {
+
 	private static final ILogger LOGGER =  SLoggerFactory.getLogger(BizLog.class);
 
     public static void info(String message, Object...params ) {

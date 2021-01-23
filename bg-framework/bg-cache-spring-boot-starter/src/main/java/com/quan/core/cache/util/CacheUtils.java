@@ -1,7 +1,7 @@
 package com.quan.core.cache.util;
 
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -41,7 +41,7 @@ public final class CacheUtils {
      * @param key 键
      * @return 值
      */
-    public static <T> T get(final RedisTemplate<String, Object> redisTemplate,String key, Class<T> returnType) {
+    public static <T> T get(final RedisTemplate<String, Object> redisTemplate, String key, Class<T> returnType) {
 
         if (StringUtils.isBlank(key)) {
             return null;

@@ -14,20 +14,18 @@
     <artifactId>bg-app</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <!-- 配置中心 -->
-        <module>bg-config</module>
         <!-- 网关中心 -->
-        <module>bg-gateway</module>
+        <module>bg-gateway-center</module>
         <!-- 代码生成中心 -->
-        <module>bg-generator</module>
+        <module>bg-generator-center</module>
         <!-- 监控中心 -->
-        <module>bg-monitor</module>
+        <module>bg-monitor-center</module>
         <!-- 具体业务中心（服务提供者） -->
         <module>bg-provider</module>
         <!-- 具体业务API -->
         <module>bg-provider-api</module>
-        <!-- 微信服务 -->
-        <module>bg-provider-wx</module>
+        <!-- 微信公从号与小程序 -->
+        <module>bg-provider-weixin</module>
         <!-- 平台任务中心 -->
         <module>bg-job-center</module>
         <!-- 权限与鉴权中心 -->
@@ -36,6 +34,10 @@
         <module>bg-registry-center</module>
         <!-- 异步事件模块 -->
         <module>bg-event-center</module>
+        <!-- 配置中心 -->
+        <module>bg-config-center</module>
+        <!-- 网关中心 -->
+        <module>bg-gateway-center</module>
 
     </modules>
 

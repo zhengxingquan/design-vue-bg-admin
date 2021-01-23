@@ -11,5 +11,8 @@ import com.quan.core.common.model.SysLog;
  */
 public interface LogService {
 
+    /***
+     * 保存日志信息
+     */
     void save(SysLog log);
 }

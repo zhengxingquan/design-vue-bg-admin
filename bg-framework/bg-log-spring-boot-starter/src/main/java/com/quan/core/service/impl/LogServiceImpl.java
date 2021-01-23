@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Async;
  * @author zxq(956607644 @ qq.com)
  * @date 2020/12/15 16:25
  */
-//@Service
 public class LogServiceImpl implements LogService {
 
     @Autowired

@@ -31,6 +31,7 @@
         <module>bg-uid-generator-spring-boot-starter</module>
         <!-- rabbit MQ -->
         <module>bg-rabbitmq-spring-boot-starter</module>
+        <module>bg-es-spring-boot-starter</module>
 
     </modules>
 

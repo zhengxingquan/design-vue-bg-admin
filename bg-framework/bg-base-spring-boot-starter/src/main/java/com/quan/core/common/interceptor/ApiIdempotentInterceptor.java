@@ -25,6 +25,7 @@ public class ApiIdempotentInterceptor implements HandlerInterceptor {
     private RedisTemplate<String, Object> redisTemplate;
 
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -45,9 +46,11 @@ public class ApiIdempotentInterceptor implements HandlerInterceptor {
 
     private void checkApiIdempotent(HttpServletRequest request) {
         String version = request.getHeader(VERSION_NAME);
-        if (StringUtils.isBlank(version)) {// header中不存在token
+        // header中不存在token
+        if (StringUtils.isBlank(version)) {
             version = request.getParameter(VERSION_NAME);
-            if (StringUtils.isBlank(version)) {// parameter中也不存在token
+            // parameter中也不存在token
+            if (StringUtils.isBlank(version)) {
                 throw new IllegalArgumentException("无效的参数");
             }
         }
@@ -60,10 +63,12 @@ public class ApiIdempotentInterceptor implements HandlerInterceptor {
         }
     }
 
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
