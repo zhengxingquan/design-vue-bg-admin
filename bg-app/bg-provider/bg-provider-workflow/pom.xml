@@ -13,11 +13,12 @@
     <description>工作流模块</description>
 
     <dependencies>
+
         <!-- 日志统一配置 -->
-        <dependency>
-            <groupId>com.quan</groupId>
-            <artifactId>bg-log-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.quan</groupId>-->
+<!--            <artifactId>bg-log-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.quan</groupId>
@@ -31,10 +32,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.spring.boot</groupId>-->
-<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -74,6 +77,14 @@
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-logic</artifactId>
             <version>${flowable.version}</version>
+        </dependency>
+
+
+
+        <!-- 选用eureka时打开-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
 

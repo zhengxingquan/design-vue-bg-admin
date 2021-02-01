@@ -1,17 +1,23 @@
 package com.quan.core.config;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.flowable.ui.common.service.idm.RemoteIdmService;
 import org.flowable.ui.modeler.properties.FlowableModelerAppProperties;
 import org.flowable.ui.modeler.servlet.ApiDispatcherServletConfiguration;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+
+import javax.sql.DataSource;
 
 /**
  * @author pm
@@ -26,10 +32,10 @@ import org.springframework.web.servlet.DispatcherServlet;
         "org.flowable.ui.common.repository",
         "org.flowable.ui.common.tenant"
 
-        ,"org.flowable.ui.common.service.idm"
-        ,"org.flowable.idm"
+        , "org.flowable.ui.common.service.idm"
+        , "org.flowable.idm"
 
-        },
+},
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = RemoteIdmService.class)
         })

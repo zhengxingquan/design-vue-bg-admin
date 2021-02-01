@@ -56,7 +56,7 @@ logging:
 
 # 服务集群监控
 turbine:
-  app-config:  api-gateway,admin-server,auth-server,eureka-server	,user-center	               #需要监控的服务名
+  app-config:  api-gateway,admin-server,auth-server,eureka-server,user-center	               #需要监控的服务名
   aggregator:
     cluster-config: default   #需要监控的服务集群名
   cluster-name-expression: new String("default")

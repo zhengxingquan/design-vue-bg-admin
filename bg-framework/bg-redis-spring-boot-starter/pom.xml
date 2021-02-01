@@ -18,6 +18,12 @@
 
     <dependencies>
 
+        <!-- 公共实体类模块 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-base-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- 加入redis的处理 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

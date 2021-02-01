@@ -15,6 +15,9 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  * Turbine集群监控
  * http://localhost:1111/hystrix 输入  http://localhost:1111/turbine.stream
  *
+ * 参考项目 ： https://gitee.com/catshen/zscat_sw
+ *
+ *
  */
 @EnableHystrixDashboard
 @EnableTurbine
