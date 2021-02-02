@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bg-app</artifactId>
+        <groupId>com.quan</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bg-demo</artifactId>
+    <packaging>pom</packaging>
+    <description>组件使用demo案例</description>
+
+
+    <modules>
+        <!-- txlcn分布式事务demo -->
+        <module>bg-txlcn-demo</module>
+
+        <!-- sharding-jdbc分库分表demo -->
+        <module>bg-sharding-jdbc-demo</module>
+    </modules>
+
+
+</project>

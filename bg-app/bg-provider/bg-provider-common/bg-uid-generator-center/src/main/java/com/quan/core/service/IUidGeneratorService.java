@@ -24,6 +24,6 @@ public interface IUidGeneratorService {
      * @param uid
      * @return Parsed info
      */
-    String parseUID(long uid);
+    Long parseUID(long uid);
 
 }

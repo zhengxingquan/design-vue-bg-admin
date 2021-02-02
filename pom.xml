@@ -40,6 +40,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate-validator.verion>6.0.18.Final</hibernate-validator.verion>
         <flowable.version>6.4.1</flowable.version>
+        <txlcn.version>5.0.2.RELEASE</txlcn.version>
+        <sharding-sphere.version>3.1.0</sharding-sphere.version>
         <spring-cloud-dependencies.version>Greenwich.SR6</spring-cloud-dependencies.version>
     </properties>
 
@@ -62,10 +64,12 @@
 
 
     <dependencies>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
@@ -100,6 +104,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -207,11 +212,11 @@
                 <version>${core.version}</version>
             </dependency>
 
-            <!-- 分布式ID -->
+            <!-- shardingSphere  -->
             <dependency>
-                <groupId>com.quan</groupId>
-                <artifactId>bg-uid-generator-spring-boot-starter</artifactId>
-                <version>${core.version}</version>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+                <version>${sharding-sphere.version}</version>
             </dependency>
 
         </dependencies>

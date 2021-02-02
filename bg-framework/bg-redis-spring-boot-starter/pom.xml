@@ -11,6 +11,7 @@
 
     <artifactId>bg-redis-spring-boot-starter</artifactId>
     <description>redis支撑</description>
+    <packaging>pom</packaging>
 
     <properties>
         <redssion.version>3.11.6</redssion.version>

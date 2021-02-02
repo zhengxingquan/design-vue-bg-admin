@@ -13,6 +13,7 @@
 
     <artifactId>bg-app</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <!-- 网关中心 -->
         <module>bg-gateway-center</module>
@@ -38,6 +39,12 @@
         <module>bg-config-center</module>
         <!-- 网关中心 -->
         <module>bg-gateway-center</module>
+        <!-- 组件demo案列模块 -->
+        <module>bg-demo</module>
+        <!-- 支付中心 -->
+        <module>bg-provider-pay</module>
+        <!-- 自已的博客中心 -->
+        <module>bg-provider-blog</module>
 
     </modules>
 

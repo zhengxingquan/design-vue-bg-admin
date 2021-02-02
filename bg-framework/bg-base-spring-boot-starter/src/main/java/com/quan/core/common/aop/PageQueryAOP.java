@@ -39,9 +39,9 @@ public class PageQueryAOP {
         // 参数值
         RequestPage page = getPageParam(joinPoint.getArgs());
         if (page != null) {
-            PageQuery pageQuery = methodSignature.getMethod().getDeclaredAnnotation(PageQuery.class);
-            log.info("设置分页信息 pageNumber：{} -> pageSize：{}", page.getPageNumber(), page.getPageSize());
-            PageHelper.startPage(page.getPageNumber(), page.getPageSize(), pageQuery.countState());
+//            PageQuery pageQuery = methodSignature.getMethod().getDeclaredAnnotation(PageQuery.class);
+//            log.info("设置分页信息 pageNumber：{} -> pageSize：{}", page.getPageNumber(), page.getPageSize());
+//            PageHelper.startPage(page.getPageNumber(), page.getPageSize(), pageQuery.countState());
         } else {
             PageHelper.startPage(0, 10, true);
         }

@@ -11,6 +11,8 @@
 
     <artifactId>bg-transaction</artifactId>
     <description>事物管理中心</description>
+    <packaging>pom</packaging>
+
     <!-- 参见地址  https://github.com/codingapi/tx-lcn  -->
     <properties>
         <txlcn.version>5.0.2.RELEASE</txlcn.version>
@@ -83,6 +85,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-tm</artifactId>

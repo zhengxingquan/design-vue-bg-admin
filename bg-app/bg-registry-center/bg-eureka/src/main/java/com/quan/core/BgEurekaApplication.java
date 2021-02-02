@@ -17,6 +17,8 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  *
  * 参考项目 ： https://gitee.com/catshen/zscat_sw
  *
+ *  参考项目 ：https://gitee.com/zlt2000/microservices-platform
+ *
  *
  */
 @EnableHystrixDashboard

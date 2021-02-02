@@ -11,10 +11,11 @@
 
 
     <artifactId>bg-gateway-center</artifactId>
+    <description>网关中心</description>
     <packaging>pom</packaging>
 
     <modules>
-        <!-- 网关中心 -->
+        <!--zuul 网关中心 -->
         <module>bg-zuul</module>
     </modules>
 

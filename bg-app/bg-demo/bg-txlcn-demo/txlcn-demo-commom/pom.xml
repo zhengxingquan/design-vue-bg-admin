@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bg-txlcn-demo</artifactId>
+        <groupId>com.quan</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>txlcn-demo-commom</artifactId>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-tm</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-tc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-txmsg-netty</artifactId>
+        </dependency>
+
+        <!-- 关系型数据库配置 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-db-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 非关系型数据库配置 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-redis-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 日志中心 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-log-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 公共实体配置 -->
+        <dependency>
+            <groupId>com.quan</groupId>
+            <artifactId>bg-base-spring-boot-starter</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

@@ -1,6 +1,6 @@
 package com.quan.core.service;
 
-import com.quan.core.UidGenerator;
+import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.exception.UidGenerateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,18 @@ import org.springframework.stereotype.Service;
 public class DefaultUidGeneratorImpl implements IUidGeneratorService {
 
     @Autowired
-    private UidGenerator defaultUidGenerator;
+    private IUidGenerator defaultUidGenerator;
 
 
     @Override
     public Long getUID() throws UidGenerateException {
         log.info("生成 分布式ID ");
-        return defaultUidGenerator.getUID();
+        return defaultUidGenerator.uid();
     }
 
     @Override
-    public String parseUID(long uid) {
-        return defaultUidGenerator.parseUID(uid);
+    public Long parseUID(long uid) {
+        return defaultUidGenerator.nextId(uid);
     }
 
 }
