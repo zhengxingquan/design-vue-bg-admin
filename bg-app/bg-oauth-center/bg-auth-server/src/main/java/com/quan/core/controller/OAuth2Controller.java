@@ -10,7 +10,7 @@ import com.quan.core.common.util.SysUserUtil;
 import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.Result;
-import com.quan.core.controller.request.token.*;
+import com.quan.core.controller.request.token.query.*;
 import com.quan.core.factory.AuthTokenFactory;
 import com.quan.core.service.SysTokenService;
 import io.swagger.annotations.Api;

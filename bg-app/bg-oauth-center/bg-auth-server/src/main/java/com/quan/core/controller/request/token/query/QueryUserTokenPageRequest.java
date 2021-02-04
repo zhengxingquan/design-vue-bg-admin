@@ -1,4 +1,4 @@
-package com.quan.core.controller.request.token;
+package com.quan.core.controller.request.token.query;
 
 
 import com.quan.core.common.request.PageRequest;

@@ -1,7 +1,7 @@
 package com.quan.core.factory;
 
 import com.quan.core.constant.AuthConstant;
-import com.quan.core.controller.request.token.*;
+import com.quan.core.controller.request.token.query.*;
 import com.quan.core.dto.token.*;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,5 +1,9 @@
 package com.quan.core.common.enume;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * @author 郑兴泉 956607644@qq.com
  * @data 2020/12/15
@@ -33,4 +37,24 @@ public enum DataEntityState {
     DataEntityState(int value) {
         this.value = value;
     }
+
+    private static Map<Integer, DataEntityState> statusMap = new HashMap<>();
+
+    static {
+        for (final DataEntityState status : DataEntityState.values()) {
+            statusMap.put(status.getValue(), status);
+        }
+    }
+
+    private int code;
+
+
+    public static DataEntityState valueOf(Integer code) {
+        DataEntityState status = statusMap.get(code);
+        if (Objects.isNull(status)) {
+            return ENABLE;
+        }
+        return status;
+    }
+
 }

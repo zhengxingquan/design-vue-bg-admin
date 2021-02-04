@@ -2,7 +2,6 @@ package com.quan.core.dto.client;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author 郑兴泉 956607644@qq.com
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Builder
-@NoArgsConstructor
-public class QueryClientDTO extends AuthClientDTO {
+public class QueryPageDTO extends AuthClientDTO {
 
 }

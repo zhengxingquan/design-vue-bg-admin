@@ -2,40 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quan.core.dao.SysClientDao">
-	<update id="updateByPrimaryKey">
-		update oauth_client_details t
-		<set>
-			<if test="clientId != null and clientId != ''">
-				client_id = #{clientId,jdbcType=VARCHAR},
-			</if>
-			<if test="clientSecret != null and clientSecret != ''">
-				client_secret = #{clientSecret,jdbcType=VARCHAR},
-			</if>
-			<if test="clientSecretStr != null and clientSecretStr != ''">
-				client_secret_str = #{clientSecretStr,jdbcType=VARCHAR},
-			</if>
-			
-			<if test="webServerRedirectUri != null and webServerRedirectUri != ''">
-				web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},
-			</if>
-			
-			<if test="status != null">
-				status = #{status,jdbcType=BIT},
-			</if> 
-			<if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
-				authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
-			</if>
-			<if test="ifLimit != null">
-				if_limit = #{ifLimit,jdbcType=INTEGER},
-			</if>
-			
-			<if test="limitCount != null">
-				limit_count = #{limitCount,jdbcType=BIGINT},
-			</if> 
-			 
-		</set>
-		where id = #{id,jdbcType=BIGINT}
-	</update>
+
+
+    <sql id="baseColumnList">
+        `id` as id ,
+        `client_id` as clientId,
+        `client_secret` as clientSecret,
+        `client_secret_str` as clientSecretStr ,
+        `resource_ids` as `resourceIds`,
+        `scope` as scope ,
+        `authorized_grant_types` as authorizedGrantTypes ,
+        `access_token_validity` as accessTokenValidity,
+        `refresh_token_validity` as refreshTokenValidity ,
+        `web_server_redirect_uri`  as webServerRedirectUri ,
+        `additional_information` as additionalInformation ,
+        `authorities` as authorities,
+        `if_limit` as ifLimit ,
+        `limit_count` as limitCount,
+        `autoapprove` as autoapprove,
+        `status` as status
+    </sql>
+
+    <sql id="TableName">
+            oauth_client_details
+    </sql>
+
+    <sql id="BaseWhere">
+        data_state != 1
+    </sql>
+
+    <update id="updateByPrimaryKey">
+        update oauth_client_details t
+        <set>
+            <if test="clientId != null and clientId != ''">
+                client_id = #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSecret != null and clientSecret != ''">
+                client_secret = #{clientSecret,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSecretStr != null and clientSecretStr != ''">
+                client_secret_str = #{clientSecretStr,jdbcType=VARCHAR},
+            </if>
+
+            <if test="webServerRedirectUri != null and webServerRedirectUri != ''">
+                web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
+                authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+            </if>
+            <if test="ifLimit != null">
+                if_limit = #{ifLimit,jdbcType=INTEGER},
+            </if>
+
+            <if test="limitCount != null">
+                limit_count = #{limitCount,jdbcType=BIGINT},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
     <sql id="where">
         <where>
@@ -80,20 +109,171 @@
         </where>
     </sql>
 
+    <insert id="save" parameterType="com.quan.core.dto.client.AuthClientCreateDTO">
+        INSERT INTO
+        <include refid="TableName"/>
+        (
+        id,
+        client_id,
+        resource_ids,
+        client_secret,
+        client_secret_str,
+        scope,
+        authorized_grant_types,
+        web_server_redirect_uri,
+        authorities,
+        access_token_validity,
+        refresh_token_validity,
+        additional_information,
+        autoapprove,
+        status ,
+        if_limit ,
+        limit_count,
+        create_time,
+        create_user_id,
+        )values(
+        #{id},
+        #{clientId},
+        #{resourceIds},
+        #{clientSecret},
+        #{clientSecretStr},
+        #{scope},
+        #{authorizedGrantTypes},
+        #{webServerRedirectUri},
+        #{authorities},
+        #{accessTokenValidity},
+        #{refreshTokenValidity},
+        #{additionalInformation},
+        #{autoapprove} ,0 ,
+        #{ifLimit} ,
+        #{limitCount}
+        #{createTime}
+        #{createUserId}
+        )
+
+    </insert>
+
+
     <select id="count" resultType="int">
-        select count(1) from oauth_client_details t
+        select
+        COUNT(1)
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
         <include refid="where"/>
     </select>
 
     <select id="findList" resultType="com.quan.core.common.model.SysClient">
-        select id id , client_id clientId, client_secret clientSecret, client_secret_str clientSecretStr  , resource_ids resourceIds ,scope,authorized_grant_types  authorizedGrantTypes ,access_token_validity accessTokenValidity ,refresh_token_validity  refreshTokenValidity ,web_server_redirect_uri webServerRedirectUri , additional_information additionalInformation ,authorities,if_limit ifLimit , limit_count limitCount  ,autoapprove,status  from oauth_client_details t
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
         <include refid="where"/>
         <!--<if test="params.page != null and params.page != ''  and params.limit != null and params.limit != '' ">-->
-			<!--limit #{params.page},#{params.limit}-->
-		<!--</if>-->
+        <!--limit #{params.page},#{params.limit}-->
+        <!--</if>-->
     </select>
 
 
-     
+    <!-- 查询数据 -->
+    <select id="data" resultType="com.quan.core.common.model.SysClient">
+
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        <include refid="where"/>
+    </select>
+
+
+    <!-- 查询数据 -->
+    <select id="getById" resultType="com.quan.core.common.model.SysClient">
+
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </select>
+
+    <!-- 查询数据 -->
+    <select id="getClient" resultType="com.quan.core.common.model.SysClient">
+
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND client_id = #{clientId}
+    </select>
+
+    <!-- 删除 -->
+    <update id="delete" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 1
+        <include refid="BaseWhere"/>
+        AND id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <update id="batchDelete" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <!-- 批量启用 -->
+    <update id="enable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 0
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!-- 批量禁用 -->
+    <update id="disable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = -1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <!-- 查询所有的数据 -->
+    <update id="findAllByIds" parameterType="long" flushCache="true">
+
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.quan.core.controller.request.token;
+package com.quan.core.controller.request.token.query;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  * 描述：
  */
 @Data
-public class QueryUserTokenRequest {
+public class RefreshTokenRequest {
 
     @ApiModelProperty("TOKEN值")
     private String accessToken;

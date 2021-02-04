@@ -62,3 +62,54 @@
         <include refid="BaseWhere"/>
         AND parent_id = #{data.value}
     </select>
+
+
+        <!-- 批量启用 -->
+        <update id="enable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = 0
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        </update>
+
+        <!-- 批量禁用 -->
+        <update id="disable" parameterType="long" flushCache="true">
+
+        UPDATE
+        <include refid="TableName"/>
+        SET data_state = -1
+        <include refid="BaseWhere"/>
+        AND id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        </update>
+
+
+        <!-- 删除 -->
+        <update id="delete" parameterType="long" flushCache="true">
+
+            UPDATE
+            <include refid="TableName"/>
+            SET data_state = 1
+            <include refid="BaseWhere"/>
+            AND id = #{id}
+        </update>
+
+        <!-- 删除 -->
+        <update id="batchDelete" parameterType="long" flushCache="true">
+
+            UPDATE
+            <include refid="TableName"/>
+            SET data_state = 1
+            <include refid="BaseWhere"/>
+            AND id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </update>

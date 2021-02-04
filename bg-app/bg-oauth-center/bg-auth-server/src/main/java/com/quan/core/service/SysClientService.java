@@ -1,31 +1,62 @@
 package com.quan.core.service;
 
 
-import com.quan.core.common.model.SysClient;
+import com.quan.core.common.web.JsonResult;
 import com.quan.core.common.web.PageResult;
 import com.quan.core.common.web.Result;
 import com.quan.core.controller.request.client.QueryClientPageRequest;
 import com.quan.core.controller.request.client.QueryClientRequest;
+import com.quan.core.controller.request.token.create.ClientCreateRequest;
+import com.quan.core.controller.request.token.update.ClientUpdateRequest;
+import com.quan.core.controller.request.token.update.ClientUpdateStateRequest;
+import com.quan.core.dto.client.QueryClientDTO;
+import com.quan.core.dto.client.QueryPageDTO;
 
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("all")
 public interface SysClientService {
 
 
-    Result saveOrUpdate(SysClient clientDto);
+    Result save(ClientCreateRequest request);
+
+    Result update(ClientUpdateRequest request);
 
     void delete(Long id);
 
-    Result updateEnabled(Map<String, Object> params);
+    void deletes(List<Long> ids);
 
-    SysClient getById(Long id);
+    QueryClientDTO getById(Long id);
 
 
-    public PageResult<SysClient> list(QueryClientPageRequest client);
+    public PageResult<QueryPageDTO> list(QueryClientPageRequest client);
 
-    List<SysClient> data(QueryClientRequest client);
+    /***
+     * 查找数据
+     */  
+    List<QueryClientDTO> data(QueryClientRequest client);
 
+    /**
+     * 启用
+     */
+    Result enable(Long id);
+
+
+    /**
+     * 禁用
+     */
+    Result disable(Long id);
+
+
+    /***
+     *   批量启用
+     */
+    Result batchEnable(List<Long> id);
+
+
+    /***
+     *   批量禁用
+     */
+    Result batchDisable(List<Long> id);
 
 }

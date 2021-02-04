@@ -7,4 +7,5 @@ package com.quan.core.common.dao;
  */
 public interface IBaseDao {
 
+
 }

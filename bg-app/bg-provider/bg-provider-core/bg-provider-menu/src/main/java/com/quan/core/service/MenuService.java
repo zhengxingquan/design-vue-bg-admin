@@ -1,8 +1,8 @@
 package com.quan.core.service;
 
-import com.quan.core.dto.MenuDTO;
 import com.quan.core.controller.request.create.MenuCreateRequest;
 import com.quan.core.controller.request.update.MenuUpdateRequest;
+import com.quan.core.dto.MenuDTO;
 
 import java.util.List;
 
@@ -16,41 +16,46 @@ import java.util.List;
 public interface MenuService {
     /**
      * 添加
+     *
      * @param data
      */
     int save(MenuCreateRequest data);
 
     /**
      * 批量添加
+     *
      * @param menus
      */
     int batchSave(List<MenuCreateRequest> menus);
 
     /**
      * 修改
+     *
      * @param menu
      */
     int update(MenuUpdateRequest menu);
 
     /**
      * 单条删除
+     *
      * @param id
      */
     int delete(Long id);
 
     /**
-       * 批量删除
-       *
-       * @param id
-       */
+     * 批量删除
+     *
+     * @param id
+     */
     int delete(List<Long> id);
 
     /**
-    * 通过ID查找记录
-    * @param id 用户记录ID
-    * @return
-    */
-        MenuDTO findOneById(Long id);
+     * 通过ID查找记录
+     *
+     * @param id 用户记录ID
+     * @return
+     */
+    MenuDTO findOneById(Long id);
 
 
 //    /**
