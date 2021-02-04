@@ -1,19 +1,18 @@
 package com.quan.core.service.impl;
 
 import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.RoleMenuGroupDTO;
 import com.quan.core.model.RoleMenuGroup;
 import com.quan.core.factory.RoleMenuGroupFactory;
 import com.quan.core.dao.RoleMenuGroupDao;
 import com.quan.core.service.RoleMenuGroupService;
-import com.quan.core.request.RoleMenuGroupPageQueryRequest;
-import com.quan.core.request.RoleMenuGroupQueryRequest;
-import com.quan.core.request.create.RoleMenuGroupCreateRequest;
-import com.quan.core.request.update.RoleMenuGroupUpdateRequest;
-import com.quan.core.request.RoleMenuGroupEnableRequest;
-import com.quan.core.request.RoleMenuGroupDisableRequest;
-import com.quan.core.request.RoleMenuGroupBatchEnableAndDisableRequest;
+import com.quan.core.controller.request.RoleMenuGroupPageQueryRequest;
+import com.quan.core.controller.request.RoleMenuGroupQueryRequest;
+import com.quan.core.controller.request.create.RoleMenuGroupCreateRequest;
+import com.quan.core.controller.request.update.RoleMenuGroupUpdateRequest;
+import com.quan.core.controller.request.RoleMenuGroupEnableRequest;
+import com.quan.core.controller.request.RoleMenuGroupDisableRequest;
+import com.quan.core.controller.request.RoleMenuGroupBatchEnableAndDisableRequest;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

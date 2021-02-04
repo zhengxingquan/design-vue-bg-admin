@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.MenuGroupDTO;
-import com.quan.core.request.create.MenuGroupCreateRequest;
-import com.quan.core.request.update.MenuGroupUpdateRequest;
-import com.quan.core.request.MenuGroupPageQueryRequest;
-import com.quan.core.request.MenuGroupQueryRequest;
+import com.quan.core.controller.request.create.MenuGroupCreateRequest;
+import com.quan.core.controller.request.update.MenuGroupUpdateRequest;
+import com.quan.core.controller.request.MenuGroupPageQueryRequest;
+import com.quan.core.controller.request.MenuGroupQueryRequest;
 
 import java.util.List;
 

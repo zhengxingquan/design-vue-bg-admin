@@ -3,8 +3,6 @@ package com.quan.core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
-import org.springframework.cloud.netflix.turbine.EnableTurbine;
 
 /***
  *
@@ -21,8 +19,8 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  *
  *
  */
-@EnableHystrixDashboard
-@EnableTurbine
+//@EnableHystrixDashboard
+//@EnableTurbine
 @EnableEurekaServer
 @SpringBootApplication
 public class BgEurekaApplication {

@@ -7,10 +7,8 @@ import com.quan.core.dto.MenuQueryDTO;
 import com.quan.core.dto.create.MenuCreateDTO;
 import com.quan.core.dto.update.MenuUpdateDTO;
 import com.quan.core.model.Menu;
-import com.quan.core.request.MenuPageQueryRequest;
-import com.quan.core.request.MenuQueryRequest;
-import com.quan.core.request.create.MenuCreateRequest;
-import com.quan.core.request.update.MenuUpdateRequest;
+import com.quan.core.controller.request.create.MenuCreateRequest;
+import com.quan.core.controller.request.update.MenuUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
@@ -88,24 +86,15 @@ public final class MenuFactory {
     }
 
     /***
-     * 转换查询列表 req 到 DTO
-     */
-    public static MenuQueryDTO newInstance(MenuQueryRequest req) {
-        MenuQueryDTO queryData = new MenuQueryDTO();
-
-        return queryData;
-    }
-
-    /***
      * 转换分页 req 到 DTO
      */
-    public static MenuPageQueryDTO newInstance(MenuPageQueryRequest req) {
-        MenuPageQueryDTO query = new MenuPageQueryDTO();
-        query.setPageNumber(req.getPageNumber());
-        query.setPageSize(req.getPageSize());
-
-        return query;
-    }
+//    public static MenuPageQueryDTO newInstance(MenuPageQueryRequest req) {
+//        MenuPageQueryDTO query = new MenuPageQueryDTO();
+//        query.setPageNumber(req.getPageNumber());
+//        query.setPageSize(req.getPageSize());
+//
+//        return query;
+//    }
 
     /***
      * 转换 PO 到 DTO

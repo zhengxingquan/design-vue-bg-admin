@@ -28,3 +28,5 @@ public interface IAsyncEventHandle<T extends IAsyncEvent> {
      * @param e     错误
      */
     void exceptionHandle(T event, Exception e);
+
+}

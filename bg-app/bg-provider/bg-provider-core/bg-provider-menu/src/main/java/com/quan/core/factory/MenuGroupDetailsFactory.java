@@ -6,10 +6,10 @@ import com.quan.core.dto.MenuGroupDetailsQueryDTO;
 import com.quan.core.dto.create.MenuGroupDetailsCreateDTO;
 import com.quan.core.dto.update.MenuGroupDetailsUpdateDTO;
 import com.quan.core.model.MenuGroupDetails;
-import com.quan.core.request.MenuGroupDetailsPageQueryRequest;
-import com.quan.core.request.MenuGroupDetailsQueryRequest;
-import com.quan.core.request.create.MenuGroupDetailsCreateRequest;
-import com.quan.core.request.update.MenuGroupDetailsUpdateRequest;
+import com.quan.core.controller.request.MenuGroupDetailsPageQueryRequest;
+import com.quan.core.controller.request.MenuGroupDetailsQueryRequest;
+import com.quan.core.controller.request.create.MenuGroupDetailsCreateRequest;
+import com.quan.core.controller.request.update.MenuGroupDetailsUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;

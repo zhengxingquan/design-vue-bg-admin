@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.RoleGroupDetailsDTO;
-import com.quan.core.request.RoleGroupDetailsPageQueryRequest;
-import com.quan.core.request.RoleGroupDetailsQueryRequest;
-import com.quan.core.request.create.RoleGroupDetailsCreateRequest;
-import com.quan.core.request.update.RoleGroupDetailsUpdateRequest;
+import com.quan.core.controller.request.RoleGroupDetailsPageQueryRequest;
+import com.quan.core.controller.request.RoleGroupDetailsQueryRequest;
+import com.quan.core.controller.request.create.RoleGroupDetailsCreateRequest;
+import com.quan.core.controller.request.update.RoleGroupDetailsUpdateRequest;
 
 import java.util.List;
 

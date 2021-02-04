@@ -6,10 +6,10 @@ import com.quan.core.dto.UserGroupRoleQueryDTO;
 import com.quan.core.dto.create.UserGroupRoleCreateDTO;
 import com.quan.core.dto.update.UserGroupRoleUpdateDTO;
 import com.quan.core.model.UserGroupRole;
-import com.quan.core.request.UserGroupRolePageQueryRequest;
-import com.quan.core.request.UserGroupRoleQueryRequest;
-import com.quan.core.request.create.UserGroupRoleCreateRequest;
-import com.quan.core.request.update.UserGroupRoleUpdateRequest;
+import com.quan.core.controller.request.UserGroupRolePageQueryRequest;
+import com.quan.core.controller.request.UserGroupRoleQueryRequest;
+import com.quan.core.controller.request.create.UserGroupRoleCreateRequest;
+import com.quan.core.controller.request.update.UserGroupRoleUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

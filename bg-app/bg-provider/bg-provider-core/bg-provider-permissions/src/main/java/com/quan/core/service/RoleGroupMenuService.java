@@ -1,13 +1,13 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.RoleGroupMenuDTO;
-import com.quan.core.request.create.RoleGroupMenuCreateRequest;
-import com.quan.core.request.update.RoleGroupMenuUpdateRequest;
-import com.quan.core.request.RoleGroupMenuPageQueryRequest;
-import com.quan.core.request.RoleGroupMenuQueryRequest;
-import com.quan.core.request.RoleGroupMenuEnableRequest;
-import com.quan.core.request.RoleGroupMenuDisableRequest;
-import com.quan.core.request.RoleGroupMenuBatchEnableAndDisableRequest;
+import com.quan.core.controller.request.create.RoleGroupMenuCreateRequest;
+import com.quan.core.controller.request.update.RoleGroupMenuUpdateRequest;
+import com.quan.core.controller.request.RoleGroupMenuPageQueryRequest;
+import com.quan.core.controller.request.RoleGroupMenuQueryRequest;
+import com.quan.core.controller.request.RoleGroupMenuEnableRequest;
+import com.quan.core.controller.request.RoleGroupMenuDisableRequest;
+import com.quan.core.controller.request.RoleGroupMenuBatchEnableAndDisableRequest;
 
 import java.util.List;
 

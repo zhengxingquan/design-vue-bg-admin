@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.DatabaseDTO;
-import com.quan.core.request.create.DatabaseCreateRequest;
-import com.quan.core.request.update.DatabaseUpdateRequest;
-import com.quan.core.request.DatabasePageQueryRequest;
-import com.quan.core.request.DatabaseQueryRequest;
+import com.quan.core.controller.request.create.DatabaseCreateRequest;
+import com.quan.core.controller.request.update.DatabaseUpdateRequest;
+import com.quan.core.controller.request.DatabasePageQueryRequest;
+import com.quan.core.controller.request.DatabaseQueryRequest;
 
 import java.util.List;
 

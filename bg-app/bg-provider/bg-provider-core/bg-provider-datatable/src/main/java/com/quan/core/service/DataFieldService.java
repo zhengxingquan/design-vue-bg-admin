@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.DataFieldDTO;
-import com.quan.core.request.create.DataFieldCreateRequest;
-import com.quan.core.request.update.DataFieldUpdateRequest;
-import com.quan.core.request.DataFieldPageQueryRequest;
-import com.quan.core.request.DataFieldQueryRequest;
+import com.quan.core.controller.request.create.DataFieldCreateRequest;
+import com.quan.core.controller.request.update.DataFieldUpdateRequest;
+import com.quan.core.controller.request.DataFieldPageQueryRequest;
+import com.quan.core.controller.request.DataFieldQueryRequest;
 
 import java.util.List;
 

@@ -1,8 +1,12 @@
 package com.quan.core.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.quan.core.common.exception.controller.ControllerException;
 import com.quan.core.annotation.SLog;
+import com.quan.core.common.annotation.AutoCreateMenuAuth;
+import com.quan.core.common.enume.MenuType;
+import com.quan.core.common.exception.controller.ControllerException;
+import com.quan.core.common.web.JsonResult;
+import com.quan.core.common.web.Result;
+import com.quan.core.constant.RedisConstant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,42 +23,41 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * 用于数据源切换
- *
- * @author zhangzhiguang
- * @create 2018-08-24 20:38
- * blog: https://blog.51cto.com/13005375
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+/***
+ *   redis 管理
+ * @author zxq(956607644 @ qq.com)
+ * @date 2021/2/4 16:51
  */
 @Controller
-@Api(tags = "REDIS API")
-@RequestMapping("/redis")
-@SuppressWarnings("all")
+@Api(tags = "（REDIS CENTER）REDIS 管理")
+@AutoCreateMenuAuth(type = MenuType.MENU, name = "REDIS管理", permission = "sys:redis")
+@RequestMapping("/sys/redis")
 public class RedisController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-
     @ResponseBody
-    @GetMapping("/memoryInfo")
+    @GetMapping("/memory/info")
     @ApiOperation(value = "redis内存信息")
     @SLog(module = "auth-server")
-    public String getMemoryInfo() {
+    public Result getMemoryInfo() {
         try {
+
             Map<String, Object> map = new HashMap<>();
 
             Object o = redisTemplate.execute(new RedisCallback() {
                 @Override
                 public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                    return Optional.ofNullable(connection.info("memory")).orElseThrow(RuntimeException::new).get("used_memory");
+                    return Optional.ofNullable(
+                            connection.info(RedisConstant.MEMORY))
+                            .orElseThrow(RuntimeException::new)
+                            .get(RedisConstant.USED_MEMORY);
                 }
             });
-            map.put("used_memory", o);
-            map.put("create_time", System.currentTimeMillis());
-
-            return JSON.toJSONString(map);
+            map.put(RedisConstant.USED_MEMORY, o);
+            map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
+            return JsonResult.succeed(map);
         } catch (Exception e) {
             throw new ControllerException(e);
         }
@@ -62,10 +65,10 @@ public class RedisController {
 
 
     @ResponseBody
-    @GetMapping("/keysSize")
+    @GetMapping("/key/size")
     @ApiOperation(value = "redis键值信息")
     @SLog(module = "auth-server")
-    public String getKeysSize() {
+    public Result getKeysSize() {
         try {
             Map<String, Object> map = new HashMap<>();
 
@@ -74,11 +77,10 @@ public class RedisController {
                     return connection.dbSize();
                 }
             });
-            ;
-            map.put("dbSize", o);
-            map.put("create_time", System.currentTimeMillis());
+            map.put(RedisConstant.DB_SIZE, o);
+            map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
 
-            return JSON.toJSONString(map);
+            return JsonResult.succeed(map);
         } catch (Exception e) {
             throw new ControllerException(e);
         }

@@ -1,9 +1,9 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.UserGroupRoleDTO;
-import com.quan.core.request.*;
-import com.quan.core.request.create.UserGroupRoleCreateRequest;
-import com.quan.core.request.update.UserGroupRoleUpdateRequest;
+import com.quan.core.controller.request.*;
+import com.quan.core.controller.request.create.UserGroupRoleCreateRequest;
+import com.quan.core.controller.request.update.UserGroupRoleUpdateRequest;
 
 import java.util.List;
 

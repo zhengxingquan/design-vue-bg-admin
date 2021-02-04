@@ -1,6 +1,6 @@
 package com.quan.core.service;
 
-import com.quan.core.request.GeneratorQueryRequest;
+import com.quan.core.controller.request.GeneratorQueryRequest;
 
 import java.util.List;
 import java.util.Map;

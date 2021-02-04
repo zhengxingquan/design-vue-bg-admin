@@ -1,13 +1,13 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.UserRoleDTO;
-import com.quan.core.request.create.UserRoleCreateRequest;
-import com.quan.core.request.update.UserRoleUpdateRequest;
-import com.quan.core.request.UserRolePageQueryRequest;
-import com.quan.core.request.UserRoleQueryRequest;
-import com.quan.core.request.UserRoleEnableRequest;
-import com.quan.core.request.UserRoleDisableRequest;
-import com.quan.core.request.UserRoleBatchEnableAndDisableRequest;
+import com.quan.core.controller.request.create.UserRoleCreateRequest;
+import com.quan.core.controller.request.update.UserRoleUpdateRequest;
+import com.quan.core.controller.request.UserRolePageQueryRequest;
+import com.quan.core.controller.request.UserRoleQueryRequest;
+import com.quan.core.controller.request.UserRoleEnableRequest;
+import com.quan.core.controller.request.UserRoleDisableRequest;
+import com.quan.core.controller.request.UserRoleBatchEnableAndDisableRequest;
 
 import java.util.List;
 

@@ -7,10 +7,10 @@ import com.quan.core.dto.DataFieldQueryDTO;
 import com.quan.core.dto.create.DataFieldCreateDTO;
 import com.quan.core.dto.update.DataFieldUpdateDTO;
 import com.quan.core.model.DataField;
-import com.quan.core.request.DataFieldPageQueryRequest;
-import com.quan.core.request.DataFieldQueryRequest;
-import com.quan.core.request.create.DataFieldCreateRequest;
-import com.quan.core.request.update.DataFieldUpdateRequest;
+import com.quan.core.controller.request.DataFieldPageQueryRequest;
+import com.quan.core.controller.request.DataFieldQueryRequest;
+import com.quan.core.controller.request.create.DataFieldCreateRequest;
+import com.quan.core.controller.request.update.DataFieldUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

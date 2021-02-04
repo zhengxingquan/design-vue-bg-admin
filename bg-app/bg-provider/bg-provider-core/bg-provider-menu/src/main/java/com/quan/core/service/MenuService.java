@@ -1,10 +1,8 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.MenuDTO;
-import com.quan.core.request.create.MenuCreateRequest;
-import com.quan.core.request.update.MenuUpdateRequest;
-import com.quan.core.request.MenuPageQueryRequest;
-import com.quan.core.request.MenuQueryRequest;
+import com.quan.core.controller.request.create.MenuCreateRequest;
+import com.quan.core.controller.request.update.MenuUpdateRequest;
 
 import java.util.List;
 
@@ -55,28 +53,28 @@ public interface MenuService {
         MenuDTO findOneById(Long id);
 
 
-    /**
-     * 通过条件查找记录
-     * @param menu 对象数据
-     * @return
-     */
-        MenuDTO findOneByCnd(MenuQueryRequest menu);
-
-
-    /**
-     * 查询列表分页
-     * @param params 对象查询
-     * @return
-     */
-    Object findAll(MenuPageQueryRequest params);
-
-
-    /**
-     * 查询列表不分页
-     * @param params 对象查询
-     * @return
-     */
-    List<MenuDTO> list(MenuQueryRequest params);
+//    /**
+//     * 通过条件查找记录
+//     * @param menu 对象数据
+//     * @return
+//     */
+//        MenuDTO findOneByCnd(MenuQueryRequest menu);
+//
+//
+//    /**
+//     * 查询列表分页
+//     * @param params 对象查询
+//     * @return
+//     */
+//    Object findAll(MenuPageQueryRequest params);
+//
+//
+//    /**
+//     * 查询列表不分页
+//     * @param params 对象查询
+//     * @return
+//     */
+//    List<MenuDTO> list(MenuQueryRequest params);
 
 }
 

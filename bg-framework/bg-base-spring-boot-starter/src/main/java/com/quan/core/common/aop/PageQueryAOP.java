@@ -3,7 +3,7 @@ package com.quan.core.common.aop;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.request.RequestPage;
+import com.quan.core.common.request.PageRequest;
 import com.quan.core.common.web.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -37,7 +37,7 @@ public class PageQueryAOP {
         // 判断是否 有 分页的信息
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         // 参数值
-        RequestPage page = getPageParam(joinPoint.getArgs());
+        PageRequest page = getPageParam(joinPoint.getArgs());
         if (page != null) {
 //            PageQuery pageQuery = methodSignature.getMethod().getDeclaredAnnotation(PageQuery.class);
 //            log.info("设置分页信息 pageNumber：{} -> pageSize：{}", page.getPageNumber(), page.getPageSize());
@@ -64,10 +64,10 @@ public class PageQueryAOP {
                 .count(pageInfo.getTotal()).build();
     }
 
-    private RequestPage getPageParam(Object[] args) {
+    private PageRequest getPageParam(Object[] args) {
         for (Object arg : args) {
-            if (arg instanceof RequestPage) {
-                return (RequestPage) arg;
+            if (arg instanceof PageRequest) {
+                return (PageRequest) arg;
             }
         }
         return null;

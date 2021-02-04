@@ -31,19 +31,19 @@
         </dependency>
 
 
-        <!-- 数据库配置 -->
+        <!--  数据库配置-->
         <dependency>
             <groupId>com.quan</groupId>
             <artifactId>bg-db-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- redis配置 -->
+        <!--  redis配置-->
         <dependency>
             <groupId>com.quan</groupId>
             <artifactId>bg-redis-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- swagger 配置 -->
+        <!--  swagger 配置-->
         <dependency>
             <groupId>com.quan</groupId>
             <artifactId>bg-swagger-spring-boot-starter</artifactId>

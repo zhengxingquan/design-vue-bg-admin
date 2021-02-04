@@ -7,10 +7,10 @@ import com.quan.core.dto.DataFieldDTO;
 import com.quan.core.model.DataField;
 import com.quan.core.factory.DataFieldFactory;
 import com.quan.core.service.DataFieldService;
-import com.quan.core.request.DataFieldPageQueryRequest;
-import com.quan.core.request.DataFieldQueryRequest;
-import com.quan.core.request.create.DataFieldCreateRequest;
-import com.quan.core.request.update.DataFieldUpdateRequest;
+import com.quan.core.controller.request.DataFieldPageQueryRequest;
+import com.quan.core.controller.request.DataFieldQueryRequest;
+import com.quan.core.controller.request.create.DataFieldCreateRequest;
+import com.quan.core.controller.request.update.DataFieldUpdateRequest;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

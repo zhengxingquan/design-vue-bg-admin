@@ -6,10 +6,10 @@ import com.quan.core.dto.RoleGroupMenuQueryDTO;
 import com.quan.core.dto.create.RoleGroupMenuCreateDTO;
 import com.quan.core.dto.update.RoleGroupMenuUpdateDTO;
 import com.quan.core.model.RoleGroupMenu;
-import com.quan.core.request.RoleGroupMenuPageQueryRequest;
-import com.quan.core.request.RoleGroupMenuQueryRequest;
-import com.quan.core.request.create.RoleGroupMenuCreateRequest;
-import com.quan.core.request.update.RoleGroupMenuUpdateRequest;
+import com.quan.core.controller.request.RoleGroupMenuPageQueryRequest;
+import com.quan.core.controller.request.RoleGroupMenuQueryRequest;
+import com.quan.core.controller.request.create.RoleGroupMenuCreateRequest;
+import com.quan.core.controller.request.update.RoleGroupMenuUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

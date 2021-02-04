@@ -1,6 +1,6 @@
 package ${package}.${pkgName}.request;
 
-import com.quan.core.common.request.RequestPage;
+import com.quan.core.common.request.PageRequest;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +18,6 @@ import io.swagger.annotations.ApiModel;
 @Setter
 @Data
 @ApiModel
-public class ${className}PageQueryRequest extends RequestPage {
+public class ${className}PageQueryRequest extends PageRequest {
 
 }

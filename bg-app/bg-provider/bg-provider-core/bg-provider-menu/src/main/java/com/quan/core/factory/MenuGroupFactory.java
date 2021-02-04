@@ -7,10 +7,10 @@ import com.quan.core.dto.MenuGroupQueryDTO;
 import com.quan.core.dto.create.MenuGroupCreateDTO;
 import com.quan.core.dto.update.MenuGroupUpdateDTO;
 import com.quan.core.model.MenuGroup;
-import com.quan.core.request.MenuGroupPageQueryRequest;
-import com.quan.core.request.MenuGroupQueryRequest;
-import com.quan.core.request.create.MenuGroupCreateRequest;
-import com.quan.core.request.update.MenuGroupUpdateRequest;
+import com.quan.core.controller.request.MenuGroupPageQueryRequest;
+import com.quan.core.controller.request.MenuGroupQueryRequest;
+import com.quan.core.controller.request.create.MenuGroupCreateRequest;
+import com.quan.core.controller.request.update.MenuGroupUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

@@ -1,6 +1,6 @@
 package com.quan.core.datamapping.request;
 
-import com.quan.core.common.request.RequestPage;
+import com.quan.core.common.request.PageRequest;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class DataMappingPageQueryRequest extends RequestPage {
+public class DataMappingPageQueryRequest extends PageRequest {
 
 }

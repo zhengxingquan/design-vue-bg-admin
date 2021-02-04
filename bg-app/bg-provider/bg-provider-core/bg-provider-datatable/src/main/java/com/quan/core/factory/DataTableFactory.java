@@ -7,10 +7,10 @@ import com.quan.core.dto.DataTableQueryDTO;
 import com.quan.core.dto.create.DataTableCreateDTO;
 import com.quan.core.dto.update.DataTableUpdateDTO;
 import com.quan.core.model.DataTable;
-import com.quan.core.request.DataTablePageQueryRequest;
-import com.quan.core.request.DataTableQueryRequest;
-import com.quan.core.request.create.DataTableCreateRequest;
-import com.quan.core.request.update.DataTableUpdateRequest;
+import com.quan.core.controller.request.DataTablePageQueryRequest;
+import com.quan.core.controller.request.DataTableQueryRequest;
+import com.quan.core.controller.request.create.DataTableCreateRequest;
+import com.quan.core.controller.request.update.DataTableUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

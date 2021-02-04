@@ -1,6 +1,8 @@
 package com.quan.core.dao;
 
 import com.quan.core.common.model.SysClient;
+import com.quan.core.dto.client.QueryClientDTO;
+import com.quan.core.dto.client.QueryClientPageDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -31,6 +33,8 @@ public interface SysClientDao {
 
     int count(@Param("params") Map<String, Object> params);
 
-    List<SysClient> findList(@Param("params") Map<String, Object> params);
+    List<SysClient> findList(@Param("params") QueryClientPageDTO client);
+
+    List<SysClient> data(@Param("params") QueryClientDTO client);
 
 }

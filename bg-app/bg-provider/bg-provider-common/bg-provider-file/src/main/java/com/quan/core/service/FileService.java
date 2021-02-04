@@ -2,7 +2,7 @@ package com.quan.core.service;
 
 import com.quan.core.common.web.PageResult;
 import com.quan.core.model.FileInfo;
-import com.quan.core.request.FileQueryPageRequest;
+import com.quan.core.controller.request.FileQueryPageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 

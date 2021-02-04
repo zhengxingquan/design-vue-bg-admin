@@ -10,8 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bg-provider-pay</artifactId>
+    <packaging>pom</packaging>
     <description>支付中心</description>
-
+    <modules>
+        <!-- 支付宝支付 -->
+        <module>bg-provider-alibaba-pay</module>
+        <!-- 微信支付 -->
+        <module>bg-provider-weixin-pay</module>
+        <!-- 银联支付 -->
+        <module>bg-provider-union-pay</module>
+        <!-- 公共 -->
+        <module>bg-provider-common-pay</module>
+    </modules>
 
 
 </project>

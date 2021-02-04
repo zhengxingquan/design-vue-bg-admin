@@ -37,8 +37,6 @@
         <module>bg-event-center</module>
         <!-- 配置中心 -->
         <module>bg-config-center</module>
-        <!-- 网关中心 -->
-        <module>bg-gateway-center</module>
         <!-- 组件demo案列模块 -->
         <module>bg-demo</module>
         <!-- 支付中心 -->

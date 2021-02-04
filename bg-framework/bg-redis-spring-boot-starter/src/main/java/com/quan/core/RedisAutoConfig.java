@@ -1,10 +1,9 @@
 package com.quan.core;
 
 
-
 import com.quan.core.config.RedissonProperties;
-import com.quan.core.util.RedisUtil;
 import com.quan.core.serializer.RedisObjectSerializer;
+import com.quan.core.util.RedisUtil;
 import io.lettuce.core.cluster.ClusterClientOptions;
 import io.lettuce.core.cluster.ClusterTopologyRefreshOptions;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;

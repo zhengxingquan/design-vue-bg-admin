@@ -7,10 +7,10 @@ import com.quan.core.dto.RoleQueryDTO;
 import com.quan.core.dto.create.RoleCreateDTO;
 import com.quan.core.dto.update.RoleUpdateDTO;
 import com.quan.core.model.Role;
-import com.quan.core.request.RolePageQueryRequest;
-import com.quan.core.request.RoleQueryRequest;
-import com.quan.core.request.create.RoleCreateRequest;
-import com.quan.core.request.update.RoleUpdateRequest;
+import com.quan.core.controller.request.RolePageQueryRequest;
+import com.quan.core.controller.request.RoleQueryRequest;
+import com.quan.core.controller.request.create.RoleCreateRequest;
+import com.quan.core.controller.request.update.RoleUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

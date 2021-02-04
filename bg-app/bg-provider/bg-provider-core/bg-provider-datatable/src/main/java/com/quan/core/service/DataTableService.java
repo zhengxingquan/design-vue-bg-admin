@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.DataTableDTO;
-import com.quan.core.request.create.DataTableCreateRequest;
-import com.quan.core.request.update.DataTableUpdateRequest;
-import com.quan.core.request.DataTablePageQueryRequest;
-import com.quan.core.request.DataTableQueryRequest;
+import com.quan.core.controller.request.create.DataTableCreateRequest;
+import com.quan.core.controller.request.update.DataTableUpdateRequest;
+import com.quan.core.controller.request.DataTablePageQueryRequest;
+import com.quan.core.controller.request.DataTableQueryRequest;
 
 import java.util.List;
 

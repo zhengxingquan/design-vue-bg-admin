@@ -1,20 +1,18 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.RoleMenuDTO;
 import com.quan.core.dto.RoleMenuPageQueryDTO;
 import com.quan.core.dto.RoleMenuQueryDTO;
 import com.quan.core.dto.create.RoleMenuCreateDTO;
 import com.quan.core.dto.update.RoleMenuUpdateDTO;
 import com.quan.core.model.RoleMenu;
-import com.quan.core.request.RoleMenuPageQueryRequest;
-import com.quan.core.request.RoleMenuQueryRequest;
-import com.quan.core.request.create.RoleMenuCreateRequest;
-import com.quan.core.request.update.RoleMenuUpdateRequest;
+import com.quan.core.controller.request.RoleMenuPageQueryRequest;
+import com.quan.core.controller.request.RoleMenuQueryRequest;
+import com.quan.core.controller.request.create.RoleMenuCreateRequest;
+import com.quan.core.controller.request.update.RoleMenuUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

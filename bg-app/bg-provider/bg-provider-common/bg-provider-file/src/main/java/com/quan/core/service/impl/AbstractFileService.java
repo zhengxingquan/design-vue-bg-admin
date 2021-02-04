@@ -6,7 +6,7 @@ import com.quan.core.dao.FileDao;
 import com.quan.core.dto.FileQueryPageDTO;
 import com.quan.core.enume.FileType;
 import com.quan.core.model.FileInfo;
-import com.quan.core.request.FileQueryPageRequest;
+import com.quan.core.controller.request.FileQueryPageRequest;
 import com.quan.core.service.FileService;
 import com.quan.core.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -1,10 +1,10 @@
 package com.quan.core.service;
 
 import com.quan.core.dto.DictDTO;
-import com.quan.core.request.DictPageQueryRequest;
-import com.quan.core.request.DictQueryRequest;
-import com.quan.core.request.create.DictCreateRequest;
-import com.quan.core.request.update.DictUpdateRequest;
+import com.quan.core.controller.request.DictPageQueryRequest;
+import com.quan.core.controller.request.DictQueryRequest;
+import com.quan.core.controller.request.create.DictCreateRequest;
+import com.quan.core.controller.request.update.DictUpdateRequest;
 
 import java.util.List;
 

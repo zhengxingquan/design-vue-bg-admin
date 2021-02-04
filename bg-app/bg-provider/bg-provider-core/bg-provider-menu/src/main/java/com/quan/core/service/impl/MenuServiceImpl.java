@@ -1,23 +1,19 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.controller.request.create.MenuCreateRequest;
+import com.quan.core.controller.request.update.MenuUpdateRequest;
 import com.quan.core.dao.MenuDao;
 import com.quan.core.dto.MenuDTO;
 import com.quan.core.dto.create.MenuCreateDTO;
 import com.quan.core.factory.MenuFactory;
 import com.quan.core.model.Menu;
-import com.quan.core.request.MenuPageQueryRequest;
-import com.quan.core.request.MenuQueryRequest;
-import com.quan.core.request.create.MenuCreateRequest;
-import com.quan.core.request.update.MenuUpdateRequest;
 import com.quan.core.service.MenuService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -137,42 +133,42 @@ public class MenuServiceImpl implements MenuService {
      * @param menu 对象数据
      * @return
      */
-    @Override
-    public MenuDTO findOneByCnd(MenuQueryRequest menu) {
-        Menu data = menuDao.findOneByCnd(MenuFactory.newInstance(menu));
-        if (data == null) {
-            return null;
-        }
-        return MenuFactory.newInstance(data);
-    }
+//    @Override
+//    public MenuDTO findOneByCnd(MenuQueryRequest menu) {
+//        Menu data = menuDao.findOneByCnd(MenuFactory.newInstance(menu));
+//        if (data == null) {
+//            return null;
+//        }
+//        return MenuFactory.newInstance(data);
+//    }
 
 
-    /**
-     * 查询列表分页
-     *
-     * @param params 对象查询
-     * @return
-     */
-    @Override
-    @PageQuery
-    public Object findAll(MenuPageQueryRequest params) {
-        return menuDao.findAll(MenuFactory.newInstance(params));
-    }
-
-
-    /**
-     * 查询列表不分页
-     *
-     * @param params 对象查询
-     * @return
-     */
-    @Override
-    public List<MenuDTO> list(MenuQueryRequest params) {
-        List<Menu> list = menuDao.list(MenuFactory.newInstance(params));
-        if (CollectionUtils.isEmpty(list)) {
-            return Collections.emptyList();
-        }
-        return MenuFactory.newInstance(list);
-    }
+//    /**
+//     * 查询列表分页
+//     *
+//     * @param params 对象查询
+//     * @return
+//     */
+//    @Override
+//    @PageQuery
+//    public Object findAll(MenuPageQueryRequest params) {
+//        return menuDao.findAll(MenuFactory.newInstance(params));
+//    }
+//
+//
+//    /**
+//     * 查询列表不分页
+//     *
+//     * @param params 对象查询
+//     * @return
+//     */
+//    @Override
+//    public List<MenuDTO> list(MenuQueryRequest params) {
+//        List<Menu> list = menuDao.list(MenuFactory.newInstance(params));
+//        if (CollectionUtils.isEmpty(list)) {
+//            return Collections.emptyList();
+//        }
+//        return MenuFactory.newInstance(list);
+//    }
 
 }

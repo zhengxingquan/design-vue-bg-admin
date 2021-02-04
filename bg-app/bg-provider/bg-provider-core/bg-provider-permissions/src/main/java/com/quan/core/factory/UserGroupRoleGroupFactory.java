@@ -1,20 +1,18 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.dto.UserGroupRoleGroupDTO;
 import com.quan.core.dto.UserGroupRoleGroupPageQueryDTO;
 import com.quan.core.dto.UserGroupRoleGroupQueryDTO;
 import com.quan.core.dto.create.UserGroupRoleGroupCreateDTO;
 import com.quan.core.dto.update.UserGroupRoleGroupUpdateDTO;
 import com.quan.core.model.UserGroupRoleGroup;
-import com.quan.core.request.UserGroupRoleGroupPageQueryRequest;
-import com.quan.core.request.UserGroupRoleGroupQueryRequest;
-import com.quan.core.request.create.UserGroupRoleGroupCreateRequest;
-import com.quan.core.request.update.UserGroupRoleGroupUpdateRequest;
+import com.quan.core.controller.request.UserGroupRoleGroupPageQueryRequest;
+import com.quan.core.controller.request.UserGroupRoleGroupQueryRequest;
+import com.quan.core.controller.request.create.UserGroupRoleGroupCreateRequest;
+import com.quan.core.controller.request.update.UserGroupRoleGroupUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

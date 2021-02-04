@@ -3,7 +3,7 @@ package com.quan.core.service.impl;
 import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.dto.GeneratorQueryDTO;
 import com.quan.core.dao.SysGeneratorDao;
-import com.quan.core.request.GeneratorQueryRequest;
+import com.quan.core.controller.request.GeneratorQueryRequest;
 import com.quan.core.service.SysGeneratorService;
 import com.quan.core.utils.GenUtils;
 import org.apache.commons.io.IOUtils;

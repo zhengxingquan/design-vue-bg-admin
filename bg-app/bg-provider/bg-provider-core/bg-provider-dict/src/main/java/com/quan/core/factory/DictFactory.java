@@ -7,10 +7,10 @@ import com.quan.core.dto.DictQueryDTO;
 import com.quan.core.dto.create.DictCreateDTO;
 import com.quan.core.dto.update.DictUpdateDTO;
 import com.quan.core.model.Dict;
-import com.quan.core.request.DictPageQueryRequest;
-import com.quan.core.request.DictQueryRequest;
-import com.quan.core.request.create.DictCreateRequest;
-import com.quan.core.request.update.DictUpdateRequest;
+import com.quan.core.controller.request.DictPageQueryRequest;
+import com.quan.core.controller.request.DictQueryRequest;
+import com.quan.core.controller.request.create.DictCreateRequest;
+import com.quan.core.controller.request.update.DictUpdateRequest;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
