@@ -150,6 +150,7 @@ public class DictController {
     @PreAuthorize("hasAnyAuthority('sys:dict:list')")
     @SLog(module = "dict-center", tag = "通过条件查找记录")
     public Result data(@RequestBody DictQueryRequest req) {
+
         return JsonResult.succeed(dictService.list(req));
     }
 

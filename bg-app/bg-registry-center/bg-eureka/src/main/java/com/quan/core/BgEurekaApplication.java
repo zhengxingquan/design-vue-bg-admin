@@ -17,6 +17,8 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  *
  *  参考项目 ：https://gitee.com/zlt2000/microservices-platform
  *
+ *  参考项目 ： https://gitee.com/owenwangwen/open-capacity-platform
+ *
  *
  */
 //@EnableHystrixDashboard

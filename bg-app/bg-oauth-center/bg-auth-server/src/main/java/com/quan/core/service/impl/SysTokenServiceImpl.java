@@ -8,7 +8,7 @@ import com.quan.core.common.web.PageResult;
 import com.quan.core.constant.AuthConstant;
 import com.quan.core.constant.AuthErrorCode;
 import com.quan.core.dto.token.*;
-import com.quan.core.eexception.AuthClientAuthenticationException;
+import com.quan.core.exception.AuthClientAuthenticationException;
 import com.quan.core.service.RedisClientDetailsService;
 import com.quan.core.service.SysTokenService;
 import com.quan.core.utils.SpringUtil;

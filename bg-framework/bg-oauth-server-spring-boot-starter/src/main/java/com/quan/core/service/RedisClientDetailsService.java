@@ -3,6 +3,9 @@ package com.quan.core.service;
 import com.alibaba.fastjson.JSONObject;
 import com.quan.core.common.auth.details.DefaultClientDetails;
 import com.quan.core.common.constant.OAuthConstant;
+import com.quan.core.constant.AuthServerErrorCode;
+import com.quan.core.exception.AuthClientAuthenticationException;
+import com.quan.core.exception.InvalidAuthClientException;
 import com.quan.core.json.Jackson2Mapper;
 import com.quan.core.json.JacksonMapper;
 import com.quan.core.json.JsonMapper;
@@ -42,21 +45,20 @@ public final class RedisClientDetailsService extends JdbcClientDetailsService {
 
 
     private static final String SELECT_CLIENT_DETAILS_SQL =
-            "select client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
-                    "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id " +
-                    "from oauth_client_details where client_id = ? and status = 1  ";
+            "SELECT id,client_id, client_secret, resource_ids, scope, authorized_grant_types, " +
+                    "web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count " +
+                    "FROM oauth_client_details WHERE client_id = ? AND data_state = 0  ";
 
     // 扩展 默认的 ClientDetailsService, 增加逻辑删除判断( status = 1)
     private static final String SELECT_FIND_STATEMENT =
-            "select client_id, client_secret,resource_ids, scope, "
+            "SELECT id,client_id, client_secret,resource_ids, scope, "
                     + "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
-                    + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count ,id  from oauth_client_details where status = 1 order by client_id ";
+                    + "refresh_token_validity, additional_information, autoapprove ,if_limit, limit_count  FROM oauth_client_details WHERE data_state = 0 order by client_id ";
 
 
     private RedisTemplate<String, Object> redisTemplate;
 
     private final JdbcTemplate jdbcTemplate;
-
 
     public RedisTemplate<String, Object> getRedisTemplate() {
         return redisTemplate;
@@ -97,8 +99,7 @@ public final class RedisClientDetailsService extends JdbcClientDetailsService {
             }
         } catch (Exception e) {
             log.error("clientId:{},{}", clientId, clientId);
-            throw new InvalidClientException("应用获取失败") {
-            };
+            throw new InvalidAuthClientException(AuthServerErrorCode.AUTH_SERVER_CLIENT_NOT_EXISTS.getMsg());
         }
 
         return clientDetails;
@@ -126,15 +127,12 @@ public final class RedisClientDetailsService extends JdbcClientDetailsService {
 
         } catch (EmptyResultDataAccessException e) {
             log.error("clientId:{},{}", clientId, clientId);
-            throw new AuthenticationException("应用不存在") {
-            };
+            throw new AuthClientAuthenticationException(AuthServerErrorCode.AUTH_SERVER_CLIENT_IS_DISABLED.getMsg()) ;
         } catch (NoSuchClientException e) {
             log.error("clientId:{},{}", clientId, clientId);
-            throw new AuthenticationException("应用不存在") {
-            };
+            throw new AuthClientAuthenticationException(AuthServerErrorCode.AUTH_SERVER_CLIENT_IS_DISABLED.getMsg()) ;
         } catch (InvalidClientException e) {
-            throw new AuthenticationException("应用状态不合法") {
-            };
+            throw new InvalidAuthClientException(AuthServerErrorCode.AUTH_SERVER_CLIENT_DATA_STATE_ERROR.getMsg());
         }
 
         return clientDetails;

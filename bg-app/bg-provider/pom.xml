@@ -13,8 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!-- 公共的业务 -->
-        <module>bg-provider-common</module>
         <!-- 系统核心模块功能 -->
         <module>bg-provider-core</module>
         <!-- 系统平台模块功能 -->
@@ -25,6 +23,8 @@
         <module>bg-provider-workflow</module>
         <!-- 系统报表模块，主要用于对用户数据进行分析报表 -->
         <module>bg-provider-report</module>
+        <!-- 公共的业务 -->
+        <module>bg-provider-common</module>
     </modules>
 
 </project>

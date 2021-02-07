@@ -6,25 +6,22 @@ import java.util.Objects;
 
 /**
  * @author 郑兴泉 956607644@qq.com
- * @data 2021/2/4
+ * @data 2021/2/5
  * 描述：
  */
-public enum AuthErrorCode {
+public enum AuthServerErrorCode {
 
     FAIL(0, ""),
-    CLIENT_ID_EMPTY(1, "请求参数中无clientId信息"),
-    CLIENT_SECRET_EMPTY(2, "请求参数中无clientSecret信息"),
-    CLIENT_ID_NOT_EXISTS(3, "clientId对应的信息不存在"),
-    CLIENT_SECRET_ERROR(4, "clientSecret不匹配"),
 
-    CLIENT_EXISTS_ERROR(10, "CLIENT 已存在"),
-    CLIENT_NOT_EXISTS_ERROR(11, "CLIENT 不存在");
-
+    AUTH_SERVER_CLIENT_NOT_EXISTS(1, "应用获取失败"),
+    AUTH_SERVER_CLIENT_IS_DISABLED(2, "应用不存在"),
+    AUTH_SERVER_CLIENT_DATA_STATE_ERROR(3, "应用状态不合法");
 
     private Integer code;
     private String msg;
 
-    AuthErrorCode(Integer code, String msg) {
+
+    AuthServerErrorCode(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -45,17 +42,16 @@ public enum AuthErrorCode {
         this.msg = msg;
     }
 
-
-    private static Map<Integer, AuthErrorCode> statusMap = new HashMap<>();
+    private static Map<Integer, AuthServerErrorCode> statusMap = new HashMap<>();
 
     static {
-        for (final AuthErrorCode status : AuthErrorCode.values()) {
+        for (final AuthServerErrorCode status : AuthServerErrorCode.values()) {
             statusMap.put(status.getCode(), status);
         }
     }
 
-    public static AuthErrorCode valueOf(Integer code) {
-        AuthErrorCode status = statusMap.get(code);
+    public static AuthServerErrorCode valueOf(Integer code) {
+        AuthServerErrorCode status = statusMap.get(code);
         if (Objects.isNull(status)) {
             return FAIL;
         }

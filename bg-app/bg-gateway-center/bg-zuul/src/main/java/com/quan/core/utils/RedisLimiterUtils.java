@@ -14,6 +14,7 @@ import java.util.UUID;
 @Component
 @SuppressWarnings("all")
 public class RedisLimiterUtils {
+
     public static final String API_WEB_TIME_KEY = "time_key:";
     public static final String API_WEB_COUNTER_KEY = "counter_key:";
     private static final String EXCEEDS_LIMIT = "规定的时间内超出了访问的限制！";

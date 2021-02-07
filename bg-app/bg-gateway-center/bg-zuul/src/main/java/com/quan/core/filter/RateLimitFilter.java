@@ -5,6 +5,7 @@ package com.quan.core.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import com.quan.core.common.model.SysClient;
 import com.quan.core.common.web.JsonResult;
 import com.quan.core.service.SysClientService;
 import com.quan.core.utils.RedisLimiterUtils;
@@ -152,13 +153,13 @@ public class RateLimitFilter extends ZuulFilter {
 
 					String clientId = athentication.getOAuth2Request().getClientId();
 
-					Map client = sysClientService.getClient(clientId);
+					SysClient client = sysClientService.findClientByClientId(clientId);
 
 					if(client!=null){
-						String flag = String.valueOf(client.get("ifLimit") ) ;
+						String flag = String.valueOf(client.getIfLimit()) ;
 
 						if("1".equals(flag)){
-							String accessLimitCount =  String.valueOf(client.get("limitCount") );
+							String accessLimitCount =  String.valueOf(client.getLimitCount() );
 							if (!accessLimitCount.isEmpty()) {
 								JsonResult result = redisLimiterUtils.rateLimitOfDay(clientId, request.getRequestURI(),
 										Long.parseLong(accessLimitCount));

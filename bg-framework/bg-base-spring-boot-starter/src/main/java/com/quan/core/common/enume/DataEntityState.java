@@ -46,9 +46,6 @@ public enum DataEntityState {
         }
     }
 
-    private int code;
-
-
     public static DataEntityState valueOf(Integer code) {
         DataEntityState status = statusMap.get(code);
         if (Objects.isNull(status)) {

@@ -43,7 +43,6 @@
         <module>bg-provider-pay</module>
         <!-- 自已的博客中心 -->
         <module>bg-provider-blog</module>
-
     </modules>
 
 </project>

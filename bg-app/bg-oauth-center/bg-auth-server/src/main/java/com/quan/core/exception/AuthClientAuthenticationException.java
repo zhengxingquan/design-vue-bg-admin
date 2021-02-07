@@ -1,4 +1,4 @@
-package com.quan.core.eexception;
+package com.quan.core.exception;
 
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 

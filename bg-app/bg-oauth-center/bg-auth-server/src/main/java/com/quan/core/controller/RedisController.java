@@ -14,10 +14,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ import java.util.Optional;
  * @author zxq(956607644 @ qq.com)
  * @date 2021/2/4 16:51
  */
-@Controller
+@RestController
 @Api(tags = "（REDIS CENTER）REDIS 管理")
 @AutoCreateMenuAuth(type = MenuType.MENU, name = "REDIS管理", permission = "sys:redis")
 @RequestMapping("/sys/redis")
@@ -37,53 +37,44 @@ public class RedisController {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    @ResponseBody
     @GetMapping("/memory/info")
     @ApiOperation(value = "redis内存信息")
-    @SLog(module = "auth-server")
-    public Result getMemoryInfo() {
-        try {
+    @SLog(module = "auth-server", tag = "REDIS 内存信息")
+    public Result getMemoryInfo() throws ControllerException {
 
-            Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
-            Object o = redisTemplate.execute(new RedisCallback() {
-                @Override
-                public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                    return Optional.ofNullable(
-                            connection.info(RedisConstant.MEMORY))
-                            .orElseThrow(RuntimeException::new)
-                            .get(RedisConstant.USED_MEMORY);
-                }
-            });
-            map.put(RedisConstant.USED_MEMORY, o);
-            map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
-            return JsonResult.succeed(map);
-        } catch (Exception e) {
-            throw new ControllerException(e);
-        }
+        Object o = redisTemplate.execute(new RedisCallback() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                return Optional.ofNullable(
+                        connection.info(RedisConstant.MEMORY))
+                        .orElseThrow(RuntimeException::new)
+                        .get(RedisConstant.USED_MEMORY);
+            }
+        });
+        map.put(RedisConstant.USED_MEMORY, o);
+        map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
+        return JsonResult.succeed(map);
     }
 
 
     @ResponseBody
     @GetMapping("/key/size")
     @ApiOperation(value = "redis键值信息")
-    @SLog(module = "auth-server")
-    public Result getKeysSize() {
-        try {
-            Map<String, Object> map = new HashMap<>();
+    @SLog(module = "auth-server", tag = "REDIS 键值信息")
+    public Result getKeysSize() throws ControllerException {
+        Map<String, Object> map = new HashMap<>();
 
-            Object o = redisTemplate.execute(new RedisCallback() {
-                public Long doInRedis(RedisConnection connection) throws DataAccessException {
-                    return connection.dbSize();
-                }
-            });
-            map.put(RedisConstant.DB_SIZE, o);
-            map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
+        Object o = redisTemplate.execute(new RedisCallback() {
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.dbSize();
+            }
+        });
+        map.put(RedisConstant.DB_SIZE, o);
+        map.put(RedisConstant.CREATE_TIME, System.currentTimeMillis());
 
-            return JsonResult.succeed(map);
-        } catch (Exception e) {
-            throw new ControllerException(e);
-        }
+        return JsonResult.succeed(map);
     }
 
 }

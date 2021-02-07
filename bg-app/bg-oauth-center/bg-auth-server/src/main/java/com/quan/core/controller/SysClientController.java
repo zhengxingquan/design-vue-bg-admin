@@ -33,7 +33,7 @@ import java.util.List;
  * @author owen 624191343@qq.com
  */
 @RestController
-@Api(tags = "CLIENT API")
+@Api(tags = "应用管理API")
 @RequestMapping("/sys/clients")
 @AutoCreateMenuAuth(type = MenuType.MENU, name = "应用管理", permission = "sys:client")
 public class SysClientController {
@@ -43,9 +43,9 @@ public class SysClientController {
 
 
     @GetMapping("/list")
-    @ApiOperation(value = "应用列表")
+    @ApiOperation(value = "获取列表数据应用")
     @PreAuthorize("hasAuthority('sys:client:list')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "获取列表数据应用")
     public PageResult<SysClient> list(@RequestBody QueryClientPageRequest client) {
         return null;
 //        sysClientService.list(client);
@@ -54,15 +54,15 @@ public class SysClientController {
     @GetMapping("/findById")
     @ApiOperation(value = "根据id获取应用")
     @PreAuthorize("hasAuthority('sys:client:list')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "根据id获取应用")
     public Result findById(@RequestBody FindOneByIdRequest request) {
         return JsonResult.succeed(sysClientService.getById(request.getId()));
     }
 
     @GetMapping("/data")
-    @ApiOperation(value = "所有应用")
-    @SLog(module = "auth-server")
+    @ApiOperation(value = "查询列表不分页")
     @PreAuthorize("hasAuthority('sys:client:list')")
+    @SLog(module = "auth-server", tag = "查询列表不分页")
     public Result<List<SysClient>> data(@RequestBody QueryClientRequest request) {
         return JsonResult.succeed(sysClientService.data(request));
     }
@@ -70,7 +70,7 @@ public class SysClientController {
     @PostMapping("/delete")
     @ApiOperation(value = "删除应用")
     @PreAuthorize("hasAuthority('sys:client:delete')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "删除应用")
     public void doDelete(@RequestBody DeleteRequest deleteRequest) {
         try {
             sysClientService.delete(deleteRequest.getId());
@@ -82,7 +82,7 @@ public class SysClientController {
     @PostMapping("/deletes")
     @ApiOperation(value = "删除应用")
     @PreAuthorize("hasAuthority('sys:client:delete')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "删除应用")
     public void doDeletes(@RequestBody BatchDeleteRequest deleteRequest) {
         try {
             sysClientService.deletes(deleteRequest.getIds());
@@ -94,6 +94,7 @@ public class SysClientController {
     @PostMapping("/save")
     @ApiOperation(value = "保存应用")
     @PreAuthorize("hasAuthority('sys:client:save')")
+    @SLog(module = "auth-server", tag = "保存应用")
     public Result doSave(@RequestBody ClientCreateRequest request) {
 
         return sysClientService.save(request);
@@ -102,6 +103,7 @@ public class SysClientController {
     @PostMapping("/update")
     @ApiOperation(value = "修改应用")
     @PreAuthorize("hasAuthority('sys:client:update')")
+    @SLog(module = "auth-server", tag = "修改应用")
     public Result doUpdate(@RequestBody ClientUpdateRequest request) {
         return sysClientService.update(request);
     }
@@ -112,7 +114,7 @@ public class SysClientController {
     @PostMapping("/enable")
     @ApiOperation(value = "修改状态启用")
     @PreAuthorize("hasAuthority('sys:client:update:enable')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "修改状态启用")
     public Result enable(@RequestBody EnableRequest request) {
         return sysClientService.enable(request.getId());
     }
@@ -124,7 +126,7 @@ public class SysClientController {
     @PostMapping("/disable")
     @ApiOperation(value = "修改状态冻结")
     @PreAuthorize("hasAuthority('sys:client:update:disable')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "修改状态冻结")
     public Result disable(@RequestBody DisableRequest request) {
         return sysClientService.disable(request.getId());
     }
@@ -136,7 +138,7 @@ public class SysClientController {
     @PostMapping("/disable")
     @ApiOperation(value = "修改状态批量启用")
     @PreAuthorize("hasAuthority('sys:client:update:enable')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "修改状态批量启用")
     public Result batchEnable(@RequestBody BatchEnableAndDisableRequest request) {
         return sysClientService.batchEnable(request.getId());
     }
@@ -148,7 +150,7 @@ public class SysClientController {
     @PostMapping("/disable")
     @ApiOperation(value = "修改状态批量禁用")
     @PreAuthorize("hasAuthority('sys:client:update:disable')")
-    @SLog(module = "auth-server")
+    @SLog(module = "auth-server", tag = "修改状态批量禁用")
     public Result batchDisable(@RequestBody BatchEnableAndDisableRequest request) {
         return sysClientService.batchDisable(request.getId());
     }

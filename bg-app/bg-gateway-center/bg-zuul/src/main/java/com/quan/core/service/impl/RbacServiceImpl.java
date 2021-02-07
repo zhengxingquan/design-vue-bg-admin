@@ -3,8 +3,10 @@ package com.quan.core.service.impl;
  *
  */
 
-import com.quan.core.service.SysClientService;
+import com.quan.core.common.model.SysClient;
+import com.quan.core.common.model.SysService;
 import com.quan.core.service.RbacService;
+import com.quan.core.service.SysClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +16,7 @@ import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * API 级别权限认证
@@ -29,33 +31,33 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class RbacServiceImpl implements RbacService {
 
-	@Autowired
-	private SysClientService sysClientService;
-	private AntPathMatcher antPathMatcher = new AntPathMatcher();
+    @Autowired
+    private SysClientService sysClientService;
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-	/**
-	 * @param request HttpServletRequest
-	 * @param authentication 认证信息
-	 * @return 是否有权限
-	 */
-	@Override
-	public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
-		Authentication user = SecurityContextHolder.getContext().getAuthentication();
-		boolean hasPermission = false;
-		if (user != null) {
-			if (user instanceof OAuth2Authentication) {
-				OAuth2Authentication athentication = (OAuth2Authentication) user;
-				String clientId = athentication.getOAuth2Request().getClientId();
-				Map map = sysClientService.getClient(clientId);
-				if (map == null) {
-					hasPermission = false ;
-				} else {
-					List<Map> list = sysClientService.listByClientId(Long.valueOf(String.valueOf(map.get("id"))));
-					hasPermission = list.stream().anyMatch(item -> antPathMatcher.match(String.valueOf(item.get("path")), request.getRequestURI()));
-				}
-			}
-		}
-		return hasPermission;
-	}
+    /**
+     * @param request HttpServletRequest
+     * @param authentication 认证信息
+     * @return 是否有权限
+     */
+    @Override
+    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+        Authentication user = SecurityContextHolder.getContext().getAuthentication();
+        boolean hasPermission = false;
+        if (user != null) {
+            if (user instanceof OAuth2Authentication) {
+                OAuth2Authentication athentication = (OAuth2Authentication) user;
+                String clientId = athentication.getOAuth2Request().getClientId();
+                SysClient client = sysClientService.findClientByClientId(clientId);
+                if (Objects.isNull(client)) {
+                    hasPermission = false;
+                } else {
+                    List<SysService> list = sysClientService.findAllClientByClientId(client.getId());
+                    hasPermission = list.stream().anyMatch(item -> antPathMatcher.match(item.getPath(), request.getRequestURI()));
+                }
+            }
+        }
+        return hasPermission;
+    }
 
 }

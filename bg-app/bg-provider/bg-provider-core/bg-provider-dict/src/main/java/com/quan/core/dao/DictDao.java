@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 系统字典表
  *
- * @author ${author}
+ * @author zhengxingquan
  * @email 956607644@qq.com
  * @date 2021-01-05 16:01:09
  */

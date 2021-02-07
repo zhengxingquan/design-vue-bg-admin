@@ -1,26 +1,19 @@
 package com.quan.core.dao;
 
+import com.quan.core.common.model.SysService;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 作者 owen 
- * @version 创建时间：2018年4月5日 下午19:52:21 类说明
+/***
  * 查询应用绑定的资源权限
- * blog: https://blog.51cto.com/13005375 
- * code: https://gitee.com/owenwangwen/open-capacity-platform
+ * @author zxq(956607644 @ qq.com)
+ * @date 2021/2/5 10:41
  */
 @Mapper
-@SuppressWarnings("all")
 public interface SysServiceDao {
 
- 
-
-	@Select("select p.id,p.parent_id parentId , p.name, p.path, p.sort, p.create_time createTime , p.update_time updateTime,p.is_service isService from sys_service p inner join sys_client_service rp on p.id = rp.service_id where rp.client_id = #{clientId} order by p.sort")
-    List<Map> listByClientId(Long clientId);
- 
- 
+    List<SysService> findAllClientByClientId(@Param("clientId") Long clientId);
 }

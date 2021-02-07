@@ -1,12 +1,15 @@
 package com.quan.core.service;
 
+import com.quan.core.common.model.SysClient;
+import com.quan.core.common.model.SysService;
+
 import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("all")
 public interface SysClientService {
 
-	public Map getClient(String clientId);
+	SysClient findClientByClientId(String clientId);
 	
-	List<Map> listByClientId(Long clientId);
+	List<SysService> findAllClientByClientId(Long clientId);
 }

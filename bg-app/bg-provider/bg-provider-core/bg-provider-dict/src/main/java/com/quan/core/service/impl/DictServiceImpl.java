@@ -3,16 +3,15 @@ package com.quan.core.service.impl;
 import com.quan.core.common.annotation.PageQuery;
 import com.quan.core.common.uid.IUidGenerator;
 import com.quan.core.common.util.Strings;
+import com.quan.core.controller.request.create.DictCreateRequest;
+import com.quan.core.controller.request.update.DictUpdateRequest;
 import com.quan.core.dao.DictDao;
 import com.quan.core.dto.DictDTO;
 import com.quan.core.dto.create.DictCreateDTO;
 import com.quan.core.dto.update.DictUpdateDTO;
 import com.quan.core.factory.DictFactory;
 import com.quan.core.model.Dict;
-import com.quan.core.controller.request.DictPageQueryRequest;
-import com.quan.core.controller.request.DictQueryRequest;
-import com.quan.core.controller.request.create.DictCreateRequest;
-import com.quan.core.controller.request.update.DictUpdateRequest;
+import com.quan.core.controller.request.*;
 import com.quan.core.service.DictService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,4 +210,6 @@ public class DictServiceImpl implements DictService {
         }
         return dictDao.disable(ids);
     }
+
+
 }

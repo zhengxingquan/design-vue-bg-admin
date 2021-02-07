@@ -1,16 +1,15 @@
 package com.quan.core.factory;
 
 import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.controller.request.create.DictCreateRequest;
+import com.quan.core.controller.request.update.DictUpdateRequest;
 import com.quan.core.dto.DictDTO;
 import com.quan.core.dto.DictPageQueryDTO;
 import com.quan.core.dto.DictQueryDTO;
 import com.quan.core.dto.create.DictCreateDTO;
 import com.quan.core.dto.update.DictUpdateDTO;
 import com.quan.core.model.Dict;
-import com.quan.core.controller.request.DictPageQueryRequest;
-import com.quan.core.controller.request.DictQueryRequest;
-import com.quan.core.controller.request.create.DictCreateRequest;
-import com.quan.core.controller.request.update.DictUpdateRequest;
+import com.quan.core.controller.request.*;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;

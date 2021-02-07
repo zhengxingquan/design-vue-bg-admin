@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quan.core.dao.SysClientDao">
+
+
+    <sql id="baseColumnList">
+        `id` as id ,
+        `client_id` as clientId,
+        `client_secret` as clientSecret,
+        `client_secret_str` as clientSecretStr ,
+        `resource_ids` as `resourceIds`,
+        `scope` as scope ,
+        `authorized_grant_types` as authorizedGrantTypes ,
+        `access_token_validity` as accessTokenValidity,
+        `refresh_token_validity` as refreshTokenValidity ,
+        `web_server_redirect_uri`  as webServerRedirectUri ,
+        `additional_information` as additionalInformation ,
+        `authorities` as authorities,
+        `if_limit` as ifLimit ,
+        `limit_count` as limitCount,
+        `autoapprove` as autoapprove,
+        `data_state` as dataState
+    </sql>
+
+    <sql id="TableName">
+        oauth_client_details
+    </sql>
+
+    <sql id="BaseWhere">
+        data_state != 1
+    </sql>
+
+    <!-- 查询数据 -->
+    <select id="findClientByClientId" resultType="com.quan.core.common.model.SysClient">
+
+        select
+        <include refid="baseColumnList"/>
+        from
+        <include refid="TableName"/>
+        <include refid="BaseWhere"/>
+        AND client_id = #{clientId}
+    </select>
+
+
+</mapper>
