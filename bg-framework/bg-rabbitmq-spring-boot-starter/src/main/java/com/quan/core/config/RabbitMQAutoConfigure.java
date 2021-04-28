@@ -12,14 +12,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author Coder编程
- * @version V1.0
- * @Title: RabbitMQAutoConfigure
- * @Package: com.open.capacity.rabbitmq.config
- * @Description: TODO
- * @date 2019/8/25  21:03
- **/
+/***
+ * RabbitMQAutoConfigure 配置
+ * @author zxq(956607644@qq.com)
+ * @date 2021/4/28 17:37
+ */
 
 @Configuration
 @ConditionalOnClass(FastBuildRabbitMqProducer.class)
@@ -49,7 +46,7 @@ public class RabbitMQAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "bg.fast.rabbitmq", value = "enalbe", havingValue = "true")
+    @ConditionalOnProperty(prefix = "bg.fast.rabbitmq", value = "enable", havingValue = "true")
     public FastBuildRabbitMqProducer fastRabbitMQProducer(ConnectionFactory connectionFactory) {
         return new FastBuildRabbitMqProducer(connectionFactory);
     }

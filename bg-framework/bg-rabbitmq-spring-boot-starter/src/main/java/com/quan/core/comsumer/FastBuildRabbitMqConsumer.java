@@ -26,11 +26,16 @@ import java.util.concurrent.TimeoutException;
  * @Description: TODO
  * @date 2019/8/2715:14
  */
+/***
+ * MQ 消费者
+ * @author zxq(956607644@qq.com)
+ * @date 2021/4/28 18:20
+ */
 @Slf4j
 @SuppressWarnings("all")
-public class FastBuildRabbitMqConsumer {
+public  class FastBuildRabbitMqConsumer {
 
-    private ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
     
     public FastBuildRabbitMqConsumer(ConnectionFactory connectionFactory){
         this.connectionFactory = connectionFactory;

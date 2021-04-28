@@ -29,6 +29,7 @@
         <module>bg-cache-spring-boot-starter</module>
         <!-- rabbit MQ -->
         <module>bg-rabbitmq-spring-boot-starter</module>
+        <!-- es -->
         <module>bg-es-spring-boot-starter</module>
 
     </modules>

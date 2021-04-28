@@ -1,5 +1,10 @@
-package com.quan.core.enumcode;
+package com.quan.core.common;
 
+/***
+ * 生产者枚举常量
+ * @author zxq(956607644@qq.com)
+ * @date 2021/4/28 17:46
+ */
 public enum ProducerCallBackEnum {
 
     SEND(0,"消息发送,无反馈"),
@@ -9,8 +14,9 @@ public enum ProducerCallBackEnum {
     private Integer code;
     private String desc;
 
-    ProducerCallBackEnum(Integer code, String desc){
-
+    ProducerCallBackEnum(Integer code, String desc) {
+        this.code = code;
+        this.desc = desc;
     }
 
     public Integer getCode() {

@@ -1,26 +1,15 @@
 package ${package}.${pkgName}.factory;
 
 import com.quan.core.common.uid.IUidGenerator;
-import ${package}.${pkgName}.dto.${className}DTO;
+import ${package}.${pkgName}.dto.*;
 import ${package}.${pkgName}.model.${className};
-import ${package}.${pkgName}.dto.${className}PageQueryDTO;
-import ${package}.${pkgName}.dto.${className}QueryDTO;
-import ${package}.${pkgName}.dto.create.${className}CreateDTO;
-import ${package}.${pkgName}.dto.update.${className}UpdateDTO;
-import ${package}.${pkgName}.request.${className}QueryRequest;
-import ${package}.${pkgName}.request.create.${className}CreateRequest;
-import ${package}.${pkgName}.request.update.${className}UpdateRequest;
-import ${package}.${pkgName}.request.${className}PageQueryRequest;
+import ${package}.${pkgName}.request.*;
 
 import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
- * ${comments} 创建请求类
+ * ${comments}
  *
  * @author ${author}
  * @email ${email}
@@ -30,64 +19,85 @@ public final class ${className}Factory {
 
 
     /***
-     * 新建
-     *
-     * @return
+     *   新建转换类
+     * @author ${author}
+     * @date ${datetime}
+     * @param uidGenerator 分布式ID生成类
+     * @param req 前端请求数据
+     * @return CreateDTO
      */
     public static ${className}CreateDTO newInstance(IUidGenerator uidGenerator, ${className}CreateRequest req) {
-        ${className}CreateDTO createData = new ${className}CreateDTO();
-        createData.setId(uidGenerator.uid());
+        ${className}CreateDTO data = new ${className}CreateDTO();
+        data.setId(uidGenerator.uid());
         #foreach ($column in $columns)
         #if($column.reqIgnore == false && $column.columnName != $pk.columnName)
-        createData.set${column.attrName}(req.get${column.attrName}());
+            data.set${column.attrName}(req.get${column.attrName}());
         #end
         #end
-        createData.setCreateTime(new Date());
-        createData.setCreateUserId(0L);
-        createData.setHasChildren(0);
+        data.setCreateTime(new Date());
+        data.setCreateUserId(0L);
+        data.setHasChildren(0);
         return createData;
     }
 
     /***
-     * 编辑
-     *
-     * @return
+     *  编辑类转换
+     * @author ${author}
+     * @date ${datetime}
+     * @param req  前端请求数据
+
+     * @return UpdateDTO
      */
     public static ${className}UpdateDTO newInstance(${className}UpdateRequest req) {
-        ${className}UpdateDTO updateData = new ${className}UpdateDTO();
+        ${className}UpdateDTO data = new ${className}UpdateDTO();
         #foreach ($column in $columns)
         #if($column.reqIgnore == false)
-        updateData.set${column.attrName}(req.get${column.attrName}());
+            data.set${column.attrName}(req.get${column.attrName}());
         #end
         #end
-        updateData.setUpdateTime(new Date());
-        updateData.setUpdateUserId(0L);
+        data.setUpdateTime(new Date());
+        data.setUpdateUserId(0L);
         return updateData;
     }
 
     /***
      * 批量 新建
+     * @author ${author}
+     * @date ${datetime}
+     * @param uidGenerator 分布式ID生成类
+     * @param dataAll
+     * @return java.util.List<CreateDTO>
      */
-    public static List<${className}CreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<${className}CreateRequest> datas) {
+    public static List<${className}CreateDTO> newBatchInstance(IUidGenerator uidGenerator, List<${className}CreateRequest> dataAll) {
 
-        if (CollectionUtils.isEmpty(datas)) {
+        if (CollectionUtils.isEmpty(dataAll)) {
             return Collections.emptyList();
         }
-        return datas.stream().map(d -> newInstance(uidGenerator, d)).collect(Collectors.toList());
+        return dataAll.stream().map(d -> newInstance(uidGenerator, d)).collect(Collectors.toList());
     }
 
     /***
-    * 转换查询列表 req 到 DTO
-    */
+     * 转换查询列表 req 到 DTO
+     * @author ${author}
+     * @date ${datetime}
+     * @param req 前端请求类
+    
+     * @return QueryDTO  
+     */  
     public static ${className}QueryDTO newInstance(${className}QueryRequest req) {
         ${className}QueryDTO queryData = new ${className}QueryDTO();
 
         return queryData;
     }
-
+    
     /***
      * 转换分页 req 到 DTO
-     */
+     * @author ${author}
+     * @date ${datetime}
+     * @param req 前端请求类
+    
+     * @return PageQueryDTO  
+     */  
     public static ${className}PageQueryDTO newInstance(${className}PageQueryRequest req) {
         ${className}PageQueryDTO query = new ${className}PageQueryDTO();
         query.setPageNumber(req.getPageNumber());
@@ -98,7 +108,12 @@ public final class ${className}Factory {
 
     /***
      * 转换 PO 到 DTO
-     */
+     * @author ${author}
+     * @date ${datetime}
+     * @param 
+    
+     * @return DTO  
+     */  
     public static ${className}DTO newInstance(${className} data) {
         ${className}DTO dto = new ${className}DTO();
         #foreach ($column in $columns)
@@ -110,6 +125,14 @@ public final class ${className}Factory {
         return dto;
     }
 
+    /***
+     * 批量转换 PO 到 DTO
+     * @author ${author}
+     * @date ${datetime}
+     * @param
+
+     * @return DTO
+     */
     public static List<${className}DTO> newInstance(List<${className}> data) {
         return data.stream().map(${className}Factory::newInstance).collect(Collectors.toList());
     }

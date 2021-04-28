@@ -11,11 +11,15 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-/**
- * retryCache的容器
+/***
+ * 重试缓存类
+ *
+ * @author zxq(956607644@qq.com)
+ * @date 2021/4/28 18:06
+ * @return
  */
 @Slf4j
-public class RetryCache {
+public final class RetryCache {
     private MessageSender sender;
     private boolean stop = false;
     private Map<Long, MessageWithTime> map = new ConcurrentSkipListMap<>();
