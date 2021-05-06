@@ -1,8 +1,6 @@
 package com.quan.core.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.quan.core.common.dto.query.PageQueryDTO;
+import com.quan.core.constant.dto.query.PageQueryDTO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

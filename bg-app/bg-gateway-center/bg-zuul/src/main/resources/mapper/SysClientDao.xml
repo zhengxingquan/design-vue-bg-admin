@@ -32,7 +32,7 @@
     </sql>
 
     <!-- 查询数据 -->
-    <select id="findClientByClientId" resultType="com.quan.core.common.model.SysClient">
+    <select id="findClientByClientId" resultType="com.quan.core.constant.model.SysClient">
 
         select
         <include refid="baseColumnList"/>

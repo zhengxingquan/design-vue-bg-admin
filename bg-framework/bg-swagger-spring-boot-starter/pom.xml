@@ -35,13 +35,6 @@
             <version>${swagger.version}</version>
         </dependency>
 
-        <!-- swagger -->
-<!--        <dependency>-->
-<!--            <groupId>com.didispace</groupId>-->
-<!--            <artifactId>swagger-butler-core</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>

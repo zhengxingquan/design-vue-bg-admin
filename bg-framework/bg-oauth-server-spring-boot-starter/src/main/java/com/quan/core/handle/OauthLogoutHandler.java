@@ -1,7 +1,7 @@
 package com.quan.core.handle;
 
-import com.quan.core.common.constant.OAuthConstant;
-import com.quan.core.common.util.StringUtil;
+import com.quan.core.constant.constant.OAuthConstant;
+import com.quan.core.constant.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,9 +1,8 @@
 package com.quan.core.datamapping.service.impl;
 
-import cn.hutool.core.lang.Dict;
-import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.uid.IUidGenerator;
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.annotation.PageQuery;
+import com.quan.core.constant.uid.IUidGenerator;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.datamapping.dao.DataMappingDao;
 import com.quan.core.datamapping.dto.DataMappingDTO;
 import com.quan.core.datamapping.dto.create.DataMappingCreateDTO;

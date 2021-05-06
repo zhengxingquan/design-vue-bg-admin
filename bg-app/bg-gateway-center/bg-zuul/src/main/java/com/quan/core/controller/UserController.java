@@ -3,7 +3,7 @@ package com.quan.core.controller;
 
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.RandomUtil;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;

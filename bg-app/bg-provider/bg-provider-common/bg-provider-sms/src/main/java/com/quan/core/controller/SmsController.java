@@ -1,7 +1,7 @@
 package com.quan.core.controller;
 
-import com.quan.core.common.util.ValidatorUtil;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.util.ValidatorUtil;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.model.Sms;
 import com.quan.core.model.SmsCode;
 import com.quan.core.service.SmsCodeService;

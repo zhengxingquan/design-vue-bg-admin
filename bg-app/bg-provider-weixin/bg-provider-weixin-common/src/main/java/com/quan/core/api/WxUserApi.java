@@ -1,6 +1,6 @@
 package com.quan.core.api;
 
-import com.quan.core.common.util.Each;
+import com.quan.core.constant.util.Each;
 import com.quan.core.model.WxGroup;
 import com.quan.core.model.WxTag;
 

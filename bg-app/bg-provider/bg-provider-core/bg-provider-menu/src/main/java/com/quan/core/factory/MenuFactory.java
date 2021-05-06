@@ -1,9 +1,7 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.dto.MenuDTO;
-import com.quan.core.dto.MenuPageQueryDTO;
-import com.quan.core.dto.MenuQueryDTO;
 import com.quan.core.dto.create.MenuCreateDTO;
 import com.quan.core.dto.update.MenuUpdateDTO;
 import com.quan.core.model.Menu;

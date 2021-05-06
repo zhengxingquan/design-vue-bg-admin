@@ -1,5 +1,6 @@
 package com.quan.core.util;
 
+import com.quan.core.callback.RedisSubscribeCallback;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataAccessException;
@@ -19,10 +20,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- * @author 作者 owen
- * @version 创建时间：2017年04月23日 下午20:01:06 类说明
+/***
  * redis工具类
+ * @author zxq(956607644@qq.com)
+ * @date 2021/5/6 18:24
  */
 @Slf4j
 @SuppressWarnings("all")
@@ -57,7 +58,9 @@ public class RedisUtil {
         this.redisConnectionFactory = redisConnectionFactory;
         this.stringRedisTemplate = stringRedisTemplate;
         this.hashOperations = hashOperations;
+
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+
 		RedisSerializer redisObjectSerializer = new GenericJackson2JsonRedisSerializer();
 		redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 		redisTemplate.setKeySerializer(new StringRedisSerializer()); // key的序列化类型

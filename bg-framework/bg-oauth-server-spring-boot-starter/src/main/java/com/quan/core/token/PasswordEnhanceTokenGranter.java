@@ -1,7 +1,7 @@
 package com.quan.core.token;
 
-import com.quan.core.common.enume.auth.AuthGrantType;
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.constant.AuthGrantType;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.constant.ValidateParamConstant;
 import com.quan.core.service.ValidateCodeService;
 import lombok.extern.slf4j.Slf4j;

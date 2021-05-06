@@ -1,6 +1,6 @@
 package com.quan.core.pay.model;
 
-import com.quan.core.common.model.BaseEntity;
+import com.quan.core.constant.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

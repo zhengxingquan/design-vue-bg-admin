@@ -1,8 +1,9 @@
 package com.quan.core.comsumer;
 
-import com.quan.core.common.DetailResponse;
-import com.quan.core.common.FastOcpRabbitMqConstants;
+import com.quan.core.MqParam;
+import com.quan.core.constant.FastOcpRabbitMqConstants;
 import com.quan.core.producer.MessageProcess;
+import com.quan.core.response.DetailResponse;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConsumerCancelledException;
 import com.rabbitmq.client.GetResponse;
@@ -19,37 +20,31 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-/**
- * @author Merlin
- * @Title: FastBuildRabbitMqConsumer
- * @ProjectName open-capacity-platform
- * @Description: TODO
- * @date 2019/8/2715:14
- */
+
 /***
- * MQ 消费者
- * @author zxq(956607644@qq.com)
+ * MQ 消费者 代码
+ * @author zxq(956607644 @ qq.com)
  * @date 2021/4/28 18:20
  */
 @Slf4j
 @SuppressWarnings("all")
-public  class FastBuildRabbitMqConsumer {
+public class FastBuildRabbitMqConsumer {
 
     private final ConnectionFactory connectionFactory;
-    
-    public FastBuildRabbitMqConsumer(ConnectionFactory connectionFactory){
+
+    public FastBuildRabbitMqConsumer(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
 
+    public <T> MessageConsumer buildMessageConsumer(final MqParam mqParam,
+                                                    final MessageProcess<T> messageProcess) throws IOException {
 
-
-    public <T> MessageConsumer buildMessageConsumer(String exchange, String routingKey, final String queue,
-                                                    final MessageProcess<T> messageProcess, String type) throws IOException {
+        // 获取连接
         final Connection connection = connectionFactory.createConnection();
 
         //1 创建连接和channel
-        buildQueue(exchange, routingKey, queue, connection, type);
+        buildQueue(mqParam, connection);
 
         //2 设置message序列化方法
         final MessagePropertiesConverter messagePropertiesConverter = new DefaultMessagePropertiesConverter();
@@ -58,22 +53,26 @@ public  class FastBuildRabbitMqConsumer {
         //3 consume
         return new MessageConsumer() {
             Channel channel;
-            {channel = connection.createChannel(false);}
 
-           
-			@Override
+            {
+                channel = connection.createChannel(false);
+            }
+
+
+            @Override
             public DetailResponse consume() {
                 try {
                     //1 通过basicGet获取原始数据
-                    GetResponse response = channel.basicGet(queue, false);
+                    GetResponse response = channel.basicGet(mqParam.getQueue(), false);
 
                     while (response == null) {
-                        response = channel.basicGet(queue, false);
+                        response = channel.basicGet(mqParam.getQueue(), false);
                         Thread.sleep(FastOcpRabbitMqConstants.ONE_SECOND);
                     }
 
                     Message message = new Message(response.getBody(),
                             messagePropertiesConverter.toMessageProperties(response.getProps(), response.getEnvelope(), "UTF-8"));
+
                     //2 将原始数据转换为特定类型的包
                     T messageBean = (T) messageConverter.fromMessage(message);
 
@@ -81,26 +80,27 @@ public  class FastBuildRabbitMqConsumer {
                     DetailResponse detailRes;
 
                     try {
+                        // 处理数据方法
                         detailRes = messageProcess.process(messageBean);
                     } catch (Exception e) {
                         log.error("exception", e);
-                        detailRes = new DetailResponse(false, "process exception: " + e,"");
+                        detailRes = new DetailResponse(false, "process exception: " + e, "");
                     }
 
                     //4 手动发送ack确认
-                    if (detailRes.isIfSuccess()) {
+                    if (detailRes.isSuccessState()) {
                         channel.basicAck(response.getEnvelope().getDeliveryTag(), false);
                     } else {
                         //避免过多失败log
                         Thread.sleep(FastOcpRabbitMqConstants.ONE_SECOND);
-                        log.info("process message failed: " + detailRes.getErrMsg());
+                        log.info("process message failed: " + detailRes.getErrorMsg());
                         channel.basicNack(response.getEnvelope().getDeliveryTag(), false, true);
                     }
 
                     return detailRes;
                 } catch (InterruptedException e) {
                     log.error("exception", e);
-                    return new DetailResponse(false, "interrupted exception " + e.toString(),"");
+                    return new DetailResponse(false, "interrupted exception " + e.toString(), "");
                 } catch (ShutdownSignalException | ConsumerCancelledException | IOException e) {
                     log.error("exception", e);
 
@@ -110,7 +110,7 @@ public  class FastBuildRabbitMqConsumer {
                         log.error("exception", ex);
                     }
                     channel = connection.createChannel(false);
-                    return new DetailResponse(false, "shutdown or cancelled exception " + e.toString(),"");
+                    return new DetailResponse(false, "shutdown or cancelled exception " + e.toString(), "");
                 } catch (Exception e) {
                     log.info("exception : ", e);
                     try {
@@ -119,25 +119,21 @@ public  class FastBuildRabbitMqConsumer {
                         ex.printStackTrace();
                     }
                     channel = connection.createChannel(false);
-                    return new DetailResponse(false, "exception " + e.toString(),"");
+                    return new DetailResponse(false, "exception " + e.toString(), "");
                 }
             }
         };
     }
 
 
-    private void buildQueue(String exchange, String routingKey,
-                            final String queue, Connection connection, String type) throws IOException {
+    private void buildQueue(final MqParam param,
+                            final Connection connection) throws IOException {
         Channel channel = connection.createChannel(false);
 
-        if (type.equals("direct")) {
-            channel.exchangeDeclare(exchange, "direct", true, false, null);
-        } else if (type.equals("topic")) {
-            channel.exchangeDeclare(exchange, "topic", true, false, null);
-        }
+        channel.exchangeDeclare(param.getExchange(), param.getType().getValue(), true, false, null);
 
-        channel.queueDeclare(queue, true, false, false, null);
-        channel.queueBind(queue, exchange, routingKey);
+        channel.queueDeclare(param.getQueue(), true, false, false, null);
+        channel.queueBind(param.getQueue(), param.getExchange(), param.getRoutingKey());
 
         try {
             channel.close();

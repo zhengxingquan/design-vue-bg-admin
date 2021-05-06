@@ -1,7 +1,7 @@
 package com.quan.core.dao;
 
 import com.quan.core.BgPlatformCoreUserApplication;
-import com.quan.core.common.model.SysMenu;
+import com.quan.core.constant.model.SysMenu;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

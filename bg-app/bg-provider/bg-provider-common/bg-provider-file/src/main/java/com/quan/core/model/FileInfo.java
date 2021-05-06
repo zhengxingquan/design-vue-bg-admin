@@ -1,7 +1,7 @@
 package com.quan.core.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.quan.core.common.model.BaseEntity;
+import com.quan.core.constant.model.BaseEntity;
 import lombok.Data;
 
 /**

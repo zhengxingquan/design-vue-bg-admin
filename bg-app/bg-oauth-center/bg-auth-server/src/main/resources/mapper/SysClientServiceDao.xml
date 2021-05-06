@@ -15,7 +15,7 @@
 		</where>
 	</update>
 
-	<select id="findServicesBySlientIds" resultType="com.quan.core.common.model.SysService">
+	<select id="findServicesBySlientIds" resultType="com.quan.core.constant.model.SysService">
 		select distinct t.id,t.parent_id parentId , t.name,  t.path,  t.sort, t.create_time createTime, t.update_time updateTime,t.is_service isService  from sys_service t
 		inner join sys_client_service r on r.service_id = t.id
 		where

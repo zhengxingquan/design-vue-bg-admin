@@ -1,8 +1,8 @@
 package com.quan.core.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.quan.core.common.auth.details.DefaultClientDetails;
-import com.quan.core.common.constant.OAuthConstant;
+import com.quan.core.constant.auth.details.DefaultClientDetails;
+import com.quan.core.constant.constant.OAuthConstant;
 import com.quan.core.constant.AuthServerErrorCode;
 import com.quan.core.exception.AuthClientAuthenticationException;
 import com.quan.core.exception.InvalidAuthClientException;
@@ -16,7 +16,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;

@@ -160,7 +160,7 @@
         <include refid="where"/>
     </select>
 
-    <select id="findList" resultType="com.quan.core.common.model.SysClient">
+    <select id="findList" resultType="com.quan.core.constant.model.SysClient">
         select
         <include refid="baseColumnList"/>
         from
@@ -174,7 +174,7 @@
 
 
     <!-- 查询数据 -->
-    <select id="data" resultType="com.quan.core.common.model.SysClient">
+    <select id="data" resultType="com.quan.core.constant.model.SysClient">
 
         select
         <include refid="baseColumnList"/>
@@ -186,7 +186,7 @@
 
 
     <!-- 查询数据 -->
-    <select id="getById" resultType="com.quan.core.common.model.SysClient">
+    <select id="getById" resultType="com.quan.core.constant.model.SysClient">
 
         select
         <include refid="baseColumnList"/>
@@ -197,7 +197,7 @@
     </select>
 
     <!-- 查询数据 -->
-    <select id="getClient" resultType="com.quan.core.common.model.SysClient">
+    <select id="getClient" resultType="com.quan.core.constant.model.SysClient">
 
         select
         <include refid="baseColumnList"/>

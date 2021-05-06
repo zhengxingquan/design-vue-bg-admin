@@ -1,12 +1,12 @@
 package com.quan.core.controller;
 
-import com.quan.core.common.exception.controller.ControllerException;
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.model.SysService;
-import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.exception.controller.ControllerException;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.model.SysService;
+import com.quan.core.constant.web.PageResult;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.annotation.SLog;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.web.Result;
 import com.quan.core.service.SysServiceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

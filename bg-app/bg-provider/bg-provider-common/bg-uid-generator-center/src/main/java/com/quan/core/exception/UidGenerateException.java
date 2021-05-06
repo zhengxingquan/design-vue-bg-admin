@@ -1,6 +1,6 @@
 package com.quan.core.exception;
 
-import com.quan.core.common.exception.BaseException;
+import com.quan.core.constant.exception.BaseException;
 
 /**
  * @author 郑兴泉 956607644@qq.com

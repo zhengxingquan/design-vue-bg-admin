@@ -2,7 +2,7 @@ package com.quan.core.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.dao.ServiceLogDao;
 import com.quan.core.entity.ServiceLogDocument;
 import io.swagger.annotations.ApiImplicitParam;

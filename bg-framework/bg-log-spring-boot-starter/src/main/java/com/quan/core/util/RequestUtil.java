@@ -11,8 +11,8 @@
 
 package com.quan.core.util;
 
-import com.quan.core.common.constant.GlobalConstant;
-import com.quan.core.common.exception.OtherException;
+import com.quan.core.constant.constant.GlobalConstant;
+import com.quan.core.constant.exception.OtherException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

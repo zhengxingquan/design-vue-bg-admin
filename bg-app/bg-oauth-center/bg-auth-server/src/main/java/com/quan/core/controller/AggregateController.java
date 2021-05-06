@@ -1,7 +1,7 @@
 package com.quan.core.controller;
 
 import com.google.common.collect.Lists;
-import com.quan.core.common.auth.details.LoginAppUser;
+import com.quan.core.constant.auth.details.LoginAppUser;
 import com.quan.core.feign.UserFeignClient;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

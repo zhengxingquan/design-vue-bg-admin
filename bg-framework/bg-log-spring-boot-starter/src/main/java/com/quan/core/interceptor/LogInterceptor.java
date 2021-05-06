@@ -1,6 +1,6 @@
 package com.quan.core.interceptor;
 
-import com.quan.core.common.constant.TraceConstant;
+import com.quan.core.constant.constant.TraceConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;

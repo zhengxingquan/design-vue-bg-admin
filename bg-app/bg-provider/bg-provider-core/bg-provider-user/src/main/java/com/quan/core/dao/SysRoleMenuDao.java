@@ -1,8 +1,8 @@
 package com.quan.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.quan.core.common.model.SysMenu;
-import com.quan.core.common.model.SysRoleMenu;
+import com.quan.core.constant.model.SysMenu;
+import com.quan.core.constant.model.SysRoleMenu;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

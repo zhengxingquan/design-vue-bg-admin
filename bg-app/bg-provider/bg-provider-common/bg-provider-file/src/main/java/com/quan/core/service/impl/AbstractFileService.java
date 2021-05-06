@@ -1,7 +1,7 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.annotation.PageQuery;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.dao.FileDao;
 import com.quan.core.dto.FileQueryPageDTO;
 import com.quan.core.enume.FileType;

@@ -1,6 +1,6 @@
 package com.quan.core.dto.client;
 
-import com.quan.core.common.dto.query.PageQueryDTO;
+import com.quan.core.constant.dto.query.PageQueryDTO;
 import lombok.Data;
 
 /**

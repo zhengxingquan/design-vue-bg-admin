@@ -3,7 +3,7 @@ package com.quan.core.config;
 import cn.hutool.core.date.SystemClock;
 import com.github.structlog4j.StructLog4J;
 import com.github.structlog4j.json.JsonFormatter;
-import com.quan.core.common.util.IPUtils;
+import com.quan.core.constant.util.IPUtils;
 import com.quan.core.interceptor.LogInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

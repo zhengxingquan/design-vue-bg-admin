@@ -1,6 +1,6 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.model.SysClient;
+import com.quan.core.constant.model.SysClient;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

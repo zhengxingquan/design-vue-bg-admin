@@ -1,6 +1,6 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.model.SysLog;
+import com.quan.core.constant.model.SysLog;
 import com.quan.core.dao.LogDao;
 import com.quan.core.datasource.annotation.DataSource;
 import com.quan.core.service.LogService;

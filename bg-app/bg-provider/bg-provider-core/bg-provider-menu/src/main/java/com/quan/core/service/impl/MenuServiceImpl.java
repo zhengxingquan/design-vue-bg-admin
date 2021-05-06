@@ -1,6 +1,6 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.controller.request.create.MenuCreateRequest;
 import com.quan.core.controller.request.update.MenuUpdateRequest;
 import com.quan.core.dao.MenuDao;

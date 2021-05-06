@@ -1,6 +1,6 @@
 package com.quan.core.provider;
 
-import com.quan.core.common.auth.props.PermitUrlProperties;
+import com.quan.core.constant.auth.props.PermitUrlProperties;
 import com.quan.core.authorize.AuthorizeConfigProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;

@@ -1,8 +1,8 @@
 package com.quan.core.feign.fallback;
 
-import com.quan.core.common.auth.details.LoginAppUser;
-import com.quan.core.common.model.SysUser;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.auth.details.LoginAppUser;
+import com.quan.core.constant.model.SysUser;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.feign.UserFeignClient;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.constant.ValidateParamConstant;
 import com.quan.core.service.ValidateCodeService;
 import org.apache.commons.lang3.StringUtils;

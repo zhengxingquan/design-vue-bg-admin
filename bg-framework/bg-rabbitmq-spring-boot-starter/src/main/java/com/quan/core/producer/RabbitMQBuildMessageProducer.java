@@ -1,7 +1,7 @@
 package com.quan.core.producer;
 
-import com.quan.core.common.Constants;
-import com.quan.core.common.DetailResponse;
+import com.quan.core.constant.Constants;
+import com.quan.core.response.DetailResponse;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.Connection;

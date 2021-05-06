@@ -1,11 +1,10 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.model.SysService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /***
  * 查询应用绑定的资源权限

@@ -1,7 +1,7 @@
 package com.quan.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.quan.core.common.model.SysPermission;
+import com.quan.core.constant.model.SysPermission;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

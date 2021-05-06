@@ -1,6 +1,6 @@
 package com.quan.core.utils;
 
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.quan.core.service;
 
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.model.SysService;
 
 import java.util.List;
 import java.util.Set;

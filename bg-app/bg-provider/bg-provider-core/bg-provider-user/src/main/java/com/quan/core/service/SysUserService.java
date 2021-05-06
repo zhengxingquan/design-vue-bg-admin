@@ -1,13 +1,12 @@
 package com.quan.core.service;
 
 
-import com.quan.core.common.auth.details.LoginAppUser;
-import com.quan.core.common.exception.service.ServiceException;
-import com.quan.core.common.model.SysRole;
-import com.quan.core.common.model.SysUser;
-import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.JsonResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.auth.details.LoginAppUser;
+import com.quan.core.constant.exception.service.ServiceException;
+import com.quan.core.constant.model.SysRole;
+import com.quan.core.constant.model.SysUser;
+import com.quan.core.constant.web.PageResult;
+import com.quan.core.constant.web.Result;
 import com.quan.core.model.SysUserExcel;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.quan.core.controller.request.token.query;
 
 
-import com.quan.core.common.request.PageRequest;
+import com.quan.core.constant.request.PageRequest;
 import lombok.Data;
 
 /**

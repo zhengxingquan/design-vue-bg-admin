@@ -1,7 +1,7 @@
 package com.quan.core.controller;
 
-import com.quan.core.common.util.StringUtil;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.util.StringUtil;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.annotation.SLog;
 import com.quan.core.service.ValidateCodeService;
 import io.swagger.annotations.Api;

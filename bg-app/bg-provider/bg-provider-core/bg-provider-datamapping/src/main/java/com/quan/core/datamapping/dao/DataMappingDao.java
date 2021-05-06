@@ -1,9 +1,9 @@
 package com.quan.core.datamapping.dao;
 
-import com.quan.core.common.dao.IBaseDao;
-import com.quan.core.common.dao.IHasChildrenDao;
-import com.quan.core.common.dao.IPathDao;
-import com.quan.core.common.dao.ISortDao;
+import com.quan.core.constant.dao.IBaseDao;
+import com.quan.core.constant.dao.IHasChildrenDao;
+import com.quan.core.constant.dao.IPathDao;
+import com.quan.core.constant.dao.ISortDao;
 import com.quan.core.datamapping.dto.DataMappingPageQueryDTO;
 import com.quan.core.datamapping.dto.DataMappingQueryDTO;
 import com.quan.core.datamapping.dto.create.DataMappingCreateDTO;

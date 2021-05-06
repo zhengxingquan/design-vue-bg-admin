@@ -1,7 +1,7 @@
 package com.quan.core.service;
 
 
-import com.quan.core.common.model.SysLog;
+import com.quan.core.constant.model.SysLog;
 
 /***
  * 日志service

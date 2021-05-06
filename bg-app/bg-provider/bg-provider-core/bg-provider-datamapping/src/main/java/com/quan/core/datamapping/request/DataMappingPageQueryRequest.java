@@ -1,6 +1,6 @@
 package com.quan.core.datamapping.request;
 
-import com.quan.core.common.request.PageRequest;
+import com.quan.core.constant.request.PageRequest;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.util.UUIDUtils;
+import com.quan.core.constant.util.UUIDUtils;
 import com.quan.core.dao.FileDao;
 import com.quan.core.enume.FileType;
 import com.quan.core.model.FileInfo;

@@ -1,13 +1,13 @@
 package com.quan.core.util;
 
 import com.quan.core.api.WxHandler;
-import com.quan.core.common.http.Http;
-import com.quan.core.common.http.Response;
-import com.quan.core.common.stream.Streams;
-import com.quan.core.common.util.Encoding;
-import com.quan.core.common.util.Files;
-import com.quan.core.common.util.Langs;
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.http.Http;
+import com.quan.core.constant.http.Response;
+import com.quan.core.constant.stream.Streams;
+import com.quan.core.constant.util.Encoding;
+import com.quan.core.constant.util.Files;
+import com.quan.core.constant.util.Langs;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.enums.WxMsgType;
 import com.quan.core.exception.AesException;
 import com.quan.core.model.WxArticle;

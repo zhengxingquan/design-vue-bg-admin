@@ -1,6 +1,6 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.annotation.PageQuery;
+import com.quan.core.constant.annotation.PageQuery;
 import com.quan.core.dto.RoleMenuGroupDTO;
 import com.quan.core.model.RoleMenuGroup;
 import com.quan.core.factory.RoleMenuGroupFactory;

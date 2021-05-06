@@ -1,6 +1,6 @@
 package ${package}.${pkgName}.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import ${package}.${pkgName}.dto.*;
 import ${package}.${pkgName}.model.${className};
 import ${package}.${pkgName}.request.*;

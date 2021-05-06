@@ -1,7 +1,7 @@
 package com.quan.core.service;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.model.Sms;
 
 import java.util.Map;

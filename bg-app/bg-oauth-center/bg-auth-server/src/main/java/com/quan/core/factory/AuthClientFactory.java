@@ -1,7 +1,7 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.constant.AuthConstant;
 import com.quan.core.controller.request.client.QueryClientPageRequest;
 import com.quan.core.controller.request.client.QueryClientRequest;

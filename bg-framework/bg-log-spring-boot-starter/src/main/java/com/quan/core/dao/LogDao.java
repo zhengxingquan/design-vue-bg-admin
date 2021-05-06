@@ -1,6 +1,6 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.model.SysLog;
+import com.quan.core.constant.model.SysLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 

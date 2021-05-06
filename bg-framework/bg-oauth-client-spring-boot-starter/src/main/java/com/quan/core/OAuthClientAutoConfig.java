@@ -1,10 +1,10 @@
 package com.quan.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quan.core.common.auth.props.PermitUrlProperties;
-import com.quan.core.common.feign.FeignInterceptorConfig;
-import com.quan.core.common.feign.GlobalFeignConfig;
-import com.quan.core.common.rest.RestTemplateConfig;
+import com.quan.core.constant.auth.props.PermitUrlProperties;
+import com.quan.core.constant.feign.FeignInterceptorConfig;
+import com.quan.core.constant.feign.GlobalFeignConfig;
+import com.quan.core.constant.rest.RestTemplateConfig;
 import com.quan.core.authorize.AuthorizeConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

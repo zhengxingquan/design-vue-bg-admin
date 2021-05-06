@@ -1,6 +1,6 @@
 package com.quan.core.service;
 
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.dto.token.*;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 

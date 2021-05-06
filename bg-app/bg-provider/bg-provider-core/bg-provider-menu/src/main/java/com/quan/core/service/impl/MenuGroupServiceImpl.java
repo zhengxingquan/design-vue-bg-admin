@@ -1,7 +1,7 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.annotation.PageQuery;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.dao.MenuGroupDao;
 import com.quan.core.dto.MenuGroupDTO;
 import com.quan.core.dto.create.MenuGroupCreateDTO;

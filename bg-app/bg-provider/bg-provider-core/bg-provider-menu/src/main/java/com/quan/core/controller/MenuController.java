@@ -2,7 +2,7 @@
 //
 //import com.quan.core.annotation.SLog;
 //import com.quan.core.common.annotation.AutoCreateMenuAuth;
-//import com.quan.core.common.enume.MenuType;
+//import com.quan.core.common.constant.MenuType;
 //import com.quan.core.common.web.JsonResult;
 //import com.quan.core.common.web.Result;
 //import com.quan.core.service.MenuService;

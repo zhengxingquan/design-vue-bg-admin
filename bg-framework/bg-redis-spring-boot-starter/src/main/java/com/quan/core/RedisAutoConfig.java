@@ -178,7 +178,8 @@ public class RedisAutoConfig {
     public CacheManager cacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofMinutes(30L)) // 设置缓存的默认超时时间：30分钟
+        redisCacheConfiguration = redisCacheConfiguration
+                        .entryTtl(Duration.ofMinutes(30L)) // 设置缓存的默认超时时间：30分钟
                 .disableCachingNullValues() // 如果是空值，不缓存
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string())) // 设置key序列化器
                 .serializeValuesWith(
@@ -237,7 +238,8 @@ public class RedisAutoConfig {
      */
     @Bean("redisUtil")
     public RedisUtil redisUtil(LettuceConnectionFactory lettuceConnectionFactory,
-                               StringRedisTemplate stringRedisTemplate, HashOperations<String, String, String> hashOperations) {
+                               StringRedisTemplate stringRedisTemplate,
+                               HashOperations<String, String, String> hashOperations) {
         RedisUtil redisUtil = new RedisUtil(lettuceConnectionFactory, stringRedisTemplate, hashOperations);
         return redisUtil;
     }

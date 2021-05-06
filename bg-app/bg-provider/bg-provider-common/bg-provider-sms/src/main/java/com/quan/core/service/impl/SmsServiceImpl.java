@@ -7,7 +7,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.http.MethodType;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.dao.SmsDao;
 import com.quan.core.service.SmsService;
 import com.quan.core.model.Sms;

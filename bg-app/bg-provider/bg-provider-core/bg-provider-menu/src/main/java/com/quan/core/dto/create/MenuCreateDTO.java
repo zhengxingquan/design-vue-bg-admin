@@ -2,7 +2,7 @@ package com.quan.core.dto.create;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.quan.core.common.annotation.batis.PrevInsert;
+import com.quan.core.constant.annotation.batis.PrevInsert;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

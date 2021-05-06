@@ -1,6 +1,6 @@
 package com.quan.core.dto;
 
-import com.quan.core.common.model.BaseEntity;
+import com.quan.core.constant.model.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;

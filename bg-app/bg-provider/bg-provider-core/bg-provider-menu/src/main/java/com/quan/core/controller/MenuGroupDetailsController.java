@@ -1,10 +1,10 @@
 package com.quan.core.controller;
 
 import com.quan.core.annotation.SLog;
-import com.quan.core.common.annotation.AutoCreateMenuAuth;
-import com.quan.core.common.enume.MenuType;
-import com.quan.core.common.web.JsonResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.annotation.AutoCreateMenuAuth;
+import com.quan.core.constant.constant.MenuType;
+import com.quan.core.constant.web.JsonResult;
+import com.quan.core.constant.web.Result;
 import com.quan.core.controller.request.MenuGroupDetailsFindOneByIdRequest;
 import com.quan.core.controller.request.MenuGroupDetailsPageQueryRequest;
 import com.quan.core.controller.request.MenuGroupDetailsQueryRequest;

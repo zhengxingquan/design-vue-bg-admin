@@ -13,6 +13,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class RedissonProperties {
 
+    /***
+     * 配置文件的路径 classpath:redisson.yaml
+     */
     private String config;
     private String enable;
 }

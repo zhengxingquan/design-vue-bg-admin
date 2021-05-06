@@ -1,10 +1,10 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.dao.IDeleteWithIdDao;
-import com.quan.core.common.dao.IDisabledDao;
-import com.quan.core.common.dao.IEnableDao;
-import com.quan.core.common.dto.query.PageQueryDTO;
-import com.quan.core.common.model.SysClient;
+import com.quan.core.constant.dao.IDeleteWithIdDao;
+import com.quan.core.constant.dao.IDisabledDao;
+import com.quan.core.constant.dao.IEnableDao;
+import com.quan.core.constant.dto.query.PageQueryDTO;
+import com.quan.core.constant.model.SysClient;
 import com.quan.core.dto.client.AuthClientCreateDTO;
 import com.quan.core.dto.client.AuthClientUpdateDTO;
 import com.quan.core.dto.client.QueryClientDTO;

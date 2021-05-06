@@ -1,6 +1,6 @@
 package com.quan.core.token;
 
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.constant.ValidateParamConstant;
 import com.quan.core.service.ValidateCodeService;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

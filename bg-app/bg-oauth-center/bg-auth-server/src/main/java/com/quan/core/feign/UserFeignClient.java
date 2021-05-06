@@ -1,9 +1,9 @@
 package com.quan.core.feign;
 
-import com.quan.core.common.auth.details.LoginAppUser;
-import com.quan.core.common.feign.FeignExceptionConfig;
-import com.quan.core.common.model.SysUser;
-import com.quan.core.common.web.PageResult;
+import com.quan.core.constant.auth.details.LoginAppUser;
+import com.quan.core.constant.feign.FeignExceptionConfig;
+import com.quan.core.constant.model.SysUser;
+import com.quan.core.constant.web.PageResult;
 import com.quan.core.feign.fallback.UserFeignClientFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

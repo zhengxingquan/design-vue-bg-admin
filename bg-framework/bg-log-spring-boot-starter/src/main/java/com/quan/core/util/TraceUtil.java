@@ -1,6 +1,6 @@
 package com.quan.core.util;
 
-import com.quan.core.common.constant.TraceConstant;
+import com.quan.core.constant.constant.TraceConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;

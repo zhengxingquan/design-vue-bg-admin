@@ -1,7 +1,7 @@
 package com.quan.core.comsumer;
 
 
-import com.quan.core.common.DetailResponse;
+import com.quan.core.response.DetailResponse;
 
 /***
  *  消息消费接口

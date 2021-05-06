@@ -1,15 +1,15 @@
 package com.quan.core.controller;
 
 import com.quan.core.annotation.SLog;
-import com.quan.core.common.annotation.AutoCreateMenuAuth;
-import com.quan.core.common.auth.details.LoginAppUser;
-import com.quan.core.common.enume.MenuType;
-import com.quan.core.common.exception.controller.ControllerException;
-import com.quan.core.common.model.SysPermission;
-import com.quan.core.common.util.SysUserUtil;
-import com.quan.core.common.web.JsonResult;
-import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.annotation.AutoCreateMenuAuth;
+import com.quan.core.constant.auth.details.LoginAppUser;
+import com.quan.core.constant.constant.MenuType;
+import com.quan.core.constant.exception.controller.ControllerException;
+import com.quan.core.constant.model.SysPermission;
+import com.quan.core.constant.util.SysUserUtil;
+import com.quan.core.constant.web.JsonResult;
+import com.quan.core.constant.web.PageResult;
+import com.quan.core.constant.web.Result;
 import com.quan.core.controller.request.token.query.*;
 import com.quan.core.factory.AuthTokenFactory;
 import com.quan.core.service.SysTokenService;

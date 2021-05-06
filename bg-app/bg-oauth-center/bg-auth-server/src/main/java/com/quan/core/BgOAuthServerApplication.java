@@ -3,7 +3,7 @@
  */
 package com.quan.core;
 
-import com.quan.core.common.feign.GlobalFeignConfig;
+import com.quan.core.constant.feign.GlobalFeignConfig;
 import com.quan.core.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

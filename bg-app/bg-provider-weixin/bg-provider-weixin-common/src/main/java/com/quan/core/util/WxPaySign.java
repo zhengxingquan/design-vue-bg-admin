@@ -1,6 +1,6 @@
 package com.quan.core.util;
 
-import com.quan.core.common.util.Langs;
+import com.quan.core.constant.util.Langs;
 
 import java.util.*;
 

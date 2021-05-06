@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.dto.create.RoleGroupCreateDTO;
 import com.quan.core.dto.update.RoleGroupUpdateDTO;
 import com.quan.core.controller.request.RoleGroupPageQueryRequest;

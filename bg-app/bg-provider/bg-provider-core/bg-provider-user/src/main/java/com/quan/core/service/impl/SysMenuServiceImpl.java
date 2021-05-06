@@ -1,8 +1,8 @@
 package com.quan.core.service.impl;
 
 import com.google.common.collect.Maps;
-import com.quan.core.common.exception.service.ServiceException;
-import com.quan.core.common.model.SysMenu;
+import com.quan.core.constant.exception.service.ServiceException;
+import com.quan.core.constant.model.SysMenu;
 import com.quan.core.dao.SysMenuDao;
 import com.quan.core.dao.SysRoleMenuDao;
 import com.quan.core.service.SysMenuService;

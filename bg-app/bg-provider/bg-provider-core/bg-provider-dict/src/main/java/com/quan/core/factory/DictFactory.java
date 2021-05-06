@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.controller.request.create.DictCreateRequest;
 import com.quan.core.controller.request.update.DictUpdateRequest;
 import com.quan.core.dto.DictDTO;

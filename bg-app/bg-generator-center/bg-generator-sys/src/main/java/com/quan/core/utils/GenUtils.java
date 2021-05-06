@@ -1,7 +1,7 @@
 package com.quan.core.utils;
 
 import com.google.common.collect.Lists;
-import com.quan.core.common.util.Strings;
+import com.quan.core.constant.util.Strings;
 import com.quan.core.model.ColumnEntity;
 import com.quan.core.model.TableEntity;
 import org.apache.commons.configuration.Configuration;

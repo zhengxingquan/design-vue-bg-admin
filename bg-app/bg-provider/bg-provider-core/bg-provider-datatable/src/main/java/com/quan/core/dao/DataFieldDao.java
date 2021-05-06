@@ -1,8 +1,8 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.dao.IBaseDao;
-import com.quan.core.common.dao.IPathDao;
-import com.quan.core.common.dao.ISortDao;
+import com.quan.core.constant.dao.IBaseDao;
+import com.quan.core.constant.dao.IPathDao;
+import com.quan.core.constant.dao.ISortDao;
 import com.quan.core.dto.DataFieldPageQueryDTO;
 import com.quan.core.dto.DataFieldQueryDTO;
 import com.quan.core.dto.create.DataFieldCreateDTO;

@@ -1,6 +1,6 @@
 package com.quan.core.controller;
 
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.service.IUidGeneratorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

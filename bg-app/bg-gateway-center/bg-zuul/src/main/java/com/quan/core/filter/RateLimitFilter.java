@@ -5,8 +5,8 @@ package com.quan.core.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.service.SysClientService;
 import com.quan.core.utils.RedisLimiterUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Map;
 
 /**
  * Created by owen on 2017/9/10. 根据应用 url 限流 oauth_client_details if_limit 限流开关

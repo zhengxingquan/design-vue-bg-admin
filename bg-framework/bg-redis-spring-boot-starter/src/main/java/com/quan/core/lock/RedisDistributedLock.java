@@ -104,7 +104,7 @@ public class RedisDistributedLock extends AbstractDistributedLock {
             Long result = redisTemplate.execute((RedisCallback<Long>) connection -> {
                 Object nativeConnection = connection.getNativeConnection();
                 // 集群模式和单机模式虽然执行脚本的方法一样，但是没有共同的接口，所以只能分开执行
-//                // 集群模式
+                // 集群模式
 //                if (nativeConnection instanceof JedisCluster) {
 //                    return (Long) ((JedisCluster) nativeConnection).eval(UNLOCK_LUA, keys, args);
 //                }

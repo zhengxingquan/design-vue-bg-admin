@@ -1,6 +1,6 @@
 package com.quan.core.datamapping.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.datamapping.dto.DataMappingDTO;
 import com.quan.core.datamapping.dto.DataMappingPageQueryDTO;
 import com.quan.core.datamapping.dto.DataMappingQueryDTO;

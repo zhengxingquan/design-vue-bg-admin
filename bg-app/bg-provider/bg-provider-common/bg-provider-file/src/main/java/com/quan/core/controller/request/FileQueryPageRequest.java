@@ -1,6 +1,6 @@
 package com.quan.core.controller.request;
 
-import com.quan.core.common.request.PageRequest;
+import com.quan.core.constant.request.PageRequest;
 
 /**
  * @author 郑兴泉 956607644@qq.com

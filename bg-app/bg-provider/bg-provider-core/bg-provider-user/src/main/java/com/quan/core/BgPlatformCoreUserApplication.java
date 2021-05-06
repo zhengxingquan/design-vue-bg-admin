@@ -3,7 +3,7 @@
  */
 package com.quan.core;
 
-import com.quan.core.common.annotation.EnableApiIdempotent;
+import com.quan.core.constant.annotation.EnableApiIdempotent;
 import com.quan.core.annotation.EnableLogging;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -19,6 +19,8 @@
     <modules>
         <!--zuul 网关中心 -->
         <module>bg-zuul</module>
+        <!-- gateway 网关 -->
+        <module>bg-api-gateway</module>
     </modules>
 
 </project>

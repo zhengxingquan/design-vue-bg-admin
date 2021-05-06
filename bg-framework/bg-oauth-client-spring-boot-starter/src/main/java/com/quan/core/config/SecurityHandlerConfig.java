@@ -1,7 +1,7 @@
 package com.quan.core.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

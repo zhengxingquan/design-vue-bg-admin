@@ -35,7 +35,7 @@
 		<include refid="where" />
 	</select>
 	
-	<select id="findList" resultType="com.quan.core.common.model.SysMenu">
+	<select id="findList" resultType="com.quan.core.constant.model.SysMenu">
 		select id ,parent_id parentId , name, url, path, css, sort,
 		create_time createTime , update_time updateTime ,is_menu isMenu,hidden
 		from sys_menu t

@@ -1,6 +1,6 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.model.SysPermission;
+import com.quan.core.constant.model.SysPermission;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

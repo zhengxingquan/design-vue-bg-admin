@@ -1,4 +1,4 @@
-package com.quan.core.common;
+package com.quan.core.constant;
 
 import org.junit.Test;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;

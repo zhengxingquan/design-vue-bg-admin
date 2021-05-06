@@ -1,6 +1,6 @@
 package com.quan.core.factory;
 
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.dto.DataFieldDTO;
 import com.quan.core.dto.DataFieldPageQueryDTO;
 import com.quan.core.dto.DataFieldQueryDTO;

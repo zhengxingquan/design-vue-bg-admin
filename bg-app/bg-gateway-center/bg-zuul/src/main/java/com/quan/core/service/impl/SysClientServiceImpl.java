@@ -1,10 +1,10 @@
 package com.quan.core.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.quan.core.common.constant.OAuthConstant;
-import com.quan.core.common.exception.service.ServiceException;
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.constant.OAuthConstant;
+import com.quan.core.constant.exception.service.ServiceException;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.model.SysService;
 import com.quan.core.constant.AuthServerErrorCode;
 import com.quan.core.dao.SysClientDao;
 import com.quan.core.dao.SysServiceDao;
@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**

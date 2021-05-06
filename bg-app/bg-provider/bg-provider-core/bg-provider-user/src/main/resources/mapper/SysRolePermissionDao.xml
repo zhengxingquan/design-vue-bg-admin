@@ -26,7 +26,7 @@
 		</where>
 	</delete>
 
-	<select id="findByRoleIds" resultType="com.quan.core.common.model.SysPermission">
+	<select id="findByRoleIds" resultType="com.quan.core.constant.model.SysPermission">
 		select distinct p.id , p.permission, p.name, p.create_time createTime
 		, p.update_time updateTime from
 		sys_permission p

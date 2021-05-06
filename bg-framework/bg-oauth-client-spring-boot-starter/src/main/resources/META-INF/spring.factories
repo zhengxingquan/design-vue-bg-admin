@@ -2,7 +2,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.quan.core.provider.AuthAuthorizeConfigProvider,\
 com.quan.core.authorize.OpenAuthorizeConfigManager,\
 com.quan.core.config.ExceptionHandlerAdvice,\
-com.quan.core.common.feign.FeignInterceptorConfig,\
+com.quan.core.constant.feign.FeignInterceptorConfig,\
 com.quan.core.config.SecurityHandlerConfig,\
 com.quan.core.config.TokenStoreConfig,\
 com.quan.core.OAuthClientAutoConfig

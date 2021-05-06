@@ -1,11 +1,11 @@
 package com.quan.core.config;
 
-import com.quan.core.common.exception.controller.ControllerException;
-import com.quan.core.common.exception.dao.DataAccessException;
-import com.quan.core.common.exception.hystrix.HystrixException;
-import com.quan.core.common.exception.service.ServiceException;
-import com.quan.core.common.web.JsonResult;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.exception.controller.ControllerException;
+import com.quan.core.constant.exception.dao.DataAccessException;
+import com.quan.core.constant.exception.hystrix.HystrixException;
+import com.quan.core.constant.exception.service.ServiceException;
+import com.quan.core.constant.web.JsonResult;
+import com.quan.core.constant.web.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;

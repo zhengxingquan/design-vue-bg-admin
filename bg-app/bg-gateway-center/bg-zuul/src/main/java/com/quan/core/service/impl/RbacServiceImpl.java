@@ -3,8 +3,8 @@ package com.quan.core.service.impl;
  *
  */
 
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.model.SysService;
 import com.quan.core.service.RbacService;
 import com.quan.core.service.SysClientService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,7 +8,7 @@
     </sql>
 
 
-    <select id="findAllClientByClientId" resultType="com.quan.core.common.model.SysService">
+    <select id="findAllClientByClientId" resultType="com.quan.core.constant.model.SysService">
         SELECT
         p.id,
         p.parent_id parentId ,

@@ -1,7 +1,7 @@
 package com.quan.core.service.impl;
 
-import com.quan.core.common.annotation.PageQuery;
-import com.quan.core.common.uid.IUidGenerator;
+import com.quan.core.constant.annotation.PageQuery;
+import com.quan.core.constant.uid.IUidGenerator;
 import com.quan.core.dao.DataFieldPropertyDao;
 import com.quan.core.dto.DataFieldPropertyDTO;
 import com.quan.core.dto.create.DataFieldPropertyCreateDTO;

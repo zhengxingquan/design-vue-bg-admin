@@ -1,6 +1,6 @@
 package com.quan.core.model;
 
-import com.quan.core.common.http.Header;
+import com.quan.core.constant.http.Header;
 import com.quan.core.model.base.BaseModel;
 import lombok.Data;
 

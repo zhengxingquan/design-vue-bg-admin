@@ -1,9 +1,9 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.dao.IBaseDao;
-import com.quan.core.common.dao.IHasChildrenDao;
-import com.quan.core.common.dao.IPathDao;
-import com.quan.core.common.dao.ISortDao;
+import com.quan.core.constant.dao.IBaseDao;
+import com.quan.core.constant.dao.IHasChildrenDao;
+import com.quan.core.constant.dao.IPathDao;
+import com.quan.core.constant.dao.ISortDao;
 import com.quan.core.dto.RolePageQueryDTO;
 import com.quan.core.dto.RoleQueryDTO;
 import com.quan.core.dto.create.RoleCreateDTO;

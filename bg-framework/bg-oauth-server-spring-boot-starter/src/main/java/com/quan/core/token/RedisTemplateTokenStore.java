@@ -1,6 +1,6 @@
 package com.quan.core.token;
 
-import com.quan.core.common.auth.details.LoginAppUser;
+import com.quan.core.constant.auth.details.LoginAppUser;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.Cursor;

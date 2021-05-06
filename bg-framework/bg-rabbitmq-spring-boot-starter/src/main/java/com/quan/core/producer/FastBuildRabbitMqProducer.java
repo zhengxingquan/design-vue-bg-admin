@@ -1,12 +1,11 @@
 package com.quan.core.producer;
 
+import com.quan.core.MqParam;
 import com.quan.core.cache.RetryCache;
-import com.quan.core.common.DetailResponse;
-import com.quan.core.common.FastOcpRabbitMqConstants;
-import com.quan.core.common.MqExchangeTypes;
+import com.quan.core.constant.FastOcpRabbitMqConstants;
+import com.quan.core.constant.MqExchangeTypes;
+import com.quan.core.response.DetailResponse;
 import com.rabbitmq.client.Channel;
-import lombok.Builder;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -95,6 +94,7 @@ public class FastBuildRabbitMqProducer {
             if (!ack) {
                 log.info("send message failed: " + cause + correlationData.toString());
             } else {
+                log.info("send message success: " + cause + correlationData.toString());
                 retryCache.del(Long.valueOf(correlationData.getId()));
             }
         });
@@ -138,10 +138,15 @@ public class FastBuildRabbitMqProducer {
     }
 
 
+    private Channel createChannel(final Connection connection) {
+        return connection.createChannel(false);
+    }
+
+
     private final void buildQueue(final MqParam mqParam,
                                   final Connection connection) throws IOException {
 
-        Channel channel = connection.createChannel(false);
+        Channel channel = createChannel(connection);
         channel.exchangeDeclare(mqParam.getExchange(), mqParam.getType().getValue(), true, false, null);
         channel.queueDeclare(mqParam.getQueue(), true, false, false, null);
         channel.queueBind(mqParam.getQueue(), mqParam.getExchange(), mqParam.getRoutingKey());
@@ -152,19 +157,15 @@ public class FastBuildRabbitMqProducer {
         }
     }
 
+
     private final void buildTopic(String exchange, Connection connection) throws IOException {
-        Channel channel = connection.createChannel(false);
+        Channel channel = createChannel(connection);
         channel.exchangeDeclare(exchange, MqExchangeTypes.MQ_TOPIC.getValue(), true, false, null);
-    }
-
-
-    @Data
-    @Builder
-    static final class MqParam {
-        private String exchange;
-        private String routingKey;
-        private String queue;
-        private MqExchangeTypes type;
+        try {
+            channel.close();
+        } catch (TimeoutException e) {
+            log.info("close channel time out ", e);
+        }
     }
 
 

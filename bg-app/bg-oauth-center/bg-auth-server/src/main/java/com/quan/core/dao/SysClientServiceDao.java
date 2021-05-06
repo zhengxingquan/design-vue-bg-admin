@@ -1,6 +1,6 @@
 package com.quan.core.dao;
 
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.model.SysService;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

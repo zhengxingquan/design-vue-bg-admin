@@ -1,10 +1,9 @@
 package com.quan.core.service;
 
-import com.quan.core.common.model.SysClient;
-import com.quan.core.common.model.SysService;
+import com.quan.core.constant.model.SysClient;
+import com.quan.core.constant.model.SysService;
 
 import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings("all")
 public interface SysClientService {

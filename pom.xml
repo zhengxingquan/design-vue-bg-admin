@@ -32,6 +32,7 @@
         <docker.host>http://59.110.164.254:5555</docker.host>
         <docker.image.prefix>zxq</docker.image.prefix>
         <spring-boot.version>2.1.16.RELEASE</spring-boot.version>
+<!--        <spring-boot.version>2.1.16.RELEASE</spring-boot.version>-->
         <spring-platform.version>Cairo-SR3</spring-platform.version>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <spring-security.version>5.1.1.RELEASE</spring-security.version>
@@ -44,6 +45,7 @@
         <sharding-sphere.version>3.1.0</sharding-sphere.version>
         <fastdfs-client.version>1.27.2</fastdfs-client.version>
         <spring-cloud-dependencies.version>Greenwich.SR6</spring-cloud-dependencies.version>
+<!--        <spring-cloud-dependencies.version>Hoxton.SR8</spring-cloud-dependencies.version>-->
     </properties>
 
     <!-- 使用aliyun镜像 -->

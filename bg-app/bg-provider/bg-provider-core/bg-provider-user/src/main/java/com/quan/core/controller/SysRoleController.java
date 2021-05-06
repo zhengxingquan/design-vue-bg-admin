@@ -1,13 +1,13 @@
 package com.quan.core.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.quan.core.common.exception.controller.ControllerException;
-import com.quan.core.common.exception.service.ServiceException;
-import com.quan.core.common.model.SysRole;
-import com.quan.core.common.web.PageResult;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.exception.controller.ControllerException;
+import com.quan.core.constant.exception.service.ServiceException;
+import com.quan.core.constant.model.SysRole;
+import com.quan.core.constant.web.PageResult;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.annotation.SLog;
-import com.quan.core.common.web.Result;
+import com.quan.core.constant.web.Result;
 import com.quan.core.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

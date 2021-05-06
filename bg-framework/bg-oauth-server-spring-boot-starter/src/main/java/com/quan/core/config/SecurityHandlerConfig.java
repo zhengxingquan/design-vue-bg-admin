@@ -1,7 +1,7 @@
 package com.quan.core.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.quan.core.common.web.JsonResult;
+import com.quan.core.constant.web.JsonResult;
 import com.quan.core.handle.OauthLogoutHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
